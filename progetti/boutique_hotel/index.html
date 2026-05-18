@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanna - AI Brand Concierge Demo | S'Antiga Charme & Spa</title>
+    <!-- Importazione Font Moderni -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome per Icone Premium -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #0a0f1d;
+            --bg-secondary: #131a30;
+            --bg-card: rgba(30, 41, 73, 0.4);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #10b981; /* Emerald */
+            --accent-gold: #f59e0b; /* Amber */
+            --accent-blue: #3b82f6; /* Blue */
+            --wa-green: #25d366; /* WhatsApp Green */
+            --wa-dark-bg: #0b141a;
+            --wa-bubble-out: #005c4b;
+            --wa-bubble-in: #202c33;
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #101b3a 0%, #070b18 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .header-logo i {
+            font-size: 1.75rem;
+            color: var(--accent-gold);
+            filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.3));
+        }
+
+        .header-logo h1 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent-color);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-color);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        main {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            padding: 2rem;
+            gap: 2rem;
+            max-width: 1440px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- DASHBOARD CONTROL ROOM --- */
+        .control-room {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+        }
+
+        .panel-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #fff;
+        }
+
+        .panel-title i {
+            color: var(--accent-gold);
+        }
+
+        /* LIVE ROOMS TABLE */
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .room-card {
+            background: rgba(30, 41, 73, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .room-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .room-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+
+        .room-card.deluxe::before { background-color: var(--accent-blue); }
+        .room-card.suite::before { background-color: var(--accent-gold); }
+        .room-card.classic::before { background-color: var(--accent-color); }
+
+        .room-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .room-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            font-family: var(--font-display);
+        }
+
+        .room-price span {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .room-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .room-availability {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-color);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .room-availability.low {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-gold);
+        }
+
+        /* PMS BOOKINGS/HOLDS */
+        .holds-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 0.25rem;
+        }
+
+        .holds-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .holds-list::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .hold-item {
+            background: rgba(245, 158, 11, 0.03);
+            border: 1px dashed rgba(245, 158, 11, 0.2);
+            border-radius: 10px;
+            padding: 0.85rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hold-details h4 {
+            font-size: 0.9rem;
+            color: #fff;
+            margin-bottom: 0.2rem;
+        }
+
+        .hold-details p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .hold-badge {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            color: var(--accent-gold);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .hold-badge i {
+            animation: pulseAmber 1.5s infinite;
+        }
+
+        @keyframes pulseAmber {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        .no-holds {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            padding: 2rem 0;
+            border: 1px dashed var(--border-color);
+            border-radius: 10px;
+        }
+
+        /* TERMINAL LOGS */
+        .terminal-panel {
+            background: #060b19;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex: 1;
+            min-height: 250px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 0.5rem;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 0.35rem;
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .td-red { background-color: #ef4444; }
+        .td-yellow { background-color: #f59e0b; }
+        .td-green { background-color: #10b981; }
+
+        .terminal-content {
+            flex: 1;
+            overflow-y: auto;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: #38bdf8; /* Light Blue */
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-height: 250px;
+            padding-right: 0.25rem;
+        }
+
+        .terminal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .terminal-content::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+        }
+
+        .term-line {
+            word-break: break-all;
+        }
+
+        .term-time {
+            color: var(--text-secondary);
+            margin-right: 0.5rem;
+        }
+
+        .term-tool {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .term-success {
+            color: var(--accent-color);
+        }
+        
+        .term-system {
+            color: #a855f7; /* Purple */
+        }
+
+        .actions-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-body);
+        }
+
+        .btn-reset {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .btn-reset:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: scale(1.02);
+        }
+
+        /* --- PHONE SIMULATOR --- */
+        .phone-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .phone-container {
+            width: 380px;
+            height: 720px;
+            background: #1e1e1e;
+            border: 12px solid #2d2d2d;
+            border-radius: 45px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        @media (max-width: 480px) {
+            .phone-container {
+                width: 100%;
+                height: 650px;
+                border-width: 8px;
+            }
+        }
+
+        /* Notch/Camera */
+        .phone-notch {
+            width: 140px;
+            height: 25px;
+            background: #2d2d2d;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            z-index: 40;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .phone-speaker {
+            width: 40px;
+            height: 4px;
+            background: #111;
+            border-radius: 2px;
+            margin-bottom: 2px;
+        }
+
+        /* Phone Screen */
+        .phone-screen {
+            flex: 1;
+            background-color: var(--wa-dark-bg);
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); /* Official WhatsApp BG */
+            background-repeat: repeat;
+            background-size: auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding-top: 15px; /* space for status bar */
+        }
+
+        /* Status Bar */
+        .status-bar {
+            height: 25px;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #fff;
+            z-index: 30;
+            font-weight: 500;
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* WhatsApp Header */
+        .wa-header {
+            background-color: #202c33;
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid rgba(0,0,0,0.15);
+            z-index: 20;
+        }
+
+        .wa-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .wa-avatar-badge {
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-color);
+            border: 2px solid #202c33;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 1px;
+            right: 1px;
+        }
+
+        .wa-user-info {
+            flex: 1;
+        }
+
+        .wa-user-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #e9edef;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .wa-user-status {
+            font-size: 0.75rem;
+            color: #8696a0;
+        }
+
+        .wa-actions {
+            display: flex;
+            gap: 1.1rem;
+            color: #aebac1;
+            font-size: 1.05rem;
+            cursor: pointer;
+        }
+
+        .wa-actions i:hover {
+            color: #fff;
+        }
+
+        /* Chat Area */
+        .chat-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .chat-area::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-area::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+        }
+
+        .msg-bubble {
+            max-width: 80%;
+            padding: 0.5rem 0.8rem 0.4rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            position: relative;
+            animation: msgPop 0.25s ease-out;
+            word-break: break-word;
+        }
+
+        @keyframes msgPop {
+            from { opacity: 0; transform: scale(0.9) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .msg-bubble.in {
+            background-color: var(--wa-bubble-in);
+            color: #e9edef;
+            align-self: flex-start;
+            border-top-left-radius: 0;
+        }
+
+        .msg-bubble.out {
+            background-color: var(--wa-bubble-out);
+            color: #e9edef;
+            align-self: flex-end;
+            border-top-right-radius: 0;
+        }
+
+        .msg-time {
+            font-size: 0.65rem;
+            color: #8696a0;
+            float: right;
+            margin-top: 0.35rem;
+            margin-left: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.15rem;
+        }
+
+        .msg-bubble.out .msg-time i {
+            color: #53bdeb; /* Blue Double Check */
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: none;
+            background-color: var(--wa-bubble-in);
+            color: #8696a0;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            border-top-left-radius: 0;
+            align-self: flex-start;
+            font-size: 0.8rem;
+            align-items: center;
+            gap: 0.5rem;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .dot-pulse {
+            display: flex;
+            gap: 0.2rem;
+        }
+        .dot-pulse span {
+            width: 6px;
+            height: 6px;
+            background: #8696a0;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        .dot-pulse span:nth-child(1) { animation-delay: -0.32s; }
+        .dot-pulse span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Input Area */
+        .input-area {
+            background-color: #202c33;
+            padding: 0.5rem 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .input-bar {
+            flex: 1;
+            background-color: #2a3942;
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .input-bar i {
+            color: #8696a0;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .input-bar i:hover {
+            color: #e9edef;
+        }
+
+        .input-bar input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #e9edef;
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            outline: none;
+        }
+
+        .input-bar input::placeholder {
+            color: #8696a0;
+        }
+
+        .btn-send {
+            width: 38px;
+            height: 38px;
+            background-color: #00a884;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-send:hover {
+            background-color: #008f72;
+        }
+
+        /* Preset Buttons */
+        .presets-container {
+            width: 380px;
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .preset-tag {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.4rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .preset-tag:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.2);
+            transform: scale(1.02);
+        }
+
+        .preset-tag i {
+            color: var(--accent-gold);
+        }
+
+        /* System Messages in Chat */
+        .system-bubble {
+            align-self: center;
+            background-color: rgba(30, 41, 73, 0.6);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            padding: 0.35rem 0.7rem;
+            border-radius: 6px;
+            margin: 0.5rem 0;
+            text-align: center;
+            max-width: 90%;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .system-bubble.handover {
+            background-color: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+        }
+        
+        .system-bubble.handover i {
+            color: #ef4444;
+            animation: pulse-red 1.2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            background: #070b15;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-logo">
+            <i class="fa-solid fa-hotel"></i>
+            <div>
+                <h1>S'Antiga Charme & Spa</h1>
+                <p style="font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 0.05em; text-transform: uppercase;">AI Concierge Suite</p>
+            </div>
+        </div>
+        <div class="status-badge">
+            <div class="status-dot"></div>
+            <span>PMS & ENGINE ATTIVI</span>
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- DASHBOARD DI CONTROLLO -->
+        <div class="control-room">
+            
+            <!-- INVENTARIO CAMERE LIVE -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-bed"></i>
+                        <span>Mock PMS - Disponibilità Live Camere</span>
+                    </div>
+                    <span style="font-size: 0.75rem; color: var(--accent-color); font-weight: 500;"><i class="fa-solid fa-sync fa-spin"></i> Sincronizzato</span>
+                </div>
+                <div class="rooms-grid" id="rooms-container">
+                    <!-- Le camere saranno caricate dinamicamente -->
+                    <div class="room-card classic">
+                        <div class="room-name">Classic Vista Giardino</div>
+                        <div class="room-price">180€ <span>/ notte</span></div>
+                        <div class="room-meta">
+                            <span>Max Ospiti: 2</span>
+                            <span class="room-availability">5 Libere</span>
+                        </div>
+                    </div>
+                    <div class="room-card deluxe">
+                        <div class="room-name">Deluxe Vista Mare</div>
+                        <div class="room-price">250€ <span>/ notte</span></div>
+                        <div class="room-meta">
+                            <span>Max Ospiti: 2</span>
+                            <span class="room-availability">3 Libere</span>
+                        </div>
+                    </div>
+                    <div class="room-card suite">
+                        <div class="room-name">Junior Suite con Jacuzzi</div>
+                        <div class="room-price">420€ <span>/ notte</span></div>
+                        <div class="room-meta">
+                            <span>Max Ospiti: 3</span>
+                            <span class="room-availability low">1 Libera</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCCHI PROVVISORI / OPZIONI -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>Blocchi Provvisori Attivi (Opzioni 24h)</span>
+                    </div>
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);" id="holds-counter">0 attive</span>
+                </div>
+                <div class="holds-list" id="holds-container">
+                    <div class="no-holds">Nessun blocco provvisorio attivo nel PMS in questo momento.</div>
+                </div>
+            </div>
+
+            <!-- TERMINALE LOGS AI ENGINE -->
+            <div class="panel" style="flex: 1; display: flex; flex-direction: column;">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-terminal"></i>
+                        <span>AI thought process & PMS Logger</span>
+                    </div>
+                </div>
+                <div class="terminal-panel">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="terminal-dot td-red"></div>
+                            <div class="terminal-dot td-yellow"></div>
+                            <div class="terminal-dot td-green"></div>
+                        </div>
+                        <span>gemini-2.5-flash@antigravity-engine</span>
+                    </div>
+                    <div class="terminal-content" id="terminal-log">
+                        <div class="term-line"><span class="term-time">[17:47:52]</span> <span class="term-system">[SYSTEM] Engine inizializzato con successo. Connesso a Google Generative Language API.</span></div>
+                        <div class="term-line"><span class="term-time">[17:47:52]</span> <span class="term-system">[SYSTEM] Modello predefinito impostato su gemini-2.5-flash. Pronto a ricevere messaggi.</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AZIONI DI CONTROLLO -->
+            <div class="actions-bar">
+                <button class="btn btn-reset" onclick="resetDemo()">
+                    <i class="fa-solid fa-trash-can"></i> Reset Demo & PMS
+                </button>
+            </div>
+
+        </div>
+
+        <!-- SIMULATORE SMARTPHONE WHATSAPP -->
+        <div class="phone-wrapper">
+            
+            <div class="phone-container">
+                <!-- Notch/Bezel dell'iPhone -->
+                <div class="phone-notch">
+                    <div class="phone-speaker"></div>
+                </div>
+                
+                <div class="phone-screen">
+                    
+                    <!-- Barra di Stato Telefono -->
+                    <div class="status-bar">
+                        <span id="phone-time">17:45</span>
+                        <div class="status-icons">
+                            <i class="fa-solid fa-signal"></i>
+                            <i class="fa-solid fa-wifi"></i>
+                            <i class="fa-solid fa-battery-three-quarters"></i>
+                        </div>
+                    </div>
+
+                    <!-- Header WhatsApp -->
+                    <div class="wa-header">
+                        <i class="fa-solid fa-arrow-left" style="color: #aebac1; cursor: pointer;"></i>
+                        <div class="wa-avatar">
+                            S
+                            <div class="wa-avatar-badge"></div>
+                        </div>
+                        <div class="wa-user-info">
+                            <div class="wa-user-name">
+                                Sanna 🌟
+                                <i class="fa-solid fa-circle-check" style="color: #00a884; font-size: 0.75rem;"></i>
+                            </div>
+                            <div class="wa-user-status" id="wa-status">online</div>
+                        </div>
+                        <div class="wa-actions">
+                            <i class="fa-solid fa-video"></i>
+                            <i class="fa-solid fa-phone"></i>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                    </div>
+
+                    <!-- Area dei Messaggi della Chat -->
+                    <div class="chat-area" id="chat-messages">
+                        
+                        <div class="system-bubble">
+                            <i class="fa-solid fa-lock"></i> I messaggi sono protetti con crittografia end-to-end simulata.
+                        </div>
+                        
+                        <div class="msg-bubble in">
+                            Benvenuto a bordo! Sono Sanna, il concierge digitale del Boutique Hotel S'Antiga. Posso aiutarti a trovare la camera perfetta (offrendoti i fantastici vantaggi della prenotazione diretta!), raccontarti i dettagli dei nostri servizi SPA o consigliarti le spiagge più belle. Come posso coccolarti oggi? 😊
+                            <span class="msg-time">17:45</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Indicatore Scrittura AI -->
+                    <div class="typing-indicator" id="ai-typing">
+                        <div class="dot-pulse">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span>Sanna sta scrivendo...</span>
+                    </div>
+
+                    <!-- Barra di Input Testo -->
+                    <div class="input-area">
+                        <div class="input-bar">
+                            <i class="fa-regular fa-face-smile"></i>
+                            <i class="fa-solid fa-paperclip"></i>
+                            <input type="text" id="user-input-text" placeholder="Scrivi un messaggio..." onkeypress="handleKeyPress(event)">
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+                        <button class="btn-send" onclick="sendMessage()">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SUGGERIMENTI RAPIDI DI TEST (PRESETS) -->
+            <div class="presets-container">
+                <div class="preset-tag" onclick="usePreset('Avete camere libere dal 15 al 22 giugno per 2 persone?')">
+                    <i class="fa-solid fa-search"></i> 1. Chiedi disponibilità
+                </div>
+                <div class="preset-tag" onclick="usePreset('Perfetto, vorrei bloccare la camera Deluxe Vista Mare a mio nome')">
+                    <i class="fa-solid fa-lock"></i> 2. Blocca Deluxe
+                </div>
+                <div class="preset-tag" onclick="usePreset('Ho bisogno di parlare con lo staff umano per un matrimonio ad agosto')">
+                    <i class="fa-solid fa-user-headset"></i> 3. Richiedi Operatore
+                </div>
+                <div class="preset-tag" onclick="usePreset('Avete servizi di transfer dall\'aeroporto di Cagliari?')">
+                    <i class="fa-solid fa-taxi"></i> 4. Domanda sul Transfer
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>Progettato con ❤️ per il <strong>Boutique Hotel S'Antiga Charme & Spa</strong>. Sistema integrato con Google Gemini API.</p>
+    </footer>
+
+    <script>
+        const API_URL = "http://localhost:8000/webhook/whatsapp";
+        const PMS_ROOMS_URL = "http://localhost:8000/api/pms/rooms";
+        const PMS_HOLDS_URL = "http://localhost:8000/api/pms/holds";
+        const PMS_RESET_URL = "http://localhost:8000/api/pms/reset";
+        
+        const USER_ID = "+393401122334";
+        const USER_NAME = "Marco";
+
+        // Aggiorna l'orario del telefono
+        function updatePhoneTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('phone-time').innerText = `${hours}:${minutes}`;
+        }
+        setInterval(updatePhoneTime, 1000);
+        updatePhoneTime();
+
+        // Aggiunge un log al terminale virtuale
+        function addTerminalLog(message, type = 'info') {
+            const container = document.getElementById('terminal-log');
+            const now = new Date();
+            const timeStr = `[${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}]`;
+            
+            const line = document.createElement('div');
+            line.className = 'term-line';
+            
+            let colorClass = 'term-system';
+            if (type === 'tool') colorClass = 'term-tool';
+            if (type === 'success') colorClass = 'term-success';
+            if (type === 'error') colorClass = 'term-red';
+
+            line.innerHTML = `<span class="term-time">${timeStr}</span> <span class="${colorClass}">${message}</span>`;
+            container.appendChild(line);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Carica lo stato delle camere e delle prenotazioni dal PMS
+        async function fetchPMSState() {
+            try {
+                // Fetch camere
+                const resRooms = await fetch(PMS_ROOMS_URL);
+                if (resRooms.ok) {
+                    const rooms = await resRooms.json();
+                    renderRooms(rooms);
+                }
+
+                // Fetch holds
+                const resHolds = await fetch(PMS_HOLDS_URL);
+                if (resHolds.ok) {
+                    const holds = await resHolds.json();
+                    renderHolds(holds);
+                }
+            } catch (error) {
+                console.error("Errore fetch PMS:", error);
+            }
+        }
+
+        // Renderizza le camere sul pannello
+        function renderRooms(rooms) {
+            const container = document.getElementById('rooms-container');
+            container.innerHTML = '';
+            
+            rooms.forEach(room => {
+                const card = document.createElement('div');
+                let typeClass = 'classic';
+                if (room.id.includes('suite')) typeClass = 'suite';
+                if (room.id.includes('deluxe')) typeClass = 'deluxe';
+
+                card.className = `room-card ${typeClass}`;
+                
+                const isLow = room.available_units <= 1;
+                const avBadge = isLow 
+                    ? `<span class="room-availability low">${room.available_units} Libera</span>`
+                    : `<span class="room-availability">${room.available_units} Libere</span>`;
+
+                card.innerHTML = `
+                    <div class="room-name">${room.name}</div>
+                    <div class="room-price">${room.price_per_night}€ <span>/ notte</span></div>
+                    <div class="room-meta">
+                        <span>Max Ospiti: ${room.max_occupancy}</span>
+                        ${avBadge}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Renderizza i blocchi provvisori attivi
+        function renderHolds(holds) {
+            const container = document.getElementById('holds-container');
+            const counter = document.getElementById('holds-counter');
+            
+            counter.innerText = `${holds.length} active`;
+
+            if (holds.length === 0) {
+                container.innerHTML = `<div class="no-holds">Nessun blocco provvisorio attivo nel PMS in questo momento.</div>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            holds.forEach(hold => {
+                const item = document.createElement('div');
+                item.className = 'hold-item';
+                
+                // Cerca il nome visualizzabile della camera
+                const roomNames = {
+                    "deluxe_mare": "Deluxe Vista Mare",
+                    "junior_suite": "Junior Suite con Jacuzzi",
+                    "classic_giardino": "Classic Vista Giardino"
+                };
+                const roomName = roomNames[hold.room_type_id] || hold.room_type_id;
+
+                item.innerHTML = `
+                    <div class="hold-details">
+                        <h4>${hold.guest_name}</h4>
+                        <p><i class="fa-solid fa-calendar-days"></i> ${hold.checkin} ➔ ${hold.checkout}</p>
+                        <p style="font-weight: 500; color: #fff; margin-top: 0.15rem;"><i class="fa-solid fa-door-open"></i> ${roomName}</p>
+                        <p style="font-size: 0.65rem; color: var(--accent-gold); margin-top: 0.1rem;">Codice: ${hold.hold_id}</p>
+                    </div>
+                    <div class="hold-badge">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Opzione 24h
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Invia il messaggio
+        async function sendMessage() {
+            const input = document.getElementById('user-input-text');
+            const text = input.value.trim();
+            if (!text) return;
+
+            // Pulisce l'input
+            input.value = '';
+
+            // Aggiunge la bolla utente alla chat
+            appendMessage(text, 'out');
+
+            // Mostra indicatore di scrittura
+            const typingIndicator = document.getElementById('ai-typing');
+            typingIndicator.style.display = 'flex';
+            scrollChatToBottom();
+
+            // Log nel terminale
+            addTerminalLog(`[CLIENT] Inviato messaggio WhatsApp da ${USER_NAME}: "${text}"`);
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: USER_ID,
+                        message: text,
+                        user_name: USER_NAME
+                    })
+                });
+
+                typingIndicator.style.display = 'none';
+
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Logga le chiamate ai tool se presenti
+                    if (data.tool_calls && data.tool_calls.length > 0) {
+                        data.tool_calls.forEach(tc => {
+                            addTerminalLog(`[AI ENGINE] ⚙️ Chiamata Tool: <span class="term-tool">${tc.name}</span>(${JSON.stringify(tc.arguments)})`, 'tool');
+                            if (tc.name === 'create_temporary_hold') {
+                                addTerminalLog(`[PMS DATABASE] 📝 Creato blocco provvisorio per ${tc.arguments.guest_name || 'Marco'}`, 'success');
+                            }
+                            if (tc.name === 'check_room_availability') {
+                                addTerminalLog(`[PMS DATABASE] 🔍 Interrogazione disponibilità camere completata con successo!`, 'success');
+                            }
+                            if (tc.name === 'trigger_human_handover') {
+                                addTerminalLog(`[SYSTEM] 🚨 Handover umano attivato! Motivo: "${tc.arguments.reason}"`, 'error');
+                            }
+                        });
+                    }
+
+                    // Aggiunge bolla di risposta AI
+                    appendMessage(data.reply, 'in', data.sender);
+
+                    // Aggiorna lo stato dell'operatore in caso di handover
+                    if (data.handover_triggered) {
+                        appendSystemMessage("🚨 Handover attivato. Lo staff della reception ha preso il controllo della chat.", 'handover');
+                        document.getElementById('wa-status').innerHTML = '<span style="color: #ef4444; font-weight: 600;"><i class="fa-solid fa-headset"></i> Operatore Umano</span>';
+                    }
+
+                    // Rinfresca il PMS grafico
+                    setTimeout(fetchPMSState, 100);
+
+                } else {
+                    addTerminalLog(`[ERROR] Il server ha risposto con codice ${response.status}`, 'error');
+                    appendMessage("Spiacente, ho riscontrato una difficoltà tecnica di rete. Per favore riprova tra poco.", 'in');
+                }
+            } catch (error) {
+                typingIndicator.style.display = 'none';
+                addTerminalLog(`[ERROR] Impossibile connettersi al server API: ${error}`, 'error');
+                appendMessage("Errore di connessione con il server. Assicurati che FastAPI sia avviato.", 'in');
+            }
+        }
+
+        // Inserisce una bolla messaggio nel telefono
+        function appendMessage(text, side, senderName = 'Sanna') {
+            const container = document.getElementById('chat-messages');
+            const now = new Date();
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            
+            const bubble = document.createElement('div');
+            bubble.className = `msg-bubble ${side}`;
+            
+            // Gestione dei checkbox per i messaggi in uscita (double blue check)
+            const checkIcon = side === 'out' ? ' <i class="fa-solid fa-check-double"></i>' : '';
+            
+            // Format dei link e grassetti simulati semplici
+            let formattedText = text
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+            bubble.innerHTML = `
+                ${formattedText}
+                <span class="msg-time">${timeStr}${checkIcon}</span>
+            `;
+            
+            container.appendChild(bubble);
+            scrollChatToBottom();
+        }
+
+        // Inserisce un messaggio di sistema al centro della chat
+        function appendSystemMessage(text, customClass = '') {
+            const container = document.getElementById('chat-messages');
+            const bubble = document.createElement('div');
+            bubble.className = `system-bubble ${customClass}`;
+            bubble.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${text}`;
+            container.appendChild(bubble);
+            scrollChatToBottom();
+        }
+
+        // Forza lo scroll automatico all'ultimo messaggio
+        function scrollChatToBottom() {
+            const container = document.getElementById('chat-messages');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Gestione tasto Invio
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Usa un preset predefinito e invia
+        function usePreset(text) {
+            const input = document.getElementById('user-input-text');
+            input.value = text;
+            sendMessage();
+        }
+
+        // Resetta la sessione del server e il PMS
+        async function resetDemo() {
+            if (!confirm("Sei sicuro di voler resettare tutte le sessioni di chat e i blocchi provvisori nel PMS?")) return;
+            
+            try {
+                const res = await fetch(PMS_RESET_URL, { method: 'POST' });
+                if (res.ok) {
+                    addTerminalLog("[SYSTEM] ⚙️ Reset completo eseguito con successo! Database delle prenotazioni svuotato.", 'success');
+                    
+                    // Reset grafica chat
+                    const container = document.getElementById('chat-messages');
+                    container.innerHTML = `
+                        <div class="system-bubble">
+                            <i class="fa-solid fa-lock"></i> I messaggi sono protetti con crittografia end-to-end simulata.
+                        </div>
+                        <div class="system-bubble">
+                            <i class="fa-solid fa-trash"></i> Chat resettata correttamente. Nuova sessione avviata.
+                        </div>
+                        <div class="msg-bubble in">
+                            Benvenuto a bordo! Sono Sanna, il concierge digitale del Boutique Hotel S'Antiga. Posso aiutarti a trovare la camera perfetta (offrendoti i fantastici vantaggi della prenotazione diretta!), raccontarti i dettagli dei nostri servizi SPA o consigliarti le spiagge più belle. Come posso coccolarti oggi? 😊
+                            <span class="msg-time">17:45</span>
+                        </div>
+                    `;
+                    
+                    // Ripristina stato operatore
+                    document.getElementById('wa-status').innerHTML = 'online';
+
+                    // Rinfresca PMS
+                    fetchPMSState();
+                }
+            } catch (error) {
+                console.error("Errore reset:", error);
+                alert("Impossibile connettersi al server per eseguire il reset.");
+            }
+        }
+
+        // Inizializzazione pagina
+        window.onload = function() {
+            fetchPMSState();
+            // Rinfresca lo stato del PMS ogni 4 secondi per mostrare modifiche live
+            setInterval(fetchPMSState, 4000);
+        };
+    </script>
+</body>
+</html>

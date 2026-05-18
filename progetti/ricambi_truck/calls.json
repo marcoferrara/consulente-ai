@@ -1,0 +1,74 @@
+[
+  {
+    "id": "sim-5cf03ae3",
+    "phone": "+39 345 8899123",
+    "transcript": "Assistente: Benvenuto in Ricambi Truck Ferrara! Io sono l'assistente virtuale. Posso raccogliere la tua richiesta così ti richiamiamo subito. Mi dici il tuo nome e per quale azienda chiami?\nCliente: Ciao, sono Giovanni dell'Officina Meccanica Emiliana.\nAssistente: Grazie Giovanni. Mi serve la targa o il telaio del camion per favore. Dettamela scandendo le lettere con i nomi delle città.\nCliente: Ciao, sì, allora, la targa è Bologna, Torino, zero nove sei, Domodossola, Firenze. Quindi Bologna, Torino, zero nove sei, Domodossola, Firenze.\nAssistente: Perfetto, registrata. Che ricambio ti serve esattamente per questo mezzo?\nCliente: Senti, ho un Iveco Stralis con l'alternatore che ci ha abbandonati, si è bruciato del tutto. Potete verificare se lo avete disponibile da ventiquattro volt?\nAssistente: Capito. Il camion è fermo in panne per questa cosa o si tratta di una manutenzione ordinaria?\nCliente: Eh sì, il camion è fermo in autostrada in cantiere, ho il cliente bloccato con il carico, ho bisogno che mi facciate sapere al più presto se ce l'avete a magazzino.\nAssistente: Molto bene, ho registrato tutto con urgenza. Sto inviando subito la trascrizione al team dei ricambisti. Ti richiamiamo tra pochissimi minuti! Grazie e a presto!",
+    "recording_url": "https://api.vapi.ai/recordings/dummy-truck-call.mp3",
+    "ai_data": {
+      "cliente": "Giovanni - Officina Meccanica Emiliana",
+      "targa_telaio_grezza": "Bologna, Torino, zero nove sei, Domodossola, Firenze",
+      "targa_telaio_ricostruita": "BT096DF",
+      "ricambi_richiesti": [
+        "Alternatore 24V"
+      ],
+      "urgenza": "ALTA (Veicolo Fermo)",
+      "sintesi": "Giovanni dell'Officina Meccanica Emiliana richiede con urgenza un alternatore 24V per un Iveco Stralis con targa BT096DF, in quanto il veicolo è fermo in panne."
+    },
+    "report_text": "🚨 *NUOVA RICHIESTA TRUCK AI* 🚨\n\n👤 *Cliente:* Giovanni - Officina Meccanica Emiliana\n📞 *Telefono:* +39 345 8899123\n\n🚚 *Targa/Telaio:* `BT096DF`\n🗣️ _Dettato come: \"Bologna, Torino, zero nove sei, Domodossola, Firenze\"_\n\n🛠️ *Ricambi Richiesti:*\n  • _Alternatore 24V_\n\n⚠️ *Urgenza:* ALTA (Veicolo Fermo)\n\n📝 *Sintesi Assistente:* Giovanni dell'Officina Meccanica Emiliana richiede con urgenza un alternatore 24V per un Iveco Stralis con targa BT096DF, in quanto il veicolo è fermo in panne.\n\n🎧 *Registrazione Audio:* https://api.vapi.ai/recordings/dummy-truck-call.mp3\n\n👉 _Rispondi a questa notifica per avviare la chat con il cliente o chiamalo al numero sopra._",
+    "type": "simulata"
+  },
+  {
+    "id": "sim-ae6ea56b",
+    "phone": "+39 347 1234567",
+    "transcript": "Buongiorno, sono Giuseppe di Truck Service. Ho un'urgenza assoluta per un cliente rimasto in panne sull'autostrada A14. Mi serve un alternatore per un Iveco Stralis del 2018. Segnatevi la targa per favore: Milano, Udine, 4, 3, 2, Zara, Empoli. Ripeto la targa: MU432ZE. Potete confermarmi la disponibilita' del ricambio e il prezzo? Chiamatemi o scrivetemi su questo numero prima possibile, grazie!",
+    "recording_url": "https://api.vapi.ai/recordings/truck-alternator-urgency.mp3",
+    "ai_data": {
+      "cliente": "Giuseppe - Truck Service",
+      "targa_telaio_grezza": "Milano, Udine, 4, 3, 2, Zara, Empoli",
+      "targa_telaio_ricostruita": "MU432ZE",
+      "ricambi_richiesti": [
+        "Alternatore"
+      ],
+      "urgenza": "ALTA (Veicolo Fermo)",
+      "sintesi": "Il cliente Giuseppe di Truck Service richiede urgentemente un alternatore per un Iveco Stralis con targa MU432ZE, fermo in autostrada."
+    },
+    "report_text": "🚨 *NUOVA RICHIESTA TRUCK AI* 🚨\n\n👤 *Cliente:* Giuseppe - Truck Service\n📞 *Telefono:* +39 347 1234567\n\n🚚 *Targa/Telaio:* `MU432ZE`\n🗣️ _Dettato come: \"Milano, Udine, 4, 3, 2, Zara, Empoli\"_\n\n🛠️ *Ricambi Richiesti:*\n  • _Alternatore_\n\n⚠️ *Urgenza:* ALTA (Veicolo Fermo)\n\n📝 *Sintesi Assistente:* Il cliente Giuseppe di Truck Service richiede urgentemente un alternatore per un Iveco Stralis con targa MU432ZE, fermo in autostrada.\n\n🎧 *Registrazione Audio:* https://api.vapi.ai/recordings/truck-alternator-urgency.mp3\n\n👉 _Rispondi a questa notifica per avviare la chat con il cliente o chiamalo al numero sopra._",
+    "type": "simulata"
+  },
+  {
+    "id": "sim-261de305",
+    "phone": "+39 347 1234567",
+    "transcript": "Buongiorno, sono Giuseppe di Truck Service. Ho un'urgenza assoluta per un cliente rimasto in panne sull'autostrada A14. Mi serve un alternatore per un Iveco Stralis del 2018. Segnatevi la targa per favore: Milano, Udine, 4, 3, 2, Zara, Empoli. Ripeto la targa: MU432ZE. Potete confermarmi la disponibilita' del ricambio e il prezzo? Chiamatemi o scrivetemi su questo numero prima possibile, grazie!",
+    "recording_url": "https://api.vapi.ai/recordings/truck-alternator-urgency.mp3",
+    "ai_data": {
+      "cliente": "Giuseppe - Truck Service",
+      "targa_telaio_grezza": "Milano, Udine, 4, 3, 2, Zara, Empoli",
+      "targa_telaio_ricostruita": "MU432ZE",
+      "ricambi_richiesti": [
+        "Alternatore"
+      ],
+      "urgenza": "ALTA (Veicolo Fermo)",
+      "sintesi": "Richiesto urgentemente alternatore per Iveco Stralis 2018 targa MU432ZE, veicolo fermo in autostrada."
+    },
+    "report_text": "🚨 *NUOVA RICHIESTA TRUCK AI* 🚨\n\n👤 *Cliente:* Giuseppe - Truck Service\n📞 *Telefono:* +39 347 1234567\n\n🚚 *Targa/Telaio:* `MU432ZE`\n🗣️ _Dettato come: \"Milano, Udine, 4, 3, 2, Zara, Empoli\"_\n\n🛠️ *Ricambi Richiesti:*\n  • _Alternatore_\n\n⚠️ *Urgenza:* ALTA (Veicolo Fermo)\n\n📝 *Sintesi Assistente:* Richiesto urgentemente alternatore per Iveco Stralis 2018 targa MU432ZE, veicolo fermo in autostrada.\n\n🎧 *Registrazione Audio:* https://api.vapi.ai/recordings/truck-alternator-urgency.mp3\n\n👉 _Rispondi a questa notifica per avviare la chat con il cliente o chiamalo al numero sopra._",
+    "type": "simulata"
+  },
+  {
+    "id": "sim-cd3071e5",
+    "phone": "+39 347 1234567",
+    "transcript": "Buongiorno, sono Giuseppe di Truck Service. Ho un'urgenza assoluta per un cliente rimasto in panne sull'autostrada A14. Mi serve un alternatore per un Iveco Stralis del 2018. Segnatevi la targa per favore: Milano, Udine, 4, 3, 2, Zara, Empoli. Ripeto la targa: MU432ZE. Potete confermarmi la disponibilita' del ricambio e il prezzo? Chiamatemi o scrivetemi su questo numero prima possibile, grazie!",
+    "recording_url": "https://api.vapi.ai/recordings/truck-alternator-urgency.mp3",
+    "ai_data": {
+      "cliente": "Giuseppe di Truck Service",
+      "targa_telaio_grezza": "Milano, Udine, 4, 3, 2, Zara, Empoli",
+      "targa_telaio_ricostruita": "MU432ZE",
+      "ricambi_richiesti": [
+        "Alternatore"
+      ],
+      "urgenza": "ALTA (Veicolo Fermo)",
+      "sintesi": "Giuseppe di Truck Service necessita urgentemente di un alternatore per un Iveco Stralis targa MU432ZE, veicolo fermo in autostrada."
+    },
+    "report_text": "🚨 *NUOVA RICHIESTA TRUCK AI* 🚨\n\n👤 *Cliente:* Giuseppe di Truck Service\n📞 *Telefono:* +39 347 1234567\n\n🚚 *Targa/Telaio:* `MU432ZE`\n🗣️ _Dettato come: \"Milano, Udine, 4, 3, 2, Zara, Empoli\"_\n\n🛠️ *Ricambi Richiesti:*\n  • _Alternatore_\n\n⚠️ *Urgenza:* ALTA (Veicolo Fermo)\n\n📝 *Sintesi Assistente:* Giuseppe di Truck Service necessita urgentemente di un alternatore per un Iveco Stralis targa MU432ZE, veicolo fermo in autostrada.\n\n🎧 *Registrazione Audio:* https://api.vapi.ai/recordings/truck-alternator-urgency.mp3\n\n👉 _Rispondi a questa notifica per avviare la chat con il cliente o chiamalo al numero sopra._",
+    "type": "simulata"
+  }
+]

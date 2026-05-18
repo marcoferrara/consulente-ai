@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import logging
 from typing import Dict, Any, List
@@ -9,6 +10,10 @@ from pydantic import BaseModel
 from dotenv import load_dotenv
 import google.generativeai as genai
 import httpx
+
+# Forza l'encoding utf-8 per lo stdout su Windows per evitare crash con emoji
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 # Inizializzazione Logger e Variabili d'Ambiente
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -27,7 +32,9 @@ else:
 
 app = FastAPI(title="Truck AI Phone Responder")
 
-DB_FILE = "calls.json"
+# Determina la cartella del file app.py per rendere i percorsi assoluti
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_FILE = os.path.join(BASE_DIR, "calls.json")
 
 # Inizializza il file calls.json se non esiste
 if not os.path.exists(DB_FILE):
@@ -59,15 +66,57 @@ def save_call(call_data: Dict[str, Any]):
 
 async def send_to_whatsapp(report_text: str, audio_url: str) -> bool:
     """
-    Funzione per l'invio del report a WhatsApp tramite Gateway Flat.
+    Funzione per l'invio del report a WhatsApp tramite Gateway Flat o CallMeBot.
     Configurabile tramite variabili .env
     """
+    dest_number = os.getenv("COMPANY_DESTINATION_NUMBER")
+    callmebot_key = os.getenv("CALLMEBOT_API_KEY")
+
+    if not dest_number:
+        logger.info("[WhatsApp Simulator] Numero destinatario non configurato. Invio WhatsApp simulato nei log.")
+        return False
+
+    # Opzione 1: CallMeBot (Semplice, gratuito, nessun server richiesto)
+    if callmebot_key:
+        try:
+            logger.info("Tentativo di invio WhatsApp tramite CallMeBot...")
+            async with httpx.AsyncClient() as client:
+                # CallMeBot non ama il markdown spinto, ripuliamo un po' il testo per leggibilità
+                clean_text = report_text.replace("*", "").replace("`", "")
+                
+                # Invio del report di testo
+                url = "https://api.callmebot.com/whatsapp.php"
+                params = {
+                    "phone": dest_number,
+                    "text": clean_text,
+                    "apikey": callmebot_key
+                }
+                response = await client.get(url, params=params, timeout=15.0)
+                if response.status_code == 200:
+                    logger.info("Notifica WhatsApp inviata con successo tramite CallMeBot!")
+                    
+                    # Se c'è un audio_url, possiamo mandare un secondo messaggio con il link audio
+                    if audio_url:
+                        audio_text = f"Ascolta la registrazione audio della chiamata qui: {audio_url}"
+                        params_audio = {
+                            "phone": dest_number,
+                            "text": audio_text,
+                            "apikey": callmebot_key
+                        }
+                        await client.get(url, params=params_audio, timeout=15.0)
+                    
+                    return True
+                else:
+                    logger.error(f"Errore CallMeBot: {response.status_code} - {response.text}")
+        except Exception as e:
+            logger.error(f"Errore durante l'invio con CallMeBot: {e}")
+
+    # Opzione 2: Gateway Reale (Evolution API / Z-API)
     gateway_url = os.getenv("WHATSAPP_GATEWAY_URL")
     instance_id = os.getenv("WHATSAPP_INSTANCE_ID")
     token = os.getenv("WHATSAPP_TOKEN")
-    dest_number = os.getenv("COMPANY_DESTINATION_NUMBER")
 
-    if not all([gateway_url, dest_number]):
+    if not gateway_url:
         logger.info("[WhatsApp Simulator] Credenziali non complete. Invio WhatsApp simulato nei log.")
         return False
 
@@ -124,7 +173,7 @@ def parse_transcript_with_gemini(transcript: str) -> Dict[str, Any]:
 
     # Prompt ottimizzato per il settore Truck e per la scanditura della targa con città
     prompt = f"""
-Sei l'analista tecnico senior di Ricambi Truck Ferrara. Il tuo compito è analizzare la trascrizione di una telefonata e compilare un JSON strutturato contenente le informazioni chiave per il team di officina.
+Sei l'analista tecnico senior di VT Ricambi Srl. Il tuo compito è analizzare la trascrizione di una telefonata e compilare un JSON strutturato contenente le informazioni chiave per il team di officina.
 
 Presta particolare attenzione alla targa del veicolo. I clienti spesso scandiscono la targa lettera per lettera usando i nomi delle città (es. "Milano Torino due tre quattro Como Domodossola"). Reindirizza queste informazioni ricreando la targa italiana originale in stampatello maiuscolo (es. "MT234CD").
 Ad esempio:
@@ -195,13 +244,23 @@ async def vapi_webhook(request: Request):
     """
     try:
         body = await request.json()
-        logger.info(f"Webhook ricevuto: {body.get('type')}")
+        
+        # Vapi avvolge i suoi payload dentro una chiave "message"
+        message_data = body.get("message") if isinstance(body.get("message"), dict) else body
+        msg_type = message_data.get("type")
+        
+        logger.info(f"Webhook ricevuto. Tipo: {msg_type}")
         
         # Gestiamo solo il report finale di fine chiamata
-        if body.get("type") == "end-of-call-report":
-            call = body.get("call", {})
-            transcript = body.get("transcript", "")
-            recording_url = body.get("recordingUrl", "Nessuna registrazione")
+        if msg_type == "end-of-call-report":
+            call = message_data.get("call", {})
+            transcript = message_data.get("transcript", "")
+            
+            # Recuperiamo l'audio sia da message_data che da call
+            recording_url = message_data.get("recordingUrl")
+            if not recording_url:
+                recording_url = call.get("recordingUrl", "Nessuna registrazione")
+                
             customer_phone = call.get("customer", {}).get("number", "Sconosciuto")
             
             if not transcript:
@@ -290,7 +349,8 @@ async def get_dashboard():
     # Leggiamo il system prompt per mostrarlo sulla dashboard
     system_prompt = ""
     try:
-        with open("system_prompt.txt", "r", encoding="utf-8") as f:
+        prompt_path = os.path.join(BASE_DIR, "system_prompt.txt")
+        with open(prompt_path, "r", encoding="utf-8") as f:
             system_prompt = f.read()
     except:
         system_prompt = "Prompt non trovato."
@@ -648,11 +708,11 @@ async def get_dashboard():
 
   <script>
     const PRESETS = {{
-      1: "Assistente: Benvenuto in Ricambi Truck Ferrara! Io sono l'assistente virtuale. Posso raccogliere la tua richiesta così ti richiamiamo subito. Mi dici il tuo nome e per quale azienda chiami?\\nCliente: Ciao, sono Giovanni dell'Officina Meccanica Emiliana.\\nAssistente: Grazie Giovanni. Mi serve la targa o il telaio del camion per favore. Dettamela scandendo le lettere con i nomi delle città.\\nCliente: Ciao, sì, allora, la targa è Bologna, Torino, zero nove sei, Domodossola, Firenze. Quindi Bologna, Torino, zero nove sei, Domodossola, Firenze.\\nAssistente: Perfetto, registrata. Che ricambio ti serve esattamente per questo mezzo?\\nCliente: Senti, ho un Iveco Stralis con l'alternatore che ci ha abbandonati, si è bruciato del tutto. Potete verificare se lo avete disponibile da ventiquattro volt?\\nAssistente: Capito. Il camion è fermo in panne per questa cosa o si tratta di una manutenzione ordinaria?\\nCliente: Eh sì, il camion è fermo in autostrada in cantiere, ho il cliente bloccato con il carico, ho bisogno che mi facciate sapere al più presto se ce l'avete a magazzino.\\nAssistente: Molto bene, ho registrato tutto con urgenza. Sto inviando subito la trascrizione al team dei ricambisti. Ti richiamiamo tra pochissimi minuti! Grazie e a presto!",
+      1: "Assistente: Benvenuto in VT Ricambi Srl! Io sono l'assistente virtuale. Posso raccogliere la tua richiesta così ti richiamiamo subito. Mi dici il tuo nome e per quale azienda chiami?\\nCliente: Ciao, sono Giovanni dell'Officina Meccanica Emiliana.\\nAssistente: Grazie Giovanni. Mi serve la targa o il telaio del camion per favore. Dettamela scandendo le lettere con i nomi delle città.\\nCliente: Ciao, sì, allora, la targa è Bologna, Torino, zero nove sei, Domodossola, Firenze. Quindi Bologna, Torino, zero nove sei, Domodossola, Firenze.\\nAssistente: Perfetto, registrata. Che ricambio ti serve esattamente per questo mezzo?\\nCliente: Senti, ho un Iveco Stralis con l'alternatore che ci ha abbandonati, si è bruciato del tutto. Potete verificare se lo avete disponibile da ventiquattro volt?\\nAssistente: Capito. Il camion è fermo in panne per questa cosa o si tratta di una manutenzione ordinaria?\\nCliente: Eh sì, il camion è fermo in autostrada in cantiere, ho il cliente bloccato con il carico, ho bisogno che mi facciate sapere al più presto se ce l'avete a magazzino.\\nAssistente: Molto bene, ho registrato tutto con urgenza. Sto inviando subito la trascrizione al team dei ricambisti. Ti richiamiamo tra pochissimi minuti! Grazie e a presto!",
       
-      2: "Assistente: Benvenuto in Ricambi Truck Ferrara! Io sono l'assistente virtuale. Posso raccogliere la tua richiesta così ti richiamiamo subito. Mi dici il tuo nome e per quale azienda chiami?\\nCliente: Ciao, sono Antonio della ditta Autotrasporti Ferrara SRL.\\nAssistente: Grazie Antonio. Mi serve la targa o il telaio del camion per favore. Dettamela scandendo le lettere con i nomi delle città.\\nCliente: Allora, la targa è Ancona, Como, sette due quattro, Venezia, Genova.\\nAssistente: Perfetto, registrata. Che ricambio ti serve esattamente per questo mezzo?\\nCliente: Dobbiamo fare un intervento programmato per sabato. Mi servirebbe un kit completo di pastiglie e dischi freno anteriori per un MAN TGX del duemilaventi. Volevo un preventivo di spesa.\\nAssistente: Capito. Il camion è fermo in panne per questa cosa o si tratta di una manutenzione ordinaria?\\nCliente: No no, manutenzione ordinaria in officina da noi sabato mattina, quindi con calma, mandatemi pure un WhatsApp appena avete il prezzo.\\nAssistente: Molto bene! Ho raccolto tutte le informazioni. Invio la notifica al reparto ricambi. Ti richiamiamo o ti scriviamo a breve. Grazie!",
+      2: "Assistente: Benvenuto in VT Ricambi Srl! Io sono l'assistente virtuale. Posso raccogliere la tua richiesta così ti richiamiamo subito. Mi dici il tuo nome e per quale azienda chiami?\\nCliente: Ciao, sono Antonio della ditta Autotrasporti Ferrara SRL.\\nAssistente: Grazie Antonio. Mi serve la targa o il telaio del camion per favore. Dettamela scandendo le lettere con i nomi delle città.\\nCliente: Allora, la targa è Ancona, Como, sette due quattro, Venezia, Genova.\\nAssistente: Perfetto, registrata. Che ricambio ti serve esattamente per questo mezzo?\\nCliente: Dobbiamo fare un intervento programmato per sabato. Mi servirebbe un kit completo di pastiglie e dischi freno anteriori per un MAN TGX del duemilaventi. Volevo un preventivo di spesa.\\nAssistente: Capito. Il camion è fermo in panne per questa cosa o si tratta di una manutenzione ordinaria?\\nCliente: No no, manutenzione ordinaria in officina da noi sabato mattina, quindi con calma, mandatemi pure un WhatsApp appena avete il prezzo.\\nAssistente: Molto bene! Ho raccolto tutte le informazioni. Invio la notifica al reparto ricambi. Ti richiamiamo o ti scriviamo a breve. Grazie!",
       
-      3: "Assistente: Benvenuto in Ricambi Truck Ferrara! Io sono l'assistente virtuale. Posso raccogliere la tua richiesta così ti richiamiamo subito. Mi dici il tuo nome e per quale azienda chiami?\\nCliente: Ciao sono Roberto. Chiamo per conto mio, sono un padroncino.\\nAssistente: Grazie Roberto. Mi serve la targa o il telaio del camion per favore. Dettamela scandendo le lettere con i nomi delle città.\\nCliente: Guarda non ricordo la targa a mente ma ho qui la carta di circolazione con il telaio. Il finale del telaio è ZLA quattro cinque sei sette otto nove zero.\\nAssistente: Perfetto, registrato il telaio. Che ricambio ti serve esattamente per questo mezzo?\\nCliente: Mi serve urgentemente il soffione della sospensione pneumatica posteriore destra. Mi si è spaccato stamattina mentre caricavo.\\nAssistente: Capito. Il camion è fermo in panne per questa cosa o si tratta di una manutenzione ordinaria?\\nCliente: Eh sì, il camion è accasciato da un lato ed è fermo in officina da me, non posso viaggiare. È abbastanza urgente.\\nAssistente: Molto bene, ho registrato tutto con urgenza. Sto inviando subito la trascrizione al team dei ricambisti. Ti richiamiamo tra pochissimi minuti! Grazie e a presto!"
+      3: "Assistente: Benvenuto in VT Ricambi Srl! Io sono l'assistente virtuale. Posso raccogliere la tua richiesta così ti richiamiamo subito. Mi dici il tuo nome e per quale azienda chiami?\\nCliente: Ciao sono Roberto. Chiamo per conto mio, sono un padroncino.\\nAssistente: Grazie Roberto. Mi serve la targa o il telaio del camion per favore. Dettamela scandendo le lettere con i nomi delle città.\\nCliente: Guarda non ricordo la targa a mente ma ho qui la carta di circolazione con il telaio. Il finale del telaio è ZLA quattro cinque sei sette otto nove zero.\\nAssistente: Perfetto, registrato il telaio. Che ricambio ti serve esattamente per questo mezzo?\\nCliente: Mi serve urgentemente il soffione della sospensione pneumatica posteriore destra. Mi si è spaccato stamattina mentre caricavo.\\nAssistente: Capito. Il camion è fermo in panne per questa cosa o si tratta di una manutenzione ordinaria?\\nCliente: Eh sì, il camion è accasciato da un lato ed è fermo in officina da me, non posso viaggiare. È abbastanza urgente.\\nAssistente: Molto bene, ho registrato tutto con urgenza. Sto inviando subito la trascrizione al team dei ricambisti. Ti richiamiamo tra pochissimi minuti! Grazie e a presto!"
     }};
 
     function loadPreset(id) {{
@@ -770,3 +830,8 @@ async def get_dashboard():
 </html>
 """
     return HTMLResponse(content=html_content)
+
+# Runner locale per l'avvio semplificato con 'python app.py'
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("app:app", host="127.0.0.1", port=8000, reload=True)

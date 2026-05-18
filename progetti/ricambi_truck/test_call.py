@@ -1,8 +1,13 @@
 import os
+import sys
 import json
 import logging
 from dotenv import load_dotenv
 import google.generativeai as genai
+
+# Forza l'encoding utf-8 per lo stdout su Windows per evitare crash con emoji
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -15,7 +20,7 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # Trascrizione telefonica campione per il test
 TEST_TRANSCRIPT = """
-Assistente: Benvenuto in Ricambi Truck Ferrara! Io sono l'assistente virtuale. Posso raccogliere la tua richiesta così ti richiamiamo subito. Mi dici il tuo nome e per quale azienda chiami?
+Assistente: Benvenuto in VT Ricambi Srl! Io sono l'assistente virtuale. Posso raccogliere la tua richiesta così ti richiamiamo subito. Mi dici il tuo nome e per quale azienda chiami?
 Cliente: Ciao, sono Giovanni dell'Officina Meccanica Emiliana.
 Assistente: Grazie Giovanni. Mi serve la targa o il telaio del camion per favore. Dettamela scandendo le lettere con i nomi delle città.
 Cliente: Ciao, sì, allora, la targa è Bologna, Torino, zero nove sei, Domodossola, Firenze. Quindi Bologna, Torino, zero nove sei, Domodossola, Firenze.
@@ -34,7 +39,7 @@ def parse_with_gemini(transcript: str) -> dict:
     genai.configure(api_key=GEMINI_API_KEY)
     
     prompt = f"""
-Sei l'analista tecnico senior di Ricambi Truck Ferrara. Il tuo compito è analizzare la trascrizione di una telefonata e compilare un JSON strutturato contenente le informazioni chiave per il team di officina.
+Sei l'analista tecnico senior di VT Ricambi Srl. Il tuo compito è analizzare la trascrizione di una telefonata e compilare un JSON strutturato contenente le informazioni chiave per il team di officina.
 
 Presta particolare attenzione alla targa del veicolo. I clienti spesso scandiscono la targa lettera per lettera usando i nomi delle città (es. "Milano Torino due tre quattro Como Domodossola"). Reindirizza queste informazioni ricreando la targa originale in stampatello maiuscolo (es. "MT234CD").
 Ad esempio:

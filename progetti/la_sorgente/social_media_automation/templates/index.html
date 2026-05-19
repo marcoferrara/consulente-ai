@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Sorgente — Instagram SMM Automation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --bg-base: #070514;
+            --bg-surface: rgba(14, 25, 22, 0.6);
+            --bg-surface-solid: #0d1a15;
+            --accent-primary: #10b981;
+            --accent-primary-glow: rgba(16, 185, 129, 0.4);
+            --accent-secondary: #f43f5e;
+            --accent-secondary-glow: rgba(244, 63, 94, 0.4);
+            --accent-info: #0ea5e9;
+            --accent-warning: #f59e0b;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --glass-blur: blur(16px);
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(244, 63, 94, 0.08) 0%, transparent 45%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* App Layout */
+        .app-container {
+            max-width: 1450px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 8px 24px var(--accent-primary-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 4s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: translate(-30%, -30%) rotate(45deg); }
+            100% { transform: translate(30%, 30%) rotate(45deg); }
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #ffffff, #a7f3d0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 10px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), rgba(16, 185, 129, 0.4));
+            color: white;
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+            background: linear-gradient(135deg, #34d399, var(--accent-primary));
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border-color: var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent-secondary), rgba(244, 63, 94, 0.4));
+            color: white;
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(244, 63, 94, 0.5);
+            background: linear-gradient(135deg, #fb7185, var(--accent-secondary));
+        }
+
+        /* KPI Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: var(--glass-blur);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-primary);
+            opacity: 0.7;
+        }
+
+        .stat-card.secondary::before {
+            background: var(--accent-secondary);
+        }
+
+        .stat-card.info::before {
+            background: var(--accent-info);
+        }
+
+        .stat-card.warning::before {
+            background: var(--accent-warning);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-info h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, white, #e5e7eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            opacity: 0.2;
+            color: var(--text-main);
+            transition: var(--transition-smooth);
+        }
+
+        .stat-card:hover .stat-icon {
+            opacity: 0.6;
+            transform: scale(1.1);
+        }
+
+        /* Workspace Grid */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 2rem;
+            align-items: start;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .workspace-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            backdrop-filter: var(--glass-blur);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .panel-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .panel-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .panel-title i {
+            color: var(--accent-primary);
+        }
+
+        .panel-body {
+            padding: 1.5rem;
+        }
+
+        /* Inbox Queue */
+        .queue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 480px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .queue-list::-webkit-scrollbar,
+        .editor-textarea::-webkit-scrollbar {
+            width: 6px;
+        }
+        .queue-list::-webkit-scrollbar-track,
+        .editor-textarea::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .queue-list::-webkit-scrollbar-thumb,
+        .editor-textarea::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .queue-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .queue-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateX(4px);
+        }
+
+        .queue-item.active {
+            background: rgba(16, 185, 129, 0.08);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+        }
+
+        .queue-img {
+            width: 65px;
+            height: 65px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        .queue-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .queue-info h4 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 250px;
+        }
+
+        .queue-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .queue-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+        }
+
+        .tag-post { background: rgba(14, 165, 233, 0.15); color: #38bdf8; }
+        .tag-reels { background: rgba(244, 63, 94, 0.15); color: #fb7185; }
+
+        .source-badge {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 0.35rem;
+            font-weight: 500;
+        }
+
+        /* Manual Generator */
+        .manual-gen-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.65rem 0.85rem;
+            color: white;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            transition: var(--transition-smooth);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Smartphone Simulator */
+        .editor-workspace {
+            display: grid;
+            grid-template-columns: 1.1fr 1.3fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .editor-workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .phone-frame {
+            background: #000;
+            border: 10px solid #1f1f2e;
+            border-radius: 36px;
+            width: 100%;
+            aspect-ratio: 9 / 18.5;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            font-size: 0.8rem;
+            position: relative;
+        }
+
+        .phone-header {
+            height: 40px;
+            background: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .phone-screen {
+            flex: 1;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Instagram Post layout inside phone */
+        .insta-post-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid #121212;
+        }
+
+        .insta-user {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .insta-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            padding: 1.5px;
+        }
+
+        .insta-avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.55rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+        }
+
+        .insta-username {
+            font-weight: 700;
+            color: white;
+            font-size: 0.75rem;
+        }
+
+        .insta-location {
+            font-size: 0.6rem;
+            color: #999;
+        }
+
+        .insta-media-container {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #111;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .insta-media {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .insta-reel-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            z-index: 12;
+        }
+
+        /* Smartphone Visual Mockup Card & Carousel Overlay Styles */
+        .sim-overlay-card {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, rgba(7, 5, 20, 0.85), rgba(7, 5, 20, 0.5));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 12px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            z-index: 5;
+        }
+
+        .sim-overlay-logo {
+            font-family: var(--font-display);
+            font-size: 0.58rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sim-overlay-title {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        .sim-overlay-subtitle {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.3;
+        }
+
+        .sim-carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .sim-carousel-arrow.prev { left: 8px; }
+        .sim-carousel-arrow.next { right: 8px; }
+        .sim-carousel-arrow:hover {
+            background: var(--accent-primary);
+            transform: translateY(-50%) scale(1.1);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .sim-carousel-dots {
+            position: absolute;
+            bottom: 82px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+            background: rgba(0,0,0,0.4);
+            padding: 4px 8px;
+            border-radius: 10px;
+            backdrop-filter: blur(4px);
+        }
+
+        .carousel-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transition: var(--transition-smooth);
+        }
+
+        .carousel-dot.active {
+            background: var(--accent-primary);
+            width: 14px;
+            border-radius: 3px;
+        }
+
+        .insta-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0.8rem;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .insta-actions-left {
+            display: flex;
+            gap: 0.85rem;
+        }
+
+        .insta-actions i {
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .insta-actions i:hover {
+            transform: scale(1.1);
+        }
+
+        .insta-likes {
+            font-weight: 700;
+            color: white;
+            padding: 0 0.8rem;
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .insta-caption-area {
+            padding: 0 0.8rem 0.8rem 0.8rem;
+            font-size: 0.72rem;
+            line-height: 1.4;
+            color: #efefef;
+        }
+
+        .insta-caption-username {
+            font-weight: 700;
+            margin-right: 0.35rem;
+            color: white;
+        }
+
+        .insta-caption-text {
+            white-space: pre-wrap;
+        }
+
+        .insta-hashtags {
+            color: #0095f6;
+            margin-top: 0.4rem;
+            word-break: break-word;
+        }
+
+        .insta-time {
+            font-size: 0.6rem;
+            color: #8e8e8e;
+            text-transform: uppercase;
+            padding: 0 0.8rem;
+            margin-top: 0.4rem;
+        }
+
+        /* Post Editor Panel */
+        .editor-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .editor-textarea {
+            width: 100%;
+            height: 180px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0.75rem;
+            color: white;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            line-height: 1.45;
+            resize: none;
+            transition: var(--transition-smooth);
+        }
+
+        .editor-textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .editor-placeholder {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+            border: 1px dashed var(--border-color);
+        }
+
+        .editor-placeholder-icon {
+            font-size: 3rem;
+            color: rgba(16, 185, 129, 0.2);
+            animation: pulse-glow 2s infinite;
+        }
+
+        /* Bottom Widgets: Editorial Calendar & Analytics */
+        .bottom-row {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .bottom-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Calendar */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .calendar-header-day {
+            text-align: center;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            padding: 0.25rem;
+        }
+
+        .calendar-day {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            aspect-ratio: 1;
+            padding: 0.35rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+            min-height: 60px;
+            cursor: pointer;
+        }
+
+        .calendar-day:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+        }
+
+        .calendar-day.selected {
+            background: rgba(16, 185, 129, 0.08) !important;
+            border-color: var(--accent-primary) !important;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.25) !important;
+        }
+
+        .calendar-day.has-posts {
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        /* Calendar Day Detail Items */
+        .calendar-detail-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: var(--transition-smooth);
+            margin-bottom: 0.75rem;
+        }
+
+        .calendar-detail-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateX(4px);
+        }
+
+        .calendar-detail-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .calendar-detail-thumb {
+            width: 48px;
+            height: 48px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        .calendar-detail-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            font-size: 0.8rem;
+        }
+
+        .calendar-detail-time {
+            font-weight: 700;
+            color: var(--accent-primary);
+            font-family: var(--font-display);
+        }
+
+        .calendar-day-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .calendar-day.today {
+            background: rgba(16, 185, 129, 0.04);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .calendar-day.today .calendar-day-num {
+            color: var(--accent-primary);
+        }
+
+        .calendar-events {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .calendar-dot {
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        /* Analytics Chart Container */
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .toast {
+            background: #0f1c18;
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transform: translateX(120%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success { border-left-color: var(--accent-primary); }
+        .toast.error { border-left-color: var(--accent-secondary); }
+        .toast.warning { border-left-color: var(--accent-warning); }
+
+        /* Loader */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 5, 20, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: var(--font-display);
+            gap: 1.5rem;
+            transition: opacity 0.4s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--accent-primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="spinner"></div>
+        <div style="font-weight: 600; font-size: 1.1rem; letter-spacing: 0.5px;">Caricamento Hub Social Media AI...</div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>La Sorgente — Hub Social Media AI</h1>
+                    <p>Accademia Internazionale del Musical — Cagliari</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-accent" onclick="syncInbox()">
+                    <i class="fa-solid fa-envelope-open-text"></i> Sincronizza Inbox
+                </button>
+                <button class="btn btn-secondary" onclick="restoreInbox()" title="Ripristina direttive di prova cancellate per testare di nuovo">
+                    <i class="fa-solid fa-sync"></i> Ripristina Test
+                </button>
+                <a href="http://127.0.0.1:8081" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left"></i> Torna ad Hub Bandi
+                </a>
+            </div>
+        </header>
+
+        <!-- KPI Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Post Pubblicati</h3>
+                    <div class="stat-value" id="kpiPublishedCount">0</div>
+                </div>
+                <div class="stat-icon"><i class="fa-brands fa-instagram"></i></div>
+            </div>
+            <div class="stat-card secondary">
+                <div class="stat-info">
+                    <h3>Copertura Totale (Reach)</h3>
+                    <div class="stat-value" id="kpiTotalReach">0</div>
+                </div>
+                <div class="stat-icon"><i class="fa-solid fa-eye"></i></div>
+            </div>
+            <div class="stat-card info">
+                <div class="stat-info">
+                    <h3>Interazioni Totali</h3>
+                    <div class="stat-value" id="kpiTotalInteractions">0</div>
+                </div>
+                <div class="stat-icon"><i class="fa-solid fa-thumbs-up"></i></div>
+            </div>
+            <div class="stat-card warning">
+                <div class="stat-info">
+                    <h3>Engagement Rate</h3>
+                    <div class="stat-value" id="kpiEngagementRate">0%</div>
+                </div>
+                <div class="stat-icon"><i class="fa-solid fa-chart-pie"></i></div>
+            </div>
+        </div>
+
+        <!-- Workspace Workspace -->
+        <div class="workspace-grid">
+            <!-- Editorial Queue / Manual Ingest (Left Panel) -->
+            <div class="panel-card" style="min-height: 600px;">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>Coda Editoriale & In Inbox</span>
+                    </div>
+                    <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: var(--accent-primary); font-size: 0.75rem;" id="queueCountBadge">0 in coda</span>
+                </div>
+                <div class="panel-body">
+                    <!-- Queue List -->
+                    <div class="queue-list" id="queueList">
+                        <!-- Queue items -->
+                    </div>
+
+                    <!-- Manual Post Directive Generator -->
+                    <div class="manual-gen-card">
+                        <h4 style="font-family: var(--font-display); font-weight:700; font-size: 0.95rem; margin-bottom: 0.75rem;">
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-primary);"></i> Crea Proposta Manuale con AI
+                        </h4>
+                        
+                        <div class="form-group">
+                            <label>Direttiva Testuale per il Post</label>
+                            <textarea id="manualDirectiveInput" class="form-input" style="height: 70px; resize: none;" placeholder="Es: Scrivi un post motivazionale invitando all'open day del weekend per il corso di musical..."></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Formato Post</label>
+                                <select id="manualTypeInput" class="form-input" style="background: #11201b;">
+                                    <option value="Post">Post Standard</option>
+                                    <option value="Reels">Reel Video</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>URL Immagine/Media</label>
+                                <input type="text" id="manualMediaInput" class="form-input" value="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.8rem; padding: 0.6rem;" onclick="generateManualPost()">
+                            <i class="fa-solid fa-circle-play"></i> Elabora Proposta con Gemini AI
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Instagram Simulator & Editor (Right Panel) -->
+            <div class="panel-card" style="min-height: 600px;">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                        <span>Live Instagram Simulator & Edit</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="editorPlaceholder" class="editor-placeholder">
+                        <div class="editor-placeholder-icon"><i class="fa-brands fa-instagram"></i></div>
+                        <div style="font-family: var(--font-display); font-weight:700; color: white;">Nessun Post Selezionato</div>
+                        <p style="font-size:0.8rem; max-width:280px; margin:0 auto;">
+                            Seleziona un post in coda d'approvazione a sinistra, oppure creane uno nuovo per vederlo nel simulatore smartphone.
+                        </p>
+                    </div>
+
+                    <div id="editorActiveWorkspace" class="editor-workspace" style="display: none;">
+                        <!-- Left inside workspace: Phone -->
+                        <div class="phone-frame">
+                            <div class="phone-header">
+                                <span>9:41</span>
+                                <div style="display:flex; gap:5px;">
+                                    <i class="fa-solid fa-signal"></i>
+                                    <i class="fa-solid fa-wifi"></i>
+                                    <i class="fa-solid fa-battery-full"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="phone-screen">
+                                <!-- Instagram Post -->
+                                <div class="insta-post-header">
+                                    <div class="insta-user">
+                                        <div class="insta-avatar">
+                                            <div class="insta-avatar-img">AM</div>
+                                        </div>
+                                        <div>
+                                            <div class="insta-username">accademiadelmusical_ca</div>
+                                            <div class="insta-location">Cagliari, Italia</div>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-ellipsis" style="color:white; cursor:pointer;"></i>
+                                </div>
+
+                                <div class="insta-media-container">
+                                    <img id="simMedia" class="insta-media" src="" alt="Post media">
+                                    
+                                    <!-- Visual Overlay Card for Premium Post Design -->
+                                    <div id="simOverlayCard" class="sim-overlay-card">
+                                        <div class="sim-overlay-logo"><i class="fa-solid fa-circle-play"></i> LA SORGENTE ACCADEMIA</div>
+                                        <div class="sim-overlay-title" id="simOverlayTitle">CORSO DI MUSICAL</div>
+                                        <div class="sim-overlay-subtitle" id="simOverlaySubtitle">Cagliari — Nuova Stagione</div>
+                                    </div>
+
+                                    <!-- Carousel Arrows -->
+                                    <div id="simCarouselPrev" class="sim-carousel-arrow prev" onclick="navigateCarousel(-1); event.stopPropagation();" style="display: none;">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </div>
+                                    <div id="simCarouselNext" class="sim-carousel-arrow next" onclick="navigateCarousel(1); event.stopPropagation();" style="display: none;">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </div>
+
+                                    <!-- Carousel Page Dots -->
+                                    <div id="simCarouselDots" class="sim-carousel-dots" style="display: none;">
+                                        <span class="carousel-dot active"></span>
+                                        <span class="carousel-dot"></span>
+                                        <span class="carousel-dot"></span>
+                                    </div>
+
+                                    <div id="simReelBadge" class="insta-reel-badge" style="display: none;">
+                                        <i class="fa-solid fa-film"></i>
+                                    </div>
+                                </div>
+
+                                <div class="insta-actions">
+                                    <div class="insta-actions-left">
+                                        <i class="fa-regular fa-heart"></i>
+                                        <i class="fa-regular fa-comment"></i>
+                                        <i class="fa-regular fa-paper-plane"></i>
+                                    </div>
+                                    <i class="fa-regular fa-bookmark"></i>
+                                </div>
+
+                                <div class="insta-likes" id="simLikesText">Piace a 0 persone</div>
+
+                                <div class="insta-caption-area">
+                                    <span class="insta-caption-username">accademiadelmusical_ca</span>
+                                    <span class="insta-caption-text" id="simCaptionText">Loading copy...</span>
+                                    <div class="insta-hashtags" id="simHashtagsText">#hashtags</div>
+                                </div>
+
+                                <div class="insta-time">Oggi, ore <span id="simTimeText">18:00</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Right inside workspace: Fields -->
+                        <div class="editor-form">
+                            <div class="form-group">
+                                <label>Formato Pubblicazione</label>
+                                <select id="editType" class="form-input" onchange="syncEditorToSim()">
+                                    <option value="Post">Post Singolo</option>
+                                    <option value="Carousel">Carosello Instagram (Multi-Slide)</option>
+                                    <option value="Reels">Reel Video</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Copy Generato AI (Instagram Caption)</label>
+                                <textarea id="editCopy" class="editor-textarea" oninput="syncEditorToSim()"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Hashtag Suggeriti</label>
+                                <input type="text" id="editHashtags" class="form-input" oninput="syncEditorToSim()">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Programmazione Pubblicazione (Scegli Data/Ora)</label>
+                                <div style="position:relative; display:flex; align-items:center;">
+                                    <input type="text" id="editScheduledTimeDisplay" class="form-input" readonly placeholder="Scegli data e ora..." onclick="document.getElementById('editScheduledTimePicker').showPicker();" style="cursor:pointer; background:rgba(16,185,129,0.05); border-color:rgba(16,185,129,0.25); font-weight: 600; padding-right: 2.5rem;">
+                                    <i class="fa-solid fa-calendar-day" style="position:absolute; right:12px; color:var(--accent-primary); pointer-events:none;"></i>
+                                    <input type="datetime-local" id="editScheduledTimePicker" class="form-input" style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; cursor:pointer;" onchange="onScheduledDateChanged(this.value)">
+                                    <input type="hidden" id="editScheduledTime">
+                                </div>
+                            </div>
+
+                            <div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:1rem;">
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.5rem;">
+                                    <button class="btn btn-primary" onclick="approveAndSchedule()">
+                                        <i class="fa-solid fa-calendar-check"></i> Approva e Pianifica
+                                    </button>
+                                    <button class="btn btn-accent" onclick="publishImmediately()">
+                                        <i class="fa-solid fa-paper-plane"></i> Pubblica Ora
+                                    </button>
+                                </div>
+                                <button class="btn btn-danger" style="justify-content:center;" onclick="deleteSelectedPost()">
+                                    <i class="fa-solid fa-trash"></i> Elimina Post
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Calendar & Analytics Row -->
+        <div class="bottom-row">
+            <!-- Calendar widget -->
+            <div class="panel-card">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>Calendario Editoriale Instagram</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <p style="font-size:0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+                        Pianificazione mensile dei post. I post approvati sono indicati in verde. **Clicca su un giorno per vedere l'anteprima e gestire i post pianificati.**
+                    </p>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Dynamic calendar -->
+                    </div>
+
+                    <!-- Calendar Day Details Card (Visible on Click) -->
+                    <div id="calendarDayDetails" class="panel-card" style="display:none; margin-top: 1.5rem; border-color: var(--accent-primary); background: rgba(16, 185, 129, 0.02); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+                        <div class="panel-header" style="background: rgba(16, 185, 129, 0.06); padding: 0.75rem 1.25rem;">
+                            <div class="panel-title" style="font-size: 0.95rem;">
+                                <i class="fa-solid fa-calendar-day" style="color: var(--accent-primary);"></i>
+                                <span id="calendarDayTitle">Post Programmati</span>
+                            </div>
+                            <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.7rem;" onclick="closeCalendarDayDetails()">Chiudi</button>
+                        </div>
+                        <div class="panel-body" id="calendarDayBody" style="padding: 1rem; max-height: 250px; overflow-y: auto;">
+                            <!-- Dynamic list of scheduled items for clicked day -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Chart -->
+            <div class="panel-card">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Engagement Analytics Instagram (Simulation)</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="chart-container">
+                        <canvas id="analyticsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Global state
+        let posts = [];
+        let unreadDirectives = [];
+        let selectedPost = null;
+        let chartInstance = null;
+        let currentSlideIndex = 0;
+        let selectedCalendarDayNum = null;
+
+        // On document loaded
+        document.addEventListener("DOMContentLoaded", async () => {
+            await initializeApp();
+        });
+
+        // Initialize App data
+        async function initializeApp() {
+            try {
+                await fetchPostsData();
+                renderCalendar();
+                initAnalyticsChart();
+                setTimeout(() => {
+                    document.getElementById("loadingScreen").style.opacity = "0";
+                    setTimeout(() => {
+                        document.getElementById("loadingScreen").style.display = "none";
+                    }, 400);
+                }, 800);
+            } catch (err) {
+                console.error("Initialization error: ", err);
+                showToast("Errore di inizializzazione della connessione backend.", "error");
+            }
+        }
+
+        // Fetch Posts Data
+        async function fetchPostsData() {
+            const res = await fetch("/api/posts");
+            const data = await res.json();
+            posts = data.posts;
+            unreadDirectives = data.unread_directives;
+            
+            renderQueueList();
+            calculateKPIs();
+        }
+
+        // Sync Inbox Simulation
+        async function syncInbox() {
+            showToast("Gemini sta elaborando le nuove e-mail/WhatsApp multimediali...", "warning");
+            try {
+                const res = await fetch("/api/inbox/sync", { method: "POST" });
+                const data = await res.json();
+                
+                if (data.status === "success") {
+                    if (data.count > 0) {
+                        showToast(data.message, "success");
+                        await fetchPostsData();
+                        renderCalendar();
+                    } else {
+                        showToast(data.message, "info");
+                    }
+                }
+            } catch (err) {
+                showToast("Errore durante la sincronizzazione.", "error");
+            }
+        }
+
+        // Restore Inbox for repeat testing
+        async function restoreInbox() {
+            try {
+                const res = await fetch("/api/inbox/restore", { method: "POST" });
+                const data = await res.json();
+                if (data.status === "success") {
+                    showToast(data.message, "success");
+                    await fetchPostsData();
+                }
+            } catch (err) {
+                showToast("Errore durante il ripristino.", "error");
+            }
+        }
+
+        // Calculate KPIs
+        function calculateKPIs() {
+            const published = posts.filter(p => p.status === "Pubblicato");
+            const totalReach = published.reduce((acc, p) => acc + (p.engagement?.reach || 0), 0);
+            
+            const totalLikes = published.reduce((acc, p) => acc + (p.engagement?.likes || 0), 0);
+            const totalComments = published.reduce((acc, p) => acc + (p.engagement?.comments || 0), 0);
+            const totalInteractions = totalLikes + totalComments;
+
+            // Engagement Rate = (Interactions / Reach) * 100
+            const avgRate = totalReach > 0 ? ((totalInteractions / totalReach) * 100).toFixed(1) : "0.0";
+
+            document.getElementById("kpiPublishedCount").textContent = published.length;
+            document.getElementById("kpiTotalReach").textContent = totalReach.toLocaleString();
+            document.getElementById("kpiTotalInteractions").textContent = totalInteractions.toLocaleString();
+            document.getElementById("kpiEngagementRate").textContent = `${avgRate}%`;
+        }
+
+        // Render Queue List
+        function renderQueueList() {
+            const container = document.getElementById("queueList");
+            container.innerHTML = "";
+
+            // Focus on queue "In Attesa di Approvazione" or "Approvato" (not yet published)
+            const queueItems = posts.filter(p => p.status !== "Pubblicato");
+            document.getElementById("queueCountBadge").textContent = `${queueItems.length} in coda`;
+
+            if (queueItems.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem; border: 1px dashed var(--border-color); border-radius:12px;">
+                        Nessun post in attesa di approvazione.<br>
+                        <strong style="color:var(--accent-primary); cursor:pointer;" onclick="syncInbox()">Clicca per sincronizzare</strong> o ripristina la Inbox.
+                    </div>
+                `;
+                return;
+            }
+
+            queueItems.forEach(post => {
+                const item = document.createElement("div");
+                item.className = `queue-item ${selectedPost && selectedPost.id === post.id ? 'active' : ''}`;
+                
+                const typeTag = post.type.toLowerCase() === "reels" 
+                    ? `<span class="queue-tag tag-reels"><i class="fa-solid fa-film"></i> Reel</span>`
+                    : `<span class="queue-tag tag-post"><i class="fa-solid fa-image"></i> Post</span>`;
+
+                const sourceIcon = post.source.includes("WhatsApp") ? "fa-whatsapp" : "fa-envelope";
+                const sourceColor = post.source.includes("WhatsApp") ? "#25d366" : "#a855f7";
+
+                item.innerHTML = `
+                    <img class="queue-img" src="${post.media_path}" alt="Post Media">
+                    <div class="queue-info">
+                        <h4>${post.original_directive.substring(0, 45)}...</h4>
+                        <p>${post.generated_copy.substring(0, 110)}...</p>
+                        <div class="source-badge">
+                            <i class="fa-brands ${sourceIcon}" style="color: ${sourceColor};"></i> 
+                            <span>Ricevuto da: ${post.source}</span>
+                        </div>
+                    </div>
+                    ${typeTag}
+                `;
+                
+                item.addEventListener("click", () => selectPost(post));
+                container.appendChild(item);
+            });
+        }
+
+        // Select Post for simulator and edit
+        function selectPost(post) {
+            selectedPost = post;
+            currentSlideIndex = 0; // Reset slide index to 0
+            
+            // Re-render queue to show active class
+            renderQueueList();
+
+            // Toggle screens
+            document.getElementById("editorPlaceholder").style.display = "none";
+            document.getElementById("editorActiveWorkspace").style.display = "grid";
+
+            // Populate Editor
+            document.getElementById("editType").value = post.type;
+            document.getElementById("editCopy").value = post.generated_copy;
+            document.getElementById("editHashtags").value = post.hashtags;
+            
+            // Populate Scheduled Time with Picker and Italian display format
+            if (post.scheduled_time) {
+                const standardVal = post.scheduled_time;
+                document.getElementById("editScheduledTime").value = standardVal;
+                
+                const pickerVal = standardVal.replace(" ", "T");
+                document.getElementById("editScheduledTimePicker").value = pickerVal;
+                
+                const parts = standardVal.split(" ");
+                const dateParts = parts[0].split("-");
+                if (dateParts.length === 3) {
+                    document.getElementById("editScheduledTimeDisplay").value = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]} alle ore ${parts[1]}`;
+                } else {
+                    document.getElementById("editScheduledTimeDisplay").value = standardVal;
+                }
+            } else {
+                document.getElementById("editScheduledTime").value = "";
+                document.getElementById("editScheduledTimePicker").value = "";
+                document.getElementById("editScheduledTimeDisplay").value = "";
+            }
+
+            // Populate Sim
+            syncEditorToSim();
+        }
+
+        // Convert value from datepicker
+        function onScheduledDateChanged(val) {
+            if (!val) return;
+            const standardVal = val.replace("T", " ");
+            document.getElementById("editScheduledTime").value = standardVal;
+            
+            const parts = standardVal.split(" ");
+            const dateParts = parts[0].split("-");
+            if (dateParts.length === 3) {
+                document.getElementById("editScheduledTimeDisplay").value = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]} alle ore ${parts[1]}`;
+            } else {
+                document.getElementById("editScheduledTimeDisplay").value = standardVal;
+            }
+            
+            if (selectedPost) {
+                selectedPost.scheduled_time = standardVal;
+            }
+            syncEditorToSim();
+        }
+
+        // Sync Editor inputs to Live Instagram Sim
+        function syncEditorToSim() {
+            if (!selectedPost) return;
+
+            const copyVal = document.getElementById("editCopy").value;
+            const hashtagsVal = document.getElementById("editHashtags").value;
+            const typeVal = document.getElementById("editType").value;
+
+            // Update Media
+            document.getElementById("simMedia").src = selectedPost.media_path;
+            
+            const typeLower = typeVal.toLowerCase();
+            if (typeLower === "reels") {
+                document.getElementById("simReelBadge").style.display = "flex";
+                document.getElementById("simCarouselPrev").style.display = "none";
+                document.getElementById("simCarouselNext").style.display = "none";
+                document.getElementById("simCarouselDots").style.display = "none";
+                document.getElementById("simOverlayCard").style.display = "none";
+                document.getElementById("simLikesText").textContent = "Piace a giulia_c e ad altre 423 persone (Visualizzazioni: 3.2K)";
+            } else if (typeLower === "carousel") {
+                document.getElementById("simReelBadge").style.display = "none";
+                document.getElementById("simCarouselPrev").style.display = "flex";
+                document.getElementById("simCarouselNext").style.display = "flex";
+                document.getElementById("simCarouselDots").style.display = "flex";
+                document.getElementById("simOverlayCard").style.display = "flex";
+                document.getElementById("simLikesText").textContent = "Piace a giulia_c e ad altre 215 persone";
+                updateCarouselSlide();
+            } else { // Standard Post
+                document.getElementById("simReelBadge").style.display = "none";
+                document.getElementById("simCarouselPrev").style.display = "none";
+                document.getElementById("simCarouselNext").style.display = "none";
+                document.getElementById("simCarouselDots").style.display = "none";
+                document.getElementById("simOverlayCard").style.display = "flex";
+                document.getElementById("simLikesText").textContent = "Piace a giulia_c e ad altre 182 persone";
+                
+                // Overlay for standard post
+                const overlayTitle = document.getElementById("simOverlayTitle");
+                const overlaySubtitle = document.getElementById("simOverlaySubtitle");
+                const overlayCard = document.getElementById("simOverlayCard");
+                
+                // Get title from text
+                const cleanCopy = copyVal.replace(/[^\w\s\-\!\?]/gi, '').trim();
+                const words = cleanCopy.split(/\s+/);
+                const titleText = words.slice(0, 3).join(" ").toUpperCase() || "ACCADEMIA MUSICAL";
+                
+                overlayTitle.textContent = titleText;
+                overlaySubtitle.textContent = "Cagliari — La Sorgente AI Hub";
+                overlayCard.style.background = "linear-gradient(135deg, rgba(7, 5, 20, 0.85), rgba(7, 5, 20, 0.45))";
+            }
+
+            // Update Text
+            document.getElementById("simCaptionText").textContent = copyVal;
+            document.getElementById("simHashtagsText").textContent = hashtagsVal;
+            
+            const timeVal = document.getElementById("editScheduledTime").value.split(" ")[1] || selectedPost.suggested_time || "18:00";
+            document.getElementById("simTimeText").textContent = timeVal;
+        }
+
+        // Navigate Carousel Slides
+        function navigateCarousel(diff) {
+            currentSlideIndex = (currentSlideIndex + diff + 3) % 3;
+            updateCarouselSlide();
+        }
+
+        // Update Carousel Slide UI and overlays dynamically
+        function updateCarouselSlide() {
+            const dots = document.querySelectorAll(".carousel-dot");
+            dots.forEach((dot, index) => {
+                if (index === currentSlideIndex) {
+                    dot.classList.add("active");
+                } else {
+                    dot.classList.remove("active");
+                }
+            });
+
+            const overlayTitle = document.getElementById("simOverlayTitle");
+            const overlaySubtitle = document.getElementById("simOverlaySubtitle");
+            const overlayCard = document.getElementById("simOverlayCard");
+            const copyVal = document.getElementById("editCopy").value;
+
+            // Guess slide 1 cover from copy
+            const cleanCopy = copyVal.replace(/[^\w\s\-\!\?]/gi, '').trim();
+            const words = cleanCopy.split(/\s+/);
+            const coverTitle = words.slice(0, 4).join(" ").toUpperCase() || "CAROSELLO INFORMATIVO";
+
+            if (currentSlideIndex === 0) {
+                overlayTitle.textContent = coverTitle;
+                overlaySubtitle.textContent = "👉 Scorri a destra per scoprire tutti i dettagli!";
+                overlayCard.style.background = "linear-gradient(135deg, rgba(16, 185, 129, 0.85), rgba(7, 5, 20, 0.55))";
+            } else if (currentSlideIndex === 1) {
+                overlayTitle.textContent = "STUDIA CON I MIGLIORI";
+                overlaySubtitle.textContent = "Corsi di Canto, Danza e Recitazione con docenti di livello nazionale. Corsi professionali per il tuo futuro!";
+                overlayCard.style.background = "linear-gradient(135deg, rgba(14, 165, 233, 0.85), rgba(7, 5, 20, 0.55))";
+            } else {
+                overlayTitle.textContent = "ULTIMI POSTI DISPONIBILI";
+                overlaySubtitle.textContent = "Non rimandare il tuo sogno. Fissa ora la tua audizione conoscitiva gratuita contattandoci in DM!";
+                overlayCard.style.background = "linear-gradient(135deg, rgba(244, 63, 94, 0.85), rgba(7, 5, 20, 0.55))";
+            }
+        }
+
+        // Generate Manual Post proposal
+        async function generateManualPost() {
+            const directive = document.getElementById("manualDirectiveInput").value.trim();
+            const type = document.getElementById("manualTypeInput").value;
+            const media = document.getElementById("manualMediaInput").value;
+
+            if (!directive) {
+                showToast("Inserisci una direttiva testuale prima di procedere.", "warning");
+                return;
+            }
+
+            showToast("L'AI sta analizzando il testo per il piano editoriale...", "warning");
+            
+            try {
+                const res = await fetch("/api/posts/generate", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        original_directive: directive,
+                        type: type,
+                        media_path: media
+                    })
+                });
+                const data = await res.json();
+                
+                if (data.status === "success") {
+                    showToast("Proposta di post AI elaborata correttamente!", "success");
+                    
+                    // Inserisci e seleziona
+                    const insertRes = await fetch("/api/posts", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(data.post)
+                    });
+                    const insertData = await insertRes.json();
+                    
+                    document.getElementById("manualDirectiveInput").value = "";
+                    await fetchPostsData();
+                    
+                    // Seleziona il post appena inserito
+                    const newPost = posts.find(p => p.id === insertData.post.id);
+                    if (newPost) selectPost(newPost);
+                    
+                    renderCalendar();
+                }
+            } catch (err) {
+                showToast("Errore durante la generazione AI.", "error");
+            }
+        }
+
+        // Approve and Schedule
+        async function approveAndSchedule() {
+            if (!selectedPost) return;
+            
+            const schedTime = document.getElementById("editScheduledTime").value.trim();
+            const copyVal = document.getElementById("editCopy").value.trim();
+            const hashtagsVal = document.getElementById("editHashtags").value.trim();
+            const typeVal = document.getElementById("editType").value;
+
+            showToast("Salvataggio e programmazione post in corso...", "warning");
+
+            try {
+                // First update text
+                await fetch(`/api/posts/edit/${selectedPost.id}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        type: typeVal,
+                        generated_copy: copyVal,
+                        hashtags: hashtagsVal,
+                        scheduled_time: schedTime,
+                        status: "Approvato"
+                    })
+                });
+
+                // Trigger approval
+                const res = await fetch(`/api/posts/${selectedPost.id}/approve`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ scheduled_time: schedTime })
+                });
+                const data = await res.json();
+
+                if (data.status === "success") {
+                    showToast("Post approvato con successo e inserito in calendario!", "success");
+                    selectedPost = null;
+                    
+                    // Hide editor workspace
+                    document.getElementById("editorActiveWorkspace").style.display = "none";
+                    document.getElementById("editorPlaceholder").style.display = "flex";
+                    
+                    await fetchPostsData();
+                    renderCalendar();
+                }
+            } catch (err) {
+                showToast("Errore durante l'approvazione del post.", "error");
+            }
+        }
+
+        // Publish Immediately (Simulation)
+        async function publishImmediately() {
+            if (!selectedPost) return;
+
+            const copyVal = document.getElementById("editCopy").value.trim();
+            const hashtagsVal = document.getElementById("editHashtags").value.trim();
+            const typeVal = document.getElementById("editType").value;
+
+            showToast("Simulazione pubblicazione su Instagram Graph API...", "warning");
+
+            try {
+                // First update text in DB
+                await fetch(`/api/posts/edit/${selectedPost.id}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        type: typeVal,
+                        generated_copy: copyVal,
+                        hashtags: hashtagsVal,
+                        scheduled_time: new Date().toISOString().substring(0, 16).replace("T", " "),
+                        status: "Pubblicato"
+                    })
+                });
+
+                // Trigger direct simulation publish
+                const res = await fetch(`/api/posts/${selectedPost.id}/publish`, { method: "POST" });
+                const data = await res.json();
+
+                if (data.status === "success") {
+                    showToast("Post PUBBLICATO su Instagram! Controlla i dati di copertura.", "success");
+                    selectedPost = null;
+                    
+                    document.getElementById("editorActiveWorkspace").style.display = "none";
+                    document.getElementById("editorPlaceholder").style.display = "flex";
+                    
+                    await fetchPostsData();
+                    renderCalendar();
+                    updateAnalyticsChart();
+                }
+            } catch (err) {
+                showToast("Errore durante la pubblicazione immediata.", "error");
+            }
+        }
+
+        // Delete Selected Post
+        async function deleteSelectedPost() {
+            if (!selectedPost) return;
+            if (!confirm("Sei sicuro di voler eliminare questa bozza dalla coda di pubblicazione?")) {
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/posts/${selectedPost.id}`, { method: "DELETE" });
+                const data = await res.json();
+                if (data.status === "success") {
+                    showToast("Post rimosso dalla coda.", "success");
+                    selectedPost = null;
+                    document.getElementById("editorActiveWorkspace").style.display = "none";
+                    document.getElementById("editorPlaceholder").style.display = "flex";
+                    
+                    await fetchPostsData();
+                    renderCalendar();
+                }
+            } catch (err) {
+                showToast("Errore durante l'eliminazione.", "error");
+            }
+        }
+
+        // Render visual Calendar widget
+        function renderCalendar() {
+            const container = document.getElementById("calendarGrid");
+            container.innerHTML = "";
+
+            const daysOfWeek = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
+            daysOfWeek.forEach(day => {
+                const dayHeader = document.createElement("div");
+                dayHeader.className = "calendar-header-day";
+                dayHeader.textContent = day;
+                container.appendChild(dayHeader);
+            });
+
+            // Make a simulated 35-day grid for May 2026 (assuming today is May 19th)
+            // May 2026 starts on Friday (Friday = Day 4 in 0-indexed Lun-Dom)
+            const startOffset = 4;
+            const totalDays = 31;
+            
+            for (let i = 0; i < 35; i++) {
+                const dayNum = i - startOffset + 1;
+                const cell = document.createElement("div");
+                
+                if (dayNum <= 0 || dayNum > totalDays) {
+                    cell.className = "calendar-day";
+                    cell.style.opacity = "0.15";
+                    cell.style.pointerEvents = "none";
+                    cell.innerHTML = `<span class="calendar-day-num"></span>`;
+                } else {
+                    const isToday = dayNum === 19;
+                    const dayString = `2026-05-${String(dayNum).padStart(2, '0')}`;
+                    const dayEvents = posts.filter(p => p.scheduled_time && p.scheduled_time.startsWith(dayString));
+                    
+                    const hasEvents = dayEvents.length > 0;
+                    const isSelected = selectedCalendarDayNum === dayNum;
+                    
+                    cell.className = `calendar-day ${isToday ? 'today' : ''} ${hasEvents ? 'has-posts' : ''} ${isSelected ? 'selected' : ''}`;
+                    
+                    let eventsHtml = "";
+                    if (hasEvents) {
+                        eventsHtml = `<div class="calendar-events">`;
+                        dayEvents.forEach(evt => {
+                            const color = evt.status === "Pubblicato" ? "var(--accent-primary)" : "var(--accent-info)";
+                            const title = evt.type === "Reels" ? "🎬 Reel" : evt.type === "Carousel" ? "📚 Carosello" : "📸 Post";
+                            eventsHtml += `<div class="calendar-dot" style="background:${color};" title="${title}: ${evt.generated_copy.substring(0, 40)}..."></div>`;
+                        });
+                        eventsHtml += `</div>`;
+                    }
+
+                    cell.innerHTML = `
+                        <span class="calendar-day-num">${dayNum}</span>
+                        ${eventsHtml}
+                    `;
+                    
+                    // Attach click handler to inspect days
+                    cell.onclick = () => selectCalendarDay(dayNum);
+                }
+                
+                container.appendChild(cell);
+            }
+        }
+
+        // Select calendar day to inspect scheduled posts
+        function selectCalendarDay(dayNum) {
+            selectedCalendarDayNum = dayNum;
+            
+            // Highlight clicked calendar cell
+            renderCalendar();
+            
+            const dayString = `2026-05-${String(dayNum).padStart(2, '0')}`;
+            const dayEvents = posts.filter(p => p.scheduled_time && p.scheduled_time.startsWith(dayString));
+            
+            const detailsPanel = document.getElementById("calendarDayDetails");
+            const detailsTitle = document.getElementById("calendarDayTitle");
+            const detailsBody = document.getElementById("calendarDayBody");
+            
+            detailsPanel.style.display = "block";
+            detailsTitle.innerHTML = `<i class="fa-solid fa-calendar-day" style="color: var(--accent-primary);"></i> Programmazione per il <strong>${dayNum} Maggio 2026</strong>`;
+            
+            detailsBody.innerHTML = "";
+            
+            if (dayEvents.length === 0) {
+                detailsBody.innerHTML = `
+                    <div style="text-align:center; padding: 1.5rem; color: var(--text-muted); font-size: 0.85rem;">
+                        <i class="fa-solid fa-calendar-xmark" style="font-size:1.5rem; margin-bottom: 0.5rem; display:block; color:var(--text-muted);"></i>
+                        Nessun post programmato per questa giornata.<br>
+                        Seleziona un post in coda d'approvazione a sinistra per pianificarlo in questo giorno.
+                    </div>
+                `;
+                return;
+            }
+            
+            dayEvents.forEach(evt => {
+                const item = document.createElement("div");
+                item.className = "calendar-detail-item";
+                
+                const time = evt.scheduled_time.split(" ")[1] || "18:00";
+                const isPub = evt.status === "Pubblicato";
+                const statusBadge = isPub
+                    ? `<span class="badge" style="background: rgba(16, 185, 129, 0.1); color: var(--accent-primary); font-size:0.7rem;">Pubblicato</span>`
+                    : `<span class="badge" style="background: rgba(14, 165, 233, 0.1); color: var(--accent-info); font-size:0.7rem;">Pianificato</span>`;
+                
+                const formatIcon = evt.type === "Reels" 
+                    ? `<i class="fa-solid fa-film" style="color: var(--accent-secondary);" title="Reel"></i>`
+                    : evt.type === "Carousel"
+                    ? `<i class="fa-solid fa-images" style="color: var(--accent-primary);" title="Carosello"></i>`
+                    : `<i class="fa-solid fa-image" style="color: var(--accent-info);" title="Post"></i>`;
+
+                item.innerHTML = `
+                    <div class="calendar-detail-left">
+                        <img class="calendar-detail-thumb" src="${evt.media_path}" alt="Thumb">
+                        <div class="calendar-detail-meta">
+                            <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap: wrap;">
+                                ${formatIcon}
+                                <span class="calendar-detail-time">Ore ${time}</span>
+                                ${statusBadge}
+                            </div>
+                            <div style="color: var(--text-muted); font-size:0.75rem; margin-top:2px; text-align: left;">
+                                ${evt.generated_copy.substring(0, 90)}...
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" style="font-size:0.75rem; padding: 0.4rem 0.75rem; min-width: 160px; justify-content: center;" onclick="loadPostFromCalendar('${evt.id}')">
+                        <i class="fa-solid fa-magnifying-glass"></i> Anteprima & Modifica
+                    </button>
+                `;
+                detailsBody.appendChild(item);
+            });
+        }
+        
+        // Helper to load post directly from calendar row clicking
+        function loadPostFromCalendar(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (post) {
+                selectPost(post);
+                // Scroll smoothly to editor workspace
+                document.getElementById("editorActiveWorkspace").scrollIntoView({ behavior: 'smooth' });
+                showToast("Post caricato nel simulatore con successo!", "success");
+            }
+        }
+
+        // Close details drawer
+        function closeCalendarDayDetails() {
+            document.getElementById("calendarDayDetails").style.display = "none";
+            selectedCalendarDayNum = null;
+            renderCalendar();
+        }
+
+        // Initialize Analytics Chart (Chart.js)
+        function initAnalyticsChart() {
+            const canvas = document.getElementById("analyticsChart");
+            const ctx = canvas.getContext("2d");
+
+            // Extract historical data
+            const published = posts.filter(p => p.status === "Pubblicato");
+            
+            // Labels (Dates)
+            const labels = published.map(p => p.published_date ? p.published_date.split(" ")[0].substring(5) : "");
+            
+            // Datasets
+            const likesData = published.map(p => p.engagement?.likes || 0);
+            const commentsData = published.map(p => p.engagement?.comments || 0);
+            const reachData = published.map(p => p.engagement?.reach || 0);
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Likes',
+                            data: likesData,
+                            backgroundColor: 'rgba(244, 63, 94, 0.6)',
+                            borderColor: 'rgba(244, 63, 94, 1)',
+                            borderWidth: 2,
+                            borderRadius: 6,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Commenti',
+                            data: commentsData,
+                            backgroundColor: 'rgba(14, 165, 233, 0.6)',
+                            borderColor: 'rgba(14, 165, 233, 1)',
+                            borderWidth: 2,
+                            borderRadius: 6,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Copertura (Reach)',
+                            data: reachData,
+                            type: 'line',
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#9ca3af' },
+                            title: { display: true, text: 'Likes & Commenti', color: '#9ca3af' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: { drawOnChartArea: false },
+                            ticks: { color: '#9ca3af' },
+                            title: { display: true, text: 'Reach (Visualizzazioni)', color: '#9ca3af' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: '#f3f4f6', font: { family: 'Outfit' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update Analytics Chart on publish
+        function updateAnalyticsChart() {
+            if (!chartInstance) return;
+            
+            const published = posts.filter(p => p.status === "Pubblicato");
+            
+            chartInstance.data.labels = published.map(p => p.published_date ? p.published_date.split(" ")[0].substring(5) : "");
+            chartInstance.data.datasets[0].data = published.map(p => p.engagement?.likes || 0);
+            chartInstance.data.datasets[1].data = published.map(p => p.engagement?.comments || 0);
+            chartInstance.data.datasets[2].data = published.map(p => p.engagement?.reach || 0);
+            
+            chartInstance.update();
+        }
+
+        // Custom Toast Notifications
+        function showToast(message, type = "success") {
+            const container = document.getElementById("toastContainer");
+            const toast = document.createElement("div");
+            toast.className = `toast ${type}`;
+            
+            let icon = "fa-check-circle";
+            if (type === "error") icon = "fa-exclamation-circle";
+            if (type === "warning") icon = "fa-info-circle";
+
+            toast.innerHTML = `
+                <i class="fa-solid ${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add("show"), 10);
+            
+            setTimeout(() => {
+                toast.classList.remove("show");
+                setTimeout(() => container.removeChild(toast), 300);
+            }, 4000);
+        }
+    </script>
+</body>
+</html>

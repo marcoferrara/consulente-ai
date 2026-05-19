@@ -1,0 +1,139 @@
+{
+  "association_profile": {
+    "name": "La Sorgente",
+    "legal_type": "APS (Associazione di Promozione Sociale)",
+    "runts_enrolled": true,
+    "constitution_date": "2021-03-15",
+    "headquarters": "Cagliari, Sardegna (Sede Operativa: Via Roma, Cagliari)",
+    "staff_count": 8,
+    "annual_budget": 45000.0,
+    "certifications": [
+      "Iscrizione Registro Regionale Associazioni Sardegna"
+    ],
+    "statute_scope": "Promozione e formazione nelle discipline dello spettacolo e del teatro musicale (musical); diffusione della Comunicazione Non Violenta (CNV) e delle tecniche di negoziazione cooperativa; inclusione sociale e scambi culturali giovanili."
+  },
+  "grants": [
+    {
+      "id": "erasmus-ka1-adults",
+      "title": "Erasmus+ Key Action 1 — Mobilità dello Staff (Educazione degli Adulti)",
+      "issuer": "Unione Europea / Agenzia Nazionale Erasmus+ INDIRE",
+      "budget_max": 60000,
+      "deadline": "2026-10-12",
+      "scope": "Finanziare la crescita formativa dei docenti e dello staff dell'accademia tramite corsi di formazione, job shadowing e scambi professionali all'estero presso altre accademie di musical europee.",
+      "category": "Erasmus+ & Mobilità",
+      "difficulty": "Media",
+      "financing_percentage": 100,
+      "description": "Bando europeo mirato a migliorare la qualità dell'educazione degli adulti in tutta Europa. Offre l'opportunità allo staff dell'accademia (insegnanti di canto, danza, recitazione e CNV) di partecipare a corsi strutturati di formazione e periodi di osservazione all'estero."
+    },
+    {
+      "id": "creative-europe-coop",
+      "title": "Creative Europe — Progetti di Cooperazione Culturale Europea",
+      "issuer": "Unione Europea / Commissione Europea",
+      "budget_max": 200000,
+      "deadline": "2026-11-28",
+      "scope": "Finanziare scambi culturali internazionali, spettacoli di musical co-prodotti con partner europei e la promozione della comunicazione non violenta applicata all'arte drammatica.",
+      "category": "Cultura & Arte",
+      "difficulty": "Alta (Consigliato Partenariato)",
+      "financing_percentage": 80,
+      "description": "Sostiene progetti di cooperazione transnazionale volti a rafforzare la creazione e la circolazione transnazionale di opere e artisti europei, e a migliorare la capacità dei settori culturali e creativi di affrontare le sfide digitali e sociali."
+    },
+    {
+      "id": "fse-sardegna-sociale",
+      "title": "POR FSE+ Sardegna — Inclusione Sociale e Formazione Territoriale",
+      "issuer": "Regione Autonoma della Sardegna — Assessorato del Lavoro",
+      "budget_max": 120000,
+      "deadline": "2026-09-05",
+      "scope": "Finanziare percorsi formativi di musical e comunicazione empatica gratuiti per giovani a rischio esclusione sociale e disoccupati nella provincia di Cagliari.",
+      "category": "Regionale Sardegna",
+      "difficulty": "Media-Alta",
+      "financing_percentage": 100,
+      "description": "Fondo Sociale Europeo mirato a supportare progetti di inclusione attiva e percorsi di formazione per favorire l'occupazione e contrastare il disagio giovanile sul territorio sardo."
+    },
+    {
+      "id": "fondazione-sardegna-arte",
+      "title": "Bando Arte, Attività e Beni Culturali — Fondazione di Sardegna",
+      "issuer": "Fondazione di Sardegna",
+      "budget_max": 25000,
+      "deadline": "2026-07-30",
+      "scope": "Finanziare la produzione di un musical sociale inedito incentrato sulla Comunicazione Non Violenta e la cooperazione giovanile, con tournée nei teatri storici della Sardegna.",
+      "category": "Locale & Fondazioni",
+      "difficulty": "Bassa-Media",
+      "financing_percentage": 70,
+      "description": "Contributi annuali per sostenere eventi, produzioni artistiche e festival che valorizzano il patrimonio culturale dell'isola e promuovono l'inclusione attraverso le arti performative."
+    },
+    {
+      "id": "pnrr-transizione-digitale",
+      "title": "TOCC PNRR — Transizione Digitale ed Ecologica Organismi Culturali",
+      "issuer": "Ministero della Cultura (MiC) / Invitalia",
+      "budget_max": 75000,
+      "deadline": "2026-08-15",
+      "scope": "Finanziare migliorie tecnologiche per la sede dell'accademia di Cagliari, inclusa l'acquisizione di sistemi audio-video digitali avanzati, software di realtà aumentata per scenografie, e interventi di efficientamento energetico.",
+      "category": "Tecnologia & Struttura",
+      "difficulty": "Media",
+      "financing_percentage": 80,
+      "description": "Contributi a fondo perduto volti a favorire l'innovazione digitale, tecnologica ed ecologica dei micro e piccoli organismi che operano nel settore dello spettacolo dal vivo e della cultura."
+    }
+  ],
+  "projects": [
+    {
+      "grant_id": "fse-sardegna-sociale",
+      "project_title": "Armonie di Inclusione: Musical, CNV e Scambi Giovanili per il Futuro della Sardegna",
+      "project_summary": "Il progetto mira a promuovere l'inclusione sociale e lo sviluppo territoriale attraverso l'arte del musical come strumento pedagogico innovativo. L'associazione 'La Sorgente' proporrà percorsi formativi in Comunicazione Non Violenta (CNV) e negoziazione cooperativa, potenziando le competenze relazionali e creative dei giovani. Saranno implementati scambi culturali per favorire la mobilità e l'apertura internazionale, con particolare attenzione alle opportunità professionali nel settore dello spettacolo. L'iniziativa contribuirà a creare nuove opportunità di occupazione e partecipazione attiva per i cittadini sardi.",
+      "key_actions": [
+        "Azione 1: Avvio di laboratori intensivi di Musical Theatre (canto, danza, recitazione) e workshop specifici sulla Comunicazione Non Violenta e tecniche di negoziazione cooperativa, rivolti a giovani e categorie fragili a Cagliari e in Sardegna.",
+        "Azione 2: Realizzazione di un programma di mobilità giovanile per scambi culturali europei, facilitando l'incontro con realtà accademiche e artistiche internazionali per l'apprendimento e la condivisione di buone pratiche nel settore dello spettacolo.",
+        "Azione 3: Produzione e messa in scena di uno spettacolo di musical originale, quale esito finale dei laboratori, che veicoli messaggi di inclusione e dialogo interculturale, con repliche aperte alla cittadinanza in teatri selezionati della Sardegna e momenti di valutazione delle competenze acquisite."
+      ],
+      "budget_draft": {
+        "costi_personale": "60000 €",
+        "costi_viaggio_mobilita": "20000 €",
+        "costi_attrezzature_tecnologiche": "15000 €",
+        "costi_consulenze_esterne": "10000 €",
+        "totale_stimato": "115000 €"
+      },
+      "checklist_documents": [
+        "Copia dello Statuto e dell'Atto Costitutivo dell'associazione registrati all'Agenzia delle Entrate.",
+        "Certificato di iscrizione al RUNTS (Registro Unico Nazionale del Terzo Settore).",
+        "Ultimi due bilanci consuntivi approvati dall'assemblea dei soci e relazione di missione.",
+        "Documento di identità e codice fiscale del Legale Rappresentante.",
+        "DURC (Documento Unico di Regolarità Contributiva) attestante la regolarità contributiva.",
+        "Curriculum vitae dei principali responsabili di progetto e dei docenti coinvolti.",
+        "Dichiarazione sostitutiva di atto di notorietà sull'assenza di cause di esclusione."
+      ],
+      "external_professionals": [
+        "Europrogettista senior (scrittura, coordinamento e rendicontazione candidatura).",
+        "Consulente del Lavoro (gestione contratti personale, buste paga, adempimenti fiscali).",
+        "Commercialista / Revisore dei Conti (supporto alla rendicontazione finanziaria e asseverazione spese).",
+        "Avvocato civilista (stesura accordi di partenariato nazionali e internazionali, gestione privacy).",
+        "Esperto in comunicazione e marketing (promozione del progetto e degli eventi finali)."
+      ],
+      "partnership_strategy": "Per conferire peso istituzionale e amplificare l'impatto del progetto, si intende coinvolgere attivamente il Conservatorio di Musica 'Giovanni Pierluigi da Palestrina' di Cagliari per la co-progettazione di moduli didattici e l'utilizzo di strutture. Saranno stabilite partnership con accademie di musical europee di riconosciuta eccellenza (es. accademie a Londra, Madrid o Berlino) per scambi giovanili e la definizione di standard formativi elevati. Si cercherà il patrocinio e la collaborazione dei Comuni della Sardegna, in particolare quello di Cagliari, per la diffusione degli eventi e il supporto logistico. Ulteriori collaborazioni saranno ricercate con associazioni del terzo settore attive nell'inclusione sociale e scuole superiori per il reclutamento dei partecipanti.",
+      "academic_path_advice": "1. Avviare un dialogo strutturato con la Facoltà di Studi Umanistici (Dipartimento di Filologia, Letteratura e Linguistica o di Storia, Beni Culturali e Territorio) dell'Università degli Studi di Cagliari per la creazione di un protocollo d'intesa che riconosca i moduli formativi specifici (es. dizione, storia del musical, comunicazione scenica, CNV applicata) come Crediti Formativi Universitari (CFU) per attività a scelta dello studente o come parte di tirocini curriculari. 2. Richiedere il patrocinio e il supporto dell'ERSU (Ente Regionale per il Diritto allo Studio Universitario) di Cagliari per borse di studio o agevolazioni per gli studenti universitari che partecipano ai corsi, aumentandone l'attrattiva e il riconoscimento. 3. Convenzionarsi con un Conservatorio di Musica statale (es. quello di Cagliari) o un'Accademia di Belle Arti per co-progettare e accreditare corsi di Alta Formazione Artistica e Musicale (AFAM) nel settore del Musical Theatre, ottenendo così un riconoscimento didattico a livello nazionale che può portare a diplomi accademici di I o II livello. 4. Esplorare la possibilità di creare un 'Master non universitario' o un 'Corso di perfezionamento' congiunto con l'Università di Cagliari o enti accreditati, con un focus sul Musical e le sue applicazioni sociali e pedagogiche, per un riconoscimento specialistico."
+    }
+  ],
+  "completed_requirements": {
+    "regione_sardegna": [
+      "Disponibilità di locali idonei allo svolgimento delle attività formative, conformi alle normative in materia di sicurezza, igiene, agibilità e abbattimento delle barriere architettoniche.",
+      "Forma Giuridica e Iscrizione al RUNTS",
+      "Regolarita Fiscale e Contributiva"
+    ]
+  },
+  "uploaded_documents": [
+    {
+      "document_name": "Statuto Adeguato CTS La Sorgente",
+      "description": "Statuto conforme alle direttive del Terzo Settore registrato all'AdE",
+      "filename": "Giustificazione Scritta",
+      "uploaded_at": "2026-05-19T10:00:00",
+      "certification_type": "regione_sardegna",
+      "requirement_name": "Forma Giuridica e Iscrizione al RUNTS"
+    },
+    {
+      "document_name": "DURC Regolare La Sorgente",
+      "description": "Documento Unico di Regolarita Contributiva valido fino al 31/12/2026",
+      "filename": "Giustificazione Scritta",
+      "uploaded_at": "2026-05-19T10:00:00",
+      "certification_type": "regione_sardegna",
+      "requirement_name": "Regolarita Fiscale e Contributiva"
+    }
+  ]
+}

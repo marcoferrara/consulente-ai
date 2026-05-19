@@ -102,6 +102,7 @@
         .hero-vignette {
             position:absolute; inset:0;
             background:radial-gradient(ellipse at 30% 60%, transparent 30%, rgba(7,9,14,.75) 100%);
+            pointer-events:none;
         }
         .hero-content {
             position:relative; z-index:10;
@@ -1470,54 +1471,234 @@
     const ctx = canvas.getContext('2d');
     let nodes = [], W, H;
     const N = 65, MAX_D = 145;
+    
+    // Sardinia geometry vector matching the map in the territory section
+    const SARD_PATH_STR = "M62,68 C76,80 81,84 86,88 C104,83 115,78 126,77 C152,66 170,40 187,23 C208,30 225,46 242,63 C250,72 254,77 256,82 C258,110 257,130 255,136 C253,152 250,162 247,178 C248,200 251,225 251,240 C253,241 255,241 256,241 C254,266 248,298 235,326 C231,345 229,364 227,378 C218,385 205,392 193,393 C186,392 180,378 178,358 C175,344 169,371 162,401 C146,413 131,418 115,420 C105,418 95,406 91,382 C87,372 84,366 82,358 C80,342 77,314 76,288 C75,268 82,252 97,248 C93,240 89,232 90,229 C93,220 96,210 97,205 C99,193 99,184 98,177 C94,161 84,148 76,135 C68,135 58,135 57,135 C54,126 52,110 52,97 C52,84 56,75 62,68 Z";
+    
+    let rawSardiniaPoints = [];
+    let lastMouseMoveTime = Date.now();
+    let idleMode = false;
+    let sardiniaRatio = 0;
+    let hx = -9999, hy = -9999;
 
     function resize() {
         W = canvas.width  = canvas.offsetWidth;
         H = canvas.height = canvas.offsetHeight;
     }
 
+    // Helper to ease transition curves smoothly
+    function easeInOutCubic(x) {
+        return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    }
+
+    // Generate accurate geometry points inside/outline of Sardinia SVG path
+    function getSardiniaPoints(numPoints) {
+        const svgNS = "http://www.w3.org/2000/svg";
+        const path = document.createElementNS(svgNS, "path");
+        path.setAttribute("d", SARD_PATH_STR);
+        
+        const points = [];
+        
+        // 1. Core Cities (5 points, precise coordinates on 320x440 viewport)
+        const cities = [
+            { x: 178, y: 358, isCity: true, name: "Cagliari" },
+            { x: 106, y: 106, isCity: true, name: "Sassari" },
+            { x: 226, y: 75, isCity: true, name: "Olbia" },
+            { x: 205, y: 175, isCity: true, name: "Nuoro" },
+            { x: 110, y: 245, isCity: true, name: "Oristano" }
+        ];
+        cities.forEach(c => points.push(c));
+        
+        // 2. Outline points (precise sampling along the coastline path)
+        const outlineCount = 38;
+        try {
+            const totalLen = path.getTotalLength();
+            for (let i = 0; i < outlineCount; i++) {
+                const len = (i / outlineCount) * totalLen;
+                const pt = path.getPointAtLength(len);
+                points.push({ x: pt.x, y: pt.y, isOutline: true });
+            }
+        } catch (e) {
+            console.error("SVG path length sampling error: ", e);
+        }
+        
+        // 3. Interior points (fill the landmass using Canvas Path2D test)
+        const canvasTest = document.createElement('canvas');
+        const ctxTest = canvasTest.getContext('2d');
+        const path2D = new Path2D(SARD_PATH_STR);
+        
+        let attempts = 0;
+        const interiorCount = numPoints - points.length;
+        while (points.length < numPoints && attempts < 1000) {
+            attempts++;
+            // Bounding box of the original Sardinia coordinates
+            const rx = 52 + Math.random() * (256 - 52);
+            const ry = 23 + Math.random() * (420 - 23);
+            if (ctxTest.isPointInPath(path2D, rx, ry)) {
+                points.push({ x: rx, y: ry, isInterior: true });
+            }
+        }
+        
+        // Safety fallback if interior loops hit attempt limits
+        while (points.length < numPoints) {
+            points.push({ x: 160 + (Math.random() - 0.5) * 80, y: 220 + (Math.random() - 0.5) * 120 });
+        }
+        
+        return points;
+    }
+
+    // Scale target points coordinates according to responsive viewport columns
+    function updateTargetPoints() {
+        let sardW, sardH, sardX, sardY;
+        
+        if (W > 900) {
+            // Desktop: right half empty space next to hero text
+            sardW = Math.min(Math.max(W * 0.28, 220), 400);
+            sardH = sardW * (440 / 320);
+            sardX = W * 0.65;
+            sardY = H * 0.5 - sardH * 0.5;
+        } else {
+            // Mobile: centered background behind text with low opacity styling
+            sardW = Math.min(W * 0.65, 250);
+            sardH = sardW * (440 / 320);
+            sardX = W * 0.5 - sardW * 0.5;
+            sardY = H * 0.5 - sardH * 0.5;
+        }
+        
+        for (let i = 0; i < N; i++) {
+            if (nodes[i] && rawSardiniaPoints[i]) {
+                nodes[i].targetX = sardX + (rawSardiniaPoints[i].x / 320) * sardW;
+                nodes[i].targetY = sardY + (rawSardiniaPoints[i].y / 440) * sardH;
+            }
+        }
+    }
+
     function initNodes() {
+        rawSardiniaPoints = getSardiniaPoints(N);
         nodes = [];
         for (let i = 0; i < N; i++) {
+            const isCity = rawSardiniaPoints[i].isCity || false;
+            const r = isCity ? 3.5 : (Math.random() * 1.3 + 0.4);
+            
             nodes.push({
-                x:  Math.random() * W,
-                y:  Math.random() * H,
+                floatX: Math.random() * W,
+                floatY: Math.random() * H,
+                x: 0,
+                y: 0,
                 vx: (Math.random() - .5) * .35,
                 vy: (Math.random() - .5) * .35,
-                r:  Math.random() * 1.4 + .4
+                r: r,
+                origR: r,
+                isCity: isCity,
+                name: rawSardiniaPoints[i].name || "",
+                targetX: 0,
+                targetY: 0
             });
         }
+        updateTargetPoints();
     }
 
     resize();
     initNodes();
-    window.addEventListener('resize', () => { resize(); initNodes(); });
+    
+    // Dynamic resizing: update targets coordinates without resetting physical nodes position
+    window.addEventListener('resize', () => { 
+        resize(); 
+        updateTargetPoints(); 
+    });
 
-    let hx = -9999, hy = -9999;
-    canvas.addEventListener('mousemove', e => {
+    window.addEventListener('mousemove', e => {
         const r = canvas.getBoundingClientRect();
         hx = e.clientX - r.left;
         hy = e.clientY - r.top;
+        lastMouseMoveTime = Date.now();
+        idleMode = false;
+    });
+
+    window.addEventListener('touchmove', e => {
+        if (e.touches.length > 0) {
+            const r = canvas.getBoundingClientRect();
+            hx = e.touches[0].clientX - r.left;
+            hy = e.touches[0].clientY - r.top;
+            lastMouseMoveTime = Date.now();
+            idleMode = false;
+        }
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => {
+        hx = -9999;
+        hy = -9999;
     });
 
     function draw() {
         ctx.clearRect(0, 0, W, H);
-
+        const now = Date.now();
+        
+        // Enter shape idle mode after 2.5 seconds of absolute user inactivity
+        if (now - lastMouseMoveTime > 2500) {
+            idleMode = true;
+        }
+        
+        // Asymptotical transition interpolation curves
+        if (idleMode) {
+            sardiniaRatio += (1 - sardiniaRatio) * 0.045;
+        } else {
+            sardiniaRatio += (0 - sardiniaRatio) * 0.07;
+        }
+        
+        const t = easeInOutCubic(sardiniaRatio);
+        
+        // 1. Physics update and layout interpolation
+        for (let i = 0; i < nodes.length; i++) {
+            const node = nodes[i];
+            
+            // Continuous background float updates
+            node.floatX += node.vx;
+            node.floatY += node.vy;
+            
+            if (node.floatX < 0 || node.floatX > W) node.vx *= -1;
+            if (node.floatY < 0 || node.floatY > H) node.vy *= -1;
+            
+            // Render position transition
+            node.x = node.floatX + (node.targetX - node.floatX) * t;
+            node.y = node.floatY + (node.targetY - node.floatY) * t;
+            
+            // Liquid ripple repulsion force
+            const mdx = node.x - hx;
+            const mdy = node.y - hy;
+            const md  = Math.sqrt(mdx*mdx + mdy*mdy);
+            if (md < 150) {
+                const force = (1 - md / 150) * 55;
+                const angle = Math.atan2(mdy, mdx);
+                node.x += Math.cos(angle) * force;
+                node.y += Math.sin(angle) * force;
+            }
+        }
+        
+        // 2. Render networks nodes connections
         for (let i = 0; i < nodes.length; i++) {
             for (let j = i + 1; j < nodes.length; j++) {
                 const dx = nodes[i].x - nodes[j].x;
                 const dy = nodes[i].y - nodes[j].y;
                 const d = Math.sqrt(dx*dx + dy*dy);
+                
                 if (d < MAX_D) {
                     ctx.beginPath();
                     ctx.moveTo(nodes[i].x, nodes[i].y);
                     ctx.lineTo(nodes[j].x, nodes[j].y);
-                    ctx.strokeStyle = `rgba(200,167,107,${(1 - d/MAX_D) * .13})`;
-                    ctx.lineWidth = .5;
+                    
+                    // Increase line opacity in shape state to emphasize structure cohesion
+                    const baseOpacity = 0.13;
+                    const shapeBonus = 0.08 * t;
+                    const opacity = (1 - d / MAX_D) * (baseOpacity + shapeBonus);
+                    
+                    ctx.strokeStyle = `rgba(200, 167, 107, ${opacity})`;
+                    ctx.lineWidth = 0.5;
                     ctx.stroke();
                 }
             }
-
+            
+            // Render subtle active links directly connecting to mouse cursor
             const mdx = nodes[i].x - hx;
             const mdy = nodes[i].y - hy;
             const md  = Math.sqrt(mdx*mdx + mdy*mdy);
@@ -1525,23 +1706,52 @@
                 ctx.beginPath();
                 ctx.moveTo(nodes[i].x, nodes[i].y);
                 ctx.lineTo(hx, hy);
-                ctx.strokeStyle = `rgba(200,167,107,${(1 - md/160) * .38})`;
-                ctx.lineWidth = .8;
+                const mouseOpacityRatio = 1 - 0.4 * t;
+                ctx.strokeStyle = `rgba(200, 167, 107, ${(1 - md / 160) * 0.38 * mouseOpacityRatio})`;
+                ctx.lineWidth = 0.7;
                 ctx.stroke();
             }
-
-            ctx.beginPath();
-            ctx.arc(nodes[i].x, nodes[i].y, nodes[i].r, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(200,167,107,.55)';
-            ctx.fill();
-
-            nodes[i].x += nodes[i].vx;
-            nodes[i].y += nodes[i].vy;
-            if (nodes[i].x < 0 || nodes[i].x > W) nodes[i].vx *= -1;
-            if (nodes[i].y < 0 || nodes[i].y > H) nodes[i].vy *= -1;
         }
+        
+        // 3. Render final stellar nodes & labels
+        for (let i = 0; i < nodes.length; i++) {
+            const node = nodes[i];
+            
+            // Draw city highlights (pulsing neon star cores & micro labels)
+            if (node.isCity && sardiniaRatio > 0.05) {
+                const glowOpacity = Math.sin(now * 0.003) * 0.22 + 0.38;
+                const activeGlow = glowOpacity * t;
+                
+                ctx.beginPath();
+                const grad = ctx.createRadialGradient(node.x, node.y, 1, node.x, node.y, 10);
+                grad.addColorStop(0, `rgba(200, 167, 107, ${activeGlow})`);
+                grad.addColorStop(1, 'rgba(200, 167, 107, 0)');
+                ctx.fillStyle = grad;
+                ctx.arc(node.x, node.y, 10, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw uppercase typography labels matching SVG
+                ctx.beginPath();
+                ctx.fillStyle = `rgba(200, 167, 107, ${t * 0.78})`;
+                ctx.font = "400 8px 'Jost', sans-serif";
+                ctx.textAlign = "left";
+                ctx.textBaseline = "middle";
+                ctx.fillText(node.name.toUpperCase(), node.x + 10, node.y + 1);
+            }
+            
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
+            if (node.isCity) {
+                ctx.fillStyle = `rgba(200, 167, 107, ${0.6 + 0.4 * t})`;
+            } else {
+                ctx.fillStyle = 'rgba(200, 167, 107, 0.55)';
+            }
+            ctx.fill();
+        }
+        
         requestAnimationFrame(draw);
     }
+    
     draw();
 
     /* ── SCROLL REVEAL ── */

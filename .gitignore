@@ -14,3 +14,6 @@ venv/
 .DS_Store
 Thumbs.db
 *.log
+
+# Large Files (GitHub 100MB Limit)
+progetti/meneesco/Manuale Meneesco finale .pdf

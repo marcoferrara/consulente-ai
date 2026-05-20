@@ -1,0 +1,106 @@
+FASE DI DEPLOY — La Sorgente (Hub Operativo Bandi AI)
+======================================================
+Ultimo aggiornamento: 2026-05-20
+
+
+1. PULIRE IL PACKAGE
+--------------------
+Prima di consegnare la cartella al cliente, escludere i seguenti elementi:
+
+  - venv/          → rigenerabile dal cliente con "pip install -r requirements.txt"
+  - .env           → contiene la chiave Gemini personale del consulente, NON condividere
+  - uploads/       → documenti caricati durante le sessioni di test (dati di prova)
+
+Il resto della cartella può essere zippato e consegnato as-is.
+
+
+2. DATABASE.JSON — COSA FARE
+-----------------------------
+Il file database.json contiene già i dati reali di La Sorgente:
+  - Profilo associazione compilato (APS, Cagliari, RUNTS, budget 45.000€)
+  - 5 bandi già caricati
+  - 1 bozza progetto generata
+  - 2 documenti caricati
+
+OPZIONE A (consigliata): consegnarlo com'è → il cliente parte con tutto già popolato.
+OPZIONE B: azzerarlo → il cliente ricomincia da zero compilando il profilo dalla UI.
+
+
+3. API KEY GEMINI PER IL CLIENTE
+----------------------------------
+Il cliente ha bisogno di una propria chiave API gratuita di Google Gemini.
+
+Istruzioni da dare al cliente:
+  1. Andare su https://aistudio.google.com
+  2. Accedere con un account Google
+  3. Cliccare "Get API Key" → "Create API key"
+  4. Copiare la chiave generata
+  5. Incollarla nel file .env nella riga: GEMINI_API_KEY=la_chiave_qui
+
+Il tier gratuito di Gemini 2.5 Flash è sufficiente per l'utilizzo normale dell'app.
+
+
+4. FILE .ENV DA CREARE PER IL CLIENTE
+---------------------------------------
+Creare un file chiamato ".env" nella cartella del progetto con questo contenuto:
+
+  GEMINI_API_KEY=inserisci_qui_la_tua_chiave_gemini
+
+(Non includere virgolette attorno alla chiave.)
+
+
+5. ISTRUZIONI DI AVVIO PER IL CLIENTE
+---------------------------------------
+Il cliente deve avere Python 3.9 o superiore installato sul proprio computer.
+
+Sequenza di comandi da eseguire una sola volta (installazione):
+  1. Aprire il terminale nella cartella del progetto
+  2. python3 -m venv venv
+  3. source venv/bin/activate        (Mac/Linux)
+     oppure: venv\Scripts\activate   (Windows)
+  4. pip install -r requirements.txt
+
+Per avviare l'applicazione ogni volta:
+  1. source venv/bin/activate   (o venv\Scripts\activate su Windows)
+  2. uvicorn app:app --host 127.0.0.1 --port 8081 --reload
+
+L'app sarà accessibile dal browser all'indirizzo: http://localhost:8081
+
+
+6. OPZIONI DI DEPLOYMENT (in ordine di semplicità)
+----------------------------------------------------
+LOCALE (avvio manuale):
+  Pro:  zero costi, nessun server da gestire
+  Contro: il PC deve essere acceso, non accessibile da altri dispositivi
+
+RENDER.COM (cloud gratuito):
+  Pro:  sempre online, link condivisibile con chiunque
+  Come: creare account su render.com, collegare la cartella del progetto,
+        impostare GEMINI_API_KEY come variabile d'ambiente nel pannello Render,
+        il comando di avvio è: uvicorn app:app --host 0.0.0.0 --port $PORT
+  Contro: il servizio gratuito si "addormenta" dopo 15 minuti di inattività
+
+VPS (es. Hetzner CX11 a ~5€/mese):
+  Pro:  controllo totale, dominio custom, sempre attivo
+  Contro: richiede conoscenze Linux di base per la configurazione
+
+
+7. PROBLEMI NOTI DA RISOLVERE PRIMA DELLA PRODUZIONE
+------------------------------------------------------
+a) Il nome "La Sorgente" è hardcoded in 3 punti del file app.py nei prompt
+   inviati a Gemini, invece di essere letto dinamicamente dal profilo nel
+   database. Se il cliente cambia il nome dalla UI, il comportamento dell'AI
+   non cambia. → Da correggere in app.py prima del deploy finale.
+
+b) Non è presente alcun sistema di autenticazione. Chiunque abbia il link
+   all'app può utilizzarla e consumare la quota della API key del cliente.
+   → Valutare l'aggiunta di una password di accesso semplice (HTTP Basic Auth)
+   prima di rendere l'app pubblica su un server remoto.
+
+
+8. CARTELLA social_media_automation/
+--------------------------------------
+La sottocartella social_media_automation/ contiene un progetto separato
+(automazione social per La Sorgente) con il proprio app.py, database.json
+e requirements.txt. Decidere se includerla nella consegna o consegnarla
+separatamente in una fase successiva.

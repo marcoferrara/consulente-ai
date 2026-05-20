@@ -1,8 +1,8 @@
 {
   "association_profile": {
     "name": "La Sorgente",
-    "legal_type": "APS (Associazione di Promozione Sociale)",
-    "runts_enrolled": true,
+    "legal_type": "Associazione Culturale",
+    "runts_enrolled": false,
     "constitution_date": "2021-03-15",
     "headquarters": "Cagliari, Sardegna (Sede Operativa: Via Roma, Cagliari)",
     "staff_count": 8,
@@ -72,6 +72,18 @@
       "difficulty": "Media",
       "financing_percentage": 80,
       "description": "Contributi a fondo perduto volti a favorire l'innovazione digitale, tecnologica ed ecologica dei micro e piccoli organismi che operano nel settore dello spettacolo dal vivo e della cultura."
+    },
+    {
+      "id": "fallback-fondazione-sardegna-cultura",
+      "title": "Bando Cultura Viva — Fondazione di Sardegna 2026",
+      "issuer": "Fondazione di Sardegna",
+      "budget_max": 50000,
+      "deadline": "2026-07-15",
+      "scope": "Supporta progetti culturali e di spettacolo dal vivo radicati nel territorio sardo, con particolare attenzione alla formazione giovanile e al teatro musicale.",
+      "category": "Cultura & Arte",
+      "difficulty": "Media",
+      "financing_percentage": 80,
+      "description": "Ammesse APS, ODV, ASD e ETS con sede in Sardegna. Sono finanziabili costi di personale docente, noleggio sale, produzione scenica e promozione. Cofinanziamento minimo del 20% richiesto. Presentazione online tramite portale FOL."
     }
   ],
   "projects": [

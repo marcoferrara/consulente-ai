@@ -402,6 +402,10 @@
             color: #a855f7; /* Purple */
         }
 
+        .term-red {
+            color: #ef4444;
+        }
+
         .actions-bar {
             display: flex;
             justify-content: flex-end;
@@ -830,7 +834,233 @@
         footer a:hover {
             text-decoration: underline;
         }
+        /* ROI Panel Widget */
+        .roi-panel {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(30, 41, 73, 0.4) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+        .roi-percentage {
+            font-size: 0.75rem;
+            color: var(--accent-color);
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        @media (max-width: 640px) {
+            .roi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .roi-metric {
+            background: rgba(30, 41, 73, 0.2);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            transition: all 0.3s ease;
+        }
+        .roi-metric:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+        .roi-metric.highlight {
+            background: rgba(16, 185, 129, 0.06);
+            border-color: rgba(16, 185, 129, 0.25);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.05);
+        }
+        .metric-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+        .metric-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: var(--font-display);
+            color: #fff;
+        }
+        .metric-value.text-green {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+        }
+        .metric-trend {
+            font-size: 0.68rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .metric-trend.text-green { color: var(--accent-color); }
+        .metric-trend.text-blue { color: var(--accent-blue); }
+
+        /* Floor Plan Interattivo */
+        .floor-plan-legend {
+            display: flex;
+            gap: 0.8rem;
+            font-size: 0.72rem;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-secondary);
+        }
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .legend-dot.green { background-color: var(--accent-color); box-shadow: 0 0 6px var(--accent-color); }
+        .legend-dot.orange { background-color: var(--accent-gold); box-shadow: 0 0 6px var(--accent-gold); }
+        .legend-dot.red { background-color: #ef4444; box-shadow: 0 0 6px #ef4444; }
+
+        .floor-plan-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.6rem;
+            background: rgba(10, 15, 30, 0.4);
+            border: 1px solid var(--border-color);
+            padding: 0.85rem;
+            border-radius: 12px;
+        }
+        @media (max-width: 640px) {
+            .floor-plan-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .floor-zone {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            padding: 0.75rem;
+            grid-column: span 2;
+        }
+        .spa-zone i { color: #a855f7; font-size: 1.1rem; }
+        .reception-zone i { color: var(--accent-blue); font-size: 1.1rem; }
+
+        .room-cell {
+            background: rgba(30, 41, 73, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.6rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            font-family: var(--font-display);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 62px;
+            position: relative;
+        }
+        .room-cell small {
+            font-size: 0.6rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 0.1rem;
+            display: block;
+        }
+        .room-cell.status-green {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.05);
+            color: var(--accent-color);
+        }
+        .room-cell.status-green:hover {
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.25);
+            transform: scale(1.02);
+            border-color: var(--accent-color);
+        }
+        .room-cell.status-orange {
+            border-color: rgba(245, 158, 11, 0.3);
+            background: rgba(245, 158, 11, 0.05);
+            color: var(--accent-gold);
+            animation: glowOrange 2s infinite ease-in-out;
+        }
+        .room-cell.status-orange:hover {
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+            transform: scale(1.02);
+            border-color: var(--accent-gold);
+        }
+        .room-cell.status-red {
+            border-color: rgba(239, 68, 68, 0.3);
+            background: rgba(239, 68, 68, 0.05);
+            color: #fca5a5;
+        }
+        .room-cell.status-red:hover {
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.25);
+            transform: scale(1.02);
+            border-color: #ef4444;
+        }
+
+        @keyframes glowOrange {
+            0%, 100% { box-shadow: inset 0 0 8px rgba(245, 158, 11, 0.05); }
+            50% { box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.15), 0 0 6px rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.5); }
+        }
+
+        /* Chat Image Render */
+        .chat-image-card {
+            margin: 0.5rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            max-width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s ease;
+        }
+        .chat-image-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+        .chat-card-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            display: block;
+        }
+        .chat-card-title {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #e9edef;
+            background: rgba(32, 44, 51, 0.95);
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-family: var(--font-display);
+        }
+
+        /* Avatar Sanna con immagine */
+        .wa-avatar {
+            background-image: url('http://localhost:8000/static/sanna_avatar.png');
+            background-size: cover;
+            background-position: center;
+            text-indent: -9999px; /* nasconde la S */
+        }
     </style>
+
 </head>
 <body>
 
@@ -852,6 +1082,34 @@
         
         <!-- DASHBOARD DI CONTROLLO -->
         <div class="control-room">
+            
+            <!-- ROI DIRECT BOOKING WIDGET -->
+            <div class="panel roi-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-chart-line" style="color: var(--accent-color);"></i>
+                        <span>Direct Booking ROI & Analytics</span>
+                    </div>
+                    <span class="roi-percentage"><i class="fa-solid fa-piggy-bank"></i> Risparmio Commissioni: 18%</span>
+                </div>
+                <div class="roi-grid">
+                    <div class="roi-metric">
+                        <div class="metric-label">Valore Totale Opzionato</div>
+                        <div class="metric-value" id="roi-total-val">0.00€</div>
+                        <div class="metric-trend text-green"><i class="fa-solid fa-arrow-trend-up"></i> Live Chat AI</div>
+                    </div>
+                    <div class="roi-metric highlight">
+                        <div class="metric-label">Commissioni OTA Risparmiate</div>
+                        <div class="metric-value text-green" id="roi-savings-val">0.00€</div>
+                        <div class="metric-trend"><i class="fa-solid fa-circle-check"></i> Margine Diretto Netto</div>
+                    </div>
+                    <div class="roi-metric">
+                        <div class="metric-label">Tasso di Conversione Chat</div>
+                        <div class="metric-value">28.4%</div>
+                        <div class="metric-trend text-blue"><i class="fa-solid fa-robot"></i> +12% vs Form Standard</div>
+                    </div>
+                </div>
+            </div>
             
             <!-- INVENTARIO CAMERE LIVE -->
             <div class="panel">
@@ -888,6 +1146,44 @@
                             <span class="room-availability low">1 Libera</span>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- FLOOR PLAN INTERATTIVO -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-map-location-dot" style="color: var(--accent-gold);"></i>
+                        <span>Floor Plan Interattivo - Live PMS Map</span>
+                    </div>
+                    <div class="floor-plan-legend">
+                        <span class="legend-item"><span class="legend-dot green"></span> Libera</span>
+                        <span class="legend-item"><span class="legend-dot orange"></span> Opzione 24h</span>
+                        <span class="legend-item"><span class="legend-dot red"></span> Occupata</span>
+                    </div>
+                </div>
+                <div class="floor-plan-grid">
+                    <div class="floor-zone spa-zone">
+                        <i class="fa-solid fa-spa"></i>
+                        <span>S'Antiga SPA & Relax</span>
+                    </div>
+                    <div class="floor-zone reception-zone">
+                        <i class="fa-solid fa-bell-concierge"></i>
+                        <span>Reception & Lobby</span>
+                    </div>
+                    
+                    <div class="room-cell classic" id="cell-101" title="Clicca per dettagli camera">101<small>Classic</small></div>
+                    <div class="room-cell classic" id="cell-102" title="Clicca per dettagli camera">102<small>Classic</small></div>
+                    <div class="room-cell classic" id="cell-103" title="Clicca per dettagli camera">103<small>Classic</small></div>
+                    <div class="room-cell classic" id="cell-104" title="Clicca per dettagli camera">104<small>Classic</small></div>
+                    <div class="room-cell classic" id="cell-105" title="Clicca per dettagli camera">105<small>Classic</small></div>
+                    
+                    <div class="room-cell deluxe" id="cell-201" title="Clicca per dettagli camera">201<small>Deluxe</small></div>
+                    <div class="room-cell deluxe" id="cell-202" title="Clicca per dettagli camera">202<small>Deluxe</small></div>
+                    <div class="room-cell deluxe" id="cell-203" title="Clicca per dettagli camera">203<small>Deluxe</small></div>
+                    
+                    <div class="room-cell suite" id="cell-301" title="Clicca per dettagli camera">301<small>Suite</small></div>
+                    <div class="room-cell suite" id="cell-302" title="Clicca per dettagli camera">302<small>Suite</small></div>
                 </div>
             </div>
 
@@ -974,9 +1270,9 @@
                             <div class="wa-user-status" id="wa-status">online</div>
                         </div>
                         <div class="wa-actions">
+                            <i class="fa-solid fa-bell" id="audio-toggle" title="Disattiva Suoni" onclick="toggleAudio()" style="margin-right: 0.25rem;"></i>
                             <i class="fa-solid fa-video"></i>
                             <i class="fa-solid fa-phone"></i>
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
                         </div>
                     </div>
 
@@ -1137,40 +1433,41 @@
         function renderHolds(holds) {
             const container = document.getElementById('holds-container');
             const counter = document.getElementById('holds-counter');
-            
-            counter.innerText = `${holds.length} active`;
+
+            counter.innerText = `${holds.length} attive`;
 
             if (holds.length === 0) {
                 container.innerHTML = `<div class="no-holds">Nessun blocco provvisorio attivo nel PMS in questo momento.</div>`;
-                return;
+            } else {
+                container.innerHTML = '';
+                holds.forEach(hold => {
+                    const item = document.createElement('div');
+                    item.className = 'hold-item';
+
+                    const roomNames = {
+                        "deluxe_mare": "Deluxe Vista Mare",
+                        "junior_suite": "Junior Suite con Jacuzzi",
+                        "classic_giardino": "Classic Vista Giardino"
+                    };
+                    const roomName = roomNames[hold.room_type_id] || hold.room_type_id;
+
+                    item.innerHTML = `
+                        <div class="hold-details">
+                            <h4>${hold.guest_name}</h4>
+                            <p><i class="fa-solid fa-calendar-days"></i> ${hold.checkin} ➔ ${hold.checkout}</p>
+                            <p style="font-weight: 500; color: #fff; margin-top: 0.15rem;"><i class="fa-solid fa-door-open"></i> ${roomName}</p>
+                            <p style="font-size: 0.65rem; color: var(--accent-gold); margin-top: 0.1rem;">Codice: ${hold.hold_id}</p>
+                        </div>
+                        <div class="hold-badge">
+                            <i class="fa-solid fa-clock-rotate-left"></i> Opzione 24h
+                        </div>
+                    `;
+                    container.appendChild(item);
+                });
             }
 
-            container.innerHTML = '';
-            holds.forEach(hold => {
-                const item = document.createElement('div');
-                item.className = 'hold-item';
-                
-                // Cerca il nome visualizzabile della camera
-                const roomNames = {
-                    "deluxe_mare": "Deluxe Vista Mare",
-                    "junior_suite": "Junior Suite con Jacuzzi",
-                    "classic_giardino": "Classic Vista Giardino"
-                };
-                const roomName = roomNames[hold.room_type_id] || hold.room_type_id;
-
-                item.innerHTML = `
-                    <div class="hold-details">
-                        <h4>${hold.guest_name}</h4>
-                        <p><i class="fa-solid fa-calendar-days"></i> ${hold.checkin} ➔ ${hold.checkout}</p>
-                        <p style="font-weight: 500; color: #fff; margin-top: 0.15rem;"><i class="fa-solid fa-door-open"></i> ${roomName}</p>
-                        <p style="font-size: 0.65rem; color: var(--accent-gold); margin-top: 0.1rem;">Codice: ${hold.hold_id}</p>
-                    </div>
-                    <div class="hold-badge">
-                        <i class="fa-solid fa-clock-rotate-left"></i> Opzione 24h
-                    </div>
-                `;
-                container.appendChild(item);
-            });
+            syncFloorPlan(holds);
+            updateROI(holds);
         }
 
         // Invia il messaggio
@@ -1264,7 +1561,9 @@
             let formattedText = text
                 .replace(/\n/g, '<br>')
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>');
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/!\[([^\]]*)\]\(([^)]+)\)/g,
+                    '<div class="chat-image-card"><img class="chat-card-img" src="$2" alt="$1" onerror="this.parentElement.style.display=\'none\'"><div class="chat-card-title">$1</div></div>');
 
             bubble.innerHTML = `
                 ${formattedText}
@@ -1341,8 +1640,94 @@
             }
         }
 
+        // Toggle audio notifiche
+        let audioEnabled = true;
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const icon = document.getElementById('audio-toggle');
+            icon.className = audioEnabled ? 'fa-solid fa-bell' : 'fa-solid fa-bell-slash';
+            icon.title = audioEnabled ? 'Disattiva Suoni' : 'Attiva Suoni';
+            addTerminalLog(`[SYSTEM] Audio notifiche ${audioEnabled ? 'attivato' : 'disattivato'}.`, 'system');
+        }
+
+        // Sincronizza i colori del floor plan con i blocchi PMS attivi
+        function syncFloorPlan(holds) {
+            // Reset all cells to available (green)
+            document.querySelectorAll('.room-cell').forEach(cell => {
+                cell.classList.remove('status-orange', 'status-red');
+                cell.classList.add('status-green');
+            });
+
+            // Count holds per room type
+            const holdCount = {};
+            holds.forEach(hold => {
+                holdCount[hold.room_type_id] = (holdCount[hold.room_type_id] || 0) + 1;
+            });
+
+            const typeMap = {
+                'deluxe_mare': 'deluxe',
+                'junior_suite': 'suite',
+                'classic_giardino': 'classic'
+            };
+
+            Object.entries(holdCount).forEach(([roomTypeId, count]) => {
+                const cellClass = typeMap[roomTypeId];
+                if (!cellClass) return;
+                const cells = document.querySelectorAll(`.room-cell.${cellClass}`);
+                for (let i = 0; i < Math.min(count, cells.length); i++) {
+                    cells[i].classList.remove('status-green');
+                    cells[i].classList.add('status-orange');
+                }
+            });
+        }
+
+        // Calcola e aggiorna le metriche ROI dal vivo
+        const ROOM_PRICES = {
+            'deluxe_mare': 250,
+            'junior_suite': 420,
+            'classic_giardino': 180
+        };
+
+        function updateROI(holds) {
+            let totalValue = 0;
+            holds.forEach(hold => {
+                const price = ROOM_PRICES[hold.room_type_id] || 0;
+                const checkin = new Date(hold.checkin);
+                const checkout = new Date(hold.checkout);
+                const nights = Math.max(1, Math.round((checkout - checkin) / 86400000));
+                totalValue += price * nights;
+            });
+            const savings = totalValue * 0.18;
+            document.getElementById('roi-total-val').textContent = totalValue.toFixed(2) + '€';
+            document.getElementById('roi-savings-val').textContent = savings.toFixed(2) + '€';
+        }
+
+        // Aggiunge handler click alle celle del floor plan
+        function initFloorPlanClicks() {
+            const roomInfo = {
+                'classic': { name: 'Classic Vista Giardino', price: '180€/notte', capacity: 'Max 2 ospiti' },
+                'deluxe':  { name: 'Deluxe Vista Mare',      price: '250€/notte', capacity: 'Max 2 ospiti' },
+                'suite':   { name: 'Junior Suite Jacuzzi',   price: '420€/notte', capacity: 'Max 3 ospiti' }
+            };
+
+            document.querySelectorAll('.room-cell').forEach(cell => {
+                cell.addEventListener('click', function () {
+                    const type = ['classic', 'deluxe', 'suite'].find(t => cell.classList.contains(t));
+                    if (!type) return;
+                    const info = roomInfo[type];
+                    const roomNum = cell.id.replace('cell-', '');
+                    const status = cell.classList.contains('status-orange') ? '⏳ Opzione 24h attiva'
+                                 : cell.classList.contains('status-red') ? '🔴 Occupata'
+                                 : '🟢 Libera';
+                    addTerminalLog(`[FLOOR PLAN] 🏨 Camera ${roomNum}: ${info.name} — ${info.price} — ${info.capacity} — ${status}`, 'tool');
+                });
+            });
+        }
+
         // Inizializzazione pagina
         window.onload = function() {
+            syncFloorPlan([]);      // tutte le celle verdi all'avvio
+            initFloorPlanClicks();  // click handlers floor plan
             fetchPMSState();
             // Rinfresca lo stato del PMS ogni 4 secondi per mostrare modifiche live
             setInterval(fetchPMSState, 4000);

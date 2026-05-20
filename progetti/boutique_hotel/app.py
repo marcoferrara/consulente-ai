@@ -2,9 +2,10 @@ import json
 import logging
 from typing import Dict, Any, List, Optional
 from datetime import datetime
-
+import os
 from fastapi import FastAPI, HTTPException, Body
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import uvicorn
 from openai import OpenAI
@@ -53,6 +54,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Montaggio dei file statici per servire le immagini delle camere
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
+
+
 # Inizializzazione client (rilevamento automatico se si tratta di una chiave Google Gemini)
 IS_GEMINI = API_KEY.startswith("AIzaSy") or "gemini" in API_KEY.lower()
 
@@ -67,6 +73,39 @@ else:
     logger.info("[CONFIG] Configuro il client per OpenAI standard.")
     client = OpenAI(api_key=API_KEY)
     DEFAULT_MODEL = "gpt-4o"
+
+def call_llm_with_fallback(messages: List[Dict[str, Any]], tools: Optional[List[Dict[str, Any]]] = None, tool_choice: Optional[str] = None):
+    models_to_try = [DEFAULT_MODEL]
+    if IS_GEMINI:
+        # Aggiungiamo modelli di fallback per Gemini in caso di sovraccarico (es. 503 Service Unavailable)
+        for m in ["gemini-2.0-flash", "gemini-1.5-flash"]:
+            if m not in models_to_try:
+                models_to_try.append(m)
+    
+    last_exception = None
+    for model in models_to_try:
+        try:
+            logger.info(f"[LLM CALL] Prova chiamata con modello: {model}")
+            kwargs = {
+                "model": model,
+                "messages": messages
+            }
+            if tools:
+                kwargs["tools"] = tools
+            if tool_choice:
+                kwargs["tool_choice"] = tool_choice
+                
+            response = client.chat.completions.create(**kwargs)
+            logger.info(f"[LLM CALL] Chiamata riuscita con modello: {model}")
+            return response
+        except Exception as e:
+            logger.warning(f"[LLM CALL] Errore con modello {model}: {e}")
+            last_exception = e
+    
+    if last_exception:
+        raise last_exception
+    raise Exception("Tutti i tentativi di chiamata LLM sono falliti.")
+
 
 # Database in memoria per simulare le prenotazioni/blocchi provvisori
 reservations_db: List[Dict[str, Any]] = []
@@ -238,6 +277,11 @@ LINEE GUIDA COMPORTAMENTALI:
 5. In caso di dubbi sulla disponibilità, usa lo strumento `check_room_availability`.
 6. Se l'utente decide di bloccare una camera, chiedi i dati necessari ed esegui lo strumento `create_temporary_hold`.
 7. Se l'utente esprime irritazione, richiede espressamente un operatore umano o desidera preventivi speciali fuori catalogo (es. matrimoni, meeting aziendali), invoca lo strumento `trigger_human_handover`.
+8. Invio di immagini: Quando offri, descrivi, raccomandi o fornisci preventivi per una camera, devi SEMPRE includere un'immagine della camera su una riga separata usando la sintassi markdown corretta:
+   - Deluxe Vista Mare: ![Deluxe Vista Mare](/static/deluxe_mare.png)
+   - Junior Suite con Jacuzzi: ![Junior Suite con Jacuzzi](/static/junior_suite.png)
+   - Classic Vista Giardino: ![Classic Vista Giardino](/static/classic_giardino.png)
+   Fallo in modo elegante e naturale per arricchire visivamente l'esperienza di acquisto del cliente.
 """
 
 def execute_tool_call(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
@@ -332,8 +376,7 @@ def whatsapp_webhook(input_data: MessageInput):
             return process_mock_response(user_msg, input_data.user_name)
 
         # Chiamata a OpenAI/Gemini con supporto per i Tools
-        response = client.chat.completions.create(
-            model=DEFAULT_MODEL,
+        response = call_llm_with_fallback(
             messages=session_history,
             tools=TOOLS_DEFINITION,
             tool_choice="auto"
@@ -363,8 +406,7 @@ def whatsapp_webhook(input_data: MessageInput):
                 })
             
             # Richiediamo una seconda risposta fornendo i dati dello strumento
-            second_response = client.chat.completions.create(
-                model=DEFAULT_MODEL,
+            second_response = call_llm_with_fallback(
                 messages=session_history
             )
             
@@ -418,9 +460,18 @@ def process_mock_response(user_msg: str, user_name: str) -> Dict[str, Any]:
     handover = False
     
     if "blocca" in msg or "prenot" in msg:
+        mock_hold = pms_create_temporary_hold(BookingHoldInput(
+            guest_name=user_name,
+            guest_email="ospite@santigahotel.it",
+            guest_phone="+390000000000",
+            checkin="2026-06-15",
+            checkout="2026-06-22",
+            room_type_id="deluxe_mare"
+        ))
         reply = (
             f"Certamente {user_name}! Ho appena effettuato un blocco provvisorio (Opzione Opzionata) nel nostro gestionale PMS "
-            f"per la camera **Deluxe Vista Mare** a tuo nome! Codice opzione: **HLD-99812**. 📝\n\n"
+            f"per la camera **Deluxe Vista Mare** a tuo nome! Codice opzione: **{mock_hold['hold_id']}**. 📝\n\n"
+            f"![Deluxe Vista Mare](/static/deluxe_mare.png)\n\n"
             f"Ti ho inviato un'email con il riepilogo e il link sicuro per completare la conferma. La tua camera è al sicuro "
             f"per le prossime 24 ore! Non vedo l'ora di farti degustare il nostro Vermentino di Gallura al tuo arrivo!"
         )
@@ -430,8 +481,11 @@ def process_mock_response(user_msg: str, user_name: str) -> Dict[str, Any]:
             f"per te per le prossime settimane. Ti ricordo con orgoglio che prenotando direttamente tramite questa chat "
             f"otterrai subito l'esclusivo **{DIRECT_BOOKING_BENEFIT}**! 🍷✨\n\n"
             f"1. **Classic Vista Giardino**: 180€ a notte (5 unità libere)\n"
+            f"![Classic Vista Giardino](/static/classic_giardino.png)\n\n"
             f"2. **Deluxe Vista Mare**: 250€ a notte (3 unità libere) — *Fortemente raccomandata!*\n"
-            f"3. **Junior Suite con Jacuzzi**: 420€ a notte (Solo 1 rimasta!)\n\n"
+            f"![Deluxe Vista Mare](/static/deluxe_mare.png)\n\n"
+            f"3. **Junior Suite con Jacuzzi**: 420€ a notte (Solo 1 rimasta!)\n"
+            f"![Junior Suite con Jacuzzi](/static/junior_suite.png)\n\n"
             f"Desideri che blocchi una di queste opzioni a tuo nome gratuitamente per 24 ore?"
         )
     elif "umano" in msg or "staff" in msg or "parlare con" in msg or "reception" in msg or "lament" in msg:
@@ -455,8 +509,8 @@ def process_mock_response(user_msg: str, user_name: str) -> Dict[str, Any]:
             "name": "create_temporary_hold",
             "arguments": {
                 "guest_name": user_name,
-                "guest_email": "marco@email.it",
-                "guest_phone": "+393401122334",
+                "guest_email": "ospite@santigahotel.it",
+                "guest_phone": "+390000000000",
                 "checkin": "2026-06-15",
                 "checkout": "2026-06-22",
                 "room_type_id": "deluxe_mare"

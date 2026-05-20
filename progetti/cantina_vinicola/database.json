@@ -1,0 +1,311 @@
+{
+  "winery": {
+    "name": "Tenuta Fenu",
+    "location": "Jerzu, Ogliastra – Sardegna",
+    "founded": 1932,
+    "hectares": 45,
+    "annual_bottles": 120000,
+    "bio": "Produttori di vini autoctoni sardi da quattro generazioni nel cuore dell'Ogliastra, una delle cinque Blue Zone mondiali.",
+    "certifications": ["SQNPI – Agricoltura Integrata", "Demeter in conversione"],
+    "altitude_range_m": "350–620",
+    "soil": "Granito ogliastrese antico, povero e ben drenato",
+    "climate": "Mediterraneo con influenze interne, escursioni termiche notturne di 15–18°C"
+  },
+  "wines": {
+    "cannonau_riserva": {
+      "id": "cannonau_riserva",
+      "name": "Antico",
+      "full_name": "Cannonau di Sardegna DOC Riserva \"Antico\"",
+      "grape": "Cannonau (Grenache Noir) 100%",
+      "denomination": "Cannonau di Sardegna DOC Riserva",
+      "vintage": 2019,
+      "alcohol": 14.5,
+      "bottles_produced": 8000,
+      "trade_price_eur": 18.50,
+      "target_markets": ["usa", "germany"],
+      "vine_age_years": 45,
+      "yield_hl_ha": 28,
+      "harvest": "Prima settimana di ottobre, vendemmia manuale in cassette da 20 kg",
+      "vinification": "Fermentazione in acciaio inox a temperatura controllata (26–28°C), macerazione sulle bucce 18 giorni con rimontaggi quotidiani. Affinamento 18 mesi in barrique di rovere francese (30% nuovo) + 12 mesi in bottiglia.",
+      "tasting_notes_it": {
+        "color": "Rosso rubino profondo con riflessi granati, consistente e brillante alla luce.",
+        "nose": "Bouquet complesso ed evoluto: apertura su more selvatiche, mirto e carrube sarde. Seguono note speziate di pepe nero, chiodi di garofano e tabacco dolce. Sottofondo di cuoio morbido, macchia mediterranea e un tocco di liquirizia nera.",
+        "palate": "Ingresso pieno e avvolgente, tannini fitti ma setosi, ben integrati dopo l'affinamento. Acidità vivace che sorregge la struttura. Frutto maturo di prugna e ciliegia nera in confettura, con ritorno di spezie dolci e una leggera nota balsamica. Lunga persistenza.",
+        "finish": "Finale lunghissimo (oltre 15 secondi), sapido e leggermente ammandorlato, con eco di cacao amaro e menta selvatica."
+      },
+      "serving": {
+        "temp_celsius": "16–18",
+        "decanting_min": 45,
+        "glass": "Bordeaux ampio"
+      },
+      "aging_potential_years": 15,
+      "food_pairing_it": "Agnello arrosto al mirto, pecorino stagionato sardo, cinghiale in umido, formaggi erborinati."
+    },
+    "vermentino_docg": {
+      "id": "vermentino_docg",
+      "name": "Alios",
+      "full_name": "Vermentino di Gallura DOCG \"Alios\"",
+      "grape": "Vermentino 100%",
+      "denomination": "Vermentino di Gallura DOCG",
+      "vintage": 2022,
+      "alcohol": 13.0,
+      "bottles_produced": 15000,
+      "trade_price_eur": 14.00,
+      "target_markets": ["usa", "germany"],
+      "vine_age_years": 22,
+      "yield_hl_ha": 45,
+      "harvest": "Fine agosto – inizio settembre, raccolta notturna per preservare gli aromi",
+      "vinification": "Pressatura soffice, fermentazione a freddo (14–16°C) in acciaio inox con lieviti selezionati autoctoni. 4 mesi sui lieviti fini con bâtonnage settimanale. Imbottigliamento precoce per preservare la freschezza.",
+      "tasting_notes_it": {
+        "color": "Giallo paglierino luminoso con riflessi verdolini vivaci.",
+        "nose": "Fresco e aromatico: esplosione di agrumi (pompelmo, cedro, bergamotto), fiori di ginestra e mandorlo in fiore. Con l'ossigenazione emergono note di erbe aromatiche del Mediterraneo (timo, finocchietto selvatico) e una caratteristica mineralità salmastra.",
+        "palate": "Attacco fresco e vivace, grande sapidità tipica del Vermentino di Gallura. Corpo medio-pieno, struttura supportata da buona acidità. Frutto bianco (pesca bianca, pera williams) e note di scorza di limone. Leggermente ammandorlato nel finale.",
+        "finish": "Finale fresco, sapido, con lunga persistenza aromatica su note iodate e minerali. Tipica vena amarognola del vitigno."
+      },
+      "serving": {
+        "temp_celsius": "10–12",
+        "decanting_min": 0,
+        "glass": "Calice per bianchi medio-ampio"
+      },
+      "aging_potential_years": 4,
+      "food_pairing_it": "Bottarga di muggine, aragoste e crostacei sardi, sushi e crudi di mare, formaggi freschi di capra."
+    },
+    "carignano_doc": {
+      "id": "carignano_doc",
+      "name": "Mastio",
+      "full_name": "Carignano del Sulcis DOC \"Mastio\"",
+      "grape": "Carignano (Carignan) 100%",
+      "denomination": "Carignano del Sulcis DOC",
+      "vintage": 2020,
+      "alcohol": 13.5,
+      "bottles_produced": 6000,
+      "trade_price_eur": 16.50,
+      "target_markets": ["germany"],
+      "vine_age_years": 60,
+      "yield_hl_ha": 22,
+      "harvest": "Seconda metà di settembre, selezione manuale di grappoli da viti alberello centenarie",
+      "vinification": "Fermentazione in cemento vetrificato, macerazione 14 giorni a temperatura spontanea. Affinamento 12 mesi in botti grandi di rovere di Slavonia (50 hl) + 8 mesi bottiglia.",
+      "tasting_notes_it": {
+        "color": "Rosso rubino vivo, luminoso, con riflessi purpurei intensi.",
+        "nose": "Frutto rosso fresco dominante (mora, mirtillo, lampone maturo) con sfumature floreali di viola e lavanda. Note di macchia mediterranea (lentisco, cisto), pepe bianco e una delicata mineralità ferrosa che rimanda al suolo vulcanico del Sulcis.",
+        "palate": "Sorso elegante e dinamico, tannini vivi ma levigati dall'età delle viti. Acidità gustosa e integrata. Frutto croccante che porta freschezza. Medio-corpo con bella tensione gustativa. Note di melograno, fragola matura e spezie lievi.",
+        "finish": "Finale fresco e sapido, persistente su note di frutto rosso e terra bagnata. Grande bevibilità nonostante la complessità."
+      },
+      "serving": {
+        "temp_celsius": "15–17",
+        "decanting_min": 20,
+        "glass": "Borgogna o Pinot Noir"
+      },
+      "aging_potential_years": 10,
+      "food_pairing_it": "Maialetto sardo arrosto, pasta al ragù di maiale, salumi artigianali, formaggi semi-stagionati."
+    }
+  },
+  "reviews": {
+    "cannonau_riserva": [
+      {
+        "id": "can_rev_001",
+        "platform": "Vivino",
+        "author": "Robert M.",
+        "country": "usa",
+        "flag": "🇺🇸",
+        "rating": 4.6,
+        "date": "2024-03-15",
+        "text": "Absolutely stunning Cannonau. I paired this with a dry-aged ribeye at our neighborhood steakhouse and it was a revelation. The wine has this incredible depth — dark berries, leather, a hint of Mediterranean herbs. My friends kept asking what this 'secret Italian wine' was. At this price point it absolutely destroys many Napa Cabs I pay twice as much for. Buying a case immediately."
+      },
+      {
+        "id": "can_rev_002",
+        "platform": "Vivino",
+        "author": "Jennifer L.",
+        "country": "usa",
+        "flag": "🇺🇸",
+        "rating": 4.4,
+        "date": "2024-01-28",
+        "text": "Found this gem at a small Italian wine shop in Brooklyn. The backstory is fascinating — wine from one of the world's Blue Zones! You can taste the ancient land in every sip. Opened it for a Sunday BBQ brisket and everyone was blown away. Big, bold, structured but not overwhelming. Would love to see more info in English on the label though — had to look everything up."
+      },
+      {
+        "id": "can_rev_003",
+        "platform": "Vivino",
+        "author": "Michael T.",
+        "country": "usa",
+        "flag": "🇺🇸",
+        "rating": 3.8,
+        "date": "2023-11-10",
+        "text": "Good wine, no question. Dark fruit, earthy, warming. My issue is that the oak is slightly too dominant for my taste — it somewhat muffles the terroir character that I know Sardinian Cannonau can express. I'd love a version with a bit less barrel influence. That said, paired with lamb chops it really showed its potential. Will try again with more decanting time."
+      },
+      {
+        "id": "can_rev_004",
+        "platform": "Vivino",
+        "author": "Klaus-Dieter H.",
+        "country": "germany",
+        "flag": "🇩🇪",
+        "rating": 4.7,
+        "date": "2024-02-20",
+        "text": "Außergewöhnliche Qualität für diesen Preis. Die Tanninstruktur ist dicht und fest, aber gut integriert — vergleichbar mit einem großen Châteauneuf-du-Pape, jedoch mit unverkennbarer mediterraner Eigenheit. Die Mineralität des granitischen Ogliastra-Bodens ist deutlich spürbar. Lagerpotenzial schätze ich auf 10–12 Jahre problemlos. Im Vergleich zu einem deutschen Spätburgunder viel wärmer und fülliger, aber mit ähnlicher Komplexität. Sehr empfehlenswert für Sammler."
+      },
+      {
+        "id": "can_rev_005",
+        "platform": "Vivino",
+        "author": "Sabine W.",
+        "country": "germany",
+        "flag": "🇩🇪",
+        "rating": 4.5,
+        "date": "2023-12-05",
+        "text": "Ein Wein mit echter Persönlichkeit. Die Komplexität ist beeindruckend: dunkle Beeren, Lakritze, Tabak und eine subtile Würze, die an beste südfranzösische Gewächse erinnert. Säurestruktur gut ausbalanciert, Abgang sehr lang. Das Etikett wirkt leider etwas veraltet — hier könnte die Tenuta Fenu modernisieren, um im deutschen Fachhandel besser zu kommunizieren. Der Wein selbst verdient ein zeitgemäßes Design."
+      },
+      {
+        "id": "can_rev_006",
+        "platform": "Vivino",
+        "author": "Thomas B.",
+        "country": "germany",
+        "flag": "🇩🇪",
+        "rating": 4.2,
+        "date": "2024-04-01",
+        "text": "Solide Riserva mit guter Tiefe. Die 18 Monate Barrique sind am Gaumen spürbar — Röstaromen und Vanille sind präsent, aber noch leicht dominant. In 2–3 Jahren wird dieser Wein sicher besser integriert sein. Gutes Preis-Leistungs-Verhältnis im Vergleich zu Produkten aus der Toskana oder dem Piemont. Datenblatt auf Englisch wäre wünschenswert für die professionelle Einschätzung."
+      },
+      {
+        "id": "can_rev_007",
+        "platform": "Vivino",
+        "author": "Lucia M.",
+        "country": "italy",
+        "flag": "🇮🇹",
+        "rating": 4.8,
+        "date": "2024-01-05",
+        "text": "Da ogliastrina doc, questo vino mi riporta a casa ogni volta. È il Cannonau che vorrei che tutto il mondo conoscesse: profondo, austero, con quella sapidità marina che solo il granito ogliastrese sa dare. Invecchia magnificamente, ho aperto una bottiglia del 2016 il mese scorso ed era ancora in ottima forma. Tenuta Fenu è una delle cantine più serie dell'isola. Bravi."
+      },
+      {
+        "id": "can_rev_008",
+        "platform": "Vivino",
+        "author": "Sara P.",
+        "country": "italy",
+        "flag": "🇮🇹",
+        "rating": 4.3,
+        "date": "2023-10-18",
+        "text": "Grande Cannonau. Abbinamento perfetto con l'agnello al forno della domenica. Leggermente più barricato rispetto a qualche annata fa, spero tengano d'occhio l'equilibrio. Il legno non deve mai coprire il terroir unico di questo vino. Il 2017 era perfetto. Resto comunque un fan fedele."
+      }
+    ],
+    "vermentino_docg": [
+      {
+        "id": "ver_rev_001",
+        "platform": "Vivino",
+        "author": "Ashley R.",
+        "country": "usa",
+        "flag": "🇺🇸",
+        "rating": 4.5,
+        "date": "2024-04-10",
+        "text": "This white wine is unlike anything I've had from Italy. Crisp, bright, with a salty mineral finish that reminds me of sea spray. Paired it with grilled shrimp and a light ceviche at our summer cookout and it was perfect. Honestly could drink this all day. The aroma alone — citrus, white flowers, wild herbs — transports you to the Mediterranean coast. A must-buy for seafood lovers."
+      },
+      {
+        "id": "ver_rev_002",
+        "platform": "Vivino",
+        "author": "David K.",
+        "country": "usa",
+        "flag": "🇺🇸",
+        "rating": 4.3,
+        "date": "2024-02-14",
+        "text": "Valentines dinner wine! We had it with a beautiful seafood tower and it was spectacular. The wine has real personality — not just another generic Italian white. Very expressive nose, great acidity, and that slightly bitter almond finish is unique. My only note: could use tasting notes in English directly on the bottle. I had to google the winery to understand what I was drinking, which is a shame because the story is amazing."
+      },
+      {
+        "id": "ver_rev_003",
+        "platform": "Vivino",
+        "author": "Maria S.",
+        "country": "usa",
+        "flag": "🇺🇸",
+        "rating": 3.9,
+        "date": "2023-09-22",
+        "text": "Lovely aromatics — the citrus and floral notes jump right out of the glass. I found it slightly simple on the palate compared to the nose, which promises more than it delivers. Good with food though, especially with sushi and Japanese cuisine. At $24 retail it's decent value. Would pair well with Thai food too. Label looks a bit old-fashioned for the American market — a more modern design could help shelf appeal."
+      },
+      {
+        "id": "ver_rev_004",
+        "platform": "Vivino",
+        "author": "Franziska M.",
+        "country": "germany",
+        "flag": "🇩🇪",
+        "rating": 4.6,
+        "date": "2024-03-08",
+        "text": "Bemerkenswerte DOCG-Qualität. Die Mineralität dieses Vermentino erinnert mich an die besten Muscadet de Sèvre-et-Maine sur lie, aber mit deutlich mediterranem Charakter. Die Salinität und Frische sind hervorragend — ein echter Gastronomiewein. Die Nachternternote mit sur lies gibt ihm eine cremige Textur, ohne Frische zu opfern. Für den deutschen Markt empfehle ich diesen zu Nordsee-Fisch oder Austern aus dem Wattenmeer."
+      },
+      {
+        "id": "ver_rev_005",
+        "platform": "Vivino",
+        "author": "Andreas P.",
+        "country": "germany",
+        "flag": "🇩🇪",
+        "rating": 4.4,
+        "date": "2023-11-30",
+        "text": "Technisch sehr sauber vinifiziert. Die frühe Nachtlese bewahrt die Aromatik perfekt — man schmeckt die Entscheidung des Winzers. Säure präzise und lang, Alkohol gut integriert. Interessanter Vergleich: ähnliche Spannung wie ein Mosel-Riesling Spätlese, aber deutlich aromatisch ausgerichteter. Trinkreife optimal ab jetzt bis 2025. Für den Preis ein sehr gutes Angebot im deutschen Weinhandel."
+      },
+      {
+        "id": "ver_rev_006",
+        "platform": "Vivino",
+        "author": "Giovanni F.",
+        "country": "italy",
+        "flag": "🇮🇹",
+        "rating": 4.7,
+        "date": "2024-05-02",
+        "text": "Il Vermentino di Gallura è il re dei bianchi italiani e questo Alios ne è una delle espressioni più riuscite. Profilo aromatico preciso, sapidità gallurese inconfondibile, quel finale ammandorlato che è la firma del vitigno. Perfetto con la bottarga e i ricci di mare. La vendemmia notturna si sente: profumi integri e precisi. Ottimo lavoro Tenuta Fenu."
+      }
+    ],
+    "carignano_doc": [
+      {
+        "id": "car_rev_001",
+        "platform": "Vivino",
+        "author": "Markus L.",
+        "country": "germany",
+        "flag": "🇩🇪",
+        "rating": 4.8,
+        "date": "2024-04-18",
+        "text": "Außergewöhnlicher Fund! Das Carignano del Sulcis ist in Deutschland praktisch unbekannt, was ein Jammer ist. Die 60-jährigen Alberello-Reben liefern eine Konzentration und Eleganz, die ihresgleichen sucht — und das bei moderatem Alkohol. Die Tanninstruktur ist ähnlich wie bei einem jungen Barolo, aber zugänglicher und weniger astringierend. Mineralität und Fruchtreinheit beeindruckend. Ich habe gleich eine Kiste bestellt."
+      },
+      {
+        "id": "car_rev_002",
+        "platform": "Vivino",
+        "author": "Helga K.",
+        "country": "germany",
+        "flag": "🇩🇪",
+        "rating": 4.5,
+        "date": "2024-01-22",
+        "text": "Sehr eleganter Wein, deutlich delikater als ich bei Carignan erwartet hätte. Das alte Rebmaterial und die Botte-grande-Reifung ergeben eine Komplexität ohne Überextraktion. Rote Früchte, Veilchen, eine mineralische Schieferader. Mit geschmortem Lammrücken an Kräutern eine traumhafte Kombination. Lagerpotenzial sicher 8–10 Jahre. Für Liebhaber von Burgund und Norditalien ein echter Geheimtipp."
+      },
+      {
+        "id": "car_rev_003",
+        "platform": "Vivino",
+        "author": "Peter S.",
+        "country": "germany",
+        "flag": "🇩🇪",
+        "rating": 4.1,
+        "date": "2023-12-14",
+        "text": "Interessante Rarität. Der Wein zeigt den Charakter alter Alberello-Reben deutlich: Konzentration und Frische gleichzeitig. Was mich leicht stört ist die fehlende Konsistenz im Jahrgangsvergleich — der 2018 war kantiger. Für professionelle Einkäufer würde ich mir detailliertere technische Datenblätter auf Englisch oder Deutsch wünschen. Der Vertrieb in Deutschland ist noch sehr sporadisch."
+      },
+      {
+        "id": "car_rev_004",
+        "platform": "Vivino",
+        "author": "Wolfgang R.",
+        "country": "germany",
+        "flag": "🇩🇪",
+        "rating": 4.6,
+        "date": "2024-03-01",
+        "text": "Dieser Wein sollte viel bekannter sein. Carignan von 60-jährigen Weinstöcken aus dem Sulcis, vinifiziert in großen Holzfässern — das Ergebnis ist ein Wein von bemerkenswerter Tiefe und Eleganz. Keine neue Eiche, kein Make-up, nur pures Terroir. Die rote Frucht ist knackig und lebendig, die Säure präzise, die Tannine seidig. Für einen Sommerabend mit Antipasti oder leichten Fleischgerichten ideal."
+      },
+      {
+        "id": "car_rev_005",
+        "platform": "Vivino",
+        "author": "Giulia T.",
+        "country": "italy",
+        "flag": "🇮🇹",
+        "rating": 4.7,
+        "date": "2024-02-08",
+        "text": "Il Carignano del Sulcis è il grande vino dimenticato della Sardegna e questo Mastio lo dimostra alla grande. Viti di 60 anni, alberello, cemento — la filosofia è quella giusta. Il vino ha una beva incredibile nonostante la complessità: frutto croccante, tannini vivi, finale sapido lunghissimo. Prezzo più che onesto. Se fosse toscano costerebbe il doppio."
+      },
+      {
+        "id": "car_rev_006",
+        "platform": "Vivino",
+        "author": "Roberto C.",
+        "country": "italy",
+        "flag": "🇮🇹",
+        "rating": 4.4,
+        "date": "2023-08-20",
+        "text": "Grande interpretazione del Carignano sulcitano. Il passaggio in botte grande fa la differenza rispetto alle versioni barricate: il legno supporta senza sovrastare. Unico appunto: la distribuzione è ancora molto limitata fuori dalla Sardegna. Sarebbe ora che questo vino uscisse dai confini regionali e si facesse conoscere. Tenuta Fenu sta facendo un lavoro serio."
+      }
+    ]
+  }
+}

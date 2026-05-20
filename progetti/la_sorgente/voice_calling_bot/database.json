@@ -115,12 +115,25 @@
       "interest": "Danza e Teatro Musicale",
       "level": "Avanzato",
       "notes": "Pronta a trasferirsi a Cagliari per il triennale accademico se supera l'audizione.",
-      "status": "Da Chiamare",
-      "call_date": null,
-      "duration": 0,
-      "transcript": [],
-      "sentiment": null,
-      "outcome": null
+      "status": "Chiamato",
+      "call_date": "2026-05-20 15:33",
+      "duration": 35,
+      "transcript": [
+        {
+          "speaker": "AI",
+          "text": "Salve! Sono l'assistente virtuale dell'Accademia Internazionale del Musical della sede di Cagliari! Parlo con Francesca Loi?"
+        },
+        {
+          "speaker": "Lead",
+          "text": "si"
+        },
+        {
+          "speaker": "AI",
+          "text": "Fantastico! La chiamo proprio riguardo la sua richiesta di informazioni per i nostri corsi di Danza e Teatro Musicale qui a Cagliari."
+        }
+      ],
+      "sentiment": "Positivo",
+      "outcome": "Conversazione avviata, contatto confermato"
     },
     {
       "id": "lead_004",

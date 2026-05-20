@@ -1388,6 +1388,58 @@
         </div>
 
         <button class="btn" style="padding: 1.1rem; font-size: 1rem;" id="btn-generate-bp">Genera Progetto &amp; Business Plan di Candidatura 🚀</button>
+        <button class="btn" style="padding: 1.1rem; font-size: 1rem; background: linear-gradient(135deg, #7c3aed, #4f46e5); margin-top: 0.75rem;" id="btn-compile-grant">📝 Compila Candidatura Ufficiale (Testo Professionale)</button>
+      </div>
+
+      <!-- CANDIDATURA PROFESSIONALE PANEL -->
+      <div id="view-compile" style="display:none; flex-direction:column; gap:1.5rem;">
+        <div class="section-header">
+          <h2>📝 Candidatura Professionale</h2>
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+            <button class="btn btn-secondary" style="width:auto; padding:0.5rem 1rem;" onclick="goBackToAnalysis()">← Torna all'Analisi</button>
+            <button class="btn btn-secondary" style="width:auto; padding:0.5rem 1.25rem;" id="btn-copy-compile" onclick="copyCompileText()">📋 Copia Testo</button>
+            <button class="btn" style="width:auto; padding:0.5rem 1.25rem; background:linear-gradient(135deg,#059669,#047857);" id="btn-download-compile" onclick="downloadCompileText()">⬇ Scarica .txt</button>
+          </div>
+        </div>
+        <div class="project-document" id="compile-document">
+          <div class="doc-badge">CANDIDATURA UFFICIALE — BOZZA PROFESSIONALE</div>
+          <div class="doc-hdr">
+            <h3 id="compile-grant-title">TITOLO BANDO</h3>
+            <p id="compile-grant-meta">Ente Erogatore</p>
+          </div>
+          <div class="doc-section">
+            <h4>A. Presentazione dell'Organizzazione Proponente</h4>
+            <p id="compile-sec-a" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>B. Descrizione del Progetto e Obiettivi</h4>
+            <p id="compile-sec-b" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>C. Analisi dei Bisogni e Contesto Territoriale</h4>
+            <p id="compile-sec-c" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>D. Metodologia e Approccio Pedagogico</h4>
+            <p id="compile-sec-d" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>E. Piano delle Attività e Cronogramma</h4>
+            <p id="compile-sec-e" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>F. Giustificazione del Budget</h4>
+            <p id="compile-sec-f" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>G. Impatto Atteso e Sostenibilità</h4>
+            <p id="compile-sec-g" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>H. Partenariato e Reti</h4>
+            <p id="compile-sec-h" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+        </div>
       </div>
 
       <!-- BUSINESS PLAN & PROJECT PANEL -->
@@ -1506,6 +1558,12 @@
       document.getElementById('btn-generate-bp').addEventListener('click', async function() {
         if (selectedGrant) {
           await generateBusinessPlan(selectedGrant.id);
+        }
+      });
+
+      document.getElementById('btn-compile-grant').addEventListener('click', async function() {
+        if (selectedGrant) {
+          await compileGrantApplication(selectedGrant.id);
         }
       });
 
@@ -1815,8 +1873,12 @@
           body: JSON.stringify({ query: query })
         });
         const data = await response.json();
+        if (!response.ok) {
+          alert("Errore ricerca AI: " + (data.detail || "Errore del server. Riprova tra poco."));
+          return;
+        }
         if (data.new_grants && data.new_grants.length > 0) {
-          await loadGrants(); // Ricarica la lista aggiornata
+          await loadGrants();
           document.getElementById('ai-search-input').value = '';
           alert(`AI Scan completato! Trovati ed inseriti ${data.new_grants.length} nuovi bandi pertinenti basati sulla tua ricerca.`);
         } else {
@@ -1838,6 +1900,12 @@
           body: JSON.stringify({ grant_id: grantId })
         });
         const data = await response.json();
+
+        // Controllo risposta HTTP non ok
+        if (!response.ok) {
+          alert("Errore analisi: " + (data.detail || "Risposta inattesa dal server. Riprova tra poco."));
+          return;
+        }
         
         selectedGrant = activeGrants.find(g => g.id === grantId);
         selectedFeasibility = data;
@@ -1847,23 +1915,23 @@
         document.getElementById('analysis-grant-issuer').textContent = `Ente: ${selectedGrant.issuer}`;
         
         const scoreEl = document.getElementById('analysis-score');
-        scoreEl.textContent = `${data.feasibility_score}%`;
-        scoreEl.style.conicGradient = `conic-gradient(var(--primary) 0deg, var(--primary) ${data.feasibility_score * 3.6}deg, var(--dim) ${data.feasibility_score * 3.6}deg, var(--dim) 360deg)`;
+        scoreEl.textContent = `${data.feasibility_score || 0}%`;
+        scoreEl.style.conicGradient = `conic-gradient(var(--primary) 0deg, var(--primary) ${(data.feasibility_score || 0) * 3.6}deg, var(--dim) ${(data.feasibility_score || 0) * 3.6}deg, var(--dim) 360deg)`;
         
         const eligBadge = document.getElementById('analysis-eligibility');
-        eligBadge.textContent = data.eligibility_status;
+        eligBadge.textContent = data.eligibility_status || 'N/D';
         eligBadge.className = `eligibility-status ${data.eligibility_status === 'IDONEO' ? 'done' : 'risk'}`;
 
-        document.getElementById('analysis-legal').textContent = data.legal_analysis;
-        document.getElementById('analysis-technical').textContent = data.technical_analysis;
-        document.getElementById('analysis-social').textContent = data.social_analysis;
-        document.getElementById('analysis-financial').textContent = data.financial_analysis;
-        document.getElementById('analysis-partnership').textContent = data.partnership_need;
+        document.getElementById('analysis-legal').textContent = data.legal_analysis || '';
+        document.getElementById('analysis-technical').textContent = data.technical_analysis || '';
+        document.getElementById('analysis-social').textContent = data.social_analysis || '';
+        document.getElementById('analysis-financial').textContent = data.financial_analysis || '';
+        document.getElementById('analysis-partnership').textContent = data.partnership_need || '';
 
-        // Expert Recommendations
+        // Expert Recommendations — con fallback array vuoto
         const recList = document.getElementById('analysis-experts-list');
         recList.innerHTML = '';
-        data.expert_recommendations.forEach(rec => {
+        (data.expert_recommendations || []).forEach(rec => {
           const item = document.createElement('div');
           item.className = 'advise-block';
           item.innerHTML = `
@@ -1885,6 +1953,7 @@
         hideLoader();
       }
     }
+
 
     async function generateBusinessPlan(grantId) {
       showLoader("Gemini sta redigendo il Business Plan di candidatura, assemblando il budget stimato, la checklist documentale ed i requisiti accademici...");
@@ -1990,6 +2059,97 @@
       } finally {
         hideLoader();
       }
+    }
+
+    async function compileGrantApplication(grantId) {
+      showLoader("L'AI sta redigendo la candidatura professionale... Potrebbe richiedere qualche secondo...");
+      try {
+        const response = await fetch('/api/grants/compile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ grant_id: grantId })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          alert("Errore compilazione: " + (data.detail || "Errore del server."));
+          return;
+        }
+
+        // Popola il documento
+        document.getElementById('compile-grant-title').textContent = data.grant_title || selectedGrant?.title || '';
+        document.getElementById('compile-grant-meta').textContent = `Ente: ${data.grant_issuer || ''} — Proponente: ${data.association_name || ''}`;
+        document.getElementById('compile-sec-a').textContent = data.sezione_a_presentazione || '';
+        document.getElementById('compile-sec-b').textContent = data.sezione_b_descrizione_progetto || '';
+        document.getElementById('compile-sec-c').textContent = data.sezione_c_analisi_bisogni || '';
+        document.getElementById('compile-sec-d').textContent = data.sezione_d_metodologia || '';
+        document.getElementById('compile-sec-e').textContent = data.sezione_e_piano_attivita || '';
+        document.getElementById('compile-sec-f').textContent = data.sezione_f_budget_narrativo || '';
+        document.getElementById('compile-sec-g').textContent = data.sezione_g_impatto || '';
+        document.getElementById('compile-sec-h').textContent = data.sezione_h_partenariato || '';
+
+        // Salva testo completo per copia/download
+        window._compiledData = data;
+
+        // Switch view
+        document.getElementById('view-explorer').style.display = 'none';
+        document.getElementById('view-analysis').style.display = 'none';
+        document.getElementById('view-project').style.display = 'none';
+        document.getElementById('view-certifications').style.display = 'none';
+        document.getElementById('view-compile').style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        alert("Errore compilazione: " + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    function copyCompileText() {
+      const d = window._compiledData;
+      if (!d) return;
+      const text = [
+        `CANDIDATURA: ${d.grant_title}`,
+        `Ente Erogatore: ${d.grant_issuer}`,
+        `Proponente: ${d.association_name}`,
+        '\n=== A. PRESENTAZIONE ORGANIZZAZIONE ===', d.sezione_a_presentazione,
+        '\n=== B. DESCRIZIONE PROGETTO ===', d.sezione_b_descrizione_progetto,
+        '\n=== C. ANALISI DEI BISOGNI ===', d.sezione_c_analisi_bisogni,
+        '\n=== D. METODOLOGIA ===', d.sezione_d_metodologia,
+        '\n=== E. PIANO ATTIVITÀ ===', d.sezione_e_piano_attivita,
+        '\n=== F. BUDGET NARRATIVO ===', d.sezione_f_budget_narrativo,
+        '\n=== G. IMPATTO E SOSTENIBILITÀ ===', d.sezione_g_impatto,
+        '\n=== H. PARTENARIATO ===', d.sezione_h_partenariato
+      ].join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btn-copy-compile');
+        btn.textContent = '✅ Copiato!';
+        setTimeout(() => btn.textContent = '📋 Copia Testo', 2000);
+      });
+    }
+
+    function downloadCompileText() {
+      const d = window._compiledData;
+      if (!d) return;
+      const text = [
+        `CANDIDATURA: ${d.grant_title}`,
+        `Ente Erogatore: ${d.grant_issuer}`,
+        `Proponente: ${d.association_name}`,
+        '\n=== A. PRESENTAZIONE ORGANIZZAZIONE ===', d.sezione_a_presentazione,
+        '\n=== B. DESCRIZIONE PROGETTO ===', d.sezione_b_descrizione_progetto,
+        '\n=== C. ANALISI DEI BISOGNI ===', d.sezione_c_analisi_bisogni,
+        '\n=== D. METODOLOGIA ===', d.sezione_d_metodologia,
+        '\n=== E. PIANO ATTIVITÀ ===', d.sezione_e_piano_attivita,
+        '\n=== F. BUDGET NARRATIVO ===', d.sezione_f_budget_narrativo,
+        '\n=== G. IMPATTO E SOSTENIBILITÀ ===', d.sezione_g_impatto,
+        '\n=== H. PARTENARIATO ===', d.sezione_h_partenariato
+      ].join('\n');
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `candidatura_${d.grant_title.replace(/[^a-z0-9]/gi,'_').toLowerCase()}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
     }
 
     async function loadSavedProjects() {
@@ -2133,6 +2293,7 @@
       document.getElementById('view-analysis').style.display = 'none';
       document.getElementById('view-project').style.display = 'none';
       document.getElementById('view-certifications').style.display = 'none';
+      document.getElementById('view-compile').style.display = 'none';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -2141,6 +2302,7 @@
       document.getElementById('view-analysis').style.display = 'flex';
       document.getElementById('view-project').style.display = 'none';
       document.getElementById('view-certifications').style.display = 'none';
+      document.getElementById('view-compile').style.display = 'none';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -2169,9 +2331,15 @@
           body: JSON.stringify({ certification_type: certType })
         });
         const data = await response.json();
+
+        // Controllo risposta HTTP non ok
+        if (!response.ok) {
+          alert("Errore analisi certificazione: " + (data.detail || "Risposta inattesa dal server. Riprova tra poco."));
+          return;
+        }
         
-        document.getElementById('cert-output-name').textContent = data.certification_name;
-        document.getElementById('cert-output-score').textContent = `${data.compliance_score}%`;
+        document.getElementById('cert-output-name').textContent = data.certification_name || '';
+        document.getElementById('cert-output-score').textContent = `${data.compliance_score || 0}%`;
         
         const statusBadge = document.getElementById('cert-output-status');
         statusBadge.textContent = data.compliance_score >= 80 ? 'CONFORME' : (data.compliance_score >= 50 ? 'PARZIALMENTE ADERENTE' : 'FORTI CARENZE (DA COMPLETARE)');
@@ -2180,7 +2348,7 @@
         // Requisiti Mandatori
         const reqContainer = document.getElementById('cert-mandatory-requirements-container');
         reqContainer.innerHTML = '';
-        data.mandatory_requirements.forEach(req => {
+        (data.mandatory_requirements || []).forEach(req => {
           const reqCard = document.createElement('div');
           reqCard.style.cssText = "background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); padding:1.25rem; border-radius:8px; display:flex; flex-direction:column; gap:0.5rem; text-align:left;";
           
@@ -2241,7 +2409,7 @@
         // Asset Fisici
         const assetsList = document.getElementById('cert-required-assets');
         assetsList.innerHTML = '';
-        data.required_assets.forEach(asset => {
+        (data.required_assets || []).forEach(asset => {
           const li = document.createElement('li');
           li.textContent = asset;
           assetsList.appendChild(li);
@@ -2250,7 +2418,7 @@
         // Documenti
         const docsList = document.getElementById('cert-required-documents');
         docsList.innerHTML = '';
-        data.required_documents.forEach(doc => {
+        (data.required_documents || []).forEach(doc => {
           const li = document.createElement('li');
           li.textContent = doc;
           docsList.appendChild(li);
@@ -2259,7 +2427,7 @@
         // Action Plan
         const planList = document.getElementById('cert-action-plan');
         planList.innerHTML = '';
-        data.action_plan.forEach(step => {
+        (data.action_plan || []).forEach(step => {
           const li = document.createElement('li');
           li.textContent = step;
           planList.appendChild(li);
@@ -2268,7 +2436,7 @@
         // Consulenti
         const profList = document.getElementById('cert-professionals');
         profList.innerHTML = '';
-        data.recommended_professionals.forEach(prof => {
+        (data.recommended_professionals || []).forEach(prof => {
           const card = document.createElement('div');
           card.className = 'advise-block';
           card.style.cssText = "margin-top: 0; text-align: left;";

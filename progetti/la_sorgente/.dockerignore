@@ -1,0 +1,15 @@
+venv/
+.env
+uploads/
+test_data_dir/
+la_sorgente_deploy.zip
+crea_pacchetto.py
+.git/
+.gitignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+.system_generated/
+.gemini/

@@ -126,26 +126,17 @@
   "completed_requirements": {
     "regione_sardegna": [
       "Disponibilità di locali idonei allo svolgimento delle attività formative, conformi alle normative in materia di sicurezza, igiene, agibilità e abbattimento delle barriere architettoniche.",
-      "Forma Giuridica e Iscrizione al RUNTS",
-      "Regolarita Fiscale e Contributiva"
+      "Atto Costitutivo"
     ]
   },
   "uploaded_documents": [
     {
-      "document_name": "Statuto Adeguato CTS La Sorgente",
-      "description": "Statuto conforme alle direttive del Terzo Settore registrato all'AdE",
-      "filename": "Giustificazione Scritta",
-      "uploaded_at": "2026-05-19T10:00:00",
+      "document_name": "Atto Costitutivo La Sorgente",
+      "description": "Atto costitutivo con statuto dell'associazione sopra nominata La Sorgente",
+      "filename": "ATTO COSTITUTIVO LA SORGENTE.docx",
+      "uploaded_at": "2026-05-21T12:10:16",
       "certification_type": "regione_sardegna",
-      "requirement_name": "Forma Giuridica e Iscrizione al RUNTS"
-    },
-    {
-      "document_name": "DURC Regolare La Sorgente",
-      "description": "Documento Unico di Regolarita Contributiva valido fino al 31/12/2026",
-      "filename": "Giustificazione Scritta",
-      "uploaded_at": "2026-05-19T10:00:00",
-      "certification_type": "regione_sardegna",
-      "requirement_name": "Regolarita Fiscale e Contributiva"
+      "requirement_name": "Atto Costitutivo"
     }
   ]
 }

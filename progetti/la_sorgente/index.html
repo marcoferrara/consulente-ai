@@ -983,9 +983,217 @@
     .toggle-container input:checked + .toggle-slider:before {
       transform: translateX(14px);
     }
+
+    /* ─── GLOBAL LEFT SIDEBAR ─── */
+    body {
+      padding-left: 260px;
+    }
+
+    .global-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 260px;
+      background: rgba(10, 15, 30, 0.75);
+      backdrop-filter: blur(25px);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      z-index: 999;
+      padding: 2rem 1.5rem;
+      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .global-sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .global-sidebar-logo-icon {
+      font-size: 1.8rem;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .global-sidebar-logo-text h2 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .global-sidebar-logo-text h2 span {
+      color: var(--primary);
+    }
+
+    .global-sidebar-logo-text p {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .global-sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .global-sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.9rem 1.2rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      border-radius: 12px;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .global-sidebar-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.05);
+      padding-left: 1.5rem;
+    }
+
+    .global-sidebar-link.active {
+      color: #fff;
+      background: linear-gradient(135deg, rgba(46, 196, 182, 0.15) 0%, rgba(46, 196, 182, 0.02) 100%);
+      border: 1px solid rgba(46, 196, 182, 0.25);
+      box-shadow: 0 4px 20px rgba(46, 196, 182, 0.1);
+      position: relative;
+    }
+
+    .global-sidebar-link.active::after {
+      content: '';
+      position: absolute;
+      left: -1px;
+      top: 25%;
+      height: 50%;
+      width: 4px;
+      background: var(--primary);
+      border-radius: 0 4px 4px 0;
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .global-sidebar-link-icon {
+      font-size: 1.1rem;
+    }
+
+    /* ─── DOCUMENT CHECKLIST CLASSES ─── */
+    .doc-bullets li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .doc-bullets.checks li::before {
+      content: '•';
+      color: var(--accent);
+    }
+
+    .doc-bullets li.doc-bullet-acquired::before {
+      content: '✓' !important;
+      color: #10b981 !important;
+      font-weight: bold;
+    }
+
+    .doc-bullets li.doc-bullet-pending::before {
+      content: '⚠' !important;
+      color: #f59e0b !important;
+      font-weight: bold;
+    }
+
+    /* ─── INSIGHTS & TOOLTIPS ─── */
+    .info-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary-dim);
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      font-size: 0.7rem;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      font-weight: bold;
+      transition: var(--transition);
+      vertical-align: middle;
+    }
+    
+    .info-trigger:hover {
+      background: var(--primary);
+      color: #000;
+      box-shadow: 0 0 8px var(--primary);
+    }
+    
+    .insight-box {
+      background: rgba(46, 196, 182, 0.04);
+      border: 1px solid rgba(46, 196, 182, 0.15);
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-top: 0.75rem;
+      position: relative;
+    }
+
+    @media (max-width: 1024px) {
+      body {
+        padding-left: 0;
+      }
+      .global-sidebar {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- GLOBAL LEFT SIDEBAR -->
+  <aside class="global-sidebar">
+    <div class="global-sidebar-logo">
+      <div class="global-sidebar-logo-icon">⛲</div>
+      <div class="global-sidebar-logo-text">
+        <h2>La Sorgente<span>.</span></h2>
+        <p>Hub Operativo AI</p>
+      </div>
+    </div>
+    <nav class="global-sidebar-nav">
+      <a href="/" class="global-sidebar-link active">
+        <span class="global-sidebar-link-icon">🎯</span>
+        <span>Hub Bandi &amp; Progetti</span>
+      </a>
+      <a href="/voice" class="global-sidebar-link">
+        <span class="global-sidebar-link-icon">📞</span>
+        <span>Voice Calling Bot</span>
+      </a>
+      <a href="/social" class="global-sidebar-link">
+        <span class="global-sidebar-link-icon">📱</span>
+        <span>Social Automation</span>
+      </a>
+    </nav>
+  </aside>
 
   <!-- LOADER -->
   <div class="loader-overlay" id="loader">
@@ -1003,6 +1211,7 @@
       <form id="upload-doc-form">
         <input type="hidden" id="upload-cert-type">
         <input type="hidden" id="upload-req-name">
+        <input type="hidden" id="upload-existing-filename">
         
         <div class="form-group" id="group-cert-select" style="display: none;">
           <label>Ambito Accreditamento / Certificazione</label>
@@ -1171,8 +1380,12 @@
       <!-- GRANTS VIEW -->
       <div id="view-explorer">
         <div class="section-header">
-          <h2>Hub Operativo Bandi</h2>
+          <h2>Hub Operativo Bandi <span class="info-trigger" onclick="showSectionInsight('explorer-info')">?</span></h2>
           <span style="font-size: 0.75rem; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em;" id="grants-count">5 Bandi Disponibili</span>
+        </div>
+
+        <div id="explorer-info" class="insight-box" style="display: none; margin-bottom: 1.5rem;">
+          Benvenuto nell'<strong>Hub Operativo Bandi</strong> di La Sorgente. Qui puoi ricercare, tramite parole chiave libere supportate da AI, tutti i bandi di finanziamento regionali, nazionali ed europei. Cliccando su <strong>"Fattibilità"</strong>, l'AI analizzerà automaticamente l'ammissibilità del tuo ente e calcolerà i vincoli legali e di cassa cumulativi con i progetti già in corso.
         </div>
 
         <!-- AI Dynamic Search Bar -->
@@ -1190,11 +1403,15 @@
       <!-- CERTIFICATIONS GAP ANALYSIS VIEW -->
       <div id="view-certifications" class="analysis-panel" style="display: none;">
         <div class="section-header">
-          <h2>Centro Accreditamenti &amp; Certificazioni</h2>
+          <h2>Centro Accreditamenti &amp; Certificazioni <span class="info-trigger" onclick="showSectionInsight('certifications-info')">?</span></h2>
           <button class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem;" onclick="goBackToExplorer()">← Torna all'Explorer</button>
         </div>
         
-        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; margin-top: -1rem;">
+        <div id="certifications-info" class="insight-box" style="display: none; margin-bottom: 1.5rem;">
+          Il <strong>Centro Accreditamenti &amp; Certificazioni</strong> ti permette di asseverare i requisiti del tuo Ente (RUNTS, certificazioni regionali, certificazioni ISO) caricando i documenti necessari. L'AI effettua una <strong>GAP Analysis</strong> automatica dei requisiti mancanti e ti fornisce un piano d'azione dettagliato per ottenerli.
+        </div>
+        
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem;">
           Analizza lo stato di compliance dell'associazione. Seleziona un obiettivo per avviare la GAP Analysis intelligente e tracciare la checklist per superare le carenze organizzative e strutturali.
         </p>
 
@@ -1337,6 +1554,60 @@
 
         <div class="analysis-grid">
           
+          <!-- CONTROLLI CUMULATIVI CARD -->
+          <div class="analysis-card" style="grid-column: 1 / -1; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08);">
+            <h4 style="color: var(--primary); display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem;">
+              <span style="font-size:1.2rem;">📊</span>
+              Controlli di Compatibilità Cumulativa (Incrocio Progetti Attivi)
+              <span class="info-trigger" onclick="showSectionInsight('cumulative-checks-info')">?</span>
+            </h4>
+            <div id="cumulative-checks-info" class="insight-box" style="display:none; margin-top:0.5rem; margin-bottom:1rem;">
+              Questo pannello calcola in tempo reale la sostenibilità complessiva della nuova candidatura incrociando i dati di tutti i progetti attivi registrati in database per l'anno corrente. Include la verifica del limite legale De Minimis, la saturazione operativa del personale (FTE) e lo stress finanziario di pre-finanziamento.
+            </div>
+            
+            <div class="cumulative-checks-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin-top:1rem;">
+              <!-- De Minimis -->
+              <div class="cum-check-item" style="background:rgba(0,0,0,0.2); padding:1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.05); display:flex; flex-direction:column; gap:0.5rem;">
+                <span style="font-size:0.7rem; uppercase; color:var(--text-muted); letter-spacing:0.05em;">REGOLA DE MINIMIS (SOGLIA 3 ANNI)</span>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong id="cum-deminimis-val" style="font-size:1.1rem; font-family:'Outfit',sans-serif;">0 €</strong>
+                  <span id="cum-deminimis-badge" class="badge">N/D</span>
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-muted);" id="cum-deminimis-desc">Cumulativo proiettato su max 300.000 €</div>
+              </div>
+              
+              <!-- Staff capacity -->
+              <div class="cum-check-item" style="background:rgba(0,0,0,0.2); padding:1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.05); display:flex; flex-direction:column; gap:0.5rem;">
+                <span style="font-size:0.7rem; uppercase; color:var(--text-muted); letter-spacing:0.05em;">CAPACITÀ STAFF (CARICO OPERATIVO)</span>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong id="cum-staff-val" style="font-size:1.1rem; font-family:'Outfit',sans-serif;">0 / 8 FTE</strong>
+                  <span id="cum-staff-badge" class="badge">N/D</span>
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-muted);" id="cum-staff-desc">FTE totali proiettati su organico</div>
+              </div>
+
+              <!-- Cash flow -->
+              <div class="cum-check-item" style="background:rgba(0,0,0,0.2); padding:1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.05); display:flex; flex-direction:column; gap:0.5rem;">
+                <span style="font-size:0.7rem; uppercase; color:var(--text-muted); letter-spacing:0.05em;">ESPOSIZIONE PRE-FINANZIAMENTO</span>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong id="cum-cash-val" style="font-size:1.1rem; font-family:'Outfit',sans-serif;">0 €</strong>
+                  <span id="cum-cash-badge" class="badge">N/D</span>
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-muted);" id="cum-cash-desc">Anticipo cassa 35% vs budget annuo</div>
+              </div>
+
+              <!-- Ente Conflict -->
+              <div class="cum-check-item" style="background:rgba(0,0,0,0.2); padding:1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.05); display:flex; flex-direction:column; gap:0.5rem;">
+                <span style="font-size:0.7rem; uppercase; color:var(--text-muted); letter-spacing:0.05em;">CONFLITTO ENTE EROGATORE</span>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong id="cum-conflict-val" style="font-size:0.9rem; font-family:'Outfit',sans-serif; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:150px;">Nessuno</strong>
+                  <span id="cum-conflict-badge" class="badge">N/D</span>
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-muted);" id="cum-conflict-desc">Candidature doppie stesso erogatore</div>
+              </div>
+            </div>
+          </div>
+          
           <!-- Legal -->
           <div class="analysis-card">
             <h4>
@@ -1445,11 +1716,15 @@
       <!-- BUSINESS PLAN & PROJECT PANEL -->
       <div id="view-project" class="project-panel">
         <div class="section-header">
-          <h2>Business Plan &amp; Documentazione</h2>
+          <h2>Business Plan &amp; Documentazione <span class="info-trigger" onclick="showSectionInsight('bp-info')">?</span></h2>
           <div style="display: flex; gap: 0.75rem;">
             <button class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem;" onclick="goBackToAnalysis()">← Torna all'Analisi</button>
             <button class="btn" style="width: auto; padding: 0.5rem 1.25rem;" id="btn-save-project">Salva Progetto</button>
           </div>
+        </div>
+
+        <div id="bp-info" class="insight-box" style="display: none; margin-bottom: 1.5rem;">
+          In questa sezione viene elaborata la <strong>bozza progettuale completa</strong> generata dall'AI di La Sorgente. Troverai un quadro di budget strutturato per voci di costo, la strategia di partnership consigliata, il piano accademico/AFAM per il riconoscimento dei CFU e la <strong>checklist asseverata dei documenti</strong> necessari per la partecipazione formale.
         </div>
 
         <!-- Project document styled as an official folder -->
@@ -1534,6 +1809,86 @@
     let uploadedDocuments = [];
     let currentCertTypeAnalyzed = null;
 
+    function showSectionInsight(id) {
+      const box = document.getElementById(id);
+      if (box) {
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    function renderDocumentItem(docText, container) {
+      const li = document.createElement('li');
+      const docLower = docText.toLowerCase();
+      const runtsEnrolled = activeProfile.runts_enrolled || false;
+      
+      // Verifica se è stato caricato un documento corrispondente
+      const isUploaded = (uploadedDocuments || []).some(d => 
+        d.document_name.toLowerCase().includes(docLower) || 
+        d.requirement_name.toLowerCase().includes(docLower) || 
+        d.filename.toLowerCase().includes(docLower) ||
+        docLower.includes(d.document_name.toLowerCase())
+      );
+      
+      let acquired = false;
+      let statusText = "";
+      let infoNote = "";
+      
+      if (docLower.includes("runts") || docLower.includes("terzo settore")) {
+        if (runtsEnrolled) {
+          acquired = true;
+          statusText = "Acquisito";
+          infoNote = " — Rilevato da profilo (Associazione iscritta al RUNTS)";
+        } else {
+          acquired = false;
+          statusText = "Da Reperire / Attivare";
+          infoNote = " — Richiede l'iscrizione dell'Ente al RUNTS per poter partecipare";
+        }
+      } else if (docLower.includes("statuto") || docLower.includes("atto costitutivo")) {
+        const hasStatuto = runtsEnrolled || (activeProfile.certifications && activeProfile.certifications.length > 0) || isUploaded;
+        if (hasStatuto) {
+          acquired = true;
+          statusText = "Acquisito";
+          infoNote = " — Statuto depositato conforme e asseverato nell'archivio storico";
+        } else {
+          acquired = false;
+          statusText = "Da Reperire / Attivare";
+          infoNote = " — Depositare copia conforme dello statuto";
+        }
+      } else if (docLower.includes("durc")) {
+        if (isUploaded) {
+          acquired = true;
+          statusText = "Acquisito";
+          infoNote = " — DURC in corso di validità rilevato negli allegati";
+        } else {
+          acquired = false;
+          statusText = "Da Reperire / Attivare";
+          infoNote = " — Il DURC ha validità di 120 giorni e deve essere richiesto su portale INPS/INAIL";
+        }
+      } else if (docLower.includes("identità") || docLower.includes("fiscale") || docLower.includes("legale rappresentante")) {
+        acquired = true;
+        statusText = "Acquisito";
+        infoNote = " — Documenti d'identità e codice fiscale del Legale Rappresentante presenti in archivio";
+      } else if (docLower.includes("de minimis")) {
+        acquired = true;
+        statusText = "Pronto";
+        infoNote = " — Dichiarazione De Minimis pre-compilata e asseverata dall'AI in tempo reale";
+      } else {
+        if (isUploaded) {
+          acquired = true;
+          statusText = "Acquisito";
+          infoNote = " — File caricato con successo nel database asseverazioni";
+        } else {
+          acquired = false;
+          statusText = "Da Reperire";
+          infoNote = " — Da asseverare e caricare nella sezione asseverazione documenti";
+        }
+      }
+      
+      li.className = acquired ? "doc-bullet-acquired" : "doc-bullet-pending";
+      li.innerHTML = `<strong>${docText}</strong> <span style="font-size:0.7rem; font-weight:600; padding:0.15rem 0.35rem; border-radius:4px; ${acquired ? 'background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.25); color:#10b981;' : 'background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.25); color:#f59e0b;'}">${statusText}</span><span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-top:0.15rem;">${infoNote}</span>`;
+      container.appendChild(li);
+    }
+
     // Inizializzazione
     window.onload = async function() {
       await loadProfile();
@@ -1598,7 +1953,7 @@
         }
         
         container.innerHTML = '';
-        uploadedDocuments.forEach(doc => {
+        uploadedDocuments.forEach((doc, idx) => {
           const item = document.createElement('div');
           item.style.cssText = "background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); padding:0.75rem; border-radius:8px; display:flex; flex-direction:column; gap:0.25rem;";
           
@@ -1618,6 +1973,14 @@
             <div style="font-size:0.65rem; color:var(--primary); margin-top:0.15rem; display:flex; align-items:center; gap:0.2rem;">
               <span>📎</span> <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:200px;">${doc.filename}</span>
             </div>
+            <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:0.5rem; border-top:1px solid rgba(255,255,255,0.05); padding-top:0.4rem;">
+              <button onclick="editDocument(${idx})" style="background:none; border:none; color:var(--primary); font-size:0.7rem; cursor:pointer; padding:0.2rem; display:flex; align-items:center; gap:0.25rem;">
+                ✏️ Modifica
+              </button>
+              <button onclick="deleteDocument(${idx})" style="background:none; border:none; color:#ff4d4d; font-size:0.7rem; cursor:pointer; padding:0.2rem; display:flex; align-items:center; gap:0.25rem;">
+                🗑️ Elimina
+              </button>
+            </div>
           `;
           container.appendChild(item);
         });
@@ -1632,6 +1995,7 @@
       
       document.getElementById('upload-cert-type').value = certType;
       document.getElementById('upload-req-name').value = reqName;
+      document.getElementById('upload-existing-filename').value = '';
       
       const reqInput = document.getElementById('upload-req-display');
       reqInput.value = reqName;
@@ -1653,6 +2017,7 @@
       
       document.getElementById('upload-cert-type').value = '';
       document.getElementById('upload-req-name').value = '';
+      document.getElementById('upload-existing-filename').value = '';
       
       const reqInput = document.getElementById('upload-req-display');
       reqInput.value = '';
@@ -1671,6 +2036,68 @@
 
     function closeUploadModal() {
       document.getElementById('upload-modal').style.display = 'none';
+    }
+
+    function editDocument(idx) {
+      const doc = uploadedDocuments[idx];
+      if (!doc) return;
+      
+      document.getElementById('modal-title').textContent = "Modifica Documento Asseverativo";
+      
+      const certSelect = document.getElementById('group-cert-select');
+      
+      document.getElementById('upload-cert-type').value = doc.certification_type;
+      document.getElementById('upload-req-name').value = doc.requirement_name;
+      document.getElementById('upload-existing-filename').value = doc.filename || '';
+      
+      const reqInput = document.getElementById('upload-req-display');
+      reqInput.value = doc.requirement_name;
+      reqInput.disabled = true;
+      reqInput.style.background = "rgba(255,255,255,0.05)";
+      reqInput.style.color = "var(--text-muted)";
+      certSelect.style.display = 'none';
+      
+      // Popola i campi modificabili
+      document.getElementById('upload-doc-name').value = doc.document_name;
+      document.getElementById('upload-doc-desc').value = doc.description;
+      document.getElementById('upload-doc-file').value = ''; // Resetta file input
+      
+      document.getElementById('upload-modal').style.display = 'flex';
+    }
+
+    async function deleteDocument(idx) {
+      const doc = uploadedDocuments[idx];
+      if (!doc) return;
+      
+      if (!confirm(`Sei sicuro di voler eliminare il documento "${doc.document_name}" asseverato per il requisito "${doc.requirement_name}"?\nQuesta operazione rimuoverà anche il file fisico dal server.`)) {
+        return;
+      }
+      
+      showLoader("Eliminazione del documento in corso...");
+      try {
+        const response = await fetch('/api/documents/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            certification_type: doc.certification_type,
+            requirement_name: doc.requirement_name
+          })
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          alert("Documento eliminato con successo. La GAP Analysis è stata ricalcolata.");
+          await loadCertStatus(); // Ricarica sidebar
+          if (currentCertTypeAnalyzed) {
+            await triggerCertAnalysis(currentCertTypeAnalyzed); // Rinfresca analisi attiva
+          }
+        } else {
+          alert("Errore durante l'eliminazione del documento: " + result.message);
+        }
+      } catch (err) {
+        alert("Errore di rete: " + err);
+      } finally {
+        hideLoader();
+      }
     }
 
     async function uploadDocumentFile() {
@@ -1698,6 +2125,11 @@
       formData.append('requirement_name', reqName);
       formData.append('document_name', docName);
       formData.append('description', docDesc);
+      
+      const existingFilename = document.getElementById('upload-existing-filename').value;
+      if (existingFilename) {
+        formData.append('existing_filename', existingFilename);
+      }
       
       if (fileInput.files.length > 0) {
         formData.append('file', fileInput.files[0]);
@@ -1928,6 +2360,70 @@
         document.getElementById('analysis-financial').textContent = data.financial_analysis || '';
         document.getElementById('analysis-partnership').textContent = data.partnership_need || '';
 
+        // Popola i Controlli di Compatibilità Cumulativa
+        if (data.cumulative_checks) {
+          const checks = data.cumulative_checks;
+
+          // 1. De Minimis
+          const deMinimisValEl = document.getElementById('cum-deminimis-val');
+          const deMinimisBadgeEl = document.getElementById('cum-deminimis-badge');
+          if (deMinimisValEl && deMinimisBadgeEl) {
+            deMinimisValEl.textContent = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(checks.projected_cumulative_budget);
+            if (checks.de_minimis_warning) {
+              deMinimisBadgeEl.textContent = "A RISCHIO";
+              deMinimisBadgeEl.className = "eligibility-status risk";
+            } else {
+              deMinimisBadgeEl.textContent = "OK";
+              deMinimisBadgeEl.className = "eligibility-status done";
+            }
+          }
+
+          // 2. Staff Capacity
+          const staffValEl = document.getElementById('cum-staff-val');
+          const staffBadgeEl = document.getElementById('cum-staff-badge');
+          if (staffValEl && staffBadgeEl) {
+            staffValEl.textContent = `${checks.projected_staff_occupied} / ${checks.staff_limit} FTE`;
+            if (checks.staff_warning) {
+              staffBadgeEl.textContent = "SOVRACCARICO";
+              staffBadgeEl.className = "eligibility-status risk";
+            } else {
+              staffBadgeEl.textContent = "SUFFICIENTE";
+              staffBadgeEl.className = "eligibility-status done";
+            }
+          }
+
+          // 3. Cash Flow Pre-Financing
+          const cashValEl = document.getElementById('cum-cash-val');
+          const cashBadgeEl = document.getElementById('cum-cash-badge');
+          if (cashValEl && cashBadgeEl) {
+            cashValEl.textContent = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(checks.projected_pre_financing_needed);
+            if (checks.cash_flow_warning) {
+              cashBadgeEl.textContent = "TENSIONE";
+              cashBadgeEl.className = "eligibility-status risk";
+            } else {
+              cashBadgeEl.textContent = "SOSTENIBILE";
+              cashBadgeEl.className = "eligibility-status done";
+            }
+          }
+
+          // 4. Ente Conflict
+          const conflictValEl = document.getElementById('cum-conflict-val');
+          const conflictBadgeEl = document.getElementById('cum-conflict-badge');
+          if (conflictValEl && conflictBadgeEl) {
+            if (checks.issuer_conflict) {
+              conflictValEl.textContent = checks.conflicting_project_title || "Rilevato";
+              conflictValEl.title = checks.conflicting_project_title || "Rilevato";
+              conflictBadgeEl.textContent = "CONFLITTO";
+              conflictBadgeEl.className = "eligibility-status risk";
+            } else {
+              conflictValEl.textContent = "Nessuno";
+              conflictValEl.title = "Nessuno";
+              conflictBadgeEl.textContent = "OK";
+              conflictBadgeEl.className = "eligibility-status done";
+            }
+          }
+        }
+
         // Expert Recommendations — con fallback array vuoto
         const recList = document.getElementById('analysis-experts-list');
         recList.innerHTML = '';
@@ -2013,10 +2509,8 @@
         // Checklist Documenti
         const docList = document.getElementById('doc-documents');
         docList.innerHTML = '';
-        data.checklist_documents.forEach(doc => {
-          const li = document.createElement('li');
-          li.textContent = doc;
-          docList.appendChild(li);
+        (data.checklist_documents || []).forEach(doc => {
+          renderDocumentItem(doc, docList);
         });
 
         // Figure professionali consigliate

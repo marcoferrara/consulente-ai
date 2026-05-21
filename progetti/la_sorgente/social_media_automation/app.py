@@ -18,8 +18,23 @@ logger = logging.getLogger("social_media_automation")
 
 app = FastAPI(title="La Sorgente — Instagram SMM Automation Simulation")
 
-# Database Path
-DB_PATH = os.path.join(os.path.dirname(__file__), "database.json")
+# Database Path (supporta directory persistente per ambienti cloud)
+PERSISTENT_DATA_DIR = os.getenv("PERSISTENT_DATA_DIR")
+if PERSISTENT_DATA_DIR:
+    PERSISTENT_DATA_DIR = os.path.abspath(PERSISTENT_DATA_DIR)
+    os.makedirs(PERSISTENT_DATA_DIR, exist_ok=True)
+    DB_PATH = os.path.join(PERSISTENT_DATA_DIR, "social_database.json")
+    default_db = os.path.join(os.path.dirname(__file__), "database.json")
+    if not os.path.exists(DB_PATH) and os.path.exists(default_db):
+        try:
+            import shutil
+            shutil.copy2(default_db, DB_PATH)
+            logger.info(f"Copiato database social di default in {DB_PATH}")
+        except Exception as e:
+            logger.error(f"Errore copia database social di default: {e}")
+else:
+    DB_PATH = os.path.join(os.path.dirname(__file__), "database.json")
+
 
 # Configure Gemini
 api_key = os.getenv("GEMINI_API_KEY")

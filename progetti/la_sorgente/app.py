@@ -5,7 +5,8 @@ import logging
 import shutil
 from typing import Dict, Any, List
 from fastapi import FastAPI, Request, HTTPException, File, UploadFile, Form
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
+import hashlib
 from pydantic import BaseModel
 from dotenv import load_dotenv
 import google.generativeai as genai
@@ -33,7 +34,429 @@ else:
 
 app = FastAPI(title="La Sorgente - Hub Operativo Bandi AI")
 
-DB_FILE = os.path.join(BASE_DIR, "database.json")
+# Configurazione Password Gate
+APP_PASSWORD = os.getenv("APP_PASSWORD")
+SESSION_TOKEN = hashlib.sha256(APP_PASSWORD.encode()).hexdigest() if APP_PASSWORD else None
+
+@app.middleware("http")
+async def auth_middleware(request: Request, call_next):
+    # Se la password dell'app non è impostata, l'autenticazione è disattivata (bypass completo)
+    if not APP_PASSWORD:
+        return await call_next(request)
+        
+    path = request.url.path
+    
+    # Rotte pubbliche sempre permesse
+    public_paths = ["/login", "/favicon.ico"]
+    
+    # Se il percorso inizia con una delle rotte pubbliche, consenti l'accesso
+    if any(path.startswith(p) for p in public_paths):
+        return await call_next(request)
+        
+    # Verifica la presenza del cookie di sessione
+    session_cookie = request.cookies.get("sorgente_session")
+    if session_cookie == SESSION_TOKEN:
+        return await call_next(request)
+        
+    # Non autorizzato!
+    # Determiniamo se è una richiesta API (ritorna 401 JSON) o una pagina HTML (ritorna redirect a /login)
+    is_api = path.startswith("/api/") or path.startswith("/voice/api/") or path.startswith("/social/api/")
+    
+    if is_api:
+        return JSONResponse(
+            status_code=401,
+            content={"status": "error", "message": "Non autorizzato. Sessione non valida o scaduta."}
+        )
+    else:
+        # Reindirizza al login mantenendo il percorso originario come parametro 'next'
+        login_url = f"/login?next={path}"
+        if request.query_params:
+            login_url += f"&{request.query_params}"
+        return RedirectResponse(url=login_url)
+
+@app.get("/login", response_class=HTMLResponse)
+async def login_get(request: Request, next: str = "/"):
+    # Se l'autenticazione è disattivata, reindirizza direttamente alla destinazione
+    if not APP_PASSWORD:
+        return RedirectResponse(url=next)
+        
+    # Se l'utente è già loggato, reindirizzalo
+    if request.cookies.get("sorgente_session") == SESSION_TOKEN:
+        return RedirectResponse(url=next)
+        
+    html_content = f"""<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesso Protetto — La Sorgente</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {{
+            --bg-gradient: radial-gradient(circle at 50% 50%, #0d1117 0%, #07090e 100%);
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --glow-color: rgba(99, 102, 241, 0.15);
+            --glass-bg: rgba(13, 17, 23, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }}
+        
+        * {{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }}
+        
+        body {{
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }}
+        
+        body::before, body::after {{
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            opacity: 0.3;
+            animation: float-glow 20s infinite alternate ease-in-out;
+        }}
+        
+        body::before {{
+            background: #6366f1;
+            top: -10%;
+            left: 10%;
+        }}
+        
+        body::after {{
+            background: #a855f7;
+            bottom: -10%;
+            right: 10%;
+            animation-delay: -10s;
+        }}
+        
+        @keyframes float-glow {{
+            0% {{ transform: translate(0, 0) scale(1); }}
+            100% {{ transform: translate(50px, 30px) scale(1.1); }}
+        }}
+        
+        .login-container {{
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 420px;
+            padding: 24px;
+        }}
+        
+        .login-card {{
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px 32px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }}
+        
+        .login-card::before {{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+        }}
+        
+        .logo-wrapper {{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+            text-align: center;
+        }}
+        
+        .logo-icon {{
+            width: 60px;
+            height: 60px;
+            background: var(--primary-gradient);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+        }}
+        
+        .logo-icon svg {{
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }}
+        
+        .logo-title {{
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }}
+        
+        .logo-subtitle {{
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+        }}
+        
+        .form-group {{
+            margin-bottom: 24px;
+            position: relative;
+        }}
+        
+        .form-label {{
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }}
+        
+        .input-field {{
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 15px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            outline: none;
+            font-family: inherit;
+        }}
+        
+        .input-field:focus {{
+            border-color: #6366f1;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 0 4px var(--glow-color);
+        }}
+        
+        .btn-login {{
+            width: 100%;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
+        }}
+        
+        .btn-login:hover {{
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+            filter: brightness(1.1);
+        }}
+        
+        .btn-login:active {{
+            transform: translateY(0);
+        }}
+        
+        .error-message {{
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 24px;
+            display: none;
+            animation: shake 0.4s ease-in-out;
+        }}
+        
+        @keyframes shake {{
+            0%, 100% {{ transform: translateX(0); }}
+            25% {{ transform: translateX(-8px); }}
+            75% {{ transform: translateX(8px); }}
+        }}
+        
+        .footer-text {{
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 32px;
+        }}
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-wrapper">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <h1 class="logo-title">La Sorgente</h1>
+                <div class="logo-subtitle">Hub Operativo AI</div>
+            </div>
+            
+            <div id="error-box" class="error-message"></div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label class="form-label" for="password">Password di Accesso</label>
+                    <input class="input-field" type="password" id="password" name="password" placeholder="Inserisci la password dell'applicazione" required autocomplete="current-password" autofocus>
+                </div>
+                
+                <button class="btn-login" type="submit">
+                    Accedi
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </form>
+            
+            <div class="footer-text">
+                &copy; 2026 Consulente AI &bull; Riservato & Sicuro
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const form = document.getElementById('login-form');
+        const errorBox = document.getElementById('error-box');
+        
+        form.addEventListener('submit', async (e) => {{
+            e.preventDefault();
+            errorBox.style.display = 'none';
+            
+            const password = document.getElementById('password').value;
+            const nextUrl = new URLSearchParams(window.location.search).get('next') || '/';
+            
+            try {{
+                const response = await fetch('/login', {{
+                    method: 'POST',
+                    headers: {{
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    }},
+                    body: new URLSearchParams({{
+                        'password': password,
+                        'next': nextUrl
+                    }})
+                }});
+                
+                const data = await response.json();
+                
+                if (response.ok && data.status === 'success') {{
+                    window.location.href = data.redirect || nextUrl;
+                }} else {{
+                    errorBox.textContent = data.message || 'Password non corretta.';
+                    errorBox.style.display = 'block';
+                    document.getElementById('password').focus();
+                }}
+            }} catch (err) {{
+                errorBox.textContent = 'Errore di connessione al server.';
+                errorBox.style.display = 'block';
+            }}
+        }});
+    </script>
+</body>
+</html>"""
+    return HTMLResponse(content=html_content)
+
+@app.post("/login")
+async def login_post(password: str = Form(...), next: str = Form("/")):
+    if not APP_PASSWORD:
+        return {"status": "success", "redirect": next}
+        
+    input_hash = hashlib.sha256(password.encode()).hexdigest()
+    if input_hash == SESSION_TOKEN:
+        response = JSONResponse(content={"status": "success", "redirect": next})
+        response.set_cookie(
+            key="sorgente_session",
+            value=SESSION_TOKEN,
+            max_age=30 * 24 * 3600,
+            httponly=True,
+            samesite="lax",
+            path="/"
+        )
+        return response
+    else:
+        return JSONResponse(
+            status_code=400,
+            content={"status": "error", "message": "Password di accesso non valida. Riprova."}
+        )
+
+@app.get("/logout")
+async def logout(next: str = "/login"):
+    response = RedirectResponse(url=next)
+    response.delete_cookie(key="sorgente_session", path="/")
+    return response
+
+# Importazione e mount dei sotto-moduli
+try:
+    from voice_calling_bot.app import app as voice_app
+    from social_media_automation.app import app as social_app
+    app.mount("/voice", voice_app)
+    app.mount("/social", social_app)
+    logger.info("Sotto-applicazioni '/voice' e '/social' montate con successo.")
+except Exception as e:
+    logger.error(f"Errore nel montaggio delle sotto-applicazioni: {e}")
+# Configurazione della Persistenza Dati (per ambienti ephemeral come Render)
+PERSISTENT_DATA_DIR = os.getenv("PERSISTENT_DATA_DIR")
+if PERSISTENT_DATA_DIR:
+    PERSISTENT_DATA_DIR = os.path.abspath(PERSISTENT_DATA_DIR)
+    os.makedirs(PERSISTENT_DATA_DIR, exist_ok=True)
+    DB_FILE = os.path.join(PERSISTENT_DATA_DIR, "database.json")
+    UPLOADS_DIR = os.path.join(PERSISTENT_DATA_DIR, "uploads")
+    os.makedirs(UPLOADS_DIR, exist_ok=True)
+    
+    # Copia il database di default se non esiste nel path persistente
+    default_db = os.path.join(BASE_DIR, "database.json")
+    if not os.path.exists(DB_FILE) and os.path.exists(default_db):
+        try:
+            shutil.copy2(default_db, DB_FILE)
+            logger.info(f"Copiato database di default in {DB_FILE}")
+        except Exception as e:
+            logger.error(f"Errore nella copia del database di default: {e}")
+else:
+    DB_FILE = os.path.join(BASE_DIR, "database.json")
+    UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")
+    os.makedirs(UPLOADS_DIR, exist_ok=True)
+
 
 # Modelli Pydantic
 class ProfileUpdate(BaseModel):
@@ -46,6 +469,10 @@ class ProfileUpdate(BaseModel):
     annual_budget: float
     certifications: List[str]
     statute_scope: str
+
+class DocumentDeleteRequest(BaseModel):
+    certification_type: str
+    requirement_name: str
 
 class FeasibilityRequest(BaseModel):
     grant_id: str
@@ -104,6 +531,56 @@ async def get_projects():
     db = load_db()
     return JSONResponse(content=db.get("projects", []))
 
+@app.get("/api/cumulative-checks")
+async def get_cumulative_checks():
+    db = load_db()
+    profile = db.get("association_profile", {})
+    projects = db.get("projects", [])
+    
+    def clean_budget_str(b_str: Any) -> float:
+        if isinstance(b_str, (int, float)):
+            return float(b_str)
+        if not b_str:
+            return 0.0
+        s = str(b_str).replace("€", "").replace(".", "").replace(",", ".").replace(" ", "").strip()
+        try:
+            return float(s)
+        except ValueError:
+            return 0.0
+
+    current_projects_budget = 0.0
+    for p in projects:
+        b_draft = p.get("budget_draft", {})
+        tot = b_draft.get("totale_stimato", 0)
+        current_projects_budget += clean_budget_str(tot)
+        
+    de_minimis_limit = 300000.0
+    de_minimis_warning = current_projects_budget > de_minimis_limit
+    
+    staff_limit = int(profile.get("staff_count", 8))
+    active_projects_count = len(projects)
+    current_staff_occupied = active_projects_count * 4
+    staff_warning = current_staff_occupied > staff_limit
+    
+    pre_financing_pct = 0.35
+    projected_pre_financing_needed = current_projects_budget * pre_financing_pct
+    annual_budget = float(profile.get("annual_budget", 45000.0))
+    cash_flow_warning = projected_pre_financing_needed > annual_budget
+    
+    return JSONResponse(content={
+        "current_projects_budget": current_projects_budget,
+        "de_minimis_limit": de_minimis_limit,
+        "de_minimis_warning": de_minimis_warning,
+        "staff_limit": staff_limit,
+        "current_staff_occupied": current_staff_occupied,
+        "staff_warning": staff_warning,
+        "projected_pre_financing_needed": projected_pre_financing_needed,
+        "annual_budget": annual_budget,
+        "cash_flow_warning": cash_flow_warning,
+        "active_projects_count": active_projects_count
+    })
+
+
 @app.post("/api/projects/save")
 async def save_project(project: ProjectSaveRequest):
     db = load_db()
@@ -134,7 +611,7 @@ async def search_grants(req: DynamicSearchRequest):
     
     prompt = f"""
     Sei un assistente AI esperto in Europrogettazione e bandi di finanziamento del Terzo Settore italiano ed europeo.
-    Il cliente è l'associazione culturale 'La Sorgente' operante a Cagliari (Sardegna) nel campo della formazione di musical e della Comunicazione Non Violenta.
+    Il cliente è l'associazione culturale '{profile.get('name', 'La Sorgente')}' operante a {profile.get('headquarters', 'Cagliari')} (Sardegna) nel campo della formazione di musical e della Comunicazione Non Violenta.
     
     Profilo Associazione:
     - Tipo: {profile.get('legal_type', 'APS')}
@@ -247,11 +724,25 @@ async def search_grants(req: DynamicSearchRequest):
 async def analyze_feasibility(req: FeasibilityRequest):
     """
     Esegue un'analisi approfondita di fattibilità (legale, tecnica, sociale, finanziaria)
-    incrociando le specifiche del bando con il profilo dell'associazione caricato nel database.
+    incrociando le specifiche del bando con il profilo dell'associazione e i vincoli cumulativi
+    dei progetti già attivi caricati nel database.
     """
     db = load_db()
     profile = db.get("association_profile", {})
+    projects = db.get("projects", [])
     
+    # Helper per pulire stringhe budget in valori numerici
+    def clean_budget_str(b_str: Any) -> float:
+        if isinstance(b_str, (int, float)):
+            return float(b_str)
+        if not b_str:
+            return 0.0
+        s = str(b_str).replace("€", "").replace(".", "").replace(",", ".").replace(" ", "").strip()
+        try:
+            return float(s)
+        except ValueError:
+            return 0.0
+
     # Trova il bando
     grant = None
     for g in db.get("grants", []):
@@ -262,8 +753,79 @@ async def analyze_feasibility(req: FeasibilityRequest):
     if not grant:
         raise HTTPException(status_code=404, detail="Bando non trovato")
 
+    grant_budget = float(grant.get("budget_max", 0))
+    
+    # 1. Calcolo De Minimis (budget cumulativo dei progetti attivi/inviati negli ultimi 3 anni + bando attuale)
+    current_projects_budget = 0.0
+    for p in projects:
+        b_draft = p.get("budget_draft", {})
+        tot = b_draft.get("totale_stimato", 0)
+        current_projects_budget += clean_budget_str(tot)
+        
+    projected_cumulative_budget = current_projects_budget + grant_budget
+    de_minimis_limit = 300000.0
+    de_minimis_warning = projected_cumulative_budget > de_minimis_limit
+    
+    # 2. Calcolo Capacità Organica Staff (ogni bando attivo occupa circa 4 FTE)
+    staff_limit = int(profile.get("staff_count", 8))
+    active_projects_count = len(projects)
+    current_staff_occupied = active_projects_count * 4
+    projected_staff_occupied = current_staff_occupied + 4
+    staff_warning = projected_staff_occupied > staff_limit
+    
+    # 3. Esposizione Cassa / Cash Flow (anticipo stimato di circa 35% del budget cumulativo vs budget annuo associazione)
+    pre_financing_pct = 0.35
+    projected_pre_financing_needed = projected_cumulative_budget * pre_financing_pct
+    annual_budget = float(profile.get("annual_budget", 45000.0))
+    cash_flow_warning = projected_pre_financing_needed > annual_budget
+    
+    # 4. Conflitto Erogatore (candidature multiple allo stesso ente)
+    issuer_conflict = False
+    conflicting_project_title = ""
+    grant_issuer = grant.get("issuer", "")
+    for p in projects:
+        other_grant_id = p.get("grant_id")
+        other_grant = next((g for g in db.get("grants", []) if g["id"] == other_grant_id), None)
+        if other_grant:
+            other_issuer = other_grant.get("issuer", "")
+            if (grant_issuer.lower() in other_issuer.lower()) or (other_issuer.lower() in grant_issuer.lower()):
+                issuer_conflict = True
+                conflicting_project_title = p.get("project_title", "")
+                break
+
+    cumulative_checks = {
+        "current_projects_budget": current_projects_budget,
+        "projected_cumulative_budget": projected_cumulative_budget,
+        "de_minimis_limit": de_minimis_limit,
+        "de_minimis_warning": de_minimis_warning,
+        "staff_limit": staff_limit,
+        "current_staff_occupied": current_staff_occupied,
+        "projected_staff_occupied": projected_staff_occupied,
+        "staff_warning": staff_warning,
+        "projected_pre_financing_needed": projected_pre_financing_needed,
+        "annual_budget": annual_budget,
+        "cash_flow_warning": cash_flow_warning,
+        "issuer_conflict": issuer_conflict,
+        "conflicting_project_title": conflicting_project_title,
+        "active_projects_count": active_projects_count
+    }
+
+    cumulative_checks_context = f"""
+    Controlli di coerenza cumulativi con i progetti già in corso nel database:
+    - Budget totale dei progetti attivi/inviati: {current_projects_budget:,.2f} €
+    - Budget del bando corrente: {grant_budget:,.2f} €
+    - Budget cumulativo previsto (proiettato): {projected_cumulative_budget:,.2f} €
+    - Limite De Minimis (3 anni): {de_minimis_limit:,.2f} € (Superato: {'Sì' if de_minimis_warning else 'No'})
+    - Collaboratori totali associazione: {staff_limit}
+    - Collaboratori occupati dai progetti esistenti: {current_staff_occupied} (4 FTE per progetto)
+    - Collaboratori richiesti cumulativamente: {projected_staff_occupied} (Superato limite di organico: {'Sì' if staff_warning else 'No'})
+    - Anticipo di cassa stimato necessario (35% del budget cumulativo): {projected_pre_financing_needed:,.2f} €
+    - Budget annuo dichiarato dall'associazione: {annual_budget:,.2f} € (Rischio liquidità: {'Sì' if cash_flow_warning else 'No'})
+    - Conflitto Ente Erogatore: {'Sì (Esiste già un progetto inviato a questo ente: ' + conflicting_project_title + ')' if issuer_conflict else 'No'}
+    """
+
     prompt = f"""
-    Sei il consulente legale ed esperto di bandi senior per 'Consulente AI'. Devi redigere una perizia di fattibilità tecnica e legale incrociando i dati di un bando specifico con il profilo del cliente 'La Sorgente' di Cagliari.
+    Sei il consulente legale ed esperto di bandi senior per 'Consulente AI'. Devi redigere una perizia di fattibilità tecnica e legale incrociando i dati di un bando specifico con il profilo del cliente '{profile.get('name', 'La Sorgente')}' di {profile.get('headquarters', 'Cagliari')} e considerando anche i vincoli cumulativi con i progetti già attivi e candidati durante l'anno.
     
     Profilo Cliente:
     - Nome: {profile.get('name', 'La Sorgente')}
@@ -284,51 +846,29 @@ async def analyze_feasibility(req: FeasibilityRequest):
     - Scopo: {grant.get('scope')}
     - Descrizione: {grant.get('description')}
     
-    Compila un'analisi di fattibilità accurata, pragmatica e onesta. Ricorda che se il cofinanziamento richiesto è troppo alto per il budget del cliente, o se la forma giuridica non coincide con i requisiti del bando, devi segnalarlo come rischio.
+    PARAMETRI DI COMPATIBILITÀ CUMULATIVA CON PROGETTI IN CORSO/CANDIDATI:
+    {cumulative_checks_context}
+    
+    Compila un'analisi di fattibilità accurata, pragmatica e onesta. Integra obbligatoriamente i controlli di compatibilità cumulativa nei capitoli corrispondenti (es. De Minimis e Conflitto Erogatore nell'analisi legale; Capacità di Staff/FTE nell'analisi tecnica; Esposizione di Cassa/Pre-finanziamento nell'analisi finanziaria). Se ci sono superamenti di soglia, riduci opportunamente il punteggio di fattibilità globale ('feasibility_score') e segnala lo stato adeguato ('eligibility_status' a 'A RISCHIO' o 'NON IDONEO').
     
     Rispondi ESATTAMENTE con un oggetto JSON strutturato come segue (senza testo di contorno):
     {{
       "feasibility_score": 85, // Punteggio da 0 a 100
-      "legal_analysis": "Analisi approfondita sulla coerenza dello statuto, forma giuridica (es. se l'iscrizione al RUNTS è obbligatoria) ed eventuale compatibilità con bandi europei.",
-      "technical_analysis": "Valutazione sulla capacità operativa dell'associazione. Analizza se gli 8 collaboratori sono sufficienti o se serve integrare competenze specifiche.",
+      "legal_analysis": "Analisi approfondita sulla coerenza dello statuto, RUNTS, regole De Minimis e conflitti ente erogatore.",
+      "technical_analysis": "Valutazione sulla capacità operativa cumulativa dello staff (ore FTE totali richieste e sovraccarichi di lavoro rispetto all'organico di 8 collaboratori).",
       "social_analysis": "Valutazione dell'impatto sul territorio sardo (Cagliari) e la rilevanza artistica e sociale del progetto (Musical + Negoziazione/CNV).",
-      "financial_analysis": "Analisi di sostenibilità economica. Spiega come l'associazione può coprire l'eventuale quota di cofinanziamento e se ha la capacità di cassa per anticipare le spese.",
-      "partnership_need": "Consigli strategici sui partenariati. Specifica se è opportuno fare il bando insieme ad altri enti (es. Università di Cagliari, Comuni sardi, altre accademie nazionali/internazionali) e con chi.",
+      "financial_analysis": "Analisi di sostenibilità economica e rischio di liquidità cumulativo. Valuta l'esposizione cassa stimata del 35% del budget cumulativo rispetto al bilancio annuo dell'associazione.",
+      "partnership_need": "Consigli strategici sui partenariati.",
       "expert_recommendations": [
-        "Consiglio 1: es. Coinvolgere un commercialista per la rendicontazione delle ore di staff.",
-        "Consiglio 2: es. Consultare un avvocato per strutturare l'accordo di partenariato con enti esteri."
+        "Consiglio 1...",
+        "Consiglio 2..."
       ],
       "eligibility_status": "IDONEO" // Oppure "A RISCHIO" o "NON IDONEO"
     }}
     """
     
     if not GEMINI_API_KEY:
-        # Fallback mock offline
-        return {
-            "feasibility_score": 75,
-            "legal_analysis": "L'iscrizione al RUNTS dell'associazione (APS) garantisce piena idoneità formale per la maggior parte dei bandi del terzo settore. Lo scopo statutario copre sia la formazione teatrale sia le attività sociali di negoziazione.",
-            "technical_analysis": "L'attuale organico di 8 collaboratori è idoneo per progetti di piccola e media entità. Per un bando di questa portata tecnica, sarà necessario strutturare un cronogramma rigido e allocare chiaramente le ore.",
-            "social_analysis": "Forte impatto sul territorio cagliaritano. L'unione di teatro musicale e Comunicazione Non Violenta è un fattore altamente innovativo, molto apprezzato nei criteri di valutazione sociale.",
-            "financial_analysis": "Il cofinanziamento richiesto potrebbe gravare sulla cassa dell'associazione. Si consiglia di richiedere un anticipo all'erogatore o stipulare una fideiussione bancaria se prevista.",
-            "partnership_need": "Altamente consigliato consorziarsi con una scuola di musical estera (per scambi Erasmus) e patrocinare il progetto con il Comune di Cagliari per aumentare il punteggio.",
-            "expert_recommendations": [
-              "Ingaggiare un Europrogettista per la scrittura tecnica del bando.",
-              "Coinvolgere un revisore dei conti/commercialista abilitato per la validazione del bilancio."
-            ],
-            "eligibility_status": "IDONEO"
-        }
-
-    try:
-        model = genai.GenerativeModel("gemini-2.5-flash")
-        response = model.generate_content(
-            prompt,
-            generation_config={"response_mime_type": "application/json"}
-        )
-        parsed = json.loads(response.text.strip())
-        return JSONResponse(content=parsed)
-    except Exception as e:
-        logger.error(f"Errore analisi fattibilità con Gemini: {e}. Utilizzo risposta di fallback dinamica basata sul profilo reale.")
-        # Fallback dinamico che legge profilo e bando reali
+        # Fallback offline dinamico basato sul profilo e vincoli cumulativi
         runts = profile.get('runts_enrolled', True)
         budget = profile.get('annual_budget', 45000)
         legal_type = profile.get('legal_type', 'APS')
@@ -340,55 +880,90 @@ async def analyze_feasibility(req: FeasibilityRequest):
         grant_deadline = grant.get('deadline', 'N/D')
         cofinanziamento_pct = 100 - financing_pct
         cofinanziamento_amount = round(budget_max * cofinanziamento_pct / 100)
-        score = 78
+        
+        score = 80
         eligibility = "IDONEO"
         recommendations = []
+        
+        legal_reasons = []
+        tech_reasons = []
+        fin_reasons = []
+        
+        # 1. Verifica RUNTS
         if not runts:
-            legal_txt = (f"⚠️ ATTENZIONE — REQUISITO BLOCCANTE: L'associazione ({legal_type}) NON risulta iscritta al RUNTS. "
-                         f"L'iscrizione al Registro Unico Nazionale del Terzo Settore è obbligatoria per accedere alla "
-                         f"quasi totalità dei bandi pubblici e del Terzo Settore (D.Lgs. 117/2017, art. 46). "
-                         f"Occorre procedere con l'iscrizione prima della scadenza del {grant_deadline}.")
-            eligibility = "A RISCHIO"
-            score = max(score - 30, 25)
+            legal_reasons.append(f"⚠️ ATTENZIONE — REQUISITO BLOCCANTE: L'associazione ({legal_type}) NON risulta iscritta al RUNTS. L'iscrizione al Registro Unico Nazionale del Terzo Settore è obbligatoria per accedere alla quasi totalità dei bandi pubblici e del Terzo Settore (D.Lgs. 117/2017, art. 46). Occorre procedere con l'iscrizione prima della scadenza del {grant_deadline}.")
+            score -= 30
+            eligibility = "NON IDONEO"
             recommendations.append(f"PRIORITÀ MASSIMA: Avviare immediatamente la pratica di iscrizione al RUNTS ({legal_type}) tramite il portale nazionale — la scadenza del bando è {grant_deadline}.")
         else:
-            legal_txt = (f"L'iscrizione al RUNTS dell'associazione ({legal_type}) garantisce piena idoneità formale. "
-                         f"Lo scopo statutario copre la formazione artistica e le attività sociali, in linea con i criteri "
-                         f"di ammissibilità del bando '{grant_title}'.")
+            legal_reasons.append(f"L'iscrizione attiva al RUNTS dell'associazione ({legal_type}) garantisce piena idoneità formale. Lo scopo statutario copre la formazione artistica e le attività sociali, in linea con i criteri di ammissibilità del bando '{grant_title}'.")
+            
+        # 2. Verifica De Minimis
+        if de_minimis_warning:
+            legal_reasons.append(f"⚠️ RISCHIO DE MINIMIS: Il budget cumulativo stimato ({projected_cumulative_budget:,.0f} €) supera la soglia triennale De Minimis consentita di {de_minimis_limit:,.0f} € per l'associazione.")
+            score -= 25
+            eligibility = "A RISCHIO"
+            recommendations.append(f"REGOLA DE MINIMIS: Rimodulare il budget del bando o considerare una candidatura in partenariato dove un ente partner agisca da capofila per non eccedere il limite dei 300.000 €.")
+        else:
+            legal_reasons.append(f"Rispettato il massimale europeo De Minimis triennale (Budget proiettato cumulativo: {projected_cumulative_budget:,.0f} € su {de_minimis_limit:,.0f} € max).")
+            
+        # 3. Verifica Conflitto Erogatore
+        if issuer_conflict:
+            legal_reasons.append(f"⚠️ CONFLITTO ENTE EROGATORE: Risulta già presentata o in bozza la proposta '{conflicting_project_title}' presso lo stesso erogatore ({grant_issuer}) per questo esercizio finanziario.")
+            score -= 15
+            if eligibility == "IDONEO":
+                eligibility = "A RISCHIO"
+            recommendations.append(f"CONFLITTO EROGATORE: Verificare se l'ente erogatore ({grant_issuer}) ammette candidature multiple per lo stesso ente o coordinare la candidatura in modo da evitare la duplicazione.")
+            
+        # 4. Verifica Capacità Organica Staff (FTE)
+        if staff_warning:
+            tech_reasons.append(f"⚠️ SOVRACCARICO OPERATIVO: Lo staff proiettato ({projected_staff_occupied} FTE) supera l'organico dell'associazione ({staff_limit} collaboratori) a causa di {active_projects_count} progetti già in corso di gestione.")
+            score -= 20
+            if eligibility == "IDONEO":
+                eligibility = "A RISCHIO"
+            recommendations.append(f"CAPACITÀ STAFF: Prevedere l'ingaggio temporaneo di consulenti esterni o contratti di collaborazione coordinata inseriti direttamente a budget nel nuovo bando per far fronte al sovraccarico di {projected_staff_occupied} FTE complessivi.")
+        else:
+            tech_reasons.append(f"L'organico di {staff} collaboratori è adeguato a gestire il carico di lavoro complessivo proiettato ({projected_staff_occupied} FTE) con {active_projects_count} progetti in essere.")
+            
+        # 5. Verifica Liquidità Cash Flow (Pre-finanziamento)
+        if cash_flow_warning:
+            fin_reasons.append(f"⚠️ ATTENZIONE FINANZIARIA: L'esposizione di cassa stimata (pari al 35% del budget cumulativo di {projected_cumulative_budget:,.0f} €, ovvero {projected_pre_financing_needed:,.0f} €) supera il budget annuo dichiarato di {annual_budget:,.0f} €, indicando un elevato rischio di tensioni di liquidità.")
+            score -= 15
+            if eligibility == "IDONEO":
+                eligibility = "A RISCHIO"
+            recommendations.append(f"RISCHIO LIQUIDITÀ: Richiedere il massimo acconto consentito in sede di avvio del progetto e pianificare un'apertura di credito o affidamento bancario temporaneo per coprire l'esposizione cassa stimata di {projected_pre_financing_needed:,.0f} €.")
+        else:
+            fin_reasons.append(f"Il budget annuo dichiarato ({annual_budget:,.0f} €) garantisce una buona stabilità finanziaria per far fronte all'anticipo cassa stimato ({projected_pre_financing_needed:,.0f} €).")
+            
         if cofinanziamento_pct > 0:
             if budget >= cofinanziamento_amount:
-                financial_txt = (f"Il budget annuo dichiarato ({budget:,.0f} €) è sufficiente a coprire la quota di "
-                                 f"cofinanziamento obbligatoria ({cofinanziamento_amount:,.0f} € — {cofinanziamento_pct}% del massimale "
-                                 f"di {budget_max:,.0f} €). La sostenibilità finanziaria è confermata, ma si raccomanda "
-                                 f"di predisporre un conto dedicato al progetto per la rendicontazione.")
+                fin_reasons.append(f"Il budget annuo è sufficiente a coprire la quota di cofinanziamento obbligatoria di {cofinanziamento_amount:,.0f} € ({cofinanziamento_pct}% del bando).")
             else:
-                financial_txt = (f"⚠️ ATTENZIONE FINANZIARIA: Il budget annuo dichiarato ({budget:,.0f} €) potrebbe non coprire "
-                                 f"la quota di cofinanziamento obbligatoria stimata ({cofinanziamento_amount:,.0f} € — {cofinanziamento_pct}% "
-                                 f"del massimale {budget_max:,.0f} €). Valutare una fideiussione bancaria, un aumento temporaneo "
-                                 f"delle quote sociali o un cofinanziamento da parte di enti partner.")
+                fin_reasons.append(f"⚠️ COFINANZIAMENTO CRITICO: La quota di cofinanziamento stimata ({cofinanziamento_amount:,.0f} € — {cofinanziamento_pct}%) supera le disponibilità di cassa annuali dell'associazione ({budget:,.0f} €).")
                 if eligibility == "IDONEO":
                     eligibility = "A RISCHIO"
                     score = max(score - 15, 30)
-                recommendations.append(f"Predisporre un piano di copertura del cofinanziamento ({cofinanziamento_amount:,.0f} €): fideiussione bancaria o accordo con ente partner cofinanziatore.")
+                recommendations.append(f"Predisporre un piano di copertura del cofinanziamento di {cofinanziamento_amount:,.0f} € tramite accordi con partner o apporto di soci finanziatori.")
         else:
-            financial_txt = (f"Il bando è a fondo perduto al 100%: non è richiesto cofinanziamento. "
-                             f"Il budget annuo dell'associazione ({budget:,.0f} €) è più che sufficiente per la gestione "
-                             f"della liquidità durante l'esecuzione del progetto.")
-        technical_txt = (f"L'organico di {staff} collaboratori è {'adeguato' if staff >= 6 else 'limitato — potrebbe richiedere integrazioni esterne'} "
-                         f"per un progetto da {budget_max:,.0f} €. È necessario definire ruoli chiari (Project Manager, Responsabile Didattico, "
-                         f"Responsabile Amministrativo) e un cronogramma dettagliato per soddisfare i criteri di valutazione tecnica.")
-        if staff < 5:
-            recommendations.append("Valutare l'integrazione dell'organico con consulenti o collaboratori occasionali per rispettare le soglie minime di staff richieste dal bando.")
+            fin_reasons.append("Il bando finanzia il 100% delle spese: nessun cofinanziamento richiesto.")
+
+        score = max(5, score)
+        
+        legal_txt = " ".join(legal_reasons)
+        technical_txt = " ".join(tech_reasons)
+        financial_txt = " ".join(fin_reasons)
+        
         recommendations.extend([
-            f"Ingaggiare un Europrogettista senior specializzato in bandi {grant.get('category', 'europei')} per la redazione tecnica della candidatura.",
-            "Coinvolgere un commercialista o revisore dei conti per la predisposizione del piano finanziario e la successiva rendicontazione certificata."
+            f"Ingaggiare un Europrogettista senior specializzato per la redazione della candidatura del bando '{grant_title}'.",
+            "Coinvolgere un commercialista per la predisposizione e asseverazione del bilancio e del piano dei conti."
         ])
-        return {
+        
+        fallback_res = {
             "feasibility_score": score,
             "legal_analysis": legal_txt,
             "technical_analysis": technical_txt,
             "social_analysis": (f"Forte impatto sul territorio di {hq}. L'integrazione tra il teatro musicale e la Comunicazione "
-                                f"Non Violenta rappresenta un valore aggiunto innovativo, altamente apprezzato nei criteri di "
+                                "Non Violenta rappresenta un valore aggiunto innovativo, altamente apprezzato nei criteri di "
                                 f"valutazione dell'impatto sociale di bandi come '{grant_title}'."),
             "financial_analysis": financial_txt,
             "partnership_need": (f"Per massimizzare il punteggio nel bando '{grant_title}' si consiglia di coinvolgere: "
@@ -396,7 +971,128 @@ async def analyze_feasibility(req: FeasibilityRequest):
                                  f"il Comune di {hq} per il patrocinio istituzionale, e una università locale "
                                  f"(es. UniCA) per la validazione accademica dei contenuti formativi."),
             "expert_recommendations": recommendations,
-            "eligibility_status": eligibility
+            "eligibility_status": eligibility,
+            "cumulative_checks": cumulative_checks
+        }
+        return fallback_res
+
+    try:
+        model = genai.GenerativeModel("gemini-2.5-flash")
+        response = model.generate_content(
+            prompt,
+            generation_config={"response_mime_type": "application/json"}
+        )
+        parsed = json.loads(response.text.strip())
+        # Inietta i calcoli precisi dei controlli cumulativi
+        parsed["cumulative_checks"] = cumulative_checks
+        return JSONResponse(content=parsed)
+    except Exception as e:
+        logger.error(f"Errore analisi fattibilità con Gemini: {e}. Utilizzo risposta di fallback dinamica basata sul profilo reale.")
+        # Utilizza il medesimo fallback dinamico configurato sopra
+        runts = profile.get('runts_enrolled', True)
+        budget = profile.get('annual_budget', 45000)
+        legal_type = profile.get('legal_type', 'APS')
+        staff = profile.get('staff_count', 8)
+        hq = profile.get('headquarters', 'Cagliari')
+        financing_pct = grant.get('financing_percentage', 80)
+        budget_max = grant.get('budget_max', 50000)
+        grant_title = grant.get('title', 'bando selezionato')
+        grant_deadline = grant.get('deadline', 'N/D')
+        cofinanziamento_pct = 100 - financing_pct
+        cofinanziamento_amount = round(budget_max * cofinanziamento_pct / 100)
+        
+        score = 80
+        eligibility = "IDONEO"
+        recommendations = []
+        
+        legal_reasons = []
+        tech_reasons = []
+        fin_reasons = []
+        
+        # 1. Verifica RUNTS
+        if not runts:
+            legal_reasons.append(f"⚠️ ATTENZIONE — REQUISITO BLOCCANTE: L'associazione ({legal_type}) NON risulta iscritta al RUNTS. L'iscrizione al Registro Unico Nazionale del Terzo Settore è obbligatoria per accedere alla quasi totalità dei bandi pubblici e del Terzo Settore (D.Lgs. 117/2017, art. 46). Occorre procedere con l'iscrizione prima della scadenza del {grant_deadline}.")
+            score -= 30
+            eligibility = "NON IDONEO"
+            recommendations.append(f"PRIORITÀ MASSIMA: Avviare immediatamente la pratica di iscrizione al RUNTS ({legal_type}) tramite il portale nazionale — la scadenza del bando è {grant_deadline}.")
+        else:
+            legal_reasons.append(f"L'iscrizione attiva al RUNTS dell'associazione ({legal_type}) garantisce piena idoneità formale. Lo scopo statutario copre la formazione artistica e le attività sociali, in linea con i criteri di ammissibilità del bando '{grant_title}'.")
+            
+        # 2. Verifica De Minimis
+        if de_minimis_warning:
+            legal_reasons.append(f"⚠️ RISCHIO DE MINIMIS: Il budget cumulativo stimato ({projected_cumulative_budget:,.0f} €) supera la soglia triennale De Minimis consentita di {de_minimis_limit:,.0f} € per l'associazione.")
+            score -= 25
+            eligibility = "A RISCHIO"
+            recommendations.append(f"REGOLA DE MINIMIS: Rimodulare il budget del bando o considerare una candidatura in partenariato dove un ente partner agisca da capofila per non eccedere il limite dei 300.000 €.")
+        else:
+            legal_reasons.append(f"Rispettato il massimale europeo De Minimis triennale (Budget proiettato cumulativo: {projected_cumulative_budget:,.0f} € su {de_minimis_limit:,.0f} € max).")
+            
+        # 3. Verifica Conflitto Erogatore
+        if issuer_conflict:
+            legal_reasons.append(f"⚠️ CONFLITTO ENTE EROGATORE: Risulta già presentata o in bozza la proposta '{conflicting_project_title}' presso lo stesso erogatore ({grant_issuer}) per questo esercizio finanziario.")
+            score -= 15
+            if eligibility == "IDONEO":
+                eligibility = "A RISCHIO"
+            recommendations.append(f"CONFLITTO EROGATORE: Verificare se l'ente erogatore ({grant_issuer}) ammette candidature multiple per lo stesso ente o coordinare la candidatura in modo da evitare la duplicazione.")
+            
+        # 4. Verifica Capacità Organica Staff (FTE)
+        if staff_warning:
+            tech_reasons.append(f"⚠️ SOVRACCARICO OPERATIVO: Lo staff proiettato ({projected_staff_occupied} FTE) supera l'organico dell'associazione ({staff_limit} collaboratori) a causa di {active_projects_count} progetti già in corso di gestione.")
+            score -= 20
+            if eligibility == "IDONEO":
+                eligibility = "A RISCHIO"
+            recommendations.append(f"CAPACITÀ STAFF: Prevedere l'ingaggio temporaneo di consulenti esterni o contratti di collaborazione coordinata inseriti direttamente a budget nel nuovo bando per far fronte al sovraccarico di {projected_staff_occupied} FTE complessivi.")
+        else:
+            tech_reasons.append(f"L'organico di {staff} collaboratori è adeguato a gestire il carico di lavoro complessivo proiettato ({projected_staff_occupied} FTE) con {active_projects_count} progetti in essere.")
+            
+        # 5. Verifica Liquidità Cash Flow (Pre-finanziamento)
+        if cash_flow_warning:
+            fin_reasons.append(f"⚠️ ATTENZIONE FINANZIARIA: L'esposizione di cassa stimata (pari al 35% del budget cumulativo di {projected_cumulative_budget:,.0f} €, ovvero {projected_pre_financing_needed:,.0f} €) supera il budget annuo dichiarato di {annual_budget:,.0f} €, indicando un elevato rischio di tensioni di liquidità.")
+            score -= 15
+            if eligibility == "IDONEO":
+                eligibility = "A RISCHIO"
+            recommendations.append(f"RISCHIO LIQUIDITÀ: Richiedere il massimo acconto consentito in sede di avvio del progetto e pianificare un'apertura di credito o affidamento bancario temporaneo per coprire l'esposizione cassa stimata di {projected_pre_financing_needed:,.0f} €.")
+        else:
+            fin_reasons.append(f"Il budget annuo dichiarato ({annual_budget:,.0f} €) garantisce una buona stabilità finanziaria per far fronte all'anticipo cassa stimato ({projected_pre_financing_needed:,.0f} €).")
+            
+        if cofinanziamento_pct > 0:
+            if budget >= cofinanziamento_amount:
+                fin_reasons.append(f"Il budget annuo è sufficiente a coprire la quota di cofinanziamento obbligatoria di {cofinanziamento_amount:,.0f} € ({cofinanziamento_pct}% del bando).")
+            else:
+                fin_reasons.append(f"⚠️ COFINANZIAMENTO CRITICO: La quota di cofinanziamento stimata ({cofinanziamento_amount:,.0f} € — {cofinanziamento_pct}%) supera le disponibilità di cassa annuali dell'associazione ({budget:,.0f} €).")
+                if eligibility == "IDONEO":
+                    eligibility = "A RISCHIO"
+                    score = max(score - 15, 30)
+                recommendations.append(f"Predisporre un piano di copertura del cofinanziamento di {cofinanziamento_amount:,.0f} € tramite accordi con partner o apporto di soci finanziatori.")
+        else:
+            fin_reasons.append("Il bando finanzia il 100% delle spese: nessun cofinanziamento richiesto.")
+
+        score = max(5, score)
+        
+        legal_txt = " ".join(legal_reasons)
+        technical_txt = " ".join(tech_reasons)
+        financial_txt = " ".join(fin_reasons)
+        
+        recommendations.extend([
+            f"Ingaggiare un Europrogettista senior specializzato per la redazione della candidatura del bando '{grant_title}'.",
+            "Coinvolgere un commercialista per la predisposizione e asseverazione del bilancio e del piano dei conti."
+        ])
+        
+        return {
+            "feasibility_score": score,
+            "legal_analysis": legal_txt,
+            "technical_analysis": technical_txt,
+            "social_analysis": (f"Forte impatto sul territorio di {hq}. L'integrazione tra il teatro musicale e la Comunicazione "
+                                "Non Violenta rappresenta un valore aggiunto innovativo, altamente apprezzato nei criteri di "
+                                f"valutazione dell'impatto sociale di bandi come '{grant_title}'."),
+            "financial_analysis": financial_txt,
+            "partnership_need": (f"Per massimizzare il punteggio nel bando '{grant_title}' si consiglia di coinvolgere: "
+                                 f"una scuola di performing arts estera (per validazione internazionale), "
+                                 f"il Comune di {hq} per il patrimonio istituzionale, e una università locale "
+                                 f"(es. UniCA) per la validazione accademica dei contenuti formativi."),
+            "expert_recommendations": recommendations,
+            "eligibility_status": eligibility,
+            "cumulative_checks": cumulative_checks
         }
 
 
@@ -420,7 +1116,7 @@ async def generate_project_draft(req: FeasibilityRequest):
         raise HTTPException(status_code=404, detail="Bando non trovato")
 
     prompt = f"""
-    Sei il capo del team di Europrogettazione di 'Consulente AI'. Il tuo compito è redigere una bozza avanzata di progetto (Project Draft & Business Plan) per candidare l'associazione 'La Sorgente' al bando specificato.
+    Sei il capo del team di Europrogettazione di 'Consulente AI'. Il tuo compito è redigere una bozza avanzata di progetto (Project Draft & Business Plan) per candidare l'associazione '{profile.get('name', 'La Sorgente')}' al bando specificato.
     
     Associazione:
     - Nome: {profile.get('name', 'La Sorgente')}
@@ -474,8 +1170,8 @@ async def generate_project_draft(req: FeasibilityRequest):
         # Fallback mock offline
         return {
             "grant_id": grant.get("id"),
-            "project_title": "La Sorgente del Musical: Arte, Empatia e Inclusione a Cagliari",
-            "project_summary": "Il progetto mira a strutturare un percorso formativo d'eccellenza a Cagliari che unisce lo studio delle arti performative del musical con lo sviluppo di soft skill basate sulla Comunicazione Non Violenta (CNV) e la negoziazione cooperativa.",
+            "project_title": f"{profile.get('name', 'La Sorgente')} del Musical: Arte, Empatia e Inclusione a {profile.get('headquarters', 'Cagliari')}",
+            "project_summary": f"Il progetto mira a strutturare un percorso formativo d'eccellenza a {profile.get('headquarters', 'Cagliari')} che unisce lo studio delle arti performative del musical con lo sviluppo di soft skill basate sulla Comunicazione Non Violenta (CNV) e la negoziazione cooperativa.",
             "key_actions": [
               "Laboratori di Teatro Musicale Integrato e Scenotecnica per giovani sardi.",
               "Masterclass di Comunicazione Empatica e Risoluzione Conflitti condotte da docenti accreditati.",
@@ -761,12 +1457,13 @@ async def upload_document(
     requirement_name: str = Form(...),
     document_name: str = Form(...),
     description: str = Form(...),
+    existing_filename: str = Form(None),
     file: UploadFile = File(None)
 ):
     db = load_db()
     
     # Assicuriamoci che esista la cartella uploads
-    uploads_dir = os.path.join(BASE_DIR, "uploads")
+    uploads_dir = UPLOADS_DIR
     os.makedirs(uploads_dir, exist_ok=True)
     
     filename = None
@@ -775,14 +1472,19 @@ async def upload_document(
         file_path = os.path.join(uploads_dir, filename)
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
+    elif existing_filename:
+        filename = existing_filename
     else:
         filename = "Giustificazione Scritta"
         
+    import datetime
+    uploaded_at = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+    
     doc_entry = {
         "document_name": document_name,
         "description": description,
         "filename": filename,
-        "uploaded_at": "2026-05-19T10:00:00",
+        "uploaded_at": uploaded_at,
         "certification_type": certification_type,
         "requirement_name": requirement_name
     }
@@ -804,6 +1506,46 @@ async def upload_document(
         
     save_db(db)
     return {"status": "success", "message": "Documento convalidato con successo!", "document": doc_entry}
+
+@app.post("/api/documents/delete")
+async def delete_document(req: DocumentDeleteRequest):
+    db = load_db()
+    
+    # Troviamo il documento prima di eliminarlo per rimuovere il file fisico
+    target_doc = None
+    for d in db.get("uploaded_documents", []):
+        if d.get("certification_type") == req.certification_type and d.get("requirement_name") == req.requirement_name:
+            target_doc = d
+            break
+            
+    if target_doc:
+        filename = target_doc.get("filename")
+        if filename and filename != "Giustificazione Scritta":
+            file_path = os.path.join(UPLOADS_DIR, filename)
+            if os.path.exists(file_path):
+                try:
+                    os.remove(file_path)
+                    logger.info(f"File fisico rimosso con successo: {file_path}")
+                except Exception as e:
+                    logger.error(f"Errore rimozione file fisico {file_path}: {e}")
+                    
+    original_docs_len = len(db.get("uploaded_documents", []))
+    db["uploaded_documents"] = [d for d in db.get("uploaded_documents", []) if not (d.get("certification_type") == req.certification_type and d.get("requirement_name") == req.requirement_name)]
+    new_docs_len = len(db["uploaded_documents"])
+    
+    # Rimuovi anche il requisito da completed_requirements
+    if "completed_requirements" in db and req.certification_type in db["completed_requirements"]:
+        if req.requirement_name in db["completed_requirements"][req.certification_type]:
+            db["completed_requirements"][req.certification_type].remove(req.requirement_name)
+            
+    save_db(db)
+    
+    deleted = original_docs_len > new_docs_len
+    return {
+        "status": "success",
+        "message": "Documento eliminato con successo" if deleted else "Documento non trovato",
+        "deleted": deleted
+    }
 
 @app.get("/api/certifications/status")
 async def get_certifications_status():
@@ -840,7 +1582,7 @@ async def analyze_certification(req: CertificationRequest):
     
     prompt = f"""
     Sei il consulente senior per la Qualità, Accreditamenti e Regolamenti del Terzo Settore di 'Consulente AI'.
-    Il cliente 'La Sorgente' vuole ottenere la seguente certificazione/accreditamento:
+    Il cliente '{profile.get('name', 'La Sorgente')}' vuole ottenere la seguente certificazione/accreditamento:
     "{cert_name}"
     
     Incrocia i requisiti obbligatori nazionali e regionali (Regione Sardegna) con il Profilo attuale dell'associazione:

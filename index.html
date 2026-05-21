@@ -1936,9 +1936,9 @@
             screenSolution.style.display = 'flex';
             screenSolution.classList.add('fade-in');
 
-            // Mostriamo il pulsante del prototipo solo per la tab Turismo (Boutique Hotel)
+            // Mostriamo il pulsante del prototipo per la tab Turismo (Boutique Hotel), RAG (Studio Associato), Cantina Vinicola (export), Laboratorio Artistico (artigianato) e Logistica
             const prototypeCtaBtn = document.getElementById('btn-test-prototype');
-            if (activeSimKey === 'turismo') {
+            if (activeSimKey === 'turismo' || activeSimKey === 'RAG' || activeSimKey === 'export' || activeSimKey === 'artigianato' || activeSimKey === 'logistica') {
                 prototypeCtaBtn.style.display = 'block';
             } else {
                 prototypeCtaBtn.style.display = 'none';
@@ -2048,9 +2048,26 @@
         checkBackendStatus();
     }
 
-    // Passaggio alla schermata di chat
+    // Passaggio alla schermata di chat o apertura prototipo reale
     btnTestPrototype.addEventListener('click', () => {
         if (isSolving) return;
+        
+        if (activeSimKey === 'RAG') {
+            window.open('progetti/studio_associato/index.html', '_blank');
+            return;
+        }
+        if (activeSimKey === 'export') {
+            window.open('progetti/cantina_vinicola/index.html', '_blank');
+            return;
+        }
+        if (activeSimKey === 'artigianato') {
+            window.open('progetti/laboratorio_artistico/index.html', '_blank');
+            return;
+        }
+        if (activeSimKey === 'logistica') {
+            window.open('progetti/logistica/index.html', '_blank');
+            return;
+        }
         
         screenSolution.classList.remove('fade-in');
         screenSolution.style.display = 'none';

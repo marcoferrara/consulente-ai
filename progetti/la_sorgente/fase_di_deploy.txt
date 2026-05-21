@@ -1,17 +1,18 @@
 FASE DI DEPLOY — La Sorgente (Hub Operativo Bandi AI)
 ======================================================
-Ultimo aggiornamento: 2026-05-20
+Ultimo aggiornamento: 2026-05-21
+
+Questo documento riassume i passaggi operativi per consegnare il progetto "La Sorgente" al cliente o per caricarlo online in ambiente di produzione.
 
 
-1. PULIRE IL PACKAGE
---------------------
-Prima di consegnare la cartella al cliente, escludere i seguenti elementi:
+1. PULIRE IL PACKAGE E CREARE LO ZIP
+-------------------------------------
+Per semplificare la consegna o il caricamento, abbiamo inserito uno script Python che effettua la pulizia e il packaging automatico escludendo cartelle pesanti (`venv/`), file segreti (`.env`) o file temporanei di test (`uploads/`, `.DS_Store`):
 
-  - venv/          → rigenerabile dal cliente con "pip install -r requirements.txt"
-  - .env           → contiene la chiave Gemini personale del consulente, NON condividere
-  - uploads/       → documenti caricati durante le sessioni di test (dati di prova)
+Esegui semplicemente nel terminale:
+  python crea_pacchetto.py
 
-Il resto della cartella può essere zippato e consegnato as-is.
+Questo genererà un file pulito chiamato "la_sorgente_deploy.zip" pronto per essere consegnato o caricato sul server.
 
 
 2. DATABASE.JSON — COSA FARE
@@ -37,7 +38,7 @@ Istruzioni da dare al cliente:
   4. Copiare la chiave generata
   5. Incollarla nel file .env nella riga: GEMINI_API_KEY=la_chiave_qui
 
-Il tier gratuito di Gemini 2.5 Flash è sufficiente per l'utilizzo normale dell'app.
+Il tier gratuito di Gemini 2.5 Flash è ampiamente sufficiente per l'utilizzo normale dell'app.
 
 
 4. FILE .ENV DA CREARE PER IL CLIENTE
@@ -45,62 +46,35 @@ Il tier gratuito di Gemini 2.5 Flash è sufficiente per l'utilizzo normale dell'
 Creare un file chiamato ".env" nella cartella del progetto con questo contenuto:
 
   GEMINI_API_KEY=inserisci_qui_la_tua_chiave_gemini
+  APP_PASSWORD=password_segreta_qui_se_deploy_remoto
+  PERSISTENT_DATA_DIR=cartella_per_dati_persistenti_se_deploy_remoto
 
-(Non includere virgolette attorno alla chiave.)
-
-
-5. ISTRUZIONI DI AVVIO PER IL CLIENTE
----------------------------------------
-Il cliente deve avere Python 3.9 o superiore installato sul proprio computer.
-
-Sequenza di comandi da eseguire una sola volta (installazione):
-  1. Aprire il terminale nella cartella del progetto
-  2. python3 -m venv venv
-  3. source venv/bin/activate        (Mac/Linux)
-     oppure: venv\Scripts\activate   (Windows)
-  4. pip install -r requirements.txt
-
-Per avviare l'applicazione ogni volta:
-  1. source venv/bin/activate   (o venv\Scripts\activate su Windows)
-  2. uvicorn app:app --host 127.0.0.1 --port 8081 --reload
-
-L'app sarà accessibile dal browser all'indirizzo: http://localhost:8081
+Note sul file .env:
+- Non includere virgolette attorno alle chiavi o alle password.
+- Se APP_PASSWORD viene omessa o lasciata vuota, l'applicazione funzionerà in modalità "Accesso Libero" (ideale per sviluppo offline o uso locale).
+- Se APP_PASSWORD viene impostata, l'intera piattaforma richiederà l'inserimento della password per l'accesso (Password Gate con stile glassmorphic).
+- PERSISTENT_DATA_DIR: Consente di salvare i database e i documenti caricati in una cartella persistente sicura (es. su un disco montato in cloud come /data), evitando perdite di dati a seguito di riavvii dei server. Riferiti a "guida_deploy.md" per i dettagli.
 
 
-6. OPZIONI DI DEPLOYMENT (in ordine di semplicità)
-----------------------------------------------------
-LOCALE (avvio manuale):
-  Pro:  zero costi, nessun server da gestire
-  Contro: il PC deve essere acceso, non accessibile da altri dispositivi
+5. GUIDA AL DEPLOY DETTAGLIATA (NEW)
+-------------------------------------
+Per tutti i dettagli tecnici su come mettere online l'applicazione, fare riferimento al file dedicato:
+  => "guida_deploy.md" (presente nella cartella radice)
 
-RENDER.COM (cloud gratuito):
-  Pro:  sempre online, link condivisibile con chiunque
-  Come: creare account su render.com, collegare la cartella del progetto,
-        impostare GEMINI_API_KEY come variabile d'ambiente nel pannello Render,
-        il comando di avvio è: uvicorn app:app --host 0.0.0.0 --port $PORT
-  Contro: il servizio gratuito si "addormenta" dopo 15 minuti di inattività
-
-VPS (es. Hetzner CX11 a ~5€/mese):
-  Pro:  controllo totale, dominio custom, sempre attivo
-  Contro: richiede conoscenze Linux di base per la configurazione
+La guida copre nel dettaglio:
+  - Deploy consigliato su Google Cloud Run con Cloud Storage FUSE (Firebase-ready, free tier)
+  - Deploy su Render.com usando "render.yaml" (Blueprint)
+  - Deploy universale tramite container con "Dockerfile"
+  - Deploy tradizionale su VPS Linux con Systemd, Nginx, HTTPS ed SSL gratuito (Let's Encrypt / Certbot)
 
 
-7. PROBLEMI NOTI DA RISOLVERE PRIMA DELLA PRODUZIONE
-------------------------------------------------------
-a) Il nome "La Sorgente" è hardcoded in 3 punti del file app.py nei prompt
-   inviati a Gemini, invece di essere letto dinamicamente dal profilo nel
-   database. Se il cliente cambia il nome dalla UI, il comportamento dell'AI
-   non cambia. → Da correggere in app.py prima del deploy finale.
+6. STATO DEI PROBLEMI NOTI (RISOLTI)
+-------------------------------------
+a) Riconoscimento Dinamico dell'Ente: RISOLTO ✓
+   Il nome dell'associazione viene estratto in tempo reale dal database. Se il nome cambia nella UI, tutti i prompt a Gemini si aggiornano all'istante.
 
-b) Non è presente alcun sistema di autenticazione. Chiunque abbia il link
-   all'app può utilizzarla e consumare la quota della API key del cliente.
-   → Valutare l'aggiunta di una password di accesso semplice (HTTP Basic Auth)
-   prima di rendere l'app pubblica su un server remoto.
+b) Protezione e Password Gate Centrale: RISOLTO ✓
+   Se APP_PASSWORD è definita in `.env`, l'intera app viene protetta dietro a una bellissima schermata di login con stile glassmorphic e cookie di sessione validi 30 giorni.
 
-
-8. CARTELLA social_media_automation/
---------------------------------------
-La sottocartella social_media_automation/ contiene un progetto separato
-(automazione social per La Sorgente) con il proprio app.py, database.json
-e requirements.txt. Decidere se includerla nella consegna o consegnarla
-separatamente in una fase successiva.
+c) Resilienza Cloud e Dati Persistenti: RISOLTO ✓
+   Aggiunto il supporto alla cartella `/data` persistente (tramite PERSISTENT_DATA_DIR) per azzerare il rischio di perdita dati su macchine ephemeral come Render.com.

@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SardiniaCraft AI — Copilota Vision & E-Commerce per l'Artigianato d'Eccellenza</title>
+    <!-- Google Fonts: Playfair Display per intestazioni di lusso, Inter per interfaccia -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-deep: #05080c;
+            --panel-bg: rgba(9, 15, 24, 0.75);
+            --border-glow: rgba(16, 185, 129, 0.2);
+            --emerald: #10b981;
+            --emerald-glow: rgba(16, 185, 129, 0.4);
+            --gold: #d4af37;
+            --gold-dark: #b59023;
+            --gold-glow: rgba(212, 175, 55, 0.3);
+            --text-light: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-gold: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+        }
+
+        /* Custom scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-dark);
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.06) 0%, transparent 40%),
+                linear-gradient(to bottom, rgba(5, 8, 12, 1) 0%, rgba(3, 5, 8, 1) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* ── HEADER ── */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(5, 8, 12, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-symbol {
+            width: 38px;
+            height: 38px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+
+        .logo-text h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #FFE8C5 0%, var(--gold) 50%, var(--gold-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
+        }
+
+        .logo-text p {
+            font-size: 0.7rem;
+            color: var(--emerald);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-top: -2px;
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--border-glow);
+            color: var(--emerald);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .status-badge.offline {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: rgba(245, 158, 11, 0.2);
+            color: var(--text-gold);
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.05);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--emerald);
+            box-shadow: 0 0 8px var(--emerald);
+        }
+
+        .status-badge.offline .status-dot {
+            background-color: var(--text-gold);
+            box-shadow: 0 0 8px var(--text-gold);
+        }
+
+        .btn-back {
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: 0 0 12px var(--gold-glow);
+            transform: translateY(-1px);
+        }
+
+        /* ── MAIN LAYOUT ── */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 350px 1fr 380px;
+            gap: 1.5rem;
+            padding: 1.5rem 2rem;
+            flex-grow: 1;
+            max-width: 1800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transition: border-color 0.3s ease;
+        }
+
+        .panel:hover {
+            border-color: rgba(212, 175, 55, 0.15);
+        }
+
+        .panel-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .panel-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ── PANNELLO SINISTRO: VISION SCANNER ── */
+        .scanner-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            flex-grow: 1;
+        }
+
+        .image-frame-container {
+            position: relative;
+            aspect-ratio: 1;
+            width: 100%;
+            border-radius: 12px;
+            background: #030508;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .image-frame-container.scanning {
+            border-color: var(--emerald);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+        }
+
+        .svg-preview {
+            width: 90%;
+            height: 90%;
+            transition: transform 0.5s ease;
+        }
+
+        .placeholder-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Effetto Laser Scan */
+        .laser-line {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--emerald), var(--gold), var(--emerald), transparent);
+            box-shadow: 0 0 12px var(--emerald), 0 0 20px var(--gold);
+            z-index: 5;
+            animation: laserScan 2s infinite ease-in-out;
+        }
+
+        @keyframes laserScan {
+            0% { top: 0%; opacity: 0.3; }
+            50% { top: 98%; opacity: 1; }
+            100% { top: 0%; opacity: 0.3; }
+        }
+
+        /* Presets Selector */
+        .presets-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .presets-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .preset-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .preset-card:hover {
+            background: rgba(212, 175, 55, 0.03);
+            border-color: rgba(212, 175, 55, 0.2);
+            transform: translateX(2px);
+        }
+
+        .preset-card.active {
+            background: rgba(16, 185, 129, 0.05);
+            border-color: var(--emerald);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+        }
+
+        .preset-thumbnail {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            background: #020305;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+        }
+
+        .preset-info {
+            flex-grow: 1;
+        }
+
+        .preset-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .preset-desc {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn-action:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, var(--gold) 0%, #ffeaa7 100%);
+        }
+
+        .btn-action:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* ── PANNELLO CENTRALE: AI STORYTELLING & SEO ── */
+        .content-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            flex-grow: 1;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            color: var(--text-muted);
+            text-align: center;
+            gap: 15px;
+            padding: 3rem 1rem;
+        }
+
+        .empty-state svg {
+            color: rgba(255,255,255,0.05);
+            width: 80px;
+            height: 80px;
+        }
+
+        .empty-state p {
+            font-size: 0.9rem;
+            max-width: 320px;
+        }
+
+        .generator-tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 6px 16px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+            font-weight: 600;
+        }
+
+        .copywriting-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .generated-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-light);
+            border-left: 3px solid var(--gold);
+            padding-left: 12px;
+            line-height: 1.2;
+        }
+
+        .storytelling-container {
+            background: rgba(16, 185, 129, 0.02);
+            border: 1px solid rgba(16, 185, 129, 0.06);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .storytelling-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--emerald);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .storytelling-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-light);
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .storytelling-meaning {
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.05);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .spec-item {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 10px 12px;
+        }
+
+        .spec-lbl {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .spec-val {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        .shopify-metadata-box {
+            background: #030508;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .shopify-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+
+        .shopify-logo-text {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #96bf48; /* Shopify Green */
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .metadata-item {
+            margin-top: 8px;
+            font-size: 0.75rem;
+        }
+
+        .metadata-lbl {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .metadata-val {
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #c5a880;
+            word-break: break-all;
+            display: inline-block;
+            margin-top: 3px;
+            width: 100%;
+        }
+
+        .btn-sync {
+            background: #96bf48;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(150, 191, 72, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-sync:hover:not(:disabled) {
+            background: #a9d453;
+            box-shadow: 0 6px 20px rgba(150, 191, 72, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-sync:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* ── PANNELLO DESTRO: ASSISTENTE SPEDIZIONI AI ── */
+        .shipping-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .customer-inquiries-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .inquiry-bubble {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .inquiry-bubble:hover {
+            background: rgba(16, 185, 129, 0.03);
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+
+        .inquiry-bubble.active {
+            background: rgba(16, 185, 129, 0.05);
+            border-color: var(--emerald);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.05);
+        }
+
+        .inquiry-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .inquiry-flag {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Chat Logs Box */
+        .chat-terminal {
+            background: #020406;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.8rem;
+        }
+
+        .message-bubble {
+            max-width: 90%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            line-height: 1.4;
+        }
+
+        .message-bubble.user {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-light);
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .message-bubble.ai {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            color: var(--text-light);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .shipping-calc-widget {
+            background: rgba(212, 175, 55, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-top: 5px;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .calc-lbl {
+            color: var(--text-muted);
+        }
+
+        .calc-val {
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .chat-input-form {
+            display: flex;
+            padding: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.01);
+            gap: 6px;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            background: #040608;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 8px var(--gold-glow);
+        }
+
+        .btn-send {
+            background: var(--gold);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-send:hover {
+            background: var(--gold-dark);
+            transform: scale(1.02);
+        }
+
+        .btn-send svg {
+            width: 14px;
+            height: 14px;
+            fill: #000;
+        }
+
+        /* ── TOAST & ALERTS ── */
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--panel-bg);
+            border: 1px solid var(--emerald);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+            padding: 12px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            transform: translateY(150%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast-notification.show {
+            transform: translateY(0);
+        }
+
+        .toast-icon {
+            width: 20px;
+            height: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--emerald);
+        }
+
+        .toast-content h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .toast-content p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── HEADER ── -->
+    <header>
+        <div class="logo-container">
+            <div class="logo-symbol">
+                <!-- SVG Icona Filigrana/Trama Tradizionale -->
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="9" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="3 3"/>
+                    <path d="M12 4V20" stroke="#d4af37" stroke-width="1.5"/>
+                    <path d="M4 12H20" stroke="#d4af37" stroke-width="1.5"/>
+                    <circle cx="12" cy="12" r="5" fill="#10b981" fill-opacity="0.3" stroke="#10b981" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="logo-text">
+                <h1>SardiniaCraft AI</h1>
+                <p>Copilota Multimodale Artigianato</p>
+            </div>
+        </div>
+
+        <div class="header-meta">
+            <div class="status-badge" id="server-status">
+                <span class="status-dot"></span>
+                <span id="server-status-text">Server: Inizializzazione...</span>
+            </div>
+            <a href="../../index.html" class="btn-back">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Torna alla Consulenza
+            </a>
+        </div>
+    </header>
+
+    <!-- ── DASHBOARD GRID ── -->
+    <div class="dashboard-container">
+        
+        <!-- ── PANNELLO SINISTRO: FOTO & VISION SCANNER ── -->
+        <div class="panel">
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                            <circle cx="12" cy="13" r="4"/>
+                        </svg>
+                        Vision AI Scanner
+                    </h2>
+                    <p class="panel-subtitle">Carica foto del manufatto per riconoscerlo</p>
+                </div>
+            </div>
+            
+            <div class="scanner-body">
+                <!-- Preview Frame con Laser -->
+                <div class="image-frame-container" id="image-frame">
+                    <div class="laser-line" id="laser"></div>
+                    
+                    <!-- SVG Dinamico per mostrare i Manufatti in modo spettacolare -->
+                    <div id="svg-host" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 20px;">
+                        <div class="placeholder-text" id="placeholder-msg">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: rgba(255,255,255,0.08)">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21 15 16 10 5 21"/>
+                            </svg>
+                            Seleziona un manufatto unico qui sotto o simula il caricamento di una foto per avviare il copilota AI.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Presets selector -->
+                <div class="presets-title">Seleziona Pezzo Unico</div>
+                
+                <div class="presets-grid">
+                    <!-- Preset 1: Fede Sarda -->
+                    <div class="preset-card active" data-id="fede_sarda">
+                        <div class="preset-thumbnail">
+                            <!-- SVG Fede Sarda Mini -->
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="8" stroke="#d4af37" stroke-width="2"/>
+                                <path d="M12 4C14.2 4 16 5.8 16 8C16 10.2 14.2 12 12 12" stroke="#d4af37" stroke-width="1" stroke-dasharray="2 2"/>
+                                <circle cx="12" cy="6" r="1.5" fill="#f59e0b"/>
+                                <circle cx="15.5" cy="8.5" r="1.2" fill="#f59e0b"/>
+                                <circle cx="15.5" cy="15.5" r="1.2" fill="#f59e0b"/>
+                                <circle cx="8.5" cy="15.5" r="1.2" fill="#f59e0b"/>
+                                <circle cx="8.5" cy="8.5" r="1.2" fill="#f59e0b"/>
+                            </svg>
+                        </div>
+                        <div class="preset-info">
+                            <div class="preset-name">Fede Sarda d'Oro</div>
+                            <div class="preset-desc">Gioielleria tradizionale in filigrana</div>
+                        </div>
+                    </div>
+
+                    <!-- Preset 2: Tappeto di Mogoro -->
+                    <div class="preset-card" data-id="tappeto_mogoro">
+                        <div class="preset-thumbnail">
+                            <!-- SVG Tappeto Mini -->
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <rect x="4" y="3" width="16" height="18" rx="1" fill="#0c4a34" stroke="#d4af37" stroke-width="1.5"/>
+                                <path d="M7 6L17 6M7 20L17 20" stroke="#d4af37" stroke-width="1"/>
+                                <!-- Pavoncella silhouette -->
+                                <path d="M12 9 C11 9 10 10 10 11.5 C10 13 11 14 12 14 C13 14 14 13.2 14 12 C14 10.8 13.5 10 12 9 Z M12 9 C13 7 14 7 15 8" stroke="#d4af37" stroke-width="1" fill="none"/>
+                            </svg>
+                        </div>
+                        <div class="preset-info">
+                            <div class="preset-name">Tappeto di Mogoro</div>
+                            <div class="preset-desc">Pura lana sarda tessuta a mano</div>
+                        </div>
+                    </div>
+
+                    <!-- Preset 3: Brocca della Sposa -->
+                    <div class="preset-card" data-id="brocca_sposa">
+                        <div class="preset-thumbnail">
+                            <!-- SVG Brocca Mini -->
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <path d="M8 8 C8 8 10 4 12 4 C14 4 16 8 16 8 L18 17 C18 19 16.5 21 12 21 C7.5 21 6 19 6 17 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+                                <path d="M6 10 C4 10 4 15 6 15" stroke="#94a3b8" stroke-width="1.5" fill="none"/>
+                                <path d="M12 9 L12 15M10 12H14" stroke="#f59e0b" stroke-width="1"/>
+                            </svg>
+                        </div>
+                        <div class="preset-info">
+                            <div class="preset-name">Brocca della Sposa</div>
+                            <div class="preset-desc">Ceramica smaltata decorata a mano</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-action" id="btn-scan">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Analizza Pezzo con Vision AI
+                </button>
+            </div>
+        </div>
+
+        <!-- ── PANNELLO CENTRALE: STORYTELLING GENERATO E SHOPIFY ── -->
+        <div class="panel" style="border-color: rgba(16, 185, 129, 0.08);">
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title" style="color: var(--emerald);">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <line x1="10" y1="9" x2="8" y2="9"/>
+                        </svg>
+                        AI Copywriting & Shopify Sync
+                    </h2>
+                    <p class="panel-subtitle">Storytelling simbolico tradotto e caricamento in un clic</p>
+                </div>
+            </div>
+
+            <!-- Schermata Principale di Risultato -->
+            <div class="content-body" id="generated-content-area">
+                <div class="empty-state" id="content-empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                    <p>In attesa dell'analisi Vision AI. Seleziona un manufatto e clicca "Analizza Pezzo con Vision AI" per attivare il flusso di scrittura poetica e SEO multilingua.</p>
+                </div>
+
+                <div class="copywriting-box" id="result-box" style="display: none;">
+                    <!-- Lingua selector -->
+                    <div class="generator-tabs">
+                        <button class="tab-btn active" data-lang="it">Italiano 🇮🇹</button>
+                        <button class="tab-btn" data-lang="en">English 🇬🇧</button>
+                        <button class="tab-btn" data-lang="de">Deutsch 🇩🇪</button>
+                    </div>
+
+                    <!-- Titolo Generato -->
+                    <div class="generated-title" id="output-title">Titolo Generato</div>
+
+                    <!-- Storytelling dei Simboli e Tradizioni -->
+                    <div class="storytelling-container">
+                        <div class="storytelling-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                            Storytelling del Simbolo (AI Generato)
+                        </div>
+                        <div class="storytelling-text" id="output-storytelling">Poesia simbolica...</div>
+                        <div class="storytelling-meaning" id="output-meaning">Spiegazione profonda dei simboli tradizionali rilevati...</div>
+                    </div>
+
+                    <!-- Scheda Tecnica -->
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <div class="spec-lbl">Materiali e Fattura</div>
+                            <div class="spec-val" id="output-specs">Dati...</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-lbl">Simboli Rilevati</div>
+                            <div class="spec-val" id="output-detected-symbols">Filigrana...</div>
+                        </div>
+                    </div>
+
+                    <!-- Shopify Metadati -->
+                    <div class="shopify-metadata-box">
+                        <div class="shopify-header">
+                            <span class="shopify-logo-text">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="#96bf48">
+                                    <path d="M19 6.5h-3v-1A2.5 2.5 0 0 0 13.5 3h-3A2.5 2.5 0 0 0 8 5.5v1H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-10a2 2 0 0 0-2-2zM9.5 5.5c0-.8.7-1.5 1.5-1.5h3c.8 0 1.5.7 1.5 1.5v1H9.5v-1zm9.5 12.5H5V8h14v10z"/>
+                                </svg>
+                                Shopify E-Commerce Metadata
+                            </span>
+                            <span style="font-size: 0.65rem; color: var(--text-muted);">Pronto all'uso</span>
+                        </div>
+                        
+                        <div class="metadata-item">
+                            <span class="metadata-lbl">Tag di Catalogo (SEO):</span>
+                            <span class="metadata-val" id="shopify-tags">tag1, tag2</span>
+                        </div>
+                        
+                        <div class="metadata-item">
+                            <span class="metadata-lbl">Prezzo Consigliato (Stima):</span>
+                            <span class="metadata-val" id="shopify-price" style="font-weight: 700; color: #52B788;">€380.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Pulsante sincronizzazione -->
+                    <button class="btn-sync" id="btn-sync-shopify">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                        </svg>
+                        <span id="sync-btn-text">Sincronizza e Carica su Shopify</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── PANNELLO DESTRO: ASSISTENTE SPEDIZIONI AI ── -->
+        <div class="panel">
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="3" width="15" height="13" rx="2" ry="2"/>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                            <circle cx="5.5" cy="18.5" r="2.5"/>
+                            <circle cx="18.5" cy="18.5" r="2.5"/>
+                        </svg>
+                        Assistente Spedizioni Estere
+                    </h2>
+                    <p class="panel-subtitle">Risposte immediate a dubbi doganali dei clienti</p>
+                </div>
+            </div>
+
+            <div class="shipping-body">
+                <!-- Preset customer inquiries -->
+                <div class="presets-title">Domande Clienti Esteri</div>
+                
+                <div class="customer-inquiries-box">
+                    <div class="inquiry-bubble active" data-query="Do you ship to New York? What are the shipping costs and customs duties for the wedding ring?">
+                        <div class="inquiry-header">
+                            <span class="inquiry-flag">🇺🇸 Emily - New York (USA)</span>
+                            <span>Gioielleria</span>
+                        </div>
+                        "Do you ship to New York? What are the shipping costs and customs duties for the wedding ring?"
+                    </div>
+
+                    <div class="inquiry-bubble" data-query="Spedite in Germania? Quanto tempo ci vuole per il tappeto di Mogoro e com'è imballato?">
+                        <div class="inquiry-header">
+                            <span class="inquiry-flag">🇩🇪 Hans - Berlino (GER)</span>
+                            <span>Tappeto</span>
+                        </div>
+                        "Spedite in Germania? Quanto tempo ci vuole per il tappeto di Mogoro e com'è imballato?"
+                    </div>
+
+                    <div class="inquiry-bubble" data-query="Is shipping to Japan insured for fragile items like the wedding bride jug? What courier do you use?">
+                        <div class="inquiry-header">
+                            <span class="inquiry-flag">🇯🇵 Kenji - Tokyo (JAP)</span>
+                            <span>Ceramica</span>
+                        </div>
+                        "Is shipping to Japan insured for fragile items like the wedding bride jug? What courier do you use?"
+                    </div>
+                </div>
+
+                <!-- Chat Terminal -->
+                <div class="chat-terminal">
+                    <div class="chat-header">
+                        <span>Console Spedizioni AI</span>
+                        <span id="chat-mode-badge" style="color: var(--emerald);">Stato: Attivo</span>
+                    </div>
+
+                    <div class="chat-messages" id="chat-messages-box">
+                        <!-- Messaggi caricati dinamicamente -->
+                    </div>
+
+                    <!-- Calcolatore di Spedizione in Tempo Reale -->
+                    <div class="shipping-calc-widget" id="shipping-calc" style="display: none;">
+                        <div class="calc-row">
+                            <span class="calc-lbl">Paese Destinatario:</span>
+                            <span class="calc-val" id="calc-dest">USA</span>
+                        </div>
+                        <div class="calc-row">
+                            <span class="calc-lbl">Tariffa Corriere:</span>
+                            <span class="calc-val" id="calc-price">$35.00</span>
+                        </div>
+                        <div class="calc-row">
+                            <span class="calc-lbl">Tempo di Consegna:</span>
+                            <span class="calc-val" id="calc-time">3-5 giorni</span>
+                        </div>
+                        <div class="calc-row" style="border-top: 1px dashed rgba(255,255,255,0.05); padding-top: 4px; margin-top: 2px;">
+                            <span class="calc-lbl">Dazi e Barriere:</span>
+                            <span class="calc-val" id="calc-duties" style="font-size: 0.7rem; color: #10b981;">Esente</span>
+                        </div>
+                    </div>
+
+                    <!-- Chat custom input -->
+                    <form class="chat-input-form" id="custom-query-form">
+                        <input type="text" class="chat-input" id="custom-query-input" placeholder="Scrivi una domanda doganale custom...">
+                        <button type="submit" class="btn-send">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ── TOAST DI SUCCESSO SHOPIFY ── -->
+    <div class="toast-notification" id="shopify-toast">
+        <div class="toast-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+        </div>
+        <div class="toast-content">
+            <h4>Shopify Aggiornato</h4>
+            <p>Prodotto caricato con descrizione multilingua e SEO.</p>
+        </div>
+    </div>
+
+    <!-- ── LOGICA CLIENT-SIDE E INTEGRAZIONE BACKEND ── -->
+    <script>
+        // Preset dei vettori grafici (per mostrare in alta fedeltà i manufatti senza dipendenze)
+        const PRODUCT_SVGS = {
+            fede_sarda: `
+                <svg viewBox="0 0 200 200" class="svg-preview">
+                    <!-- Fede Sarda Gold Filigree Detailed Graphic -->
+                    <defs>
+                        <radialGradient id="gold-grad" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#FFEBB3" />
+                            <stop offset="60%" stop-color="#D4AF37" />
+                            <stop offset="100%" stop-color="#9C7B16" />
+                        </radialGradient>
+                        <filter id="gold-glow">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <g filter="url(#gold-glow)">
+                        <!-- Fascia Anello Esterna -->
+                        <circle cx="100" cy="100" r="70" stroke="url(#gold-grad)" stroke-width="12" fill="none" />
+                        <!-- Fascia Anello Interna per dare spessore -->
+                        <circle cx="100" cy="100" r="63" stroke="#5E470E" stroke-width="2" fill="none" />
+                        
+                        <!-- Lavorazione a Nido d'Ape e Filigrana interna -->
+                        <circle cx="100" cy="100" r="66" stroke="#fff" stroke-width="1" stroke-dasharray="1.5 2.5" fill="none" opacity="0.6" />
+                        
+                        <!-- Granuli / Sfere tradizionali (I Punti d'oro) -->
+                        <!-- Generazione geometrica di sferette attorno alla fede -->
+                        <circle cx="100" cy="30" r="5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="1"/>
+                        <circle cx="149" cy="50" r="5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="1"/>
+                        <circle cx="169" cy="99" r="5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="1"/>
+                        <circle cx="150" cy="149" r="5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="1"/>
+                        <circle cx="100" cy="170" r="5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="1"/>
+                        <circle cx="50" cy="150" r="5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="1"/>
+                        <circle cx="31" cy="101" r="5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="1"/>
+                        <circle cx="50" cy="50" r="5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="1"/>
+                        
+                        <!-- Dettagli intermedi di filigrana arrotolata -->
+                        <circle cx="124" cy="35" r="3.5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="0.8"/>
+                        <circle cx="160" cy="71" r="3.5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="0.8"/>
+                        <circle cx="164" cy="125" r="3.5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="0.8"/>
+                        <circle cx="127" cy="162" r="3.5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="0.8"/>
+                        <circle cx="73" cy="163" r="3.5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="0.8"/>
+                        <circle cx="37" cy="127" r="3.5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="0.8"/>
+                        <circle cx="37" cy="73" r="3.5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="0.8"/>
+                        <circle cx="73" cy="36" r="3.5" fill="url(#gold-grad)" stroke="#4A370A" stroke-width="0.8"/>
+
+                        <!-- Centro vuoto per risalto trasparenza -->
+                        <circle cx="100" cy="100" r="57" fill="#030508" />
+                        <text x="100" y="105" font-family="'Cinzel', serif" font-size="10" fill="#FFEBB3" text-anchor="middle" letter-spacing="1">18K ORO</text>
+                    </g>
+                </svg>
+            `,
+            tappeto_mogoro: `
+                <svg viewBox="0 0 200 200" class="svg-preview">
+                    <!-- Tappeto Sardo Geometric Design with Pavoncella -->
+                    <defs>
+                        <pattern id="wool-weave" width="10" height="10" patternUnits="userSpaceOnUse">
+                            <line x1="0" y1="0" x2="0" y2="10" stroke="#042F1A" stroke-width="1.5"/>
+                            <line x1="0" y1="0" x2="10" y2="0" stroke="#042F1A" stroke-width="1.5"/>
+                        </pattern>
+                    </defs>
+                    <!-- Sfondo Tappeto Lana Verde Scuro -->
+                    <rect x="20" y="10" width="160" height="180" rx="4" fill="#0A3C25" stroke="#D4AF37" stroke-width="3" />
+                    <!-- Texture tessitura -->
+                    <rect x="20" y="10" width="160" height="180" fill="url(#wool-weave)" opacity="0.3"/>
+                    
+                    <!-- Bordi Decorativi Geometrici in Oro e Ruggine -->
+                    <rect x="28" y="18" width="144" height="164" fill="none" stroke="#b45309" stroke-width="3" />
+                    <rect x="34" y="24" width="132" height="152" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-dasharray="4 4" />
+                    
+                    <!-- Simbolo Centrale: La Pavoncella Sarda -->
+                    <g transform="translate(100, 100) scale(1.8)" stroke="#D4AF37" stroke-width="1.5" fill="none" stroke-linejoin="round">
+                        <!-- Corpo e petto -->
+                        <path d="M-8 4 C-8 4 -4 10 1 10 C6 10 10 7 10 2 C10 -3 6 -8 -1 -8 C-8 -8 -10 -4 -10 0 Z" fill="#b45309" fill-opacity="0.5"/>
+                        <!-- Coda ad albero/pavone tradizionale -->
+                        <path d="M-10 0 L-22 -8 M-10 2 L-24 0 M-10 4 L-22 8 M-10 -2 L-20 -14" stroke-width="1.2"/>
+                        <!-- Becco e Cresta superiore -->
+                        <path d="M8 0 L14 -2 L10 3" />
+                        <path d="M3 -8 C3 -8 4 -14 9 -14" stroke-width="1.2"/>
+                        <circle cx="9" cy="-14" r="1.5" fill="#D4AF37"/>
+                        <!-- Zampe geometriche sarde -->
+                        <path d="M-2 10 L-5 16 M-5 16 L-8 16 M-5 16 L-2 16" />
+                        <path d="M2 10 L2 16 M2 16 L-1 16 M2 16 L5 16" />
+                    </g>
+                    
+                    <!-- Frange del Tappeto superiore e inferiore fatte a mano -->
+                    <!-- Superiore -->
+                    <path d="M25 10 V2 M35 10 V2 M45 10 V2 M55 10 V2 M65 10 V2 M75 10 V2 M85 10 V2 M95 10 V2 M105 10 V2 M115 10 V2 M125 10 V2 M135 10 V2 M145 10 V2 M155 10 V2 M165 10 V2 M175 10 V2" stroke="#E2E8F0" stroke-width="2"/>
+                    <!-- Inferiore -->
+                    <path d="M25 190 V198 M35 190 V198 M45 190 V198 M55 190 V198 M65 190 V198 M75 190 V198 M85 190 V198 M95 190 V198 M105 190 V198 M115 190 V198 M125 190 V198 M135 190 V198 M145 190 V198 M155 190 V198 M165 190 V198 M175 190 V198" stroke="#E2E8F0" stroke-width="2"/>
+                </svg>
+            `,
+            brocca_sposa: `
+                <svg viewBox="0 0 200 200" class="svg-preview">
+                    <!-- Brocca Della Sposa - Traditional Sardinian Ceramic -->
+                    <defs>
+                        <linearGradient id="ceramic-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#FFFFFF" />
+                            <stop offset="85%" stop-color="#E2E8F0" />
+                            <stop offset="100%" stop-color="#CBD5E1" />
+                        </linearGradient>
+                        <filter id="shadow">
+                            <feDropShadow dx="2" dy="5" stdDeviation="4" flood-opacity="0.3"/>
+                        </filter>
+                    </defs>
+                    
+                    <g filter="url(#shadow)">
+                        <!-- Corpo Brocca (Anfora panciuta tradizionale) -->
+                        <path d="M100 35 C115 35 125 25 125 18 C125 18 115 10 100 10 C85 10 75 18 75 18 C75 18 85 35 100 35 Z" fill="url(#ceramic-grad)" stroke="#94a3b8" stroke-width="1.5"/>
+                        <!-- Collo e Pancia -->
+                        <path d="M85 32 C85 45 60 70 60 120 C60 160 78 180 100 180 C122 180 140 160 140 120 C140 70 115 45 115 32 Z" fill="url(#ceramic-grad)" stroke="#94a3b8" stroke-width="1.5"/>
+                        
+                        <!-- Manico Sinistro ad Ansa -->
+                        <path d="M73 45 C45 55 45 120 70 130" fill="none" stroke="url(#ceramic-grad)" stroke-width="10" stroke-linecap="round"/>
+                        <path d="M73 45 C45 55 45 120 70 130" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/>
+                        
+                        <!-- Manico Destro ad Ansa -->
+                        <path d="M127 45 C155 55 155 120 130 130" fill="none" stroke="url(#ceramic-grad)" stroke-width="10" stroke-linecap="round"/>
+                        <path d="M127 45 C155 55 155 120 130 130" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/>
+
+                        <!-- Decori Floreali a Rilievo (La Macchia Sarda Tradizionale) -->
+                        <g fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round">
+                            <!-- Stelo Centrale -->
+                            <path d="M100 150 V80" />
+                            <path d="M100 130 C85 120 85 110 100 100 C115 110 115 120 100 130 Z" fill="#d4af37" fill-opacity="0.1" />
+                            <!-- Uccellini d'Amore che si baciano sul becco -->
+                            <path d="M90 75 C90 70 94 65 98 65 L100 66" stroke-width="1.8"/>
+                            <path d="M110 75 C110 70 106 65 102 65 L100 66" stroke-width="1.8"/>
+                            <!-- Fiori e Foglie laterali -->
+                            <circle cx="85" cy="115" r="3" fill="#d4af37"/>
+                            <circle cx="115" cy="115" r="3" fill="#d4af37"/>
+                            <path d="M100 120 C90 125 80 120 85 115" />
+                            <path d="M100 120 C110 125 120 120 115 115" />
+                        </g>
+
+                        <!-- Base della Brocca -->
+                        <ellipse cx="100" cy="178" rx="25" ry="4" fill="#64748b" opacity="0.3" />
+                    </g>
+                </svg>
+            `
+        };
+
+        // Database di Fallback Locale (Mock) per garantire il funzionamento offline
+        const LOCAL_PRODUCT_DB = {
+            "fede_sarda": {
+                "id": "fede_sarda",
+                "symbols": "Filigrana d'oro, nido d'ape, sferette/granuli",
+                "meaning": "La leggenda narra che le Janas (le fate sarde) tessessero fili d'oro. Il nido d'ape rappresenta prosperità, fedeltà e famiglia. I granuli simboleggiano chicchi di grano per abbondanza e ricchezza.",
+                "titles": {
+                    "it": "Fede Sarda Classica in Filigrana d'Oro Giallo (Mock Locale)",
+                    "en": "Classic Golden Filigree Sardinian Wedding Ring (Local Mock)",
+                    "de": "Klassischer sardischer Ehering aus Goldfiligran (Mock Lokale)"
+                },
+                "descriptions": {
+                    "it": "Questa splendida Fede Sarda è interamente realizzata a mano in oro giallo 18 carati nel nostro laboratorio, utilizzando la tradizionale tecnica della filigrana. Ogni singolo cerchio e microscopico granulo viene posizionato manualmente con pazienza infinita, riproducendo il classico disegno a nido d'ape. Simbolo di amore eterno, protezione e prosperità, è un pezzo unico intriso di storia e cultura sarda.",
+                    "en": "This exquisite Sardinian Wedding Ring is entirely handcrafted in 18k yellow gold in our workshop, using the traditional filigree technique. Every single loop and micro-granule is placed by hand with infinite patience, reproducing the classic honeycomb pattern. A symbol of eternal love, protection, and prosperity, it is a unique piece rich in Sardinian history and culture.",
+                    "de": "Dieser exquisite sardische Ehering ist komplett in Handarbeit aus 18-karätigem Gelbgold in unserer Werkstatt unter Verwendung der traditionellen Filigran-Technik gefertigt. Jede einzelne Schleife und jedes Mikrogranulat wird mit unendlicher Geduld von Hand platziert und reproduziert das klassische Wabenmuster. Als Symbol für ewige Liebe, Schutz und Wohlstand ist es ein einzigartiges Stück reich an sardischer Geschichte und Kultur."
+                },
+                "specs": {
+                    "it": "Materiale: Oro Giallo 18k. Lavorazione: Filigrana fatta a mano. Larghezza fascia: 8mm. Peso: 4.8g.",
+                    "en": "Material: 18k Yellow Gold. Craft: Handmade Filigree. Band Width: 8mm. Weight: 4.8g.",
+                    "de": "Material: 18k Gelbgold. Handwerk: Handgefertigtes Filigran. Bandbreite: 8mm. Gewicht: 4.8g."
+                },
+                "tags": "fede sarda, filigrana, oro giallo, fatto a mano, gioielli sardi, sardinian jewelry, unique pieces",
+                "price": 380.00,
+                "weight": 0.05
+            },
+            "tappeto_mogoro": {
+                "id": "tappeto_mogoro",
+                "symbols": "Pavoncella sarda, fiori selvatici, greche geometriche",
+                "meaning": "La pavoncella sarda è il simbolo più iconico dell'artigianato dell'isola: rappresenta la rigenerazione, la fertilità, l'abbondanza e il ritorno della primavera. Le greche geometriche esterne proteggono il focolare domestico.",
+                "titles": {
+                    "it": "Tappeto Sardo di Mogoro con Pavoncelle (Mock Locale)",
+                    "en": "Handwoven Mogoro Sardinian Carpet with Peafowl Motif (Local Mock)",
+                    "de": "Handgewebter sardischer Mogoro-Teppich mit Pfauenmotiv (Mock Lokale)"
+                },
+                "descriptions": {
+                    "it": "Tessuto interamente a mano su telaio verticale tradizionale a Mogoro, questo splendido tappeto in pura lana sarda combina design contemporaneo e simbolismo ancestrale. Il motivo centrale ospita la pavoncella sarda, emblema di rinascita e prosperità, tessuta con un contrasto cromatico profondo. Le frange e le finiture sono rifinite rigorosamente a mano.",
+                    "en": "Entirely handwoven on a traditional vertical loom in Mogoro, this gorgeous pure Sardinian wool carpet combines contemporary design and ancestral symbolism. The central motif features the Sardinian peafowl, emblem of rebirth and prosperity, woven in deep contrast colors. The fringes and borders are strictly hand-finished.",
+                    "de": "Komplett handgewebt auf einem traditionellen vertikalen Webstuhl in Mogoro, kombiniert dieser wunderschöne Teppich aus reiner sardischer Wolle zeitgenössisches design mit überlieferter Symbolik. Das centrale Motiv zeigt den sardischen Pfau, ein Emblem der Wiedergeburt und des Wohlstands, gewoben in tiefen Kontrastfarben. Die Fransen und Kanten sind komplett handgefertigt."
+                },
+                "specs": {
+                    "it": "Materiale: 100% Lana Sarda. Telaio: Verticale manuale. Dimensioni: 120 x 180 cm. Lavaggio: A secco.",
+                    "en": "Material: 100% Sardinian Wool. Loom: Hand vertical. Dimensions: 120 x 180 cm. Care: Dry clean.",
+                    "de": "Material: 100% sardische Wolle. Webstuhl: Manueller vertikaler Webstuhl. Maße: 120 x 180 cm. Pflege: Chemische Reinigung."
+                },
+                "tags": "tappeto sardo, lana sarda, mogoro, fatto a mano, pavoncella sarda, sardinian carpet, home decor",
+                "price": 850.00,
+                "weight": 4.5
+            },
+            "brocca_sposa": {
+                "id": "brocca_sposa",
+                "symbols": "Decorazioni floreali a rilievo, uccellini d'amore",
+                "meaning": "La Brocca della Sposa è un capolavoro della ceramica sarda. Utilizzata storicamente per portare l'acqua durante il corteo nuziale, è decorata con rilievi floreali e due uccellini sul becco, simboli di fedeltà coniugale, amore e nuova vita insieme.",
+                "titles": {
+                    "it": "Brocca della Sposa Tradizionale in Ceramica (Mock Locale)",
+                    "en": "Traditional Sardinian Bride Jug in Glazed Ceramic (Local Mock)",
+                    "de": "Traditionelle sardische Brautkanne aus glasierter Keramik (Mock Lokale)"
+                },
+                "descriptions": {
+                    "it": "Questa brocca cerimoniale è plasmata al tornio e decorata interamente a mano in argilla cotta e smaltata con finitura bianco lucida. I decori a rilievo riproducono fiori della macchia mediterranea e due uccellini che si incontrano sul becco, celebrando l'unione e la fedeltà. Un elemento decorativo d'eccezione, perfetto connubio di utilità storica e poesia visiva.",
+                    "en": "This ceremonial jug is thrown on the wheel and entirely hand-decorated in fired clay, then finished with a glossy white glaze. The relief patterns reproduce Mediterranean flowers and two birds meeting on the spout, celebrating union and fidelity. An exceptional decorative element, a perfect blend of historic utility and visual poetry.",
+                    "de": "Diese zeremonielle Kanne wird auf der Töpferscheibe gedreht und komplett von Hand aus gebranntem Ton dekoriert und mit einer glänzend weißen Glasur veredelt. Die Reliefmuster stellen mediterrane Blumen und zwei Vögel dar, die sich auf dem Ausguss treffen und Vereinigung und Treue feiern. Ein außergewöhnliches dekoratives Element, eine perfekte Mischung aus historischem Nutzen und visueller Poesie."
+                },
+                "specs": {
+                    "it": "Materiale: Argilla locale smaltata. Lavorazione: Fatta al tornio e decorata a mano. Altezza: 32cm. Peso: 1.8kg.",
+                    "en": "Material: Glazed local clay. Craft: Wheel-thrown & hand-decorated. Height: 32cm. Weight: 1.8kg.",
+                    "de": "Material: Glasierter lokaler Ton. Handwerk: Auf der Töpferscheibe gedreht & handdekoriert. Höhe: 32cm. Gewicht: 1.8kg."
+                },
+                "tags": "ceramica sarda, brocca della sposa, fatto a mano, ceramica artistica, sardinian ceramic, wedding gift",
+                "price": 190.00,
+                "weight": 2.0
+            }
+        };
+
+        const LOCAL_SHIPPING_DB = {
+            "usa": {
+                "dest": "USA 🇺🇸",
+                "price": "$35.00",
+                "time": "3-5 giorni lavorativi",
+                "duties": "Esente (sotto soglia $800 US De Minimis)",
+                "reply": "Yes, we ship to the USA! For the item selected, the shipping fee via DHL Express is $35.00 with full insurance and real-time tracking. Transit time is 3-5 business days. As it is handcrafted art and below $800, it enters duty-free. It will be packaged in a robust, padded custom wooden box."
+            },
+            "germania": {
+                "dest": "Germania 🇩🇪",
+                "price": "€15.00",
+                "time": "2-3 giorni lavorativi",
+                "duties": "Esente (Mercato Comune Europeo)",
+                "reply": "Ja, wir versenden sehr gerne nach Deutschland! Die Versandkosten mit UPS Standard betragen €15.00 mit Online-Sendungsverfolgung. Die voraussichtliche Lieferzeit liegt bei 2-3 Werktagen. Da beide Länder im EU-Binnenmarkt liegen, fallen keinerlei Zölle oder Importsteuern an. Das Produkt ist sicher verpackt."
+            },
+            "giappone": {
+                "dest": "Giappone 🇯🇵",
+                "price": "$45.00",
+                "time": "5-7 giorni lavorativi",
+                "duties": "Soggetto ad IVA locale (circa 10% sdoganato dal corriere)",
+                "reply": "Yes, we provide fully insured shipping to Japan. For this unique artifact, the shipping fee is $45.00 using FedEx Priority. Delivery takes about 5-7 business days. Import VAT is approximately 10%, which is managed directly by the courier at customs for a smooth door-to-door delivery. The piece is wrapped in velvet inside an elegant gift box."
+            }
+        };
+
+        // STATO APPLICAZIONE
+        let isServerOnline = false;
+        let selectedProductId = "fede_sarda";
+        let activeLanguage = "it";
+        let currentProductData = null;
+        let isScanRunning = false;
+
+        // ELEMENTI DOM
+        const serverStatus = document.getElementById("server-status");
+        const serverStatusText = document.getElementById("server-status-text");
+        const svgHost = document.getElementById("svg-host");
+        const laser = document.getElementById("laser");
+        const imageFrame = document.getElementById("image-frame");
+        const btnScan = document.getElementById("btn-scan");
+        
+        const contentEmptyState = document.getElementById("content-empty-state");
+        const resultBox = document.getElementById("result-box");
+        
+        const outputTitle = document.getElementById("output-title");
+        const outputStorytelling = document.getElementById("output-storytelling");
+        const outputMeaning = document.getElementById("output-meaning");
+        const outputSpecs = document.getElementById("output-specs");
+        const outputDetectedSymbols = document.getElementById("output-detected-symbols");
+        const shopifyTags = document.getElementById("shopify-tags");
+        const shopifyPrice = document.getElementById("shopify-price");
+        
+        const btnSyncShopify = document.getElementById("btn-sync-shopify");
+        const syncBtnText = document.getElementById("sync-btn-text");
+        const shopifyToast = document.getElementById("shopify-toast");
+        
+        const chatMessagesBox = document.getElementById("chat-messages-box");
+        const shippingCalcWidget = document.getElementById("shipping-calc");
+        const calcDest = document.getElementById("calc-dest");
+        const calcPrice = document.getElementById("calc-price");
+        const calcTime = document.getElementById("calc-time");
+        const calcDuties = document.getElementById("calc-duties");
+        
+        const customQueryForm = document.getElementById("custom-query-form");
+        const customQueryInput = document.getElementById("custom-query-input");
+
+        // CONTROLLO BACKEND ONLINE/OFFLINE
+        async function checkBackend() {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 1200);
+                
+                const response = await fetch("http://localhost:8085/", {
+                    method: "GET",
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                
+                if (response.status === 200) {
+                    isServerOnline = true;
+                    serverStatus.classList.remove("offline");
+                    serverStatusText.textContent = "Server: Live API (Porta 8085)";
+                    document.getElementById("chat-mode-badge").textContent = "Stato: Live API";
+                    document.getElementById("chat-mode-badge").style.color = "var(--emerald)";
+                } else {
+                    throw new Error("Offline");
+                }
+            } catch(e) {
+                isServerOnline = false;
+                serverStatus.classList.add("offline");
+                serverStatusText.textContent = "Server: Mock Locale (Offline)";
+                document.getElementById("chat-mode-badge").textContent = "Stato: Mock Locale";
+                document.getElementById("chat-mode-badge").style.color = "var(--text-gold)";
+            }
+        }
+
+        // CARICA SVG PRESET NELLO SCANNER
+        function loadPresetSVG(productId) {
+            selectedProductId = productId;
+            svgHost.innerHTML = PRODUCT_SVGS[productId];
+            // Resetta lo stato del copywriting se non ancora scansionato
+            resetContentArea();
+        }
+
+        function resetContentArea() {
+            contentEmptyState.style.display = "flex";
+            resultBox.style.display = "none";
+            shippingCalcWidget.style.display = "none";
+            chatMessagesBox.innerHTML = "";
+            
+            // Inizializza la chat spedizioni con un benvenuto per quel prodotto
+            initShippingChat();
+        }
+
+        // INIZIALIZZA LA CHAT DELLE SPEDIZIONI
+        function initShippingChat() {
+            chatMessagesBox.innerHTML = `
+                <div class="message-bubble ai">
+                    Salve! Sono l'<b>Assistente Doganale AI</b>. Posso darti quotazioni in tempo reale e spiegare i dazi doganali per l'invio internazionale di questo manufatto unico. Clicca su una delle domande frequenti in alto o scrivi una richiesta libera!
+                </div>
+            `;
+        }
+
+        // ESEGUE IL FINTO O VERO VISION SCANNER AI
+        async function runVisionAI() {
+            if (isScanRunning) return;
+            isScanRunning = true;
+            btnScan.disabled = true;
+            
+            // Avvia effetto laser e animazione
+            laser.style.display = "block";
+            imageFrame.classList.add("scanning");
+            svgHost.style.opacity = "0.4";
+            
+            btnScan.innerHTML = `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="spinner" style="animation: spin 1s linear infinite;">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 2v4"/>
+                </svg>
+                Elaborazione Trame AI...
+            `;
+
+            // Simuliamo il ritardo di calcolo (1.8 secondi)
+            setTimeout(async () => {
+                laser.style.display = "none";
+                imageFrame.classList.remove("scanning");
+                svgHost.style.opacity = "1";
+                btnScan.disabled = false;
+                btnScan.innerHTML = `
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Analisi Vision Completata!
+                `;
+                
+                // Fetch reale o mock locale
+                if (isServerOnline) {
+                    try {
+                        const res = await fetch("http://localhost:8085/api/analyze", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ product_id: selectedProductId })
+                        });
+                        const data = await res.json();
+                        if (data.success) {
+                            currentProductData = data.data;
+                        } else {
+                            currentProductData = LOCAL_PRODUCT_DB[selectedProductId];
+                        }
+                    } catch (e) {
+                        currentProductData = LOCAL_PRODUCT_DB[selectedProductId];
+                    }
+                } else {
+                    currentProductData = LOCAL_PRODUCT_DB[selectedProductId];
+                }
+                
+                // Rendi visibile l'area generata
+                contentEmptyState.style.display = "none";
+                resultBox.style.display = "flex";
+                
+                // Aggiorna interfaccia con i dati
+                updateCopywritingUI();
+                
+                isScanRunning = false;
+            }, 1800);
+        }
+
+        // AGGIORNA I DATI COPYWRITING SULLO SCHERMO IN BASE ALLA LINGUA ATTIVA
+        function updateCopywritingUI() {
+            if (!currentProductData) return;
+            
+            const title = currentProductData.titles[activeLanguage];
+            const desc = currentProductData.descriptions[activeLanguage];
+            const spec = currentProductData.specs[activeLanguage];
+            const symbols = currentProductData.symbols;
+            const meaning = currentProductData.meaning;
+            const tags = currentProductData.tags;
+            const price = currentProductData.price;
+            
+            outputTitle.textContent = title;
+            outputStorytelling.innerHTML = `"${desc}"`;
+            outputMeaning.innerHTML = `<b>Simbolismo svelato dall'AI:</b> ${meaning}`;
+            outputSpecs.textContent = spec;
+            outputDetectedSymbols.textContent = symbols;
+            shopifyTags.textContent = tags;
+            shopifyPrice.textContent = `€${price.toFixed(2)}`;
+            
+            // Ripristina stato pulsante di sincronizzazione
+            btnSyncShopify.disabled = false;
+            syncBtnText.textContent = "Sincronizza e Carica su Shopify";
+            btnSyncShopify.style.background = "#96bf48";
+        }
+
+        // AGGIUNGE MESSAGGIO ALLA CHAT
+        function addMessage(text, sender = "ai") {
+            const msg = document.createElement("div");
+            msg.className = `message-bubble ${sender}`;
+            msg.innerHTML = text;
+            chatMessagesBox.appendChild(msg);
+            chatMessagesBox.scrollTop = chatMessagesBox.scrollHeight;
+        }
+
+        // GESTISCE LA RICHIESTA SPEDIZIONE AI (MOCK O LIVE API)
+        async function requestShippingAI(queryText) {
+            addMessage(queryText, "user");
+            
+            // Mostra un piccolo indicatore di caricamento
+            const loaderMsg = document.createElement("div");
+            loaderMsg.className = "message-bubble ai";
+            loaderMsg.innerHTML = "<i>Calcolo dazi e logistica in corso...</i>";
+            chatMessagesBox.appendChild(loaderMsg);
+            
+            if (isServerOnline) {
+                try {
+                    const res = await fetch("http://localhost:8085/api/shipping", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            query: queryText,
+                            product_id: selectedProductId
+                        })
+                    });
+                    const resData = await res.json();
+                    
+                    // Rimuovi loader
+                    chatMessagesBox.removeChild(loaderMsg);
+                    
+                    if (resData.success) {
+                        addMessage(resData.reply, "ai");
+                        
+                        // Mostra widget riassuntivo logistica
+                        shippingCalcWidget.style.display = "flex";
+                        calcDest.textContent = resData.destination;
+                        calcPrice.textContent = `€${resData.shipping_cost.toFixed(2)}`;
+                        calcTime.textContent = resData.transit_time;
+                        calcDuties.textContent = resData.duties;
+                    }
+                    return;
+                } catch(e) {
+                    console.log("Errore chiamata API spedizioni, fallback mock");
+                }
+            }
+            
+            // Fallback locale mock
+            setTimeout(() => {
+                chatMessagesBox.removeChild(loaderMsg);
+                
+                let lowerQ = queryText.toLowerCase();
+                let matched = null;
+                
+                if (lowerQ.includes("usa") || lowerQ.includes("york") || lowerQ.includes("america") || lowerQ.includes("stati uniti")) {
+                    matched = LOCAL_SHIPPING_DB["usa"];
+                } else if (lowerQ.includes("germania") || lowerQ.includes("germany") || lowerQ.includes("deutschland")) {
+                    matched = LOCAL_SHIPPING_DB["germania"];
+                } else if (lowerQ.includes("giappone") || lowerQ.includes("japan") || lowerQ.includes("tokyo")) {
+                    matched = LOCAL_SHIPPING_DB["giappone"];
+                }
+                
+                if (matched) {
+                    addMessage(matched.reply, "ai");
+                    shippingCalcWidget.style.display = "flex";
+                    calcDest.textContent = matched.dest;
+                    calcPrice.textContent = matched.price;
+                    calcTime.textContent = matched.time;
+                    calcDuties.textContent = matched.duties;
+                } else {
+                    addMessage(`Grazie per la richiesta! Spediamo in tutto il mondo con corriere espresso tracciato (DHL o FedEx). Per questo articolo specifico (peso: ${currentProductData ? currentProductData.weight : 0.5}kg), la spedizione internazionale è interamente assicurata e tracciata. La consegna avverrà in circa 3-5 giorni lavorativi con tariffe a partire da €20.00 in base alla destinazione.`, "ai");
+                    shippingCalcWidget.style.display = "none";
+                }
+            }, 1000);
+        }
+
+        // EVENT LISTENERS DI INIZIALIZZAZIONE
+
+        // Switch dei presets
+        document.querySelectorAll(".preset-card").forEach(card => {
+            card.addEventListener("click", () => {
+                document.querySelectorAll(".preset-card").forEach(c => c.classList.remove("active"));
+                card.classList.add("active");
+                loadPresetSVG(card.dataset.id);
+            });
+        });
+
+        // Trigger Scanner AI
+        btnScan.addEventListener("click", runVisionAI);
+
+        // Cambiamento lingua tab
+        document.addEventListener("click", (e) => {
+            if (e.target.classList.contains("tab-btn")) {
+                document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+                e.target.classList.add("active");
+                activeLanguage = e.target.dataset.lang;
+                updateCopywritingUI();
+            }
+        });
+
+        // Sincronizzazione Shopify
+        btnSyncShopify.addEventListener("click", () => {
+            btnSyncShopify.disabled = true;
+            syncBtnText.textContent = "Connessione a Shopify API...";
+            
+            setTimeout(() => {
+                syncBtnText.textContent = "Sincronizzato!";
+                btnSyncShopify.style.background = "#52B788";
+                
+                // Mostra il Toast Notification
+                shopifyToast.classList.add("show");
+                setTimeout(() => {
+                    shopifyToast.classList.remove("show");
+                }, 3500);
+            }, 1500);
+        });
+
+        // Click sulle domande clienti preimpostate
+        document.querySelectorAll(".inquiry-bubble").forEach(bubble => {
+            bubble.addEventListener("click", () => {
+                document.querySelectorAll(".inquiry-bubble").forEach(b => b.classList.remove("active"));
+                bubble.classList.add("active");
+                requestShippingAI(bubble.dataset.query);
+            });
+        });
+
+        // Invio domanda personalizzata in chat
+        customQueryForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const text = customQueryInput.value.trim();
+            if (!text) return;
+            customQueryInput.value = "";
+            requestShippingAI(text);
+        });
+
+        // AVVIO GENERALE
+        window.addEventListener("DOMContentLoaded", () => {
+            checkBackend();
+            loadPresetSVG("fede_sarda");
+        });
+    </script>
+</body>
+</html>

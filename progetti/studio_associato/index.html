@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Associato — RAG AI Match Engine | Finanza Agevolata</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <style>
+        :root {
+            --bg-deep: #08090A;
+            --bg-card: #121316;
+            --bg-card-hover: #17191D;
+            --gold: #C5A880;
+            --gold-glow: rgba(197, 168, 128, 0.15);
+            --gold-border: rgba(197, 168, 128, 0.2);
+            --text-main: #F1F5F9;
+            --text-muted: #94A3B8;
+            --success: #52B788;
+            --success-glow: rgba(82, 183, 136, 0.15);
+            --danger: #E63946;
+            --danger-glow: rgba(230, 57, 70, 0.15);
+            --border-slate: rgba(255, 255, 255, 0.08);
+            --terminal-bg: #0C0D0E;
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Jost', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-slate);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-border);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px var(--gold-glow); }
+            50% { box-shadow: 0 0 15px rgba(197, 168, 128, 0.3); }
+            100% { box-shadow: 0 0 5px var(--gold-glow); }
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Layout Structure */
+        .wrapper {
+            max-width: 1560px;
+            margin: 0 auto;
+            padding: 24px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Elegant Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-slate);
+            padding-bottom: 20px;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--gold);
+            box-shadow: 0 0 12px var(--gold-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-logo::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .brand-logo:hover::after {
+            transform: translateX(100%);
+        }
+
+        .brand-text h1 {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            color: var(--text-main);
+        }
+
+        .brand-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-slate);
+            border-radius: 20px;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 8px var(--gold);
+        }
+
+        .status-dot.active {
+            background: var(--success);
+            box-shadow: 0 0 8px var(--success);
+        }
+
+        .status-dot.offline {
+            background: #E65C00;
+            box-shadow: 0 0 8px #E65C00;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 1px solid var(--gold-border);
+            color: var(--gold);
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+        }
+
+        .btn-back:hover {
+            background: var(--gold);
+            color: var(--bg-deep);
+            box-shadow: 0 0 15px var(--gold-glow);
+            transform: translateX(-2px);
+        }
+
+        /* Metrics Row */
+        .metrics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-slate);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .metric-card:hover {
+            border-color: var(--gold-border);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 3px; height: 100%;
+            background: var(--border-slate);
+            transition: var(--transition);
+        }
+
+        .metric-card:hover::before {
+            background: var(--gold);
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: 32px;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .metric-value.gold {
+            color: var(--gold);
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Workspace Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr 420px;
+            gap: 20px;
+            flex-grow: 1;
+            min-height: 580px;
+            animation: fadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @media (max-width: 1280px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar Control Center (Left) */
+        .panel-control {
+            background: var(--bg-card);
+            border: 1px solid var(--border-slate);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--gold);
+            border-bottom: 1px solid var(--border-slate);
+            padding-bottom: 8px;
+            margin-bottom: 4px;
+        }
+
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .search-box-wrapper {
+            position: relative;
+            display: flex;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border-slate);
+            border-radius: 6px;
+            padding: 12px 14px;
+            padding-right: 44px;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        .btn-search {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: var(--gold);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .btn-search:hover {
+            background: var(--gold-glow);
+        }
+
+        .preset-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .preset-title {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        .preset-btn {
+            text-align: left;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-slate);
+            padding: 12px 14px;
+            border-radius: 8px;
+            color: var(--text-main);
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: var(--transition);
+        }
+
+        .preset-btn:hover {
+            border-color: var(--gold-border);
+            background: var(--gold-glow);
+            transform: translateX(4px);
+        }
+
+        .preset-btn.active {
+            border-color: var(--gold);
+            background: rgba(197, 168, 128, 0.1);
+            box-shadow: inset 3px 0 0 var(--gold);
+        }
+
+        .preset-btn .preset-cat {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--gold);
+            letter-spacing: 0.5px;
+        }
+
+        .preset-btn .preset-name {
+            font-weight: 500;
+        }
+
+        /* Results Pane (Middle) */
+        .panel-results {
+            background: var(--bg-card);
+            border: 1px solid var(--border-slate);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .bando-badge {
+            background: rgba(197, 168, 128, 0.08);
+            border: 1px solid var(--gold-border);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--gold);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 6px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-slate);
+            padding: 3px;
+            border-radius: 6px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            color: var(--text-main);
+        }
+
+        .filter-btn.active {
+            background: var(--bg-card-hover);
+            color: var(--gold);
+            border: 1px solid var(--gold-border);
+        }
+
+        /* Matching Candidates Cards */
+        .cards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            border: 1px dashed var(--border-slate);
+            border-radius: 8px;
+        }
+
+        .empty-icon {
+            font-size: 36px;
+            color: var(--gold-border);
+        }
+
+        .candidate-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-slate);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .candidate-card:hover {
+            border-color: var(--border-slate);
+            background: var(--bg-card-hover);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        }
+
+        .candidate-card.eligible {
+            border-left: 3px solid var(--success);
+        }
+
+        .candidate-card.ineligible {
+            border-left: 3px solid var(--danger);
+        }
+
+        .card-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .card-company-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .card-company-info {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+
+        .card-score-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .score-val {
+            font-size: 20px;
+            font-family: var(--font-display);
+            font-weight: 600;
+        }
+
+        .score-val.high { color: var(--success); }
+        .score-val.med { color: var(--gold); }
+        .score-val.low { color: var(--danger); }
+
+        .eligibility-tag {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .eligibility-tag.yes {
+            background: rgba(82, 183, 136, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(82, 183, 136, 0.2);
+        }
+
+        .eligibility-tag.no {
+            background: rgba(230, 57, 70, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(230, 57, 70, 0.2);
+        }
+
+        .card-details-box {
+            background: rgba(0,0,0,0.15);
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .details-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            line-height: 1.4;
+        }
+
+        .details-item.check { color: #A7F3D0; }
+        .details-item.x { color: #FECACA; }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .btn-card-action {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--border-slate);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            padding: 7px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .btn-card-action:hover:not(:disabled) {
+            border-color: var(--gold-border);
+            background: var(--gold-glow);
+            color: var(--gold);
+        }
+
+        .btn-card-action.primary {
+            background: rgba(197, 168, 128, 0.08);
+            border-color: var(--gold-border);
+            color: var(--gold);
+        }
+
+        .btn-card-action.primary:hover:not(:disabled) {
+            background: var(--gold);
+            color: var(--bg-deep);
+        }
+
+        .btn-card-action:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Diagnostic & Preview Panel (Right) */
+        .panel-diagnostic {
+            background: var(--bg-card);
+            border: 1px solid var(--border-slate);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: 100%;
+        }
+
+        .diag-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-slate);
+            gap: 12px;
+        }
+
+        .diag-tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            padding-bottom: 8px;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .diag-tab-btn.active {
+            color: var(--gold);
+        }
+
+        .diag-tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; width: 100%; height: 2px;
+            background-color: var(--gold);
+        }
+
+        .diag-content-wrapper {
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .diag-tab-panel {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .diag-tab-panel.active {
+            display: flex;
+        }
+
+        /* Terminal Console Logs */
+        .terminal-box {
+            background: var(--terminal-bg);
+            border: 1px solid var(--border-slate);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-main);
+            overflow-y: auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .terminal-box.scanning::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(197, 168, 128, 0), rgba(197, 168, 128, 0.05));
+            animation: scanline 2.5s linear infinite;
+            pointer-events: none;
+        }
+
+        .log-line {
+            display: flex;
+            gap: 8px;
+            border-left: 2px solid transparent;
+            padding-left: 6px;
+        }
+
+        .log-line.system {
+            color: #38BDF8;
+            border-color: #38BDF8;
+        }
+
+        .log-line.rag {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .log-line.match {
+            color: var(--success);
+            border-color: var(--success);
+        }
+
+        .log-line.input {
+            color: #E2E8F0;
+            border-color: var(--border-slate);
+        }
+
+        .log-time {
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        /* Notification Preview Panel */
+        .preview-box-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .mock-whatsapp-screen {
+            background: #0B141A;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 380px;
+        }
+
+        .wa-hdr {
+            background: #1F2C34;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wa-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--gold);
+            color: var(--bg-deep);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .wa-chat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wa-chat-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #E9EDEF;
+        }
+
+        .wa-chat-status {
+            font-size: 10px;
+            color: #8696A0;
+        }
+
+        .wa-body {
+            background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 16px 16px;
+            padding: 16px;
+            overflow-y: auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wa-bubble {
+            background: #005C4B;
+            border-radius: 8px 8px 0 8px;
+            padding: 10px 12px;
+            max-width: 90%;
+            align-self: flex-end;
+            font-size: 12px;
+            color: #E9EDEF;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .wa-time {
+            font-size: 9px;
+            color: rgba(255,255,255,0.5);
+            text-align: right;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .mock-email-screen {
+            background: #1A1C20;
+            border: 1px solid var(--border-slate);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 380px;
+        }
+
+        .email-hdr {
+            background: #252830;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 12px;
+            border-bottom: 1px solid var(--border-slate);
+        }
+
+        .email-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .email-lbl {
+            color: var(--text-muted);
+            width: 50px;
+            flex-shrink: 0;
+        }
+
+        .email-val {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .email-body {
+            padding: 16px;
+            background: #141619;
+            color: #E2E8F0;
+            font-size: 12px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-preview-action {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-preview-action.secondary {
+            background: transparent;
+            border: 1px solid var(--gold-border);
+            color: var(--gold);
+        }
+
+        .btn-preview-action.secondary:hover {
+            background: var(--gold-glow);
+        }
+
+        .btn-preview-action.primary {
+            background: var(--gold);
+            border: 1px solid var(--gold);
+            color: var(--bg-deep);
+        }
+
+        .btn-preview-action.primary:hover {
+            background: #BFA077;
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        /* Success Overlay */
+        .toast-success {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--success);
+            border-left: 4px solid var(--success);
+            color: var(--text-main);
+            padding: 14px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateY(100px);
+            opacity: 0;
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .toast-success.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-icon {
+            color: var(--success);
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <!-- Elegant Header -->
+        <header>
+            <div class="brand-section">
+                <div class="brand-logo">SA</div>
+                <div class="brand-text">
+                    <h1>Studio Associato</h1>
+                    <p>RAG AI Matching Engine • Finanza Agevolata</p>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="status-badge" id="backend-status-badge">
+                    <div class="status-dot offline" id="backend-status-dot"></div>
+                    <span id="backend-status-text">Verifica in corso...</span>
+                </div>
+                <button class="btn-back" onclick="window.close();">
+                    ← Esci dal Prototipo
+                </button>
+            </div>
+        </header>
+
+        <!-- Metrics Row -->
+        <div class="metrics-container">
+            <div class="metric-card">
+                <span class="metric-label">Aziende Clienti Indicizzate</span>
+                <span class="metric-value" id="count-aziende">312</span>
+                <span class="metric-desc">Profili completi con ATECO, ZES e dati anagrafici</span>
+            </div>
+            <div class="metric-card">
+                <span class="metric-label">Bandi Regionali in Indice</span>
+                <span class="metric-value gold" id="count-bandi">4</span>
+                <span class="metric-desc">Caricati in Vector Store (POR FESR, PSR, ZES Unica)</span>
+            </div>
+            <div class="metric-card">
+                <span class="metric-label">Fit Automatici Generati</span>
+                <span class="metric-value" id="count-matches">18</span>
+                <span class="metric-desc">Accoppiamenti calcolati su parametri idoneità</span>
+            </div>
+            <div class="metric-card" style="box-shadow: inset 0 0 10px rgba(82, 183, 136, 0.05);">
+                <span class="metric-label">Tempo di Risoluzione RAG</span>
+                <span class="metric-value" style="color: var(--success);">~2.4s</span>
+                <span class="metric-desc">Analisi incrociata e generazione alert ad hoc</span>
+            </div>
+        </div>
+
+        <!-- Workspace Grid -->
+        <div class="dashboard-grid">
+            <!-- Sidebar Control Center (Left) -->
+            <div class="panel-control">
+                <h2 class="section-title">Control Room AI</h2>
+                
+                <!-- Query Input -->
+                <div class="search-container">
+                    <label class="preset-title" for="search-input">Interroga con Linguaggio Naturale</label>
+                    <div class="search-box-wrapper">
+                        <input type="text" id="search-input" class="search-input" placeholder="Es. Digitalizzazione per pastifici..." autocomplete="off">
+                        <button class="btn-search" id="btn-search-trigger" title="Esegui ricerca semantica">
+                            🔎
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Presets -->
+                <div class="preset-container">
+                    <span class="preset-title">Scenari & Bandi Campione</span>
+                    
+                    <button class="preset-btn active" data-bando-id="por_fesr_pmi" data-query="digitalizzazione software cloud">
+                        <span class="preset-cat">Digitalizzazione & Innovazione</span>
+                        <span class="preset-name">💻 POR FESR Digitalizzazione PMI</span>
+                    </button>
+                    
+                    <button class="preset-btn" data-bando-id="psr_giovani_agri" data-query="agricoltura giovani ricambio generazionale pastori">
+                        <span class="preset-cat">Agricoltura & Allevamento</span>
+                        <span class="preset-name">🌾 PSR Giovani Agricoltori (Misura 6.1)</span>
+                    </button>
+                    
+                    <button class="preset-btn" data-bando-id="zes_unica_sardegna" data-query="zes credito imposta investimenti industriali macomer">
+                        <span class="preset-cat">Fiscale & Investimenti ZES</span>
+                        <span class="preset-name">🏭 Credito ZES Unica Sardegna</span>
+                    </button>
+                    
+                    <button class="preset-btn" data-bando-id="misura_cooperazione_filiera" data-query="cooperazione filiera agroalimentare vino pasta">
+                        <span class="preset-cat">Agroalimentare & Filiera</span>
+                        <span class="preset-name">🤝 PSR Cooperazione di Filiera (16.2)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Pane (Middle) -->
+            <div class="panel-results">
+                <div class="results-header">
+                    <div>
+                        <h2 class="section-title" id="results-title">Bando Selezionato</h2>
+                        <span class="bando-badge" id="results-bando-name">Caricamento in corso...</span>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="filter-tabs">
+                        <button class="filter-btn active" data-filter="all">Tutti</button>
+                        <button class="filter-btn" data-filter="eligible">Idonei</button>
+                        <button class="filter-btn" data-filter="ineligible">Non Idonei</button>
+                    </div>
+                </div>
+
+                <!-- Matches Container -->
+                <div class="cards-list" id="candidates-container">
+                    <!-- Cards will be populated here -->
+                </div>
+            </div>
+
+            <!-- Diagnostic & Preview Panel (Right) -->
+            <div class="panel-diagnostic">
+                <div class="diag-tabs">
+                    <button class="diag-tab-btn active" id="tab-btn-logs" data-tab="logs">Log RAG AI Engine</button>
+                    <button class="diag-tab-btn" id="tab-btn-preview" data-tab="preview">Anteprima Alert</button>
+                </div>
+
+                <div class="diag-content-wrapper">
+                    <!-- Tab Logs -->
+                    <div class="diag-tab-panel active" id="tab-panel-logs">
+                        <div class="terminal-box" id="terminal-logs">
+                            <!-- Logs will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Tab Preview -->
+                    <div class="diag-tab-panel" id="tab-panel-preview">
+                        <div class="preview-box-wrapper">
+                            
+                            <!-- WhatsApp Screen -->
+                            <div class="mock-whatsapp-screen" id="preview-whatsapp" style="display: none;">
+                                <div class="wa-hdr">
+                                    <div class="wa-avatar">SA</div>
+                                    <div class="wa-chat-info">
+                                        <span class="wa-chat-name" id="wa-company-title">Studio Associato</span>
+                                        <span class="wa-chat-status">Account Business Ufficiale</span>
+                                    </div>
+                                </div>
+                                <div class="wa-body">
+                                    <div class="wa-bubble">
+                                        <span id="wa-text-content">Bozza WhatsApp in elaborazione...</span>
+                                        <span class="wa-time" id="wa-time-stamp">16:04</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Email Screen -->
+                            <div class="mock-email-screen" id="preview-email" style="display: none;">
+                                <div class="email-hdr">
+                                    <div class="email-row">
+                                        <span class="email-lbl">A:</span>
+                                        <span class="email-val" id="email-to-val">destinatario@azienda.it</span>
+                                    </div>
+                                    <div class="email-row">
+                                        <span class="email-lbl">Da:</span>
+                                        <span class="email-val">m.ferrara@studioassociatosardegna.it</span>
+                                    </div>
+                                    <div class="email-row">
+                                        <span class="email-lbl">Oggetto:</span>
+                                        <span class="email-val" id="email-subject-val">Bozza Email in elaborazione...</span>
+                                    </div>
+                                </div>
+                                <div class="email-body" id="email-body-content">
+                                    Bozza Email in elaborazione...
+                                </div>
+                            </div>
+
+                            <!-- Empty Preview State -->
+                            <div class="empty-state" id="preview-empty">
+                                <span class="empty-icon">✉️</span>
+                                <p style="font-size: 13px;">Nessun alert generato.<br>Clicca su "Simula WhatsApp" o "Genera Email" su un'azienda cliente per visualizzare l'anteprima AI.</p>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="preview-actions" id="preview-actions-bar" style="display: none; margin-top: auto;">
+                                <button class="btn-preview-action secondary" id="btn-copy-alert">
+                                    📋 Copia Testo
+                                </button>
+                                <button class="btn-preview-action primary" id="btn-send-simulated">
+                                    🚀 Invia Notifica (Simulata)
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="toast-success" id="success-toast">
+        <span class="toast-icon">✓</span>
+        <span id="toast-message">Notifica inoltrata con successo all'imprenditore!</span>
+    </div>
+
+    <!-- JS Core Logic -->
+    <script>
+        // --- LOCAL DATABASES FOR FULL OFFLINE MOCK FALLBACK ---
+        const LOCAL_AZIENDE_DB = [
+            {
+                "id": "argiolas_vino",
+                "denominazione": "Argiolas Viticoltori S.r.l.",
+                "ateco": "11.02.10",
+                "ateco_desc": "Produzione di vini da uve prodotte in aziende agricole",
+                "sede": "Serdiana (CA)",
+                "fatturato_2025": 4500000.0,
+                "dipendenti": 24,
+                "dimensione": "PMI",
+                "eta_titolare": 52,
+                "area_zes": false,
+                "email_referente": "direzione@argiolas-vino.it",
+                "telefono_referente": "+39 348 7654321",
+                "referente": "Dott. Franco Argiolas"
+            },
+            {
+                "id": "barbagia_pastori",
+                "denominazione": "Cooperativa Barbagia Pastori",
+                "ateco": "01.45.00",
+                "ateco_desc": "Allevamento di ovini e caprini",
+                "sede": "Fonni (NU)",
+                "fatturato_2025": 850000.0,
+                "dipendenti": 8,
+                "dimensione": "Micro",
+                "eta_titolare": 34,
+                "area_zes": false,
+                "email_referente": "m.loddo@barbagiapastori.it",
+                "telefono_referente": "+39 333 1234567",
+                "referente": "Michele Loddo"
+            },
+            {
+                "id": "sardinia_tech",
+                "denominazione": "Sardinia Tech Solutions S.r.l.",
+                "ateco": "62.01.00",
+                "ateco_desc": "Produzione di software non personalizzato",
+                "sede": "Area Industriale Elmas (CA)",
+                "fatturato_2025": 1200000.0,
+                "dipendenti": 14,
+                "dimensione": "Micro",
+                "area_zes": true,
+                "eta_titolare": 29,
+                "email_referente": "a.sanna@sardiniatech.io",
+                "telefono_referente": "+39 349 9876543",
+                "referente": "Ing. Alessandro Sanna"
+            },
+            {
+                "id": "hotel_santiga",
+                "denominazione": "Boutique Hotel S'Antiga Charme & Spa",
+                "ateco": "55.10.00",
+                "ateco_desc": "Alberghi e strutture simili",
+                "sede": "Domus de Maria (SU)",
+                "fatturato_2025": 1800000.0,
+                "dipendenti": 18,
+                "dimensione": "PMI",
+                "eta_titolare": 45,
+                "area_zes": false,
+                "email_referente": "m.ferru@hotel-santiga.it",
+                "telefono_referente": "+39 340 1122334",
+                "referente": "Marianna Ferru"
+            },
+            {
+                "id": "pastificio_sorgente",
+                "denominazione": "Pastificio Artigianale La Sorgente",
+                "ateco": "10.73.00",
+                "ateco_desc": "Produzione di paste alimentari, di cuscus e di prodotti farinacei simili",
+                "sede": "Tempio Pausania (SS)",
+                "fatturato_2025": 320000.0,
+                "dipendenti": 3,
+                "dimensione": "Micro",
+                "eta_titolare": 39,
+                "area_zes": false,
+                "email_referente": "g.mu@pastificiolasorgente.it",
+                "telefono_referente": "+39 328 4455667",
+                "referente": "Giovanni Mu"
+            },
+            {
+                "id": "officine_macc_sarde",
+                "denominazione": "Officine Meccaniche Sarde S.r.l.",
+                "ateco": "25.62.00",
+                "ateco_desc": "Lavorazione di metalli e meccanica generale",
+                "sede": "Zona Industriale Tossilo - Macomer (NU)",
+                "fatturato_2025": 2100000.0,
+                "dipendenti": 22,
+                "dimensione": "PMI",
+                "area_zes": true,
+                "eta_titolare": 48,
+                "email_referente": "produzione@officinemeccanichesarde.it",
+                "telefono_referente": "+39 347 5566778",
+                "referente": "Ing. Pietro Meloni"
+            },
+            {
+                "id": "agriturismo_gologone",
+                "denominazione": "Agriturismo Su Gologone",
+                "ateco": "56.10.12",
+                "ateco_desc": "Attività di ristorazione connesse alle aziende agricole (Agriturismi)",
+                "sede": "Oliena (NU)",
+                "fatturato_2025": 1500000.0,
+                "dipendenti": 12,
+                "dimensione": "PMI",
+                "eta_titolare": 62,
+                "area_zes": false,
+                "email_referente": "prenotazioni@sugologone-agriturismo.it",
+                "telefono_referente": "+39 335 9988776",
+                "referente": "Elena Palimodde"
+            }
+        ];
+
+        const LOCAL_BANDI_DB = [
+            {
+                "id": "por_fesr_pmi",
+                "titolo": "POR FESR Sardegna 2021-2027 — Bando Digitalizzazione delle PMI",
+                "categoria": "Digitalizzazione & Innovazione",
+                "descrizione": "Finanziamento a sostegno di investimenti per l'acquisizione di servizi informatici, software, soluzioni cloud, cybersecurity, e-commerce e sistemi di intelligenza artificiale per l'ottimizzazione aziendale.",
+                "contributo": "65% a fondo perduto sulle spese ammissibili",
+                "investimento_min": 15000.0,
+                "finanziamento_max": 150000.0,
+                "scadenza": "2026-10-15",
+                "ateco_ammessi": ["10", "11", "25", "45", "47", "55", "56", "62", "79"],
+                "requisiti_dimensione": ["Micro", "PMI"],
+                "richiede_zes": false,
+                "richiede_giovani": false
+            },
+            {
+                "id": "psr_giovani_agri",
+                "titolo": "PSR Sardegna — Premio per l'insediamento di Giovani Agricoltori (Misura 6.1)",
+                "categoria": "Agricoltura & Allevamento",
+                "descrizione": "Premio forfettario a fondo perduto per favorire il ricambio generazionale in agricoltura, incentivando l'insediamento di giovani imprenditori agricoli qualificati sul territorio sardo.",
+                "contributo": "€ 50.000 una tantum a fondo perduto",
+                "investimento_min": 0.0,
+                "finanziamento_max": 50000.0,
+                "scadenza": "2026-09-30",
+                "ateco_ammessi": ["01"],
+                "requisiti_dimensione": ["Micro", "PMI"],
+                "richiede_zes": false,
+                "richiede_giovani": true
+            },
+            {
+                "id": "zes_unica_sardegna",
+                "titolo": "ZES Unica — Credito d'Imposta per Investimenti Produttivi in Sardegna",
+                "categoria": "Fiscale & Investimenti Industriali",
+                "descrizione": "Agevolazione fiscale sotto forma di credito d'imposta per l'acquisizione di beni strumentali, macchinari, impianti innovativi e l'acquisto di terreni o l'acquisizione di immobili destinati a insediamenti produttivi situati nelle aree ZES sarde.",
+                "contributo": "Fino al 45% di credito d'imposta sull'investimento",
+                "investimento_min": 50000.0,
+                "finanziamento_max": 200000.0,
+                "scadenza": "2026-12-31",
+                "ateco_ammessi": ["10", "11", "25", "55", "62"],
+                "requisiti_dimensione": ["Micro", "PMI", "Grande"],
+                "richiede_zes": true,
+                "richiede_giovani": false
+            },
+            {
+                "id": "misura_cooperazione_filiera",
+                "titolo": "PSR Sardegna — Cooperazione di Filiera per Innovazione Agroalimentare (Misura 16.2)",
+                "categoria": "Agroalimentare & Filiera",
+                "descrizione": "Finanziamento a sostegno di progetti pilota di cooperazione tra aziende agricole, trasformatrici e distributrici sarde per lo sviluppo di nuovi prodotti artigianali, processi ecologici e filiere corte e tracciabili.",
+                "contributo": "80% a fondo perduto sulle spese complessive di progetto",
+                "investimento_min": 100000.0,
+                "finanziamento_max": 300000.0,
+                "scadenza": "2026-11-20",
+                "ateco_ammessi": ["01", "10", "11"],
+                "requisiti_dimensione": ["Micro", "PMI"],
+                "richiede_zes": false,
+                "richiede_giovani": false
+            }
+        ];
+
+        // --- CORE APPLICATION STATE ---
+        const BACKEND_URL = 'http://localhost:8001';
+        let serverOnline = false;
+        let activeBandoId = 'por_fesr_pmi';
+        let currentMatches = [];
+        let activeFilter = 'all';
+        let generatedAlertText = '';
+
+        // --- DOM ELEMENTS ---
+        const backendStatusDot = document.getElementById('backend-status-dot');
+        const backendStatusText = document.getElementById('backend-status-text');
+        const backendStatusBadge = document.getElementById('backend-status-badge');
+        
+        const countAziende = document.getElementById('count-aziende');
+        const countBandi = document.getElementById('count-bandi');
+        const countMatches = document.getElementById('count-matches');
+        
+        const searchInput = document.getElementById('search-input');
+        const btnSearchTrigger = document.getElementById('btn-search-trigger');
+        const presetBtns = document.querySelectorAll('.preset-btn');
+        
+        const resultsTitle = document.getElementById('results-title');
+        const resultsBandoName = document.getElementById('results-bando-name');
+        const candidatesContainer = document.getElementById('candidates-container');
+        
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        const diagTabBtns = document.querySelectorAll('.diag-tab-btn');
+        const diagTabPanels = document.querySelectorAll('.diag-tab-panel');
+        const terminalLogs = document.getElementById('terminal-logs');
+        
+        const previewEmpty = document.getElementById('preview-empty');
+        const previewWhatsapp = document.getElementById('preview-whatsapp');
+        const previewEmail = document.getElementById('preview-email');
+        const waCompanyTitle = document.getElementById('wa-company-title');
+        const waTextContent = document.getElementById('wa-text-content');
+        const waTimeStamp = document.getElementById('wa-time-stamp');
+        const emailToVal = document.getElementById('email-to-val');
+        const emailSubjectVal = document.getElementById('email-subject-val');
+        const emailBodyContent = document.getElementById('email-body-content');
+        const previewActionsBar = document.getElementById('preview-actions-bar');
+        const btnCopyAlert = document.getElementById('btn-copy-alert');
+        const btnSendSimulated = document.getElementById('btn-send-simulated');
+        const successToast = document.getElementById('success-toast');
+        const toastMessage = document.getElementById('toast-message');
+
+        // --- APP INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', async () => {
+            await checkServerStatus();
+            loadBandoData(activeBandoId);
+        });
+
+        // Ping FastAPI Server
+        async function checkServerStatus() {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 1200);
+                
+                const res = await fetch(`${BACKEND_URL}/`, {
+                    method: 'GET',
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                
+                if (res.status === 200) {
+                    serverOnline = true;
+                    backendStatusDot.className = 'status-dot active';
+                    backendStatusText.textContent = 'ONLINE (Live API)';
+                    backendStatusBadge.style.borderColor = 'rgba(82, 183, 136, 0.4)';
+                    backendStatusBadge.style.background = 'rgba(82, 183, 136, 0.05)';
+                    addLog("SYSTEM", "Connessione stabilita con il server locale su porta 8001. RAG AI Live attivo.");
+                } else {
+                    throw new Error("Bad status");
+                }
+            } catch (e) {
+                serverOnline = false;
+                backendStatusDot.className = 'status-dot offline';
+                backendStatusText.textContent = 'LOCALE (Mock)';
+                backendStatusBadge.style.borderColor = 'rgba(197, 168, 128, 0.4)';
+                backendStatusBadge.style.background = 'rgba(197, 168, 128, 0.03)';
+                addLog("SYSTEM", "Impossibile connettersi al server locale. Avvio del motore di compatibilità JavaScript Client-Side.");
+            }
+        }
+
+        // --- RAG LOGIC (LOCAL JAVASCRIPT ALTERNATIVE) ---
+        function evaluateLocalMatch(azienda, bando) {
+            let reasons = [];
+            let missing = [];
+            let score = 100;
+            
+            // 1. ATECO Check
+            let atecoOk = false;
+            for (let code of bando.ateco_ammessi) {
+                if (azienda.ateco.startsWith(code)) {
+                    atecoOk = true;
+                    break;
+                }
+            }
+            
+            if (atecoOk) {
+                reasons.push(`Codice ATECO (${azienda.ateco}) pienamente coerente con il bando (${bando.categoria}).`);
+            } else {
+                score -= 40;
+                missing.push("Codice ATECO non ricompreso tra quelli ammessi dal bando.");
+            }
+            
+            // 2. Size Check
+            if (bando.requisiti_dimensione.includes(azienda.dimensione)) {
+                reasons.push(`Dimensione aziendale (${azienda.dimensione}) conforme ai requisiti del bando.`);
+            } else {
+                score -= 30;
+                missing.push(`Il bando esclude le aziende di taglia '${azienda.dimensione}'.`);
+            }
+            
+            // 3. ZES Zone Check
+            if (bando.richiede_zes) {
+                if (azienda.area_zes) {
+                    reasons.push(`Sede aziendale localizzata in area ZES (${azienda.sede}), requisito chiave soddisfatto.`);
+                } else {
+                    score -= 30;
+                    missing.push("L'agevolazione è limitata esclusivamente alle unità produttive localizzate nelle Aree ZES sarde.");
+                }
+            }
+            
+            // 4. Owner Age Check (Youth)
+            if (bando.richiede_giovani) {
+                if (azienda.eta_titolare < 41) {
+                    reasons.push(`Requisito anagrafico giovanile soddisfatto: titolare di ${azienda.eta_titolare} anni (limite < 41).`);
+                } else {
+                    score -= 30;
+                    missing.push(`Il titolare ha superato il limite d'età previsto (${azienda.eta_titolare} anni, richiesto < 41).`);
+                }
+            }
+            
+            let eligible = missing.length === 0;
+            score = Math.max(0, score);
+            
+            if (eligible && score >= 90) {
+                reasons.push("Punteggio di idoneità massimo: bando ad altissimo tasso di successo consigliato.");
+            }
+            
+            return {
+                eligible,
+                score,
+                reasons,
+                missing_requirements: missing
+            };
+        }
+
+        // --- CONTROLLER ACTIONS ---
+        async function loadBandoData(bandoId) {
+            activeBandoId = bandoId;
+            addLog("RAG", `Richiesta matching per il bando: [${bandoId.toUpperCase()}]`);
+            
+            // Update active preset style
+            presetBtns.forEach(btn => {
+                if (btn.getAttribute('data-bando-id') === bandoId) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            let bandoObj = null;
+            let matches = [];
+
+            if (serverOnline) {
+                // Live FastAPI Path
+                try {
+                    const resMatch = await fetch(`${BACKEND_URL}/api/match`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ bando_id: bandoId })
+                    });
+                    const matchData = await resMatch.json();
+                    
+                    const resBandi = await fetch(`${BACKEND_URL}/api/bandi`);
+                    const bandiList = await resBandi.json();
+                    bandoObj = bandiList.find(b => b.id === bandoId);
+                    matches = matchData.matches;
+                    
+                    addLog("MATCH", `Match calcolati dal server. Trovati ${matches.filter(m => m.eligible).length} clienti idonei.`);
+                } catch (err) {
+                    addLog("SYSTEM", "Errore chiamata server, passaggio a calcolo locale d'emergenza.");
+                    serverOnline = false;
+                }
+            }
+
+            if (!serverOnline) {
+                // Offline Local Path
+                bandoObj = LOCAL_BANDI_DB.find(b => b.id === bandoId);
+                matches = LOCAL_AZIENDE_DB.map(az => {
+                    const evalRes = evaluateLocalMatch(az, bandoObj);
+                    return {
+                        azienda_id: az.id,
+                        denominazione: az.denominazione,
+                        sede: az.sede,
+                        dimensione: az.dimensione,
+                        fatturato: az.fatturato_2025,
+                        ateco: az.ateco,
+                        eligible: evalRes.eligible,
+                        score: evalRes.score,
+                        reasons: evalRes.reasons,
+                        missing_requirements: evalRes.missing_requirements
+                    };
+                });
+                
+                // Sort by score desc
+                matches.sort((a, b) => b.score - a.score);
+                addLog("MATCH", `Motore Locale: Analisi criteri completata. Trovati ${matches.filter(m => m.eligible).length} idonei.`);
+            }
+
+            currentMatches = matches;
+            
+            // Render UI
+            resultsTitle.textContent = bandoObj.categoria;
+            resultsBandoName.textContent = bandoObj.titolo;
+            
+            // Update counts
+            const eligibleCount = matches.filter(m => m.eligible).length;
+            countMatches.textContent = eligibleCount;
+            
+            renderCandidates();
+        }
+
+        // Render Cards List
+        function renderCandidates() {
+            candidatesContainer.innerHTML = '';
+            
+            const filtered = currentMatches.filter(m => {
+                if (activeFilter === 'eligible') return m.eligible;
+                if (activeFilter === 'ineligible') return !m.eligible;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                candidatesContainer.innerHTML = `
+                    <div class="empty-state">
+                        <span class="empty-icon">⚠️</span>
+                        <p style="font-size: 13px;">Nessun cliente soddisfa il filtro selezionato.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(cand => {
+                const card = document.createElement('div');
+                card.className = `candidate-card fade-in ${cand.eligible ? 'eligible' : 'ineligible'}`;
+                
+                const scoreClass = cand.score >= 80 ? 'high' : (cand.score >= 50 ? 'med' : 'low');
+                
+                let detailsHTML = '';
+                if (cand.eligible) {
+                    detailsHTML = cand.reasons.map(r => `
+                        <div class="details-item check">
+                            <span>✓</span>
+                            <span>${r}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    detailsHTML = cand.missing_requirements.map(m => `
+                        <div class="details-item x">
+                            <span style="color: var(--danger);">✗</span>
+                            <span>${m}</span>
+                        </div>
+                    `).join('');
+                }
+
+                card.innerHTML = `
+                    <div class="card-hdr">
+                        <div>
+                            <span class="card-company-name">${cand.denominazione}</span>
+                            <div class="card-company-info">
+                                <span>📍 ${cand.sede}</span>
+                                <span>📂 ATECO: ${cand.ateco}</span>
+                                <span>📊 ${cand.dimensione}</span>
+                            </div>
+                        </div>
+                        <div class="card-score-badge">
+                            <span class="score-val ${scoreClass}">${cand.score}%</span>
+                            <span class="eligibility-tag ${cand.eligible ? 'yes' : 'no'}">
+                                ${cand.eligible ? 'Idoneo' : 'Escluso'}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-details-box">
+                        ${detailsHTML}
+                    </div>
+                    
+                    <div class="card-actions">
+                        <button class="btn-card-action primary" onclick="generateAlert('${cand.azienda_id}', 'whatsapp')" ${!cand.eligible ? 'disabled' : ''}>
+                            💬 Simula WhatsApp
+                        </button>
+                        <button class="btn-card-action" onclick="generateAlert('${cand.azienda_id}', 'email')" ${!cand.eligible ? 'disabled' : ''}>
+                            ✉️ Genera Bozza Email
+                        </button>
+                    </div>
+                `;
+                
+                candidatesContainer.appendChild(card);
+            });
+        }
+
+        // Search Trigger (RAG intent parsing simulation)
+        async function executeSearch(query) {
+            if (!query.trim()) return;
+            
+            addLog("INPUT", `Inserita interrogazione utente: "${query}"`);
+            terminalLogs.parentElement.scrollTop = terminalLogs.parentElement.scrollHeight;
+            
+            // Add a small scanning class to terminal for visual wow
+            terminalLogs.classList.add('scanning');
+            
+            let detectedConcepts = [];
+            let matchedBando = null;
+            let logs = [];
+
+            if (serverOnline) {
+                try {
+                    const res = await fetch(`${BACKEND_URL}/api/search`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ query: query })
+                    });
+                    const data = await res.json();
+                    detectedConcepts = data.detected_concepts;
+                    matchedBando = data.matched_bando;
+                    logs = data.logs;
+                    currentMatches = data.matches;
+                } catch (e) {
+                    serverOnline = false;
+                }
+            }
+
+            if (!serverOnline) {
+                // Client-side mock parsing rules
+                const q = query.toLowerCase();
+                if (q.includes("vino") || q.includes("cantina") || q.includes("alcol") || q.includes("agricole")) {
+                    detectedConcepts = ["Vino", "Cantina vitivinicola", "Agricoltura/Agroalimentare"];
+                    matchedBando = LOCAL_BANDI_DB.find(b => b.id === 'misura_cooperazione_filiera');
+                } else if (q.includes("pastor") || q.includes("pecora") || q.includes("agricol") || q.includes("giovan") || q.includes("campagna")) {
+                    detectedConcepts = ["Agricoltura primario", "Insediamento giovani", "Ricambio generazionale"];
+                    matchedBando = LOCAL_BANDI_DB.find(b => b.id === 'psr_giovani_agri');
+                } else if (q.includes("zes") || q.includes("macomer") || q.includes("tossilo") || q.includes("fiscale") || q.includes("credito")) {
+                    detectedConcepts = ["Area Industriale ZES", "Credito d'Imposta", "Investimento macchinari"];
+                    matchedBando = LOCAL_BANDI_DB.find(b => b.id === 'zes_unica_sardegna');
+                } else {
+                    detectedConcepts = ["Digitalizzazione", "Sistemi informatici", "Generico PMI"];
+                    matchedBando = LOCAL_BANDI_DB.find(b => b.id === 'por_fesr_pmi');
+                }
+
+                // Recalculate matches
+                currentMatches = LOCAL_AZIENDE_DB.map(az => {
+                    const evalRes = evaluateLocalMatch(az, matchedBando);
+                    return {
+                        azienda_id: az.id,
+                        denominazione: az.denominazione,
+                        sede: az.sede,
+                        dimensione: az.dimensione,
+                        fatturato: az.fatturato_2025,
+                        ateco: az.ateco,
+                        eligible: evalRes.eligible,
+                        score: evalRes.score,
+                        reasons: evalRes.reasons,
+                        missing_requirements: evalRes.missing_requirements
+                    };
+                });
+                currentMatches.sort((a,b) => b.score - a.score);
+
+                logs = [
+                    `INPUT: Ricevuta richiesta utente: '${query}'`,
+                    `RAG ENGINE: Estrazione entità semantiche completata. Concetti: [${detectedConcepts.join(', ')}]`,
+                    `VECTOR DB: Ricerca semantica. Trovato bando attinente (94.2%): ${matchedBando.titolo}`,
+                    `MATCHING ENGINE: Interrogazione del database clienti (312 profili aziendali)`,
+                    `MATCHING ENGINE: Calcolo fit semantico completato con successo.`
+                ];
+            }
+
+            // Simulate delayed printing for RAG feel
+            setTimeout(() => {
+                terminalLogs.classList.remove('scanning');
+                terminalLogs.innerHTML = '';
+                
+                logs.forEach((logLine, idx) => {
+                    setTimeout(() => {
+                        let logType = "rag";
+                        if (logLine.startsWith("INPUT:")) logType = "input";
+                        if (logLine.startsWith("MATCHING")) logType = "match";
+                        if (logLine.startsWith("SYSTEM")) logType = "system";
+                        
+                        addLog(logType, logLine.replace(/^[A-Z\s]+:/, ""));
+                    }, idx * 250);
+                });
+
+                // Update active bando & results
+                activeBandoId = matchedBando.id;
+                
+                // Update presets selection state
+                presetBtns.forEach(btn => {
+                    if (btn.getAttribute('data-bando-id') === activeBandoId) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+
+                resultsTitle.textContent = matchedBando.categoria;
+                resultsBandoName.textContent = matchedBando.titolo;
+                
+                const eligibleCount = currentMatches.filter(m => m.eligible).length;
+                countMatches.textContent = eligibleCount;
+                
+                renderCandidates();
+
+                // Switch back to logs tab automatically
+                switchDiagTab('logs');
+            }, 800);
+        }
+
+        // Generate Alert Template (Live/Local)
+        async function generateAlert(aziendaId, channel) {
+            addLog("RAG", `Elaborazione bozza alert [${channel.toUpperCase()}] per il cliente ${aziendaId}...`);
+            
+            // Open preview tab
+            switchDiagTab('preview');
+            
+            let message = '';
+            let dest = '';
+            let companyName = '';
+            let subject = '';
+
+            if (serverOnline) {
+                try {
+                    const res = await fetch(`${BACKEND_URL}/api/send_alert`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ azienda_id: aziendaId, bando_id: activeBandoId, channel: channel })
+                    });
+                    const data = await res.json();
+                    message = data.message;
+                    dest = data.destinatario;
+                    companyName = data.azienda_name;
+                } catch (e) {
+                    serverOnline = false;
+                }
+            }
+
+            if (!serverOnline) {
+                const az = LOCAL_AZIENDE_DB.find(a => a.id === aziendaId);
+                const bando = LOCAL_BANDI_DB.find(b => b.id === activeBandoId);
+                const evalRes = evaluateLocalMatch(az, bando);
+
+                if (channel === 'whatsapp') {
+                    message = `🟢 *STUDIO ASSOCIATO AI ALERT* 🚨\n\nGentile *${az.referente}*,\nil nostro sistema intelligente ha identificato un'opportunità di finanziamento ad altissima idoneità per *${az.denominazione}*!\n\n📂 *Bando:* ${bando.titolo}\n💰 *Agevolazione:* ${bando.contributo}\n🎯 *Il vostro Fit:* ${evalRes.score}% (Soddisfatti tutti i requisiti ATECO, di sede e dimensione!)\n⏰ *Scadenza presentazione:* ${bando.scadenza}\n\nAbbiamo già predisposto la bozza di istruttoria tecnica con i vostri dati d'ufficio. Clicchi sul link sotto o risponda a questo messaggio per pianificare un incontro di convalida in studio.\n👉 _Pianifica call con Consulente: https://calendly.com/studio-associato-sardegna_`;
+                    dest = az.telefono_referente;
+                    companyName = az.denominazione;
+                } else {
+                    subject = `Opportunità di Finanziamento Agevolato: ${bando.titolo} - Fit ${evalRes.score}%`;
+                    dest = az.email_referente;
+                    companyName = az.denominazione;
+                    
+                    const reasonsStr = evalRes.reasons.map(r => `- ${r}`).join('\n');
+                    
+                    message = `Oggetto: ${subject}\n\nGentile ${az.referente},\n\nCon la presente la informiamo che la nostra piattaforma RAG AI per la finanza agevolata ha rilevato la pubblicazione del seguente bando della Regione Sardegna, per il quale la vostra azienda risulta idonea al ${evalRes.score}%:\n\nBANDO: ${bando.titolo}\nCATEGORIA: ${bando.categoria}\nTIPO DI CONTRIBUTO: ${bando.contributo}\nINVESTIMENTO MINIMO: € ${bando.investimento_min.toLocaleString('it-IT', {minimumFractionDigits: 2})}\nSCADENZA PRESENTAZIONE DOMANDE: ${bando.scadenza}\n\nANALISI DI COMPATIBILITÀ:\nGrazie ai dati del vostro profilo registrati presso il nostro studio, abbiamo verificato le seguenti conformità:\n${reasonsStr}\n\nPROSSIMI PASSI:\nAbbiamo già pre-caricato la documentazione contabile di base per la vostra impresa. Le chiediamo di risponderci a questa email o di contattarci telefonicamente (${az.telefono_referente}) per confermare il vostro interesse ad aderire alla misura, così da avviare l'istruttoria prima della chiusura dello sportello.\n\nCordiali saluti,\nDott. Marco Ferrara\nStudio Associato per le Imprese Sarde`;
+                }
+            }
+
+            // Hide empty preview state
+            previewEmpty.style.display = 'none';
+            previewActionsBar.style.display = 'flex';
+            generatedAlertText = message;
+
+            const now = new Date();
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+            if (channel === 'whatsapp') {
+                previewEmail.style.display = 'none';
+                previewWhatsapp.style.display = 'flex';
+                
+                waCompanyTitle.textContent = companyName;
+                waTextContent.textContent = message.replace(/\n\n/g, '\n').trim();
+                waTimeStamp.textContent = timeStr;
+                
+                addLog("MATCH", `Bozza WhatsApp pronta per ${companyName}.`);
+            } else {
+                previewWhatsapp.style.display = 'none';
+                previewEmail.style.display = 'flex';
+                
+                emailToVal.textContent = dest;
+                
+                const lines = message.split('\n');
+                let cleanSubj = subject || lines[0].replace("Oggetto: ", "");
+                emailSubjectVal.textContent = cleanSubj;
+                
+                // Content without the subject line
+                let bodyText = message;
+                if (bodyText.startsWith("Oggetto:")) {
+                    bodyText = bodyText.substring(bodyText.indexOf('\n') + 1).trim();
+                }
+                emailBodyContent.textContent = bodyText;
+                
+                addLog("MATCH", `Bozza Email pronta per ${companyName}.`);
+            }
+        }
+
+        // Helper Log printing
+        function addLog(type, text) {
+            const now = new Date();
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            
+            const line = document.createElement('div');
+            line.className = `log-line ${type.toLowerCase()}`;
+            line.innerHTML = `
+                <span class="log-time">[${timeStr}]</span>
+                <span><strong>[${type.toUpperCase()}]</strong> ${text}</span>
+            `;
+            
+            terminalLogs.appendChild(line);
+            
+            // Auto scroll to bottom
+            terminalLogs.parentElement.scrollTop = terminalLogs.parentElement.scrollHeight;
+        }
+
+        // Switch Diagnostic Tabs (Logs vs Preview)
+        function switchDiagTab(tabName) {
+            diagTabBtns.forEach(btn => {
+                if (btn.getAttribute('data-tab') === tabName) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            diagTabPanels.forEach(panel => {
+                if (panel.id === `tab-panel-${tabName}`) {
+                    panel.classList.add('active');
+                } else {
+                    panel.classList.remove('active');
+                }
+            });
+        }
+
+        // --- ATTACH EVENT LISTENERS ---
+
+        // Search triggers
+        btnSearchTrigger.addEventListener('click', () => {
+            executeSearch(searchInput.value);
+        });
+
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                executeSearch(searchInput.value);
+            }
+        });
+
+        // Preset button clicks
+        presetBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const bandoId = btn.getAttribute('data-bando-id');
+                const query = btn.getAttribute('data-query');
+                searchInput.value = query;
+                loadBandoData(bandoId);
+            });
+        });
+
+        // Filter button clicks
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeFilter = btn.getAttribute('data-filter');
+                renderCandidates();
+            });
+        });
+
+        // Diagnostic Tab button clicks
+        diagTabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.getAttribute('data-tab');
+                switchDiagTab(tab);
+            });
+        });
+
+        // Copy alert text to clipboard
+        btnCopyAlert.addEventListener('click', () => {
+            navigator.clipboard.writeText(generatedAlertText).then(() => {
+                showToast("Bozza copiata negli appunti con successo!");
+            }).catch(() => {
+                showToast("Errore durante la copia.");
+            });
+        });
+
+        // Send Simulated Alert
+        btnSendSimulated.addEventListener('click', () => {
+            showToast("🚀 Notifica spedita con successo (Simulatore sandbox)!");
+            
+            // Log the notification event
+            addLog("SYSTEM", `NOTIFICA INVIATA: Invio completato con successo verso il canale simulato.`);
+            
+            // Reset state
+            previewWhatsapp.style.display = 'none';
+            previewEmail.style.display = 'none';
+            previewEmpty.style.display = 'flex';
+            previewActionsBar.style.display = 'none';
+            
+            // Switch back to logs
+            setTimeout(() => {
+                switchDiagTab('logs');
+            }, 1000);
+        });
+
+        // Toast Helper
+        function showToast(msg) {
+            toastMessage.textContent = msg;
+            successToast.classList.add('show');
+            setTimeout(() => {
+                successToast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

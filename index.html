@@ -613,6 +613,64 @@
             left: 150%;
         }
 
+        /* Pulsante Prototipo Evidenziato */
+        .btn-prototype-highlight {
+            position: relative;
+            overflow: hidden;
+            background: var(--gold) !important;
+            color: var(--bg) !important;
+            font-weight: 600 !important;
+            border: 1px solid var(--gold) !important;
+            box-shadow: 0 0 20px rgba(200, 167, 107, 0.4) !important;
+            animation: pulseGlow 2s infinite ease-in-out;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .btn-prototype-highlight::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: skewX(-25deg);
+            animation: shineSweep 4s infinite ease-in-out;
+        }
+        .btn-prototype-highlight:hover {
+            transform: translateY(-3px) scale(1.02) !important;
+            box-shadow: 0 0 30px rgba(200, 167, 107, 0.7) !important;
+            background: #ede8df !important; /* light sand hover */
+            color: var(--bg) !important;
+            border-color: #ede8df !important;
+        }
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 15px rgba(200, 167, 107, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(200, 167, 107, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 15px rgba(200, 167, 107, 0.3);
+            }
+        }
+        @keyframes shineSweep {
+            0% {
+                left: -150%;
+            }
+            30% {
+                left: 150%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+
         /* Scan Line Effect */
         .scan-bar {
             position: absolute;
@@ -1056,6 +1114,7 @@
         <ul class="nav-links">
             <li><a href="#manifesto">Approccio</a></li>
             <li><a href="#servizi">Servizi</a></li>
+            <li><a href="#simulazioni">Simulatori</a></li>
             <li><a href="#territorio">Territorio</a></li>
             <li><a href="#processo">Metodo</a></li>
             <li><a href="#contatto" class="nav-cta">Contattami</a></li>
@@ -1271,7 +1330,7 @@
 
                         <!-- CTA per avviare il prototipo reale (mostrato solo per Turismo) -->
                         <div id="prototype-cta-container" style="margin-top: 2rem;">
-                            <button class="btn-solve" id="btn-test-prototype" style="width: 100%; margin: 0; display: none;">
+                            <button class="btn-solve btn-prototype-highlight" id="btn-test-prototype" style="width: 100%; margin: 0; display: none;">
                                 Avvia Prototipo Reale 💬
                             </button>
                         </div>
@@ -1468,22 +1527,23 @@
         <h2 class="reveal">Parliamo del<br>tuo <em>progetto</em></h2>
         <p class="reveal">Prima consulenza gratuita. Nessun impegno. Scopriamo insieme se e come l'AI può fare la differenza nella tua azienda.</p>
 
-        <form class="contact-form reveal" id="contact-form">
+        <form class="contact-form reveal" id="contact-form" name="contact" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="contact" />
             <div class="form-field">
                 <label>Nome e cognome</label>
-                <input type="text" placeholder="Mario Rossi" required>
+                <input type="text" name="name" placeholder="Mario Rossi" required>
             </div>
             <div class="form-field">
                 <label>Email</label>
-                <input type="email" placeholder="mario@azienda.it" required>
+                <input type="email" name="email" placeholder="mario@azienda.it" required>
             </div>
             <div class="form-field">
                 <label>Azienda</label>
-                <input type="text" placeholder="Nome dell'azienda">
+                <input type="text" name="company" placeholder="Nome dell'azienda">
             </div>
             <div class="form-field">
                 <label>Settore</label>
-                <select>
+                <select name="sector">
                     <option value="">Seleziona&hellip;</option>
                     <option>Turismo &amp; Hospitality</option>
                     <option>Agroalimentare &amp; Vino</option>
@@ -1498,7 +1558,7 @@
             </div>
             <div class="form-field full">
                 <label>Descrivi la tua sfida</label>
-                <textarea placeholder="Cosa vorresti migliorare o automatizzare nella tua azienda?"></textarea>
+                <textarea name="message" placeholder="Cosa vorresti migliorare o automatizzare nella tua azienda?"></textarea>
             </div>
             <button type="submit" class="form-submit full" id="submit-btn">Invia messaggio &rarr;</button>
         </form>
@@ -1856,17 +1916,40 @@
     document.getElementById('contact-form').addEventListener('submit', e => {
         e.preventDefault();
         const btn = document.getElementById('submit-btn');
-        btn.textContent = 'Messaggio inviato ✓';
-        btn.style.background = 'var(--gold)';
-        btn.style.color = 'var(--bg)';
+        const formData = new FormData(e.target);
+        
+        btn.textContent = 'Invio in corso...';
         btn.disabled = true;
-        setTimeout(() => {
-            btn.textContent = 'Invia messaggio →';
-            btn.style.background = '';
-            btn.style.color = '';
-            btn.disabled = false;
-            e.target.reset();
-        }, 3500);
+
+        fetch('/', {
+            method: 'POST',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData).toString()
+        })
+        .then(() => {
+            btn.textContent = 'Messaggio inviato ✓';
+            btn.style.background = 'var(--gold)';
+            btn.style.color = 'var(--bg)';
+            setTimeout(() => {
+                btn.textContent = 'Invia messaggio →';
+                btn.style.background = '';
+                btn.style.color = '';
+                btn.disabled = false;
+                e.target.reset();
+            }, 3500);
+        })
+        .catch(error => {
+            console.error('Errore invio form:', error);
+            btn.textContent = 'Errore! Riprova';
+            btn.style.background = '#e63946';
+            btn.style.color = '#fff';
+            setTimeout(() => {
+                btn.textContent = 'Invia messaggio →';
+                btn.style.background = '';
+                btn.style.color = '';
+                btn.disabled = false;
+            }, 3500);
+        });
     });
 
     /* ── SIMULATORE AI ── */
@@ -2024,6 +2107,19 @@
             const prototypeCtaBtn = document.getElementById('btn-test-prototype');
             if (activeSimKey === 'turismo' || activeSimKey === 'RAG' || activeSimKey === 'export' || activeSimKey === 'artigianato' || activeSimKey === 'logistica') {
                 prototypeCtaBtn.style.display = 'block';
+                
+                // Aggiorna il testo del pulsante in modo che sia super specifico ed evidente
+                if (activeSimKey === 'turismo') {
+                    prototypeCtaBtn.innerHTML = 'AVVIA PROTOTIPO CHATBOT REALE 💬';
+                } else if (activeSimKey === 'RAG') {
+                    prototypeCtaBtn.innerHTML = 'AVVIA PROTOTIPO RAG REALE 🔍';
+                } else if (activeSimKey === 'export') {
+                    prototypeCtaBtn.innerHTML = 'AVVIA PROTOTIPO EXPORT AI REALE 🍷';
+                } else if (activeSimKey === 'artigianato') {
+                    prototypeCtaBtn.innerHTML = 'AVVIA PROTOTIPO VISIONE ARTIGIANALE 🎨';
+                } else if (activeSimKey === 'logistica') {
+                    prototypeCtaBtn.innerHTML = 'AVVIA PROTOTIPO ROTTE OTTIMIZZATE 🚚';
+                }
             } else {
                 prototypeCtaBtn.style.display = 'none';
             }

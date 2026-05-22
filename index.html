@@ -1926,7 +1926,10 @@
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams(formData).toString()
         })
-        .then(() => {
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Errore di rete o risposta HTTP non valida.');
+            }
             btn.textContent = 'Messaggio inviato ✓';
             btn.style.background = 'var(--gold)';
             btn.style.color = 'var(--bg)';

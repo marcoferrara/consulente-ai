@@ -18,7 +18,7 @@ try:
 except ImportError:
     # Fallback in caso di avvio isolato
     ROOMS_DB = []
-    HOTEL_NAME = "Boutique Hotel S'Antiga"
+    HOTEL_NAME = "Boutique Hotel Antiga Luna"
     DIRECT_BOOKING_BENEFIT = "welcome drink + SPA access"
     OPENAI_API_KEY = "your_key"
     GEMINI_API_KEY = "your_key"
@@ -40,7 +40,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger("AI-Concierge-BoutiqueHotel")
 
 app = FastAPI(
-    title="AI Concierge - Boutique Hotel S'Antiga",
+    title="AI Concierge - Boutique Hotel Antiga Luna",
     description="Prototipo di backend per l'integrazione di OpenAI Function Calling con il PMS Slope/Octorate",
     version="1.0.0"
 )
@@ -462,7 +462,7 @@ def process_mock_response(user_msg: str, user_name: str) -> Dict[str, Any]:
     if "blocca" in msg or "prenot" in msg:
         mock_hold = pms_create_temporary_hold(BookingHoldInput(
             guest_name=user_name,
-            guest_email="ospite@santigahotel.it",
+            guest_email="ospite@antigalunahotel.it",
             guest_phone="+390000000000",
             checkin="2026-06-15",
             checkout="2026-06-22",
@@ -497,7 +497,7 @@ def process_mock_response(user_msg: str, user_name: str) -> Dict[str, Any]:
         handover = True
     else:
         reply = (
-            f"Felice di conoscerti, {user_name}! Sono Sanna, il concierge digitale del Boutique Hotel S'Antiga. "
+            f"Felice di conoscerti, {user_name}! Sono Sanna, il concierge digitale del Boutique Hotel Antiga Luna. "
             f"Posso aiutarti a trovare la camera perfetta (offrendoti i fantastici vantaggi della prenotazione diretta!), "
             f"raccontarti i dettagli dei nostri servizi SPA e ristorante, o darti consigli sulle spiagge più belle del sud Sardegna. "
             f"Come posso coccolarti oggi?"

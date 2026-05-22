@@ -3,7 +3,7 @@ import zipfile
 import sys
 
 def main():
-    zip_filename = "la_sorgente_deploy.zip"
+    zip_filename = "antiga_armonia_deploy.zip"
     base_dir = os.path.dirname(os.path.abspath(__file__))
     
     # Cartelle e file da escludere
@@ -16,7 +16,7 @@ def main():
     }
     
     print("=" * 60)
-    print("  CREATORE DI PACCHETTI DI DEPLOY — LA SORGENTE")
+    print("  CREATORE DI PACCHETTI DI DEPLOY — ANTIGA ARMONIA")
     print("=" * 60)
     print(f"Directory di lavoro: {base_dir}")
     print("Esclusione cartelle: " + ", ".join(sorted(exclude_dirs)))
@@ -53,7 +53,7 @@ def main():
         print(f"Dimensione archivio:   {zip_size:.2f} MB")
         print("-" * 60)
         print("Istruzioni:")
-        print("1. Condividi il file 'la_sorgente_deploy.zip' con il cliente o caricalo sul server.")
+        print("1. Condividi il file 'antiga_armonia_deploy.zip' con il cliente o caricalo sul server.")
         print("2. Scompatta lo zip nella directory di esecuzione sul server.")
         print("3. Configura il file .env e avvia il server (vedi guida_deploy.md).")
         print("=" * 60)

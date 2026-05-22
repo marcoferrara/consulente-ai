@@ -35,7 +35,7 @@ if GEMINI_API_KEY:
 # ---------------------------------------------------------------------------
 # App
 # ---------------------------------------------------------------------------
-app = FastAPI(title="Tenuta Fenu – Export Intelligence Suite", version="1.0.0")
+app = FastAPI(title="Tenute Ichnos – Export Intelligence Suite", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -255,7 +255,7 @@ def _localize_mock(wine: dict, market: str) -> dict:
                 "tagline": "Born in Sardinia's Blue Zone, where ancient vines and timeless traditions craft wines as enduring as the people who tend them.",
                 "tasting_notes": "Deep ruby red with garnet hues. The nose opens with wild blackberry, myrtle berry, and dried fig — signature flavors of the sun-drenched Ogliastra hills. On the palate, velvety tannins frame ripe plum, black cherry jam, and a whisper of espresso. The finish lingers long with dark chocolate and fresh Mediterranean herbs.",
                 "food_pairing": "Dry-aged ribeye at your favorite steakhouse, slow-smoked BBQ brisket, Sunday lamb roast, hearty Italian-American braised short ribs, aged Parmigiano-Reggiano.",
-                "storytelling_paragraph": "The Ogliastra region of Sardinia is one of only five Blue Zones on Earth — places where people routinely live past 100. The Fenu family has been tending these ancient granite hillsides since 1932, four generations pouring their soul into every bottle. The 45-year-old Cannonau vines here don't just produce wine; they express a philosophy of patience, quality, and deep respect for the land. 'Antico' — meaning 'ancient' — is their finest expression: a Reserve wine that carries the longevity of the people and the land into every glass.",
+                "storytelling_paragraph": "The Ogliastra region of Sardinia is one of only five Blue Zones on Earth — places where people routinely live past 100. The Sechi family has been tending these ancient granite hillsides since 1932, four generations pouring their soul into every bottle. The 45-year-old Cannonau vines here don't just produce wine; they express a philosophy of patience, quality, and deep respect for the land. 'Antico' — meaning 'ancient' — is their finest expression: a Reserve wine that carries the longevity of the people and the land into every glass.",
                 "label_copy": "Four generations. One Blue Zone. Sardinia's most celebrated Cannonau Reserve.",
                 "tech_highlights": [
                     "14.5% ABV — full-bodied and structured",
@@ -270,7 +270,7 @@ def _localize_mock(wine: dict, market: str) -> dict:
                 "tagline": "Harvested by night on ancient Mediterranean granite, this DOCG white is the ocean breeze in a glass.",
                 "tasting_notes": "Bright straw yellow with vivid green reflections. Explosive aromatics: grapefruit, bergamot, white peach, and sea-washed pebbles. The palate is alive with salinity and citrus zest, finishing with a distinctive bitter almond signature unique to this ancient Sardinian grape variety.",
                 "food_pairing": "Grilled jumbo shrimp, seafood towers, fresh oysters on the half shell, Thai green curry, light ceviche, sushi and sashimi platters.",
-                "storytelling_paragraph": "Vermentino di Gallura is the only DOCG white wine from Sardinia — Italy's most rigorous quality designation. Tenuta Fenu's 'Alios' is harvested at night to protect its precious aromatics from the Mediterranean heat, then aged on its fine lees for complexity and texture. The result is a white wine with serious personality: salty, vivid, and utterly unique. If you love Sauvignon Blanc, Chablis, or Albariño, 'Alios' will become your new obsession.",
+                "storytelling_paragraph": "Vermentino di Gallura is the only DOCG white wine from Sardinia — Italy's most rigorous quality designation. Tenute Ichnos' 'Alios' is harvested at night to protect its precious aromatics from the Mediterranean heat, then aged on its fine lees for complexity and texture. The result is a white wine with serious personality: salty, vivid, and utterly unique. If you love Sauvignon Blanc, Chablis, or Albariño, 'Alios' will become your new obsession.",
                 "label_copy": "Italy's only DOCG white from Sardinia. Night-harvested for pure, unforgettable aromatics.",
                 "tech_highlights": [
                     "13% ABV — elegant and food-friendly",
@@ -285,7 +285,7 @@ def _localize_mock(wine: dict, market: str) -> dict:
                 "tagline": "Sixty-year-old vines tell no lies — only pure fruit, ancient soil, and the quiet wisdom of centuries.",
                 "tasting_notes": "Vivid ruby with violet flashes. Bright red berry fruit — raspberry, pomegranate, fresh cherry — with lavender and wild herbs. The palate is energetic and precise, with silky tannins from 60-year-old bush vines. A wine of joy and depth in equal measure.",
                 "food_pairing": "Wood-fired pizza, charcuterie boards, roasted pork tenderloin, mushroom risotto, medium-aged sheep's milk cheese.",
-                "storytelling_paragraph": "When grapevines are trained as individual bushes — the ancient 'alberello' method — and left to grow for 60 years, something extraordinary happens. Their roots reach deep into Sardinian volcanic soil, drawing minerals and character that younger vines simply cannot. Mastio is Tenuta Fenu's love letter to this tradition: a wine of remarkable elegance and approachability, produced from some of the oldest Carignan vines in Italy.",
+                "storytelling_paragraph": "When grapevines are trained as individual bushes — the ancient 'alberello' method — and left to grow for 60 years, something extraordinary happens. Their roots reach deep into Sardinian volcanic soil, drawing minerals and character that younger vines simply cannot. Mastio is Tenute Ichnos' love letter to this tradition: a wine of remarkable elegance and approachability, produced from some of the oldest Carignan vines in Italy.",
                 "label_copy": "60-year-old bush vines. No new oak. Pure Sardinian soul.",
                 "tech_highlights": [
                     "13.5% ABV — balanced and elegant",
@@ -301,7 +301,7 @@ def _localize_mock(wine: dict, market: str) -> dict:
                 "tagline": "Granit, Meereswind und vier Generationen Können: der tiefste Ausdruck des ogliastresischen Terroirs.",
                 "tasting_notes": "Tiefes Rubinrot mit Granatnuancen. Die Nase zeigt dichte Aromatik aus schwarzen Waldbeeren, Lakritze und mediterranen Kräutern (Myrte, Lentiscus). Am Gaumen dichtes, seidiges Tanningerüst — vergleichbar einem großen Châteauneuf-du-Pape, jedoch mit unverkennbarer sardischer Salzmineralität. Der Abgang ist außergewöhnlich lang, mit Kakao und wilder Minze.",
                 "food_pairing": "Wildragout mit Preiselbeeren, geschmortes Lamm mit Rosmarin, Rinderschmorbraten, kräftiger Hartkäse (Pecorino stagionato, Comté), dunkle Schokoladenspezialitäten.",
-                "storytelling_paragraph": "Die Tenuta Fenu liegt in Jerzu, Ogliastra — einem der wenigen Gebiete der Welt, in denen der Granit des Grundgebirges auf 350 bis 620 Metern Höhe einen einzigartigen Terroir-Ausdruck schafft. Die tägliche Temperaturschwankung von 15–18°C sorgt für perfekte Aromatik und Säurestruktur. Mit einem Ertrag von nur 28 hl/ha und 45-jährigen Rebstöcken erzeugt Familie Fenu seit 1932 Weine, die die Langlebigkeit ihres Landes widerspiegeln — Ogliastra ist eine der fünf Blue Zones der Erde. Der 'Antico' 2019 zeigt seine optimale Trinkreife zwischen 2026 und 2034.",
+                "storytelling_paragraph": "Die Tenute Ichnos liegt in Jerzu, Ogliastra — einem der wenigen Gebiete der Welt, in denen der Granit des Grundgebirges auf 350 bis 620 Metern Höhe einen einzigartigen Terroir-Ausdruck schafft. Die tägliche Temperaturschwankung von 15–18°C sorgt für perfekte Aromatik und Säurestruktur. Mit einem Ertrag von nur 28 hl/ha und 45-jährigen Rebstöcken erzeugt Familie Sechi seit 1932 Weine, die die Langlebigkeit ihres Landes widerspiegeln — Ogliastra ist eine der fünf Blue Zones der Erde. Der 'Antico' 2019 zeigt seine optimale Trinkreife zwischen 2026 und 2034.",
                 "label_copy": "Granit-Terroir · 45-jährige Reben · 18 Monate Barrique · Trinkreife bis 2034.",
                 "tech_highlights": [
                     "Alkohol: 14,5 % vol.",
@@ -317,7 +317,7 @@ def _localize_mock(wine: dict, market: str) -> dict:
                 "tagline": "Nachtlese auf sardischem Granit: Präzision, Salinität und mediterrane Frische in ihrer reinsten Form.",
                 "tasting_notes": "Helles Strohgelb mit lebhaften Grünreflexen. Aromatisch präzise: Grapefruit, Bergamotte, Weißdorn, Kräuter der Macchia. Am Gaumen erinnert die Säurestruktur an einen Mosel-Riesling Spätlese, jedoch mit deutlich mediterranem, salinitätsreichem Charakter. Die sur-lies-Reifung gibt eine cremige Textur ohne Frischeopfer. Mineralischer, leicht bittermandeliger Abgang — typisch für die Gallura-DOCG.",
                 "food_pairing": "Nordseeaustern und Meeresfrüchte, Zanderfilet mit Kapernbutter, frischer Ziegenkäse, leichtes Ceviche, gedämpfter Steinbutt.",
-                "storytelling_paragraph": "Der Vermentino di Gallura ist die einzige DOCG-Weißweinkategorie Sardiniens — Italiens strengste Qualitätskategorie. Tenuta Fenus Alios entsteht aus Nachtlese (fine agosto/settembre), um die flüchtigen Aromastoffe zu schonen, gefolgt von 4 Monaten auf den feinen Hefen mit wöchentlichem Bâtonnage. Das Ergebnis: ein technisch tadelloser Wein mit außergewöhnlicher Mineralität und Frische. Für Liebhaber von Burgund-Weißweinen oder elsässischem Riesling ein unverzichtbarer Entdeckungswein.",
+                "storytelling_paragraph": "Der Vermentino di Gallura ist die einzige DOCG-Weißweinkategorie Sardiniens — Italiens strengste Qualitätskategorie. Tenute Ichnos' Alios entsteht aus Nachtlese (fine agosto/settembre), um die flüchtigen Aromastoffe zu schonen, gefolgt von 4 Monaten auf den feinen Hefen mit wöchentlichem Bâtonnage. Das Ergebnis: ein technisch tadelloser Wein mit außergewöhnlicher Mineralität und Frische. Für Liebhaber von Burgund-Weißweinen oder elsässischem Riesling ein unverzichtbarer Entdeckungswein.",
                 "label_copy": "DOCG Gallura · Nachtlese · sur lies · Granit-Terroir · trinkreif 2023–2026.",
                 "tech_highlights": [
                     "Alkohol: 13,0 % vol.",
@@ -333,7 +333,7 @@ def _localize_mock(wine: dict, market: str) -> dict:
                 "tagline": "60-jährige Alberello-Reben, großes Holz, Null Kompromisse — Sardiniens eleganteste Rarität.",
                 "tasting_notes": "Lebhaftes Rubinrot mit violetten Reflexen. Nase: rote Früchte (Kirsche, Himbeere, Granatapfel), Veilchen, Lavendel, ein Hauch von Schiefer. Am Gaumen elegant und dynamisch — ähnlich einem Burgund oder einem feinen Pinot Noir aus dem Elsass, jedoch mit wärmerem Fruchtprofil. Tannine seidig und präzise, Säure knackig und lang.",
                 "food_pairing": "Geschmorter Lammrücken mit Kräutern, Wildschweingulasch, halbgereifter Schafskäse, Antipasti-Platten, leichte Pasta mit Tomatensauce.",
-                "storytelling_paragraph": "Das Sulcis im Südwesten Sardiniens beherbergt einige der ältesten Alberello-gepflanzten Carignano-Reben der Welt. Tenuta Fenus 'Mastio' stammt aus 60-jährigen Rebstöcken mit einem Ertrag von nur 22 hl/ha. Die Vinifikation erfolgt in Zementsektoren ohne Temperaturregelung, die Reifung in 50-hl-Slavonia-Botti — kein neues Holz, keine Überextraktion. Das Ergebnis ist ein Wein von seltener Eleganz und Trinkfreude, der Liebhaber von Burgund und Norditalien ansprechen wird. Lagerpotenzial 2025–2030.",
+                "storytelling_paragraph": "Das Sulcis im Südwesten Sardiniens beherbergt einige der ältesten Alberello-gepflanzten Carignano-Reben der Welt. Tenute Ichnos' 'Mastio' stammt aus 60-jährigen Rebstöcken mit einem Ertrag von nur 22 hl/ha. Die Vinifikation erfolgt in Zementsektoren ohne Temperaturregelung, die Reifung in 50-hl-Slavonia-Botti — kein neues Holz, keine Überextraktion. Das Ergebnis ist ein Wein von seltener Eleganz und Trinkfreude, der Liebhaber von Burgund und Norditalien ansprechen wird. Lagerpotenzial 2025–2030.",
                 "label_copy": "60 Jahre Alberello · Zement · Slavonia-Botte · Lagerpotenzial bis 2030.",
                 "tech_highlights": [
                     "Alkohol: 13,5 % vol.",
@@ -434,28 +434,28 @@ def _newsletter_mock(wine: dict, market: str, req: NewsletterRequest) -> dict:
 
     if market == "usa":
         occasion_subjects = {
-            "catalog": f"Introducing Tenuta Fenu — Sardinia's Hidden Gem for Your Portfolio",
-            "harvest": f"2023 Harvest Report — Exceptional Year at Tenuta Fenu, Sardinia",
-            "seasonal": f"Spring Allocation Available — Tenuta Fenu Limited Releases",
+            "catalog": f"Introducing Tenute Ichnos — Sardinia's Hidden Gem for Your Portfolio",
+            "harvest": f"2023 Harvest Report — Exceptional Year at Tenute Ichnos, Sardinia",
+            "seasonal": f"Spring Allocation Available — Tenute Ichnos Limited Releases",
         }
         subject = occasion_subjects.get(req.occasion, occasion_subjects["catalog"])
         return {
             "subject": subject,
             "preheader": "A four-generation Sardinian winery from one of Earth's five Blue Zones.",
-            "body_html": f"Dear {importer},\n\nI hope this message finds you well. My name is Marco Fenu, and I represent **Tenuta Fenu**, a family winery in **Jerzu, Ogliastra** — the heart of Sardinia's legendary Blue Zone, one of only five places on Earth where people routinely live past 100.\n\nWe have been cultivating our 45 hectares of ancient granite hillsides since **1932**, and today I am delighted to introduce you to our flagship wine: **{wine['full_name']}, {wine['vintage']}**.\n\nThis is a wine that tells the story of our land. At **€{wine['trade_price_eur']:.2f} trade price per bottle**, it represents extraordinary value for a wine of this heritage and quality — {wine['aging_potential_years']} years aging potential, only **{wine['bottles_produced']:,} bottles produced**.\n\nWe are currently looking for **exclusive import partners** in the United States who share our passion for authentic, family-produced Italian wines. Our wines have been discovered by leading sommeliers and are generating significant buzz among wine enthusiasts on platforms like Vivino.\n\nI would be delighted to arrange a complimentary sample shipment and discuss allocation terms. Our export manager will be attending **Vinexpo New York** this spring and would welcome the opportunity to meet.\n\nWarm regards,\n**Marco Fenu**\nExport Director, Tenuta Fenu\nJerzu, Ogliastra — Sardegna, Italy",
+            "body_html": f"Dear {importer},\n\nI hope this message finds you well. My name is Marco Sechi, and I represent **Tenute Ichnos**, a family winery in **Jerzu, Ogliastra** — the heart of Sardinia's legendary Blue Zone, one of only five places on Earth where people routinely live past 100.\n\nWe have been cultivating our 45 hectares of ancient granite hillsides since **1932**, and today I am delighted to introduce you to our flagship wine: **{wine['full_name']}, {wine['vintage']}**.\n\nThis is a wine that tells the story of our land. At **€{wine['trade_price_eur']:.2f} trade price per bottle**, it represents extraordinary value for a wine of this heritage and quality — {wine['aging_potential_years']} years aging potential, only **{wine['bottles_produced']:,} bottles produced**.\n\nWe are currently looking for **exclusive import partners** in the United States who share our passion for authentic, family-produced Italian wines. Our wines have been discovered by leading sommeliers and are generating significant buzz among wine enthusiasts on platforms like Vivino.\n\nI would be delighted to arrange a complimentary sample shipment and discuss allocation terms. Our export manager will be attending **Vinexpo New York** this spring and would welcome the opportunity to meet.\n\nWarm regards,\n**Marco Sechi**\nExport Director, Tenute Ichnos\nJerzu, Ogliastra — Sardegna, Italy",
             "cta_text": "Request Your Sample Allocation",
         }
     else:  # germany
         occasion_subjects = {
-            "catalog": f"Tenuta Fenu — Sardiniens außergewöhnlichste Erzeugnisse für Ihr Portfolio",
-            "harvest": f"Erntebericht 2023 — Außergewöhnlicher Jahrgang bei Tenuta Fenu",
-            "seasonal": f"Frühjahrsallokation verfügbar — Tenuta Fenu limitierte Weine",
+            "catalog": f"Tenute Ichnos — Sardiniens außergewöhnlichste Erzeugnisse für Ihr Portfolio",
+            "harvest": f"Erntebericht 2023 — Außergewöhnlicher Jahrgang bei Tenute Ichnos",
+            "seasonal": f"Frühjahrsallokation verfügbar — Tenute Ichnos limitierte Weine",
         }
         subject = occasion_subjects.get(req.occasion, occasion_subjects["catalog"])
         return {
             "subject": subject,
             "preheader": "Vier Generationen, 45 Hektar Granit-Terroir, Blue Zone Ogliastra.",
-            "body_html": f"Sehr geehrte Damen und Herren, liebe/r {importer},\n\nmein Name ist Marco Fenu, und ich vertrete **Tenuta Fenu**, ein Familienweingut in **Jerzu, Ogliastra** — im Herzen einer der fünf Blue Zones der Erde, wo Menschen regelmäßig über 100 Jahre alt werden.\n\nSeit **1932** bewirtschaften wir 45 Hektar auf 350–620 Metern Höhe im ogliastresischen Granit-Gebirge. Heute möchte ich Ihnen unseren Flaggschiff-Wein vorstellen: **{wine['full_name']}, Jahrgang {wine['vintage']}**.\n\nDieser Wein entsteht aus **{wine['vine_age_years']}-jährigen Rebstöcken** bei einem Ertrag von nur **{wine['yield_hl_ha']} hl/ha** — eine natürliche Konzentration, die den Charakter des Terroirs unverfälscht widerspiegelt. Der **Handelspreis beträgt €{wine['trade_price_eur']:.2f} pro Flasche** bei einer Produktion von nur **{wine['bottles_produced']:,} Flaschen**.\n\nWir suchen **qualifizierte Importpartner** im deutschsprachigen Raum mit Zugang zum Fachhandel und zur Spitzengastronomie. Unsere Weine überzeugen durch technische Präzision, terroir-treuen Ausdruck und hervorragendes Preis-Leistungs-Verhältnis.\n\nGerne senden wir Ihnen ein kostenloses Verkostungsmuster zu und senden Ihnen unsere detaillierten technischen Datenblätter. Wir sind auf der **ProWein Düsseldorf** vertreten und freuen uns auf ein persönliches Gespräch.\n\nMit freundlichen Grüßen,\n**Marco Fenu**\nExportleiter, Tenuta Fenu\nJerzu, Ogliastra — Sardinien, Italien",
+            "body_html": f"Sehr geehrte Damen und Herren, liebe/r {importer},\n\nmein Name ist Marco Sechi, und ich vertrete **Tenute Ichnos**, ein Familienweingut in **Jerzu, Ogliastra** — im Herzen einer der fünf Blue Zones der Erde, wo Menschen regelmäßig über 100 Jahre alt werden.\n\nSeit **1932** bewirtschaften wir 45 Hektar auf 350–620 Metern Höhe im ogliastresischen Granit-Gebirge. Heute möchte ich Ihnen unseren Flaggschiff-Wein vorstellen: **{wine['full_name']}, Jahrgang {wine['vintage']}**.\n\nDieser Wein entsteht aus **{wine['vine_age_years']}-jährigen Rebstöcken** bei einem Ertrag von nur **{wine['yield_hl_ha']} hl/ha** — eine natürliche Konzentration, die den Charakter des Terroirs unverfälscht widerspiegelt. Der **Handelspreis beträgt €{wine['trade_price_eur']:.2f} pro Flasche** bei einer Produktion von nur **{wine['bottles_produced']:,} Flaschen**.\n\nWir suchen **qualifizierte Importpartner** im deutschsprachigen Raum mit Zugang zum Fachhandel und zur Spitzengastronomie. Unsere Weine überzeugen durch technische Präzision, terroir-treuen Ausdruck und hervorragendes Preis-Leistungs-Verhältnis.\n\nGerne senden wir Ihnen ein kostenloses Verkostungsmuster zu und senden Ihnen unsere detaillierten technischen Datenblätter. Wir sind auf der **ProWein Düsseldorf** vertreten und freuen uns auf ein persönliches Gespräch.\n\nMit freundlichen Grüßen,\n**Marco Sechi**\nExportleiter, Tenute Ichnos\nJerzu, Ogliastra — Sardinien, Italien",
             "cta_text": "Jetzt Verkostungsmuster anfordern",
         }
 
@@ -493,7 +493,7 @@ def _sentiment_with_gemini(wine: dict, reviews: list) -> dict:
     prompt = f"""You are a senior wine market analyst specializing in semantic review analysis for Italian winery exporters.
 
 WINE: {wine['full_name']}, {wine['vintage']}
-WINERY: Tenuta Fenu, Jerzu, Sardinia
+WINERY: Tenute Ichnos, Jerzu, Sardinia
 
 REVIEWS TO ANALYZE:
 {reviews_text}
@@ -572,7 +572,7 @@ def _sentiment_mock(wine: dict, reviews: list) -> dict:
                 {
                     "theme": "Design dell'etichetta datato, inadeguato per mercati export",
                     "count": 2,
-                    "quote": "Das Etikett wirkt leider etwas veraltet — hier könnte die Tenuta Fenu modernisieren.",
+                    "quote": "Das Etikett wirkt leider etwas veraltet — hier könnte die Tenute Ichnos modernisieren.",
                 },
             ],
             "production_insights": [

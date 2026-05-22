@@ -7,7 +7,7 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyCFcMC2HKjmfELzYU2cUT5ZTJAWsh
 PORT = int(os.getenv("PORT", 8000))
 
 # --- HOTEL INFORMATION ---
-HOTEL_NAME = "S'Antiga Charme & Spa"
+HOTEL_NAME = "Antiga Luna Charme & Spa"
 HOTEL_LOCATION = "Sardegna (Cagliari/Chia)"
 DIRECT_BOOKING_BENEFIT = "welcome drink (Vermentino di Gallura e dolcetti sardi) + 1 ora di accesso esclusivo alla SPA"
 

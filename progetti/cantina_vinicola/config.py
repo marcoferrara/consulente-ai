@@ -6,7 +6,7 @@ load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 PORT = int(os.getenv("PORT", 8002))
 
-WINERY_NAME = "Tenuta Fenu"
+WINERY_NAME = "Tenute Ichnos"
 WINERY_LOCATION = "Jerzu, Ogliastra – Sardegna"
 WINERY_FOUNDED = 1932
 WINERY_HECTARES = 45

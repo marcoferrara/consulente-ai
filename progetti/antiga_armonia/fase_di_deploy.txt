@@ -1,8 +1,8 @@
-FASE DI DEPLOY — La Sorgente (Hub Operativo Bandi AI)
+FASE DI DEPLOY — Antiga Armonia (Hub Operativo Bandi AI)
 ======================================================
 Ultimo aggiornamento: 2026-05-21
 
-Questo documento riassume i passaggi operativi per consegnare il progetto "La Sorgente" al cliente o per caricarlo online in ambiente di produzione.
+Questo documento riassume i passaggi operativi per consegnare il progetto "Antiga Armonia" al cliente o per caricarlo online in ambiente di produzione.
 
 
 1. PULIRE IL PACKAGE E CREARE LO ZIP
@@ -12,12 +12,12 @@ Per semplificare la consegna o il caricamento, abbiamo inserito uno script Pytho
 Esegui semplicemente nel terminale:
   python crea_pacchetto.py
 
-Questo genererà un file pulito chiamato "la_sorgente_deploy.zip" pronto per essere consegnato o caricato sul server.
+Questo genererà un file pulito chiamato "antiga_armonia_deploy.zip" pronto per essere consegnato o caricato sul server.
 
 
 2. DATABASE.JSON — COSA FARE
 -----------------------------
-Il file database.json contiene già i dati reali di La Sorgente:
+Il file database.json contiene già i dati reali di Antiga Armonia:
   - Profilo associazione compilato (APS, Cagliari, RUNTS, budget 45.000€)
   - 5 bandi già caricati
   - 1 bozza progetto generata

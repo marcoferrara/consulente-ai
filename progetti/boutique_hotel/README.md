@@ -1,6 +1,6 @@
-# AI Concierge Prototype - Boutique Hotel S'Antiga
+# AI Concierge Prototype - Boutique Hotel Antiga Luna
 
-Questo prototipo simula il server di backend per l'assistente virtuale su WhatsApp del **Boutique Hotel S'Antiga Charme & Spa** in Sardegna. 
+Questo prototipo simula il server di backend per l'assistente virtuale su WhatsApp del **Boutique Hotel Antiga Luna Charme & Spa** in Sardegna. 
 
 Il sistema implementa:
 1. **Webhook FastAPI**: Ricezione e routing dei messaggi (simulazione WhatsApp).

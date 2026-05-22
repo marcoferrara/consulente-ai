@@ -1,6 +1,6 @@
-# Guida al Deploy Online — La Sorgente (Hub Bandi AI)
+# Guida al Deploy Online — Antiga Armonia (Hub Bandi AI)
 
-Questa guida illustra passo-passo come mettere online l'applicazione unificata **La Sorgente** in produzione. L'applicazione è strutturata per essere flessibile, sicura ed estremamente resiliente ai riavvii dei server cloud.
+Questa guida illustra passo-passo come mettere online l'applicazione unificata **Antiga Armonia** in produzione. L'applicazione è strutturata per essere flessibile, sicura ed estremamente resiliente ai riavvii dei server cloud.
 
 ---
 
@@ -12,7 +12,7 @@ Prima di caricare l'applicazione sul server o su GitHub, esegui lo script di pul
 python crea_pacchetto.py
 ```
 
-Questo script genererà un file pulito chiamato `la_sorgente_deploy.zip` escludendo file pesanti o personali (`venv/`, `.env` privato, file caricati nei test, `.DS_Store`). Estrai il contenuto di questo zip nella cartella di lavoro sul server o inizializza il tuo repository Git a partire da questo archivio.
+Questo script genererà un file pulito chiamato `antiga_armonia_deploy.zip` escludendo file pesanti o personali (`venv/`, `.env` privato, file caricati nei test, `.DS_Store`). Estrai il contenuto di questo zip nella cartella di lavoro sul server o inizializza il tuo repository Git a partire da questo archivio.
 
 ---
 
@@ -23,7 +23,7 @@ Grazie a **Cloud Storage FUSE**, possiamo montare un bucket di archiviazione com
 
 ### 🛠️ Prerequisiti:
 1. Crea un account o accedi a [Google Cloud Console](https://console.cloud.google.com/).
-2. Crea un nuovo progetto (es. `la-sorgente-hub`).
+2. Crea un nuovo progetto (es. `antiga-armonia-hub`).
 3. Associa una carta di credito/debito per abilitare la fatturazione (GCP richiede la verifica dell'identità dell'account, ma i consumi rientreranno al 100% nelle soglie gratuite).
 
 ---
@@ -36,11 +36,11 @@ Questo metodo ti permette di fare tutto dal browser tramite **Google Cloud Shell
    * Clicca sull'icona del terminale `>_` in alto a destra nella barra di Google Cloud Console.
 2. **Carica il Pacchetto**:
    * Clicca sui tre puntini `...` in alto a destra nella finestra di Cloud Shell e seleziona **Upload**.
-   * Carica il file `la_sorgente_deploy.zip` generato in precedenza.
+   * Carica il file `antiga_armonia_deploy.zip` generato in precedenza.
 3. **Estrai il pacchetto e posizionati nella cartella**:
    ```bash
-   unzip la_sorgente_deploy.zip -d la_sorgente
-   cd la_sorgente
+   unzip antiga_armonia_deploy.zip -d antiga_armonia
+   cd antiga_armonia
    ```
 4. **Crea il Bucket di Storage per i Dati**:
    * Esegui il comando per creare un bucket per i tuoi dati persistenti (sostituisci `NOME_PROGETTO` col tuo ID progetto Google Cloud):
@@ -50,7 +50,7 @@ Questo metodo ti permette di fare tutto dal browser tramite **Google Cloud Shell
 5. **Avvia il Build e il Deploy su Cloud Run**:
    * Esegui il comando di deploy automatico compilando l'immagine sul server di Google (sostituisci `NOME_PROGETTO` col tuo ID progetto):
    ```bash
-   gcloud run deploy la-sorgente-hub \
+   gcloud run deploy antiga-armonia-hub \
      --source . \
      --region europe-west9 \
      --allow-unauthenticated \
@@ -60,7 +60,7 @@ Questo metodo ti permette di fare tutto dal browser tramite **Google Cloud Shell
    ```
    * *Nota: La regione consigliata è `europe-west9` (Parigi) o `europe-west1` (Belgio) per conformità GDPR sui dati in Europa.*
 6. **Fatto!**
-   * Al termine del deploy, il terminale ti restituirà l'URL pubblico sicuro HTTPS (es. `https://la-sorgente-hub-xxxxxx-ew.a.run.app`). L'applicazione è online e pronta all'uso!
+   * Al termine del deploy, il terminale ti restituirà l'URL pubblico sicuro HTTPS (es. `https://antiga-armonia-hub-xxxxxx-ew.a.run.app`). L'applicazione è online e pronta all'uso!
 
 ---
 
@@ -83,9 +83,9 @@ Se preferisci lavorare dal tuo computer locale con il terminale del Mac:
    gcloud storage buckets create gs://NOME_DEL_TUO_BUCKET --location=europe-west9
    ```
 4. **Deploy del Progetto**:
-   * Posizionati nella directory di deploy `la_sorgente_deploy` locale ed esegui:
+   * Posizionati nella directory di deploy `antiga_armonia_deploy` locale ed esegui:
    ```bash
-   gcloud run deploy la-sorgente-hub \
+   gcloud run deploy antiga-armonia-hub \
      --source . \
      --region europe-west9 \
      --allow-unauthenticated \
@@ -101,7 +101,7 @@ Se preferisci lavorare dal tuo computer locale con il terminale del Mac:
 Render.com è una piattaforma PaaS moderna e velocissima. Abbiamo incluso il supporto ai **Blueprint di Render (`render.yaml`)** che configura automaticamente il server e un **disco persistente (SSD)** in un clic.
 
 ### Passi per il Deploy Automatico:
-1. Crea un repository **privato** su GitHub e inserisci all'interno i file estratti da `la_sorgente_deploy.zip`.
+1. Crea un repository **privato** su GitHub e inserisci all'interno i file estratti da `antiga_armonia_deploy.zip`.
 2. Accedi a [Render.com](https://render.com/) e collega il tuo account GitHub.
 3. Clicca su **New +** e seleziona **Blueprint**.
 4. Scegli il tuo repository privato appena creato.
@@ -123,22 +123,22 @@ Se preferisci ospitare l'applicazione su servizi containerizzati (come Fly.io, A
 ### Comandi per il Build ed Avvio:
 1. **Compila l'immagine Docker**:
    ```bash
-   docker build -t la-sorgente-hub .
+   docker build -t antiga-armonia-hub .
    ```
 2. **Avvia il container con i volumi persistenti** (per non perdere i dati):
    ```bash
    docker run -d \
      -p 8081:8081 \
-     --name la_sorgente_app \
+     --name antiga_armonia_app \
      -e GEMINI_API_KEY="LA_TUA_CHIAVE_GEMINI" \
      -e APP_PASSWORD="PASSWORD_ACCESSO" \
      -e PERSISTENT_DATA_DIR="/data" \
-     -v sorgente_data_volume:/data \
+     -v armonia_data_volume:/data \
      --restart unless-stopped \
-     la-sorgente-hub
+     antiga-armonia-hub
    ```
 
-*Nota: Il parametro `-v sorgente_data_volume:/data` mappa i database e la cartella uploads in un volume persistente di Docker sicuro.*
+*Nota: Il parametro `-v armonia_data_volume:/data` mappa i database e la cartella uploads in un volume persistente di Docker sicuro.*
 
 ---
 
@@ -153,42 +153,42 @@ sudo apt install python3-pip python3-venv nginx git -y
 ```
 
 ### Passo 2: Copia l'applicazione sulla VPS
-Scompatta il file `la_sorgente_deploy.zip` in `/var/www/la_sorgente`:
+Scompatta il file `antiga_armonia_deploy.zip` in `/var/www/antiga_armonia`:
 ```bash
-sudo mkdir -p /var/www/la_sorgente
+sudo mkdir -p /var/www/antiga_armonia
 # Trasferisci ed estrai i file qui
 ```
 
 ### Passo 3: Configura l'ambiente Python e le dipendenze
 ```bash
-cd /var/www/la_sorgente
+cd /var/www/antiga_armonia
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
 ### Passo 4: Configura il file `.env` di Produzione
-Crea il file `/var/www/la_sorgente/.env` e configuralo così:
+Crea il file `/var/www/antiga_armonia/.env` e configuralo così:
 ```env
 GEMINI_API_KEY=inserisci_qui_la_tua_chiave_gemini
 APP_PASSWORD=password_segreta_accesso
-PERSISTENT_DATA_DIR=/var/www/la_sorgente/data
+PERSISTENT_DATA_DIR=/var/www/antiga_armonia/data
 ```
-*(Crea la cartella data: `mkdir -p /var/www/la_sorgente/data`)*
+*(Crea la cartella data: `mkdir -p /var/www/antiga_armonia/data`)*
 
 ### Passo 5: Configura il Servizio Systemd (Avvio in background)
-Crea il file `/etc/systemd/system/la_sorgente.service`:
+Crea il file `/etc/systemd/system/antiga_armonia.service`:
 ```ini
 [Unit]
-Description=La Sorgente FastAPI Hub Application
+Description=Antiga Armonia FastAPI Hub Application
 After=network.target
 
 [Service]
 User=www-data
-WorkingDirectory=/var/www/la_sorgente
-ExecStart=/var/www/la_sorgente/venv/bin/uvicorn app:app --host 127.0.0.1 --port 8081
+WorkingDirectory=/var/www/antiga_armonia
+ExecStart=/var/www/antiga_armonia/venv/bin/uvicorn app:app --host 127.0.0.1 --port 8081
 Restart=always
-EnvironmentFile=/var/www/la_sorgente/.env
+EnvironmentFile=/var/www/antiga_armonia/.env
 
 [Install]
 WantedBy=multi-user.target
@@ -197,14 +197,14 @@ WantedBy=multi-user.target
 Attiva e avvia il servizio:
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable la_sorgente
-sudo systemctl start la_sorgente
+sudo systemctl enable antiga_armonia
+sudo systemctl start antiga_armonia
 # Verifica lo stato
-sudo systemctl status la_sorgente
+sudo systemctl status antiga_armonia
 ```
 
 ### Passo 6: Configura Nginx come Reverse Proxy e SSL
-Crea una configurazione di Nginx `/etc/nginx/sites-available/la_sorgente`:
+Crea una configurazione di Nginx `/etc/nginx/sites-available/antiga_armonia`:
 ```nginx
 server {
     listen 80;
@@ -224,7 +224,7 @@ server {
 
 Abilita il sito e riavvia Nginx:
 ```bash
-sudo ln -s /etc/nginx/sites-available/la_sorgente /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/antiga_armonia /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
 ```

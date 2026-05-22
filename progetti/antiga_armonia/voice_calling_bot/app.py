@@ -15,7 +15,7 @@ dotenv.load_dotenv()  # also check local folder
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("voice_calling_bot")
 
-app = FastAPI(title="La Sorgente — Outbound Voice Bot Simulation")
+app = FastAPI(title="Antiga Armonia — Outbound Voice Bot Simulation")
 
 # Database Path (supporta directory persistente per ambienti cloud)
 PERSISTENT_DATA_DIR = os.getenv("PERSISTENT_DATA_DIR")
@@ -322,5 +322,5 @@ def evaluate_mock_call_outcome(transcript) -> tuple:
 
 if __name__ == "__main__":
     import uvicorn
-    # Avvia sulla porta 8082 per evitare conflitti con la sorgente hub (8081)
+    # Avvia sulla porta 8082 per evitare conflitti con hub (8081)
     uvicorn.run("app:app", host="127.0.0.1", port=8082, reload=True)

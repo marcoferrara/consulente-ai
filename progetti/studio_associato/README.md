@@ -52,7 +52,7 @@ L'indicatore in alto a destra mostrerà **ONLINE (Live API)** in verde, a indica
 
 - [index.html](file:///Users/marco/Claude%20Code/Consulente%20AI/progetti/studio_associato/index.html): L'interfaccia utente (HTML5/CSS3/Vanilla JS) scura con finiture dorate e glassmorphism.
 - [app.py](file:///Users/marco/Claude%20Code/Consulente%20AI/progetti/studio_associato/app.py): Server API FastAPI che implementa le rotte `/api/match`, `/api/search` e `/api/send_alert`.
-- [config.py](file:///Users/marco/Claude%20Code/Consulente%20AI/progetti/studio_associato/config.py): Database simulato contenente 4 bandi reali sardi e 7 aziende clienti (es. *Viticoltori Argiolas, Agriturismo Su Gologone, Pastificio La Sorgente*).
+- [config.py](file:///Users/marco/Claude%20Code/Consulente%20AI/progetti/studio_associato/config.py): Database simulato contenente 4 bandi reali sardi e 7 aziende clienti (es. *Cantine Sa Corona, Agriturismo Antiga Luna S.r.l., Pastificio Antiga Armonia*).
 - [requirements.txt](file:///Users/marco/Claude%20Code/Consulente%20AI/progetti/studio_associato/requirements.txt): File dei requisiti Python.
 
 ---
@@ -61,10 +61,10 @@ L'indicatore in alto a destra mostrerà **ONLINE (Live API)** in verde, a indica
 
 1. **Scenario Digitalizzazione PMI:**
    - Clicca sul preset **💻 POR FESR Digitalizzazione PMI** (o digita *"digitalizzazione"* nella barra di ricerca).
-   - Noterai come il sistema identifichi come perfettamente idonee aziende di servizi/software (Sardinia Tech, Boutique Hotel, Pastificio Sorgente), mentre escluderà automaticamente gli allevamenti.
+   - Noterai come il sistema identifichi come perfettamente idonee aziende di servizi/software (Sardinia Tech, Boutique Hotel, Pastificio Antiga Armonia), mentre escluderà automaticamente gli allevamenti.
 2. **Scenario Agricoltura Giovani:**
    - Clicca sul preset **🌾 PSR Giovani Agricoltori**.
-   - Il sistema calcolerà l'idoneità immediata per la *Cooperativa Barbagia Pastori* (titolare di 34 anni, limite < 41), ma segnalerà come **Esclusa** l'azienda *Argiolas Viticoltori* perché il titolare ha superato il limite di età (52 anni).
+   - Il sistema calcolerà l'idoneità immediata per la *Cooperativa Barbagia Pastori* (titolare di 34 anni, limite < 41), ma segnalerà come **Esclusa** l'azienda *Cantine Sa Corona* perché il titolare ha superato il limite di età (52 anni).
 3. **Scenario ZES Unica:**
    - Clicca sul preset **🏭 Credito ZES Unica Sardegna**.
    - Il sistema identificherà come idonee al 100% le *Officine Meccaniche Sarde* (localizzate nella Zona Industriale Tossilo a Macomer, area ZES), spiegando nel dettaglio il motivo geografico del match.

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Sorgente — AI Outbound Voice Bot</title>
+    <title>Antiga Armonia — AI Outbound Voice Bot</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1043,7 +1043,7 @@
         <div class="global-sidebar-logo">
             <div class="global-sidebar-logo-icon">⛲</div>
             <div class="global-sidebar-logo-text">
-                <h2>La Sorgente<span>.</span></h2>
+                <h2>Antiga Armonia<span>.</span></h2>
                 <p>Hub Operativo AI</p>
             </div>
         </div>
@@ -1077,7 +1077,7 @@
                     <i class="fa-solid fa-microphone-lines"></i>
                 </div>
                 <div class="logo-text">
-                    <h1>La Sorgente — Hub Bot Vocale</h1>
+                    <h1>Antiga Armonia — Hub Bot Vocale</h1>
                     <p>Accademia Internazionale del Musical — Cagliari</p>
                 </div>
             </div>
@@ -1645,7 +1645,7 @@
             const bubble = document.createElement("div");
             bubble.className = `chat-bubble chat-bubble-${speaker.toLowerCase()}`;
             
-            const speakerName = speaker === "AI" ? "Assistente AI (Sorgente)" : currentLead.first_name;
+            const speakerName = speaker === "AI" ? "Assistente AI (Antiga Armonia)" : currentLead.first_name;
             
             bubble.innerHTML = `
                 <div class="bubble-speaker">${speakerName}</div>
@@ -1664,7 +1664,7 @@
             indicator.id = "typingIndicator";
             indicator.className = "chat-bubble chat-bubble-ai typing-indicator";
             indicator.innerHTML = `
-                <div class="bubble-speaker">Assistente AI (Sorgente)</div>
+                <div class="bubble-speaker">Assistente AI (Antiga Armonia)</div>
                 <div class="typing-dot"></div>
                 <div class="typing-dot"></div>
                 <div class="typing-dot"></div>
@@ -1842,7 +1842,7 @@
                     bubble.style.fontSize = "0.85rem";
                     bubble.style.lineHeight = "1.4";
 
-                    const speakerName = t.speaker === "AI" ? "Assistente AI (Sorgente)" : lead.first_name;
+                    const speakerName = t.speaker === "AI" ? "Assistente AI (Antiga Armonia)" : lead.first_name;
                     bubble.innerHTML = `
                         <div style="font-size:0.65rem; text-transform:uppercase; font-weight:700; letter-spacing:0.5px; margin-bottom:0.25rem; opacity:0.6;">${speakerName}</div>
                         <div>${t.text}</div>

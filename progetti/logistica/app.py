@@ -98,7 +98,7 @@ FORECAST_DATABASE = {
         "desc": "La popolazione turistica in Ogliastra quintuplica. Ristoranti e resort costieri a Tortolì, Arbatax e Santa Maria Navarrese richiedono consegne quotidiane di prodotti freschi.",
         "predictions": [
             {"item": "Prodotti Freschi Ortofrutta (kg)", "current_stock": 500, "recommended_stock": 1800, "priority": "CRITICA", "action": "Consegne quotidiane con furgone refrigerato"},
-            {"item": "Bevande e Birra Ichnusa (Fusti)", "current_stock": 80, "recommended_stock": 350, "priority": "ALTA", "action": "Carico pesante lunedì e giovedì da Cagliari"},
+            {"item": "Bevande e Birra Nuraghe (Fusti)", "current_stock": 80, "recommended_stock": 350, "priority": "ALTA", "action": "Carico pesante lunedì e giovedì da Cagliari"},
             {"item": "Prodotti Surgelati (Casse)", "current_stock": 150, "recommended_stock": 400, "priority": "ALTA", "action": "Navetta speciale bisettimanale"},
             {"item": "Tovaglie e Monouso (Box)", "current_stock": 300, "recommended_stock": 700, "priority": "MEDIA", "action": "Consegna cumulativa a inizio settimana"}
         ],

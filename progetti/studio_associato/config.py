@@ -7,8 +7,8 @@ PORT = int(os.getenv("PORT", 8001))  # Run on port 8001 to avoid conflicting wit
 # --- CLIENTS DATABASE (312 firms total in mock system, showing a rich subset of 7 realistic ones) ---
 AZIENDE_DB = [
     {
-        "id": "argiolas_vino",
-        "denominazione": "Argiolas Viticoltori S.r.l.",
+        "id": "sacorona_vino",
+        "denominazione": "Cantine Sa Corona S.r.l.",
         "ateco": "11.02.10",
         "ateco_desc": "Produzione di vini da uve prodotte in aziende agricole",
         "sede": "Serdiana (CA)",
@@ -17,9 +17,9 @@ AZIENDE_DB = [
         "dimensione": "PMI",
         "eta_titolare": 52,
         "area_zes": False,
-        "email_referente": "direzione@argiolas-vino.it",
+        "email_referente": "direzione@sacorona-vino.it",
         "telefono_referente": "+39 348 7654321",
-        "referente": "Dott. Franco Argiolas"
+        "referente": "Dott. Franco Corona"
     },
     {
         "id": "barbagia_pastori",
@@ -52,8 +52,8 @@ AZIENDE_DB = [
         "referente": "Ing. Alessandro Sanna"
     },
     {
-        "id": "hotel_santiga",
-        "denominazione": "Boutique Hotel S'Antiga Charme & Spa",
+        "id": "hotel_antigaluna",
+        "denominazione": "Boutique Hotel Antiga Luna Charme & Spa",
         "ateco": "55.10.00",
         "ateco_desc": "Alberghi e strutture simili",
         "sede": "Domus de Maria (SU)",
@@ -62,13 +62,13 @@ AZIENDE_DB = [
         "dimensione": "PMI",
         "eta_titolare": 45,
         "area_zes": False,
-        "email_referente": "m.ferru@hotel-santiga.it",
+        "email_referente": "m.ferru@hotel-antigaluna.it",
         "telefono_referente": "+39 340 1122334",
         "referente": "Marianna Ferru"
     },
     {
-        "id": "pastificio_sorgente",
-        "denominazione": "Pastificio Artigianale La Sorgente",
+        "id": "pastificio_armonia",
+        "denominazione": "Pastificio Artigianale Antiga Armonia",
         "ateco": "10.73.00",
         "ateco_desc": "Produzione di paste alimentari, di cuscus e di prodotti farinacei simili",
         "sede": "Tempio Pausania (SS)",
@@ -77,7 +77,7 @@ AZIENDE_DB = [
         "dimensione": "Micro",
         "eta_titolare": 39,
         "area_zes": False,
-        "email_referente": "g.mu@pastificiolasorgente.it",
+        "email_referente": "g.mu@pastificioantigaarmonia.it",
         "telefono_referente": "+39 328 4455667",
         "referente": "Giovanni Mu"
     },
@@ -97,8 +97,8 @@ AZIENDE_DB = [
         "referente": "Ing. Pietro Meloni"
     },
     {
-        "id": "agriturismo_gologone",
-        "denominazione": "Agriturismo Su Gologone",
+        "id": "agriturismo_antigaluna",
+        "denominazione": "Agriturismo Antiga Luna S.r.l.",
         "ateco": "56.10.12",
         "ateco_desc": "Attività di ristorazione connesse alle aziende agricole (Agriturismi)",
         "sede": "Oliena (NU)",
@@ -107,9 +107,9 @@ AZIENDE_DB = [
         "dimensione": "PMI",
         "eta_titolare": 62,
         "area_zes": False,
-        "email_referente": "prenotazioni@sugologone-agriturismo.it",
+        "email_referente": "prenotazioni@antigaluna-agriturismo.it",
         "telefono_referente": "+39 335 9988776",
-        "referente": "Elena Palimodde"
+        "referente": "Elena Contini"
     }
 ]
 

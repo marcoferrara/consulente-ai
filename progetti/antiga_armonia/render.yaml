@@ -1,12 +1,12 @@
 services:
   - type: web
-    name: la-sorgente-hub
+    name: antiga-armonia-hub
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
     autoDeploy: true
     disk:
-      name: la-sorgente-data
+      name: antiga-armonia-data
       mountPath: /data
       sizeGB: 1
     envVars:

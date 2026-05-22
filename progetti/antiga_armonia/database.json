@@ -1,6 +1,6 @@
 {
   "association_profile": {
-    "name": "La Sorgente",
+    "name": "Antiga Armonia",
     "legal_type": "Associazione Culturale",
     "runts_enrolled": false,
     "constitution_date": "2021-03-15",
@@ -90,7 +90,7 @@
     {
       "grant_id": "fse-sardegna-sociale",
       "project_title": "Armonie di Inclusione: Musical, CNV e Scambi Giovanili per il Futuro della Sardegna",
-      "project_summary": "Il progetto mira a promuovere l'inclusione sociale e lo sviluppo territoriale attraverso l'arte del musical come strumento pedagogico innovativo. L'associazione 'La Sorgente' proporrà percorsi formativi in Comunicazione Non Violenta (CNV) e negoziazione cooperativa, potenziando le competenze relazionali e creative dei giovani. Saranno implementati scambi culturali per favorire la mobilità e l'apertura internazionale, con particolare attenzione alle opportunità professionali nel settore dello spettacolo. L'iniziativa contribuirà a creare nuove opportunità di occupazione e partecipazione attiva per i cittadini sardi.",
+      "project_summary": "Il progetto mira a promuovere l'inclusione sociale e lo sviluppo territoriale attraverso l'arte del musical come strumento pedagogico innovativo. L'associazione 'Antiga Armonia' proporrà percorsi formativi in Comunicazione Non Violenta (CNV) e negoziazione cooperativa, potenziando le competenze relazionali e creative dei giovani. Saranno implementati scambi culturali per favorire la mobilità e l'apertura internazionale, con particolare attenzione alle opportunità professionali nel settore dello spettacolo. L'iniziativa contribuirà a creare nuove opportunità di occupazione e partecipazione attiva per i cittadini sardi.",
       "key_actions": [
         "Azione 1: Avvio di laboratori intensivi di Musical Theatre (canto, danza, recitazione) e workshop specifici sulla Comunicazione Non Violenta e tecniche di negoziazione cooperativa, rivolti a giovani e categorie fragili a Cagliari e in Sardegna.",
         "Azione 2: Realizzazione di un programma di mobilità giovanile per scambi culturali europei, facilitando l'incontro con realtà accademiche e artistiche internazionali per l'apprendimento e la condivisione di buone pratiche nel settore dello spettacolo.",
@@ -131,9 +131,9 @@
   },
   "uploaded_documents": [
     {
-      "document_name": "Atto Costitutivo La Sorgente",
-      "description": "Atto costitutivo con statuto dell'associazione sopra nominata La Sorgente",
-      "filename": "ATTO COSTITUTIVO LA SORGENTE.docx",
+      "document_name": "Atto Costitutivo Antiga Armonia",
+      "description": "Atto costitutivo con statuto dell'associazione sopra nominata Antiga Armonia",
+      "filename": "ATTO COSTITUTIVO ANTIGA ARMONIA.docx",
       "uploaded_at": "2026-05-21T12:10:16",
       "certification_type": "regione_sardegna",
       "requirement_name": "Atto Costitutivo"

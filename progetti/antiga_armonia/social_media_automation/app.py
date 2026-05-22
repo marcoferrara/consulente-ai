@@ -16,7 +16,7 @@ dotenv.load_dotenv()  # also check local folder
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("social_media_automation")
 
-app = FastAPI(title="La Sorgente — Instagram SMM Automation Simulation")
+app = FastAPI(title="Antiga Armonia — Instagram SMM Automation Simulation")
 
 # Database Path (supporta directory persistente per ambienti cloud)
 PERSISTENT_DATA_DIR = os.getenv("PERSISTENT_DATA_DIR")
@@ -256,7 +256,7 @@ async def restore_inbox():
           "subject": "WhatsApp da Direzione: Video Masterclass Recitazione con Docente Ospite",
           "sender": "Segreteria Cagliari",
           "date": "2026-05-19",
-          "text": "Ragazzi, carichiamo questo video breve (Reel) della masterclass esclusiva di recitazione cinematografica che abbiamo tenuto ieri sera qui in sede a Cagliari con il regista e docente ospite di fama nazionale! Gli studenti hanno lavorato sull'immedesimazione emotiva. Scrivi un post carico di ispirazione e professionalità, facendo capire che studiare alla Sorgente/Accademia significa formarsi con i migliori professionisti del settore. Ricorda che sono aperte le ammissioni per il triennale AFAM.",
+          "text": "Ragazzi, carichiamo questo video breve (Reel) della masterclass esclusiva di recitazione cinematografica che abbiamo tenuto ieri sera qui in sede a Cagliari con il regista e docente ospite di fama nazionale! Gli studenti hanno lavorato sull'immedesimazione emotiva. Scrivi un post carico di ispirazione e professionalità, facendo capire che studiare all'Antiga Armonia/Accademia significa formarsi con i migliori professionisti del settore. Ricorda che sono aperte le ammissioni per il triennale AFAM.",
           "media_path": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80",
           "source": "Direzione WhatsApp"
         }
@@ -267,14 +267,14 @@ async def restore_inbox():
 # GEMINI LOGIC OR LOCAL FALLBACK
 async def generate_ai_post(directive: str, post_type: str) -> dict:
     system_prompt = """
-    Sei il Social Media Specialist intelligente dell'Accademia Internazionale del Musical - sede di Cagliari (gestita dall'associazione La Sorgente).
+    Sei il Social Media Specialist intelligente dell'Accademia Internazionale del Musical - sede di Cagliari (gestita dall'associazione Culturale Antiga Armonia).
     Il tuo compito è prendere una direttiva testuale grezza inviata dalla direzione (e-mail o messaggio WhatsApp) e trasformarla in una proposta di post o Reel Instagram di eccezionale livello.
     
     Regole di scrittura:
     1. Scrivi copy emozionanti, carichi di energia, caldi e accoglienti, alternando toni professionali per i corsi formali (AFAM) e toni gioiosi per i più piccoli.
     2. Utilizza le emoji in modo creativo all'inizio delle frasi ed evita blocchi pesanti di testo: usa elenchi puntati o spaziature.
     3. Fai sempre riferimento alla sede di Cagliari e all'Accademia.
-    4. Genera una stringa contenente 6-8 hashtag strategici ed esclusivi (es. #AccademiaDelMusical #LaSorgente #MusicalCagliari #AFAMCagliari #TeatroCagliari #CagliariEventi).
+    4. Genera una stringa contenente 6-8 hashtag strategici ed esclusivi (es. #AccademiaDelMusical #AntigaArmonia #MusicalCagliari #AFAMCagliari #TeatroCagliari #CagliariEventi).
     5. Consiglia un orario di pubblicazione ottimale per Instagram (es. '13:00' se è pausa pranzo, '18:45' se è fine giornata).
     
     Devi restituire OBBLIGATORIAMENTE ed ESCLUSIVAMENTE un oggetto JSON valido con queste tre chiavi:
@@ -312,16 +312,16 @@ def generate_mock_post(directive: str, post_type: str) -> dict:
     directive_lower = directive.lower()
     
     if "piccoli" in directive_lower or "propedeutico" in directive_lower or "bambini" in directive_lower:
-        copy = "✨ SOGNI IN SCENA! COMPLIMENTI AI NOSTRI PICCOLI PERFORMER! ✨\n\nSabato pomeriggio la nostra sede di Cagliari si è riempita di sorrisi, canti e balli grazie all'audizione del nostro Corso Propedeutico di Musical! 🩰🎤\n\nI nostri giovanissimi candidati sono stati semplicemente spettacolari: emozionati ma carichi di talento ed energia contagiosa! Bravissimi tutti!\n\n🚨 ATTENZIONE GENITORI: Le lezioni inizieranno a brevissimo e rimangono solo gli ULTIMI 3 POSTI DISPONIBILI per completare la classe! Scrivici subito in DM per riservare lo spazio al tuo piccolo artista!"
-        hashtags = "#MusicalPropedeutico #BambiniCagliari #DanzaBambini #TeatroCagliari #PiccoliTalenti #CagliariScuola #LaSorgente #AccademiaMusical"
+        copy = "✨ SOGNI IN SCENA! COMPLIMENTI AI NOSTRI PICCOLI PERFORMER! ✨\n\nSabato pomeriggio la nostra sede di Cagliari si è riempita di sorrisi, canti e balli grazie all'audizione del nostro Corso Propedeutico di Musical! 🩰🎤\n\nIrenostri giovanissimi candidati sono stati semplicemente spettacolari: emozionati ma carichi di talento ed energia contagiosa! Bravissimi tutti!\n\n🚨 ATTENZIONE GENITORI: Le lezioni inizieranno a brevissimo e rimangono solo gli ULTIMI 3 POSTI DISPONIBILI per completare la classe! Scrivici subito in DM per riservare lo spazio al tuo piccolo artista!"
+        hashtags = "#MusicalPropedeutico #BambiniCagliari #DanzaBambini #TeatroCagliari #PiccoliTalenti #CagliariScuola #AntigaArmonia #AccademiaMusical"
         suggested_time = "17:30"
     elif "masterclass" in directive_lower or "cinema" in directive_lower or "regista" in directive_lower:
-        copy = "🎬 L'EMOZIONE DEL GRANDE CINEMA IN ACCADEMIA! 🎭\n\nIeri sera i ragazzi della nostra sede di Cagliari hanno vissuto un'esperienza indimenticabile: una Masterclass esclusiva di recitazione cinematografica guidata da un regista di fama nazionale!\n\nUn viaggio intenso dentro l'immedesimazione emotiva e la verità davanti alla telecamera. Studiare alla Sorgente significa formarsi con i migliori professionisti, per fare del talento una solida professione.\n\n🌟 Vuoi un percorso di livello universitario? Le ammissioni per il nostro Triennale Accademico AFAM sono aperte! Fissa la tua audizione conoscitiva gratuita!"
+        copy = "🎬 L'EMOZIONE DEL GRANDE CINEMA IN ACCADEMIA! 🎭\n\nIeri sera i ragazzi della nostra sede di Cagliari hanno vissuto un'esperienza indimenticabile: una Masterclass esclusiva di recitazione cinematografica guidata da un regista di fama nazionale!\n\nUn viaggio intenso dentro l'immedesimazione emotiva e la verità davanti alla telecamera. Studiare all'Antiga Armonia significa formarsi con i migliori professionisti, per fare del talento una solida professione.\n\n🌟 Vuoi un percorso di livello universitario? Le ammissioni per il nostro Triennale Accademico AFAM sono aperte! Fissa la tua audizione conoscitiva gratuita!"
         hashtags = "#CinemaCagliari #RecitazioneCinematografica #MasterclassTeatro #FormazioneProfessionale #AFAMCagliari #AttoriSardi #AccademiaDelMusical"
         suggested_time = "20:00"
     else:
         copy = f"✨ NUOVO AGGIORNAMENTO DALL'ACCADEMIA DI CAGLIARI! ✨\n\nEcco l'ultimo bellissimo contenuto dai nostri corsi professionali di canto, recitazione e danza! La passione dei nostri allievi è il motore che rende speciale l'Accademia Internazionale del Musical.\n\nSegui i nostri canali per non perdere le date delle audizioni, gli spettacoli e gli open day gratuiti.\n\nDirettiva elaborata:\n{directive[:120]}..."
-        hashtags = "#AccademiaDelMusical #LaSorgente #MusicalCagliari #CagliariLive #CorsiProfessionali #TeatroSardegna"
+        hashtags = "#AccademiaDelMusical #AntigaArmonia #MusicalCagliari #CagliariLive #CorsiProfessionali #TeatroSardegna"
         suggested_time = "14:00"
         
     return {
@@ -332,5 +332,5 @@ def generate_mock_post(directive: str, post_type: str) -> dict:
 
 if __name__ == "__main__":
     import uvicorn
-    # Avvia sulla porta 8083 per evitare conflitti con la sorgente hub (8081) e voice bot (8082)
+    # Avvia sulla porta 8083 per evitare conflitti con l'hub principale (8081) e il voice bot (8082)
     uvicorn.run("app:app", host="127.0.0.1", port=8083, reload=True)

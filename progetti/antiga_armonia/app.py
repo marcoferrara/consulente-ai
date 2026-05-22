@@ -28,11 +28,11 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
-    logger.info("Gemini API configurata con successo per La Sorgente.")
+    logger.info("Gemini API configurata con successo per Antiga Armonia.")
 else:
     logger.warning("ATTENZIONE: GEMINI_API_KEY non trovata nel file .env!")
 
-app = FastAPI(title="La Sorgente - Hub Operativo Bandi AI")
+app = FastAPI(title="Antiga Armonia - Hub Operativo Bandi AI")
 
 # Configurazione Password Gate
 APP_PASSWORD = os.getenv("APP_PASSWORD")
@@ -54,7 +54,7 @@ async def auth_middleware(request: Request, call_next):
         return await call_next(request)
         
     # Verifica la presenza del cookie di sessione
-    session_cookie = request.cookies.get("sorgente_session")
+    session_cookie = request.cookies.get("armonia_session")
     if session_cookie == SESSION_TOKEN:
         return await call_next(request)
         
@@ -81,7 +81,7 @@ async def login_get(request: Request, next: str = "/"):
         return RedirectResponse(url=next)
         
     # Se l'utente è già loggato, reindirizzalo
-    if request.cookies.get("sorgente_session") == SESSION_TOKEN:
+    if request.cookies.get("armonia_session") == SESSION_TOKEN:
         return RedirectResponse(url=next)
         
     html_content = f"""<!DOCTYPE html>
@@ -89,7 +89,7 @@ async def login_get(request: Request, next: str = "/"):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accesso Protetto — La Sorgente</title>
+    <title>Accesso Protetto — Antiga Armonia</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -329,7 +329,7 @@ async def login_get(request: Request, next: str = "/"):
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                     </svg>
                 </div>
-                <h1 class="logo-title">La Sorgente</h1>
+                <h1 class="logo-title">Antiga Armonia</h1>
                 <div class="logo-subtitle">Hub Operativo AI</div>
             </div>
             
@@ -406,7 +406,7 @@ async def login_post(password: str = Form(...), next: str = Form("/")):
     if input_hash == SESSION_TOKEN:
         response = JSONResponse(content={"status": "success", "redirect": next})
         response.set_cookie(
-            key="sorgente_session",
+            key="armonia_session",
             value=SESSION_TOKEN,
             max_age=30 * 24 * 3600,
             httponly=True,
@@ -423,7 +423,7 @@ async def login_post(password: str = Form(...), next: str = Form("/")):
 @app.get("/logout")
 async def logout(next: str = "/login"):
     response = RedirectResponse(url=next)
-    response.delete_cookie(key="sorgente_session", path="/")
+    response.delete_cookie(key="armonia_session", path="/")
     return response
 
 # Importazione e mount dei sotto-moduli
@@ -611,7 +611,7 @@ async def search_grants(req: DynamicSearchRequest):
     
     prompt = f"""
     Sei un assistente AI esperto in Europrogettazione e bandi di finanziamento del Terzo Settore italiano ed europeo.
-    Il cliente è l'associazione culturale '{profile.get('name', 'La Sorgente')}' operante a {profile.get('headquarters', 'Cagliari')} (Sardegna) nel campo della formazione di musical e della Comunicazione Non Violenta.
+    Il cliente è l'associazione culturale '{profile.get('name', 'Antiga Armonia')}' operante a {profile.get('headquarters', 'Cagliari')} (Sardegna) nel campo della formazione di musical e della Comunicazione Non Violenta.
     
     Profilo Associazione:
     - Tipo: {profile.get('legal_type', 'APS')}
@@ -825,10 +825,10 @@ async def analyze_feasibility(req: FeasibilityRequest):
     """
 
     prompt = f"""
-    Sei il consulente legale ed esperto di bandi senior per 'Consulente AI'. Devi redigere una perizia di fattibilità tecnica e legale incrociando i dati di un bando specifico con il profilo del cliente '{profile.get('name', 'La Sorgente')}' di {profile.get('headquarters', 'Cagliari')} e considerando anche i vincoli cumulativi con i progetti già attivi e candidati durante l'anno.
+    Sei il consulente legale ed esperto di bandi senior per 'Consulente AI'. Devi redigere una perizia di fattibilità tecnica e legale incrociando i dati di un bando specifico con il profilo del cliente '{profile.get('name', 'Antiga Armonia')}' di {profile.get('headquarters', 'Cagliari')} e considerando anche i vincoli cumulativi con i progetti già attivi e candidati durante l'anno.
     
     Profilo Cliente:
-    - Nome: {profile.get('name', 'La Sorgente')}
+    - Nome: {profile.get('name', 'Antiga Armonia')}
     - Forma Giuridica: {profile.get('legal_type', 'APS')}
     - Iscrizione RUNTS: {profile.get('runts_enrolled', True)}
     - Sede: {profile.get('headquarters', 'Cagliari')}
@@ -1116,10 +1116,10 @@ async def generate_project_draft(req: FeasibilityRequest):
         raise HTTPException(status_code=404, detail="Bando non trovato")
 
     prompt = f"""
-    Sei il capo del team di Europrogettazione di 'Consulente AI'. Il tuo compito è redigere una bozza avanzata di progetto (Project Draft & Business Plan) per candidare l'associazione '{profile.get('name', 'La Sorgente')}' al bando specificato.
+    Sei il capo del team di Europrogettazione di 'Consulente AI'. Il tuo compito è redigere una bozza avanzata di progetto (Project Draft & Business Plan) per candidare l'associazione '{profile.get('name', 'Antiga Armonia')}' al bando specificato.
     
     Associazione:
-    - Nome: {profile.get('name', 'La Sorgente')}
+    - Nome: {profile.get('name', 'Antiga Armonia')}
     - Sede: {profile.get('headquarters')}
     - Scope: {profile.get('statute_scope')}
     
@@ -1170,7 +1170,7 @@ async def generate_project_draft(req: FeasibilityRequest):
         # Fallback mock offline
         return {
             "grant_id": grant.get("id"),
-            "project_title": f"{profile.get('name', 'La Sorgente')} del Musical: Arte, Empatia e Inclusione a {profile.get('headquarters', 'Cagliari')}",
+            "project_title": f"{profile.get('name', 'Antiga Armonia')} del Musical: Arte, Empatia e Inclusione a {profile.get('headquarters', 'Cagliari')}",
             "project_summary": f"Il progetto mira a strutturare un percorso formativo d'eccellenza a {profile.get('headquarters', 'Cagliari')} che unisce lo studio delle arti performative del musical con lo sviluppo di soft skill basate sulla Comunicazione Non Violenta (CNV) e la negoziazione cooperativa.",
             "key_actions": [
               "Laboratori di Teatro Musicale Integrato e Scenotecnica per giovani sardi.",
@@ -1212,7 +1212,7 @@ async def generate_project_draft(req: FeasibilityRequest):
         logger.error(f"Errore generazione bozza con Gemini: {e}. Utilizzo risposta di fallback.")
         return {
             "grant_id": grant.get("id"),
-            "project_title": f"La Sorgente del Musical: Arte, Empatia e Inclusione a {profile.get('headquarters', 'Cagliari')}",
+            "project_title": f"Antiga Armonia del Musical: Arte, Empatia e Inclusione a {profile.get('headquarters', 'Cagliari')}",
             "project_summary": (f"Il progetto mira a strutturare un percorso formativo d'eccellenza a {profile.get('headquarters', 'Cagliari')} "
                                 f"che unisce lo studio delle arti performative del musical con lo sviluppo di soft skill basate sulla "
                                 f"Comunicazione Non Violenta (CNV). La candidatura è rivolta al bando '{grant.get('title')}' "
@@ -1271,7 +1271,7 @@ async def compile_grant_application(req: CompileRequest):
     if not grant:
         raise HTTPException(status_code=404, detail="Bando non trovato")
 
-    name = profile.get('name', 'La Sorgente')
+    name = profile.get('name', 'Antiga Armonia')
     legal_type = profile.get('legal_type', 'APS')
     hq = profile.get('headquarters', 'Cagliari')
     staff = profile.get('staff_count', 8)
@@ -1582,7 +1582,7 @@ async def analyze_certification(req: CertificationRequest):
     
     prompt = f"""
     Sei il consulente senior per la Qualità, Accreditamenti e Regolamenti del Terzo Settore di 'Consulente AI'.
-    Il cliente '{profile.get('name', 'La Sorgente')}' vuole ottenere la seguente certificazione/accreditamento:
+    Il cliente '{profile.get('name', 'Antiga Armonia')}' vuole ottenere la seguente certificazione/accreditamento:
     "{cert_name}"
     
     Incrocia i requisiti obbligatori nazionali e regionali (Regione Sardegna) con il Profilo attuale dell'associazione:
@@ -1759,7 +1759,7 @@ async def analyze_certification(req: CertificationRequest):
 @app.get("/", response_class=HTMLResponse)
 async def get_dashboard():
     """
-    Ritorna la bellissima dashboard web interattiva per l'hub operativo 'La Sorgente'.
+    Ritorna la bellissima dashboard web interattiva per l'hub operativo 'Antiga Armonia'.
     Tutto lo stile e le funzionalità sono incorporate per un'esperienza wow immediata.
     """
     html_path = os.path.join(BASE_DIR, "index.html")

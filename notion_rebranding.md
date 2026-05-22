@@ -69,7 +69,7 @@ Il logo combina graficamente il profilo stilizzato di un nuraghe e una rete neur
 ### 🎴 4.1. Il Flyer Promozionale (Fronte - Italiano)
 Volantino promozionale rapido, a elevato impatto emotivo.
 
-![Mockup del Flyer Promozionale NURAI](assets/rebranding/flyer_mockup.png)
+![Mockup del Flyer Promozionale NURAI](https://raw.githubusercontent.com/marcoferrara/consulente-ai/main/assets/rebranding/flyer_mockup.png)
 
 * **Slogan Principale:** *Intelligenza Artificiale, Radici Locali.*
 * **Sottotitolo:** *Consulenza in Intelligenza Artificiale · Soluzioni su misura basate in Sardegna.*
@@ -80,7 +80,7 @@ Volantino promozionale rapido, a elevato impatto emotivo.
 ### 📖 4.2. Brochure di Presentazione Aziendale (Pagine Interne)
 Company profile a libro (A5/A4 orizzontale) per trattative commerciali.
 
-![Mockup delle Pagine Interne della Brochure NURAI](assets/rebranding/presentation_inner_mockup.png)
+![Mockup delle Pagine Interne della Brochure NURAI](https://raw.githubusercontent.com/marcoferrara/consulente-ai/main/assets/rebranding/presentation_inner_mockup.png)
 
 #### 📄 Pagina Sinistra: I Nostri Servizi
 1. **Consulenza Bandi:** Ricerca ed elaborazione di domande per bandi regionali, nazionali ed europei (Regione Sardegna, transizione 5.0) per azzerare l'investimento tecnologico.

@@ -3,8 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marco Ferrara — Consulente AI · Sardegna</title>
+    <title>NURAI — Marco Ferrara · Consulente AI Sardegna</title>
     <meta name="description" content="Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio.">
+    
+    <!-- SEO Optimization -->
+    <link rel="canonical" href="https://consulentai.com/" />
+    
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="NURAI — Marco Ferrara · Consulente AI Sardegna" />
+    <meta property="og:description" content="Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio." />
+    <meta property="og:url" content="https://consulentai.com/" />
+    <meta property="og:site_name" content="NURAI" />
+    <meta property="og:image" content="https://consulentai.com/assets/og-image.png" />
+    <meta property="og:locale" content="it_IT" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NURAI — Marco Ferrara · Consulente AI Sardegna" />
+    <meta name="twitter:description" content="Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio." />
+    <meta name="twitter:image" content="https://consulentai.com/assets/og-image.png" />
+
+    <!-- Local Business Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "NURAI — Marco Ferrara Consulente AI",
+      "image": "https://consulentai.com/assets/og-image.png",
+      "description": "Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio.",
+      "@id": "https://consulentai.com/#professional-service",
+      "url": "https://consulentai.com/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "Sardegna",
+        "addressCountry": "IT"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "39.2276",
+        "longitude": "9.1172"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -74,8 +128,17 @@
             font-family:'Cormorant Garamond',serif;
             font-size:1.2rem; font-weight:600; letter-spacing:.06em;
             color:var(--text); text-decoration:none;
+            display:inline-flex; align-items:center; gap:0.5rem;
         }
         .nav-logo span { color:var(--gold); }
+        .nav-logo svg {
+            stroke: var(--gold);
+            fill: none;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .nav-logo:hover svg {
+            transform: scale(1.1) rotate(12deg);
+        }
         .nav-links { display:flex; gap:2.25rem; list-style:none; }
         .nav-links a {
             color:var(--muted); text-decoration:none;
@@ -968,7 +1031,28 @@
 
     <!-- ══ NAV ══ -->
     <nav id="nav">
-        <a href="#" class="nav-logo">Marco<span>.</span>Ferrara</a>
+        <a href="#" class="nav-logo">
+            <svg class="logo-svg" width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;">
+                <!-- Nuraghe base -->
+                <path d="M35 80 L42 45 H58 L65 80 Z" stroke-width="4" stroke-linejoin="round"/>
+                <line x1="39.5" y1="57" x2="60.5" y2="57" stroke-width="3"/>
+                <line x1="37" y1="68" x2="63" y2="68" stroke-width="3"/>
+                <path d="M48 80 V72 H52 V80 Z" fill="var(--gold)"/>
+                <!-- Neural tree -->
+                <circle cx="50" cy="25" r="4" fill="var(--gold)"/>
+                <circle cx="35" cy="18" r="3" fill="var(--gold)"/>
+                <circle cx="65" cy="18" r="3" fill="var(--gold)"/>
+                <circle cx="30" cy="30" r="3" fill="var(--gold)"/>
+                <circle cx="70" cy="30" r="3" fill="var(--gold)"/>
+                <circle cx="50" cy="45" r="3" fill="var(--gold)"/>
+                <line x1="50" y1="45" x2="50" y2="25" stroke-width="1.5" stroke-dasharray="2 1"/>
+                <line x1="50" y1="25" x2="35" y2="18" stroke-width="1.5"/>
+                <line x1="50" y1="25" x2="65" y2="18" stroke-width="1.5"/>
+                <line x1="50" y1="25" x2="30" y2="30" stroke-width="1.5"/>
+                <line x1="50" y1="25" x2="70" y2="30" stroke-width="1.5"/>
+                <line x1="25" y1="80" x2="75" y2="80" stroke-width="2"/>
+            </svg>NUR<span>AI</span>
+        </a>
         <ul class="nav-links">
             <li><a href="#manifesto">Approccio</a></li>
             <li><a href="#servizi">Servizi</a></li>
@@ -1429,8 +1513,8 @@
 
     <!-- ══ FOOTER ══ -->
     <footer>
-        <p>&copy; 2025 Marco Ferrara &mdash; Consulente AI Sardegna</p>
-        <div class="footer-mark">MF</div>
+        <p>&copy; 2026 NURAI &mdash; Advanced Intelligence & Heritage. Di Marco Ferrara.</p>
+        <div class="footer-mark">NURAI</div>
         <p>Sassari &middot; Cagliari &middot; Sardegna</p>
     </footer>
 

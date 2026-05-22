@@ -1,0 +1,122 @@
+=============================================================================
+GUIDA E STRUMENTI PER L'OTTIMIZZAZIONE SEO - LANDING PAGE CONSULENTE AI
+=============================================================================
+
+Questo file riassume l'audit SEO effettuato e fornisce i blocchi di codice pronti
+da copiare e incollare per ottimizzare la tua landing page su Netlify.
+
+-----------------------------------------------------------------------------
+1. COME VERIFICARE L'INDICIZZAZIONE SU GOOGLE
+-----------------------------------------------------------------------------
+* Ricerca diretta: Digita su Google -> site:il-tuo-sito.netlify.app (o il tuo dominio)
+* Attenzione ai deploy di anteprima: Netlify imposta automaticamente l'header
+  "x-robots-tag: noindex" su tutte le anteprime dei branch e PR per evitare
+  penalizzazioni da contenuti duplicati. Verifica l'indicizzazione SOLO sul 
+  dominio di produzione principale.
+* Per accelerare l'indicizzazione: Registra il sito su Google Search Console,
+  verifica la proprietà ed effettua una richiesta di scansione manuale della homepage.
+
+-----------------------------------------------------------------------------
+2. AUDIT SEO LANDING PAGE (index.html)
+-----------------------------------------------------------------------------
+PUNTI DI FORZA:
+✔ Struttura dei tag H1 -> H2 -> H3 semantica e impeccabile.
+✔ Title tag eccellente ("Marco Ferrara — Consulente AI · Sardegna") - 46 caratteri.
+✔ Meta description ottimale - 138 caratteri, ottime parole chiave locali.
+✔ Performance strabilianti: l'uso esclusivo di grafica SVG inline al posto di
+  immagini JPG/PNG garantisce un caricamento immediato (Core Web Vitals al top).
+
+COSE DA AGGIUGERE PER UNA SEO PROFESSIONALE:
+1. Tag Canonical (per evitare penalizzazioni da contenuti duplicati).
+2. Open Graph & Twitter Cards (per le anteprime di condivisione sui social e chat).
+3. Dati Strutturati JSON-LD Schema.org (per massimizzare la local SEO).
+4. robots.txt e sitemap.xml (per facilitare la scansione dei crawler).
+
+-----------------------------------------------------------------------------
+3. BLOCCHI DI CODICE PRONTI DA INSERIRE
+-----------------------------------------------------------------------------
+
+A) DA INCOLLARE NELL'HEAD DEL TUO index.html (es. subito dopo la descrizione a riga 7):
+
+<!-- 1. TAG CANONICAL -->
+<link rel="canonical" href="https://[IL_TUO_DOMINIO]/" />
+
+<!-- 2. OPEN GRAPH / FACEBOOK / LINKEDIN / WHATSAPP -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Marco Ferrara — Consulente AI · Sardegna" />
+<meta property="og:description" content="Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio." />
+<meta property="og:url" content="https://[IL_TUO_DOMINIO]/" />
+<meta property="og:site_name" content="Marco Ferrara AI" />
+<meta property="og:image" content="https://[IL_TUO_DOMINIO]/assets/og-image.png" />
+<meta property="og:locale" content="it_IT" />
+
+<!-- 3. TWITTER CARDS -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Marco Ferrara — Consulente AI · Sardegna" />
+<meta name="twitter:description" content="Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio." />
+<meta name="twitter:image" content="https://[IL_TUO_DOMINIO]/assets/og-image.png" />
+
+<!-- 4. DATI STRUTTURATI SCHEMA.ORG (LOCAL SEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Marco Ferrara — Consulente AI",
+  "image": "https://[IL_TUO_DOMINIO]/assets/og-image.png",
+  "description": "Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio.",
+  "@id": "https://[IL_TUO_DOMINIO]/#professional-service",
+  "url": "https://[IL_TUO_DOMINIO]/",
+  "telephone": "[IL_TUO_TELEFONO_SE_PRESENTE]",
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "Sardegna",
+    "addressCountry": "IT"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "39.2276",
+    "longitude": "9.1172"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "opens": "09:00",
+    "closes": "18:00"
+  },
+  "sameAs": [
+    "[LINK_AL_TUO_LINKEDIN_SE_PRESENTE]"
+  ]
+}
+</script>
+
+
+B) TEMPLATE PER IL FILE robots.txt (da creare nella stessa cartella di index.html):
+-----------------------------------------------------------------------------
+User-agent: *
+Allow: /
+
+Sitemap: https://[IL_TUO_DOMINIO]/sitemap.xml
+-----------------------------------------------------------------------------
+
+
+C) TEMPLATE PER IL FILE sitemap.xml (da creare nella stessa cartella di index.html):
+-----------------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://[IL_TUO_DOMINIO]/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+-----------------------------------------------------------------------------
+
+Nota: Sostituisci [IL_TUO_DOMINIO] con il tuo indirizzo effettivo (es. consulenteai.sardegna.it o il link netlify.app di produzione) e rimuovi le parentesi quadre prima di salvare i file di produzione.
+=============================================================================

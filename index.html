@@ -2211,6 +2211,9 @@
             const pingUrl = backendUrl.endsWith('/') ? backendUrl : backendUrl + '/';
             const res = await fetch(pingUrl, { 
                 method: 'GET',
+                headers: {
+                    'ngrok-skip-browser-warning': 'true'
+                },
                 signal: controller.signal
             });
             clearTimeout(timeoutId);
@@ -2342,7 +2345,8 @@
                 const response = await fetch(getBackendUrl() + '/webhook/whatsapp', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'ngrok-skip-browser-warning': 'true'
                     },
                     body: JSON.stringify({
                         user_id: "+393401122334",

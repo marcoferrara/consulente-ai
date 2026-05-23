@@ -1408,14 +1408,18 @@
         async function fetchPMSState() {
             try {
                 // Fetch camere
-                const resRooms = await fetch(PMS_ROOMS_URL);
+                const resRooms = await fetch(PMS_ROOMS_URL, {
+                    headers: { 'ngrok-skip-browser-warning': 'true' }
+                });
                 if (resRooms.ok) {
                     const rooms = await resRooms.json();
                     renderRooms(rooms);
                 }
 
                 // Fetch holds
-                const resHolds = await fetch(PMS_HOLDS_URL);
+                const resHolds = await fetch(PMS_HOLDS_URL, {
+                    headers: { 'ngrok-skip-browser-warning': 'true' }
+                });
                 if (resHolds.ok) {
                     const holds = await resHolds.json();
                     renderHolds(holds);
@@ -1519,7 +1523,10 @@
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'ngrok-skip-browser-warning': 'true'
+                    },
                     body: JSON.stringify({
                         user_id: USER_ID,
                         message: text,
@@ -1635,7 +1642,10 @@
             if (!confirm("Sei sicuro di voler resettare tutte le sessioni di chat e i blocchi provvisori nel PMS?")) return;
             
             try {
-                const res = await fetch(PMS_RESET_URL, { method: 'POST' });
+                const res = await fetch(PMS_RESET_URL, { 
+                    method: 'POST',
+                    headers: { 'ngrok-skip-browser-warning': 'true' }
+                });
                 if (res.ok) {
                     addTerminalLog("[SYSTEM] ⚙️ Reset completo eseguito con successo! Database delle prenotazioni svuotato.", 'success');
                     

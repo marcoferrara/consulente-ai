@@ -495,6 +495,25 @@ def process_mock_response(user_msg: str, user_name: str) -> Dict[str, Any]:
             f"A presto!"
         )
         handover = True
+    elif "spa" in msg or "benesser" in msg or "massagg" in msg or "trattament" in msg or "idromassag" in msg:
+        reply = (
+            f"La nostra **Antiga Luna SPA & Wellness** è un vero tempio del relax, {user_name}! 🧖‍♀️✨\n\n"
+            f"Offriamo un percorso benessere completo che include:\n"
+            f"- **Piscina idromassaggio riscaldata** con acqua salina\n"
+            f"- **Sauna finlandese e Bagno turco** cromoterapico\n"
+            f"- **Area relax** con tisane biologiche sarde e dolci tipici leggeri\n"
+            f"- **Massaggi e trattamenti** corpo con oli essenziali biologici al mirto, lentisco ed elicriso locali.\n\n"
+            f"Ti ricordo che prenotando direttamente otterrai **1 ora di accesso esclusivo gratuito**! Desideri che ti riservi una fascia oraria?"
+        )
+    elif "ristorant" in msg or "cena" in msg or "colazion" in msg or "mangiar" in msg or "cibo" in msg:
+        reply = (
+            f"Il nostro ristorante **L'Essenza Sarda** celebra i sapori autentici dell'isola con un tocco gourmet contemporaneo, {user_name}! 🍽️🍷\n\n"
+            f"I nostri punti di forza:\n"
+            f"- **Ingredienti a Km 0:** provenienti direttamente da piccoli produttori locali e dal nostro orto sinergico.\n"
+            f"- **Cena Degustazione:** ogni sera un menù a tema abbinato a una selezione di pregiati vini sardi (come il nostro immancabile Vermentino di Gallura).\n"
+            f"- **Opzioni personalizzate:** menù dedicati per intolleranze, celiachia ed esigenze vegane/vegetariane.\n\n"
+            f"La colazione a buffet, con torte artigianali calde, è sempre inclusa! Vuoi prenotare un tavolo per la tua prima sera?"
+        )
     else:
         reply = (
             f"Felice di conoscerti, {user_name}! Sono Sanna, il concierge digitale del Boutique Hotel Antiga Luna. "

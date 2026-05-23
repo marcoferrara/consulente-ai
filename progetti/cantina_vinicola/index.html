@@ -1474,6 +1474,319 @@
   let currentReviews = [];
   let nlData = null;
 
+  // ===== LOCAL DATA FOR OFFLINE/STATIC MODE =====
+  const LOCAL_DB = {
+    "winery": {
+      "name": "Tenute Ichnos",
+      "location": "Jerzu, Ogliastra – Sardegna",
+      "founded": 1932,
+      "hectares": 45,
+      "annual_bottles": 120000,
+      "bio": "Produttori di vini autoctoni sardi da quattro generazioni nel cuore dell'Ogliastra, una delle cinque Blue Zone mondiali.",
+      "certifications": ["SQNPI – Agricoltura Integrata", "Demeter in conversione"],
+      "altitude_range_m": "350–620",
+      "soil": "Granito ogliastrese antico, povero e ben drenato",
+      "climate": "Mediterraneo con influenze interne, escursioni termiche notturne di 15–18°C"
+    },
+    "wines": [
+      {
+        "id": "cannonau_riserva",
+        "name": "Antico",
+        "full_name": "Cannonau di Sardegna DOC Riserva \"Antico\"",
+        "grape": "Cannonau (Grenache Noir) 100%",
+        "denomination": "Cannonau di Sardegna DOC Riserva",
+        "vintage": 2019,
+        "alcohol": 14.5,
+        "trade_price_eur": 18.50,
+        "bottles_produced": 8000,
+        "target_markets": ["usa", "germany"],
+        "vine_age_years": 45,
+        "yield_hl_ha": 28,
+        "harvest": "Prima settimana di ottobre, vendemmia manuale in cassette da 20 kg",
+        "vinification": "Fermentazione in acciaio inox a temperatura controllata (26–28°C), macerazione sulle bucce 18 giorni con rimontaggi quotidiani. Affinamento 18 mesi in barrique di rovere francese (30% nuovo) + 12 mesi in bottiglia.",
+        "tasting_notes_it": {
+          "color": "Rosso rubino profondo con riflessi granati, consistente e brillante alla luce.",
+          "nose": "Bouquet complesso ed evoluto: apertura su more selvatiche, mirto e carrube sarde. Seguono note speziate di pepe nero, chiodi di granofano e tabacco dolce. Sottofondo di cuoio morbido, macchia mediterranea e un tocco di liquirizia nera.",
+          "palate": "Ingresso pieno e avvolgente, tannini fitti ma setosi, ben integrati dopo l'affinamento. Acidità vivace che sorregge la struttura. Frutto maturo di prugna e ciliegia nera in confettura, con ritorno di spezie dolci e una leggera nota balsamica. Lunga persistenza.",
+          "finish": "Finale lunghissimo (oltre 15 secondi), sapido e leggermente ammandorlato, con eco di cacao amaro e menta selvatica."
+        },
+        "serving": {
+          "temp_celsius": "16–18",
+          "decanting_min": 45,
+          "glass": "Bordeaux ampio"
+        },
+        "aging_potential_years": 15,
+        "food_pairing_it": "Agnello arrosto al mirto, pecorino stagionato sardo, cinghiale in umido, formaggi erborinati."
+      },
+      {
+        "id": "vermentino_docg",
+        "name": "Alios",
+        "full_name": "Vermentino di Gallura DOCG \"Alios\"",
+        "grape": "Vermentino 100%",
+        "denomination": "Vermentino di Gallura DOCG",
+        "vintage": 2022,
+        "alcohol": 13.0,
+        "trade_price_eur": 14.00,
+        "bottles_produced": 15000,
+        "target_markets": ["usa", "germany"],
+        "vine_age_years": 22,
+        "yield_hl_ha": 45,
+        "harvest": "Fine agosto – inizio settembre, raccolta notturna per preservare gli aromi",
+        "vinification": "Pressatura soffice, fermentazione a freddo (14–16°C) in acciaio inox con lieviti selezionati autoctoni. 4 mesi sui lieviti fini con bâtonnage settimanale. Imbottigliamento precoce per preservare la freschezza.",
+        "tasting_notes_it": {
+          "color": "Giallo paglierino luminoso con riflessi verdolini vivaci.",
+          "nose": "Fresco e aromatico: esplosione di agrumi (pompelmo, cedro, bergamotto), fiori di ginestra e mandorlo in fiore. Con l'ossigenazione emergono note di erbe aromatiche del Mediterraneo (timo, finocchietto selvatico) e una caratteristica mineralità salmastra.",
+          "palate": "Attacco fresco e vivace, grande sapidità tipica del Vermentino di Gallura. Corpo medio-pieno, struttura supportata da buona acidità. Frutto bianco (pesca bianca, pera williams) e note di scorza di limone. Leggermente ammandorlato nel finale.",
+          "finish": "Finale fresco, sapido, con lunga persistenza aromatica su note iodate e minerali. Tipica vena amarognola del vitigno."
+        },
+        "serving": {
+          "temp_celsius": "10–12",
+          "decanting_min": 0,
+          "glass": "Calice per bianchi medio-ampio"
+        },
+        "aging_potential_years": 4,
+        "food_pairing_it": "Bottarga di muggine, aragoste e crostacei sardi, sushi e crudi di mare, formaggi freschi di capra."
+      },
+      {
+        "id": "carignano_doc",
+        "name": "Mastio",
+        "full_name": "Carignano del Sulcis DOC \"Mastio\"",
+        "grape": "Carignano (Carignan) 100%",
+        "denomination": "Carignano del Sulcis DOC",
+        "vintage": 2020,
+        "alcohol": 13.5,
+        "trade_price_eur": 16.50,
+        "bottles_produced": 6000,
+        "target_markets": ["germany"],
+        "vine_age_years": 60,
+        "yield_hl_ha": 22,
+        "harvest": "Seconda metà di settembre, selezione manuale di grappoli da viti alberello centenarie",
+        "vinification": "Fermentazione in cemento vetrificato, macerazione 14 giorni a temperatura spontanea. Affinamento 12 mesi in botti grandi di rovere di Slavonia (50 hl) + 8 mesi bottiglia.",
+        "tasting_notes_it": {
+          "color": "Rosso rubino vivo, luminoso, con riflessi purpurei intensi.",
+          "nose": "Frutto rosso fresco dominante (mora, mirtillo, lampone maturo) con sfumature floreali di viola e lavanda. Note di macchia mediterranea (lentisco, cisto), pepe bianco e una delicata mineralità ferrosa che rimanda al suolo vulcanico del Sulcis.",
+          "palate": "Sorso elegante e dinamico, tannini vivi ma levigati dall'età delle viti. Acidità gustosa e integrata. Frutto croccante che porta freschezza. Medio-corpo con bella tensione gustativa. Note di melograno, fragola matura e spezie lievi.",
+          "finish": "Finale fresco e sapido, persistente su note di frutto rosso e terra bagnata. Grande bevibilità nonostante la complessità."
+        },
+        "serving": {
+          "temp_celsius": "15–17",
+          "decanting_min": 20,
+          "glass": "Borgogna o Pinot Noir"
+        },
+        "aging_potential_years": 10,
+        "food_pairing_it": "Maialetto sardo arrosto, pasta al ragù di maiale, salumi artigianali, formaggi semi-stagionati."
+      }
+    ],
+    "reviews": {
+      "cannonau_riserva": [
+        {
+          "id": "can_rev_001",
+          "platform": "Vivino",
+          "author": "Robert M.",
+          "country": "usa",
+          "flag": "🇺🇸",
+          "rating": 4.6,
+          "date": "2024-03-15",
+          "text": "Absolutely stunning Cannonau. I paired this with a dry-aged ribeye at our neighborhood steakhouse and it was a revelation. The wine has this incredible depth — dark berries, leather, a hint of Mediterranean herbs. My friends kept asking what this 'secret Italian wine' was. At this price point it absolutely destroys many Napa Cabs I pay twice as much for. Buying a case immediately."
+        },
+        {
+          "id": "can_rev_002",
+          "platform": "Vivino",
+          "author": "Jennifer L.",
+          "country": "usa",
+          "flag": "🇺🇸",
+          "rating": 4.4,
+          "date": "2024-01-28",
+          "text": "Found this gem at a small Italian wine shop in Brooklyn. The backstory is fascinating — wine from one of the world's Blue Zones! You can taste the ancient land in every sip. Opened it for a Sunday BBQ brisket and everyone was blown away. Big, bold, structured but not overwhelming. Would love to see more info in English on the label though — had to look everything up."
+        },
+        {
+          "id": "can_rev_003",
+          "platform": "Vivino",
+          "author": "Michael T.",
+          "country": "usa",
+          "flag": "🇺🇸",
+          "rating": 3.8,
+          "date": "2023-11-10",
+          "text": "Good wine, no question. Dark fruit, earthy, warming. My issue is that the oak is slightly too dominant for my taste — it somewhat muffles the terroir character that I know Sardinian Cannonau can express. I'd love a version with a bit less barrel influence. That said, paired with lamb chops it really showed its potential. Will try again with more decanting time."
+        },
+        {
+          "id": "can_rev_004",
+          "platform": "Vivino",
+          "author": "Klaus-Dieter H.",
+          "country": "germany",
+          "flag": "🇩🇪",
+          "rating": 4.7,
+          "date": "2024-02-20",
+          "text": "Außergewöhnliche Qualität für diesen Preis. Die Tanninstruktur ist dicht und fest, aber gut integriert — vergleichbar mit einem großen Châteauneuf-du-Pape, jedoch mit unverkennbarer mediterraner Eigenheit. Die Mineralität des granitischen Ogliastra-Bodens ist deutlich spürbar. Lagerpotenzial schätze ich auf 10–12 Jahre problemlos."
+        },
+        {
+          "id": "can_rev_005",
+          "platform": "Vivino",
+          "author": "Sabine W.",
+          "country": "germany",
+          "flag": "🇩🇪",
+          "rating": 4.5,
+          "date": "2023-12-05",
+          "text": "Ein Wein mit echter Persönlichkeit. Die Komplexität is beeindruckend: dunkle Beeren, Lakritze, Tabak und eine subtile Würze. Das Etikett wirkt leider etwas veraltet — hier könnte die Tenute Ichnos modernisieren, um im deutschen Fachhandel besser zu kommunizieren. Der Wein verdient ein zeitgemäßes Design."
+        },
+        {
+          "id": "can_rev_006",
+          "platform": "Vivino",
+          "author": "Thomas B.",
+          "country": "germany",
+          "flag": "🇩🇪",
+          "rating": 4.2,
+          "date": "2024-04-01",
+          "text": "Solide Riserva mit guter Tiefe. Die 18 Monate Barrique sind am Gaumen spürbar — Röstaromen und Vanille sind präsent, aber noch leicht dominant. In 2–3 Jahren wird dieser Wein sicher besser integriert sein. Gutes Preis-Leistungs-Verhältnis im Vergleich zu Produkten aus der Toskana o del Piemont."
+        },
+        {
+          "id": "can_rev_007",
+          "platform": "Vivino",
+          "author": "Lucia M.",
+          "country": "italy",
+          "flag": "🇮🇹",
+          "rating": 4.8,
+          "date": "2024-01-05",
+          "text": "Da ogliastrina doc, questo vino mi riporta a casa ogni volta. È il Cannonau che vorrei che tutto il mondo conno-scesse: profondo, austero, con quella sapidità marina che solo il granito ogliastrese sa dare. Invecchia magnificamente, ho aperto una bottiglia del 2016 il mese scorso ed era ancora in ottima forma. Tenute Ichnos è una delle cantine più serie dell'isola. Bravi."
+        },
+        {
+          "id": "can_rev_008",
+          "platform": "Vivino",
+          "author": "Sara P.",
+          "country": "italy",
+          "flag": "🇮🇹",
+          "rating": 4.3,
+          "date": "2023-10-18",
+          "text": "Grande Cannonau. Abbinamento perfetto con l'agnello al forno della domenica. Leggermente più barricato rispetto a qualche annata fa, spero tengano d'occhio l'equilibrio. Il legno non deve mai coprire il terroir unico di questo vino. Il 2017 era perfetto. Resto comunque un fan fedele."
+        }
+      ],
+      "vermentino_docg": [
+        {
+          "id": "ver_rev_001",
+          "platform": "Vivino",
+          "author": "Ashley R.",
+          "country": "usa",
+          "flag": "🇺🇸",
+          "rating": 4.5,
+          "date": "2024-04-10",
+          "text": "This white wine is unlike anything I've had from Italy. Crisp, bright, with a salty mineral finish that reminds me of sea spray. Paired it with grilled shrimp and a light ceviche at our summer cookout and it was perfect. Honestly could drink this all day. The aroma alone — citrus, white flowers, wild herbs — transports you to the Mediterranean coast. A must-buy for seafood lovers."
+        },
+        {
+          "id": "ver_rev_002",
+          "platform": "Vivino",
+          "author": "David K.",
+          "country": "usa",
+          "flag": "🇺🇸",
+          "rating": 4.3,
+          "date": "2024-02-14",
+          "text": "Valentines dinner wine! We had it with a beautiful seafood tower and it was spectacular. The wine has real personality — not just another generic Italian white. Expressive nose, great acidity, and that slightly bitter almond finish is unique. My only note: could use tasting notes in English directly on the bottle."
+        },
+        {
+          "id": "ver_rev_003",
+          "platform": "Vivino",
+          "author": "Maria S.",
+          "country": "usa",
+          "flag": "🇺🇸",
+          "rating": 3.9,
+          "date": "2023-09-22",
+          "text": "Lovely aromatics — the citrus and floral notes jump right out of the glass. I found it slightly simple on the palate compared to the nose, which promises more than it delivers. Good with food though, especially with sushi and Japanese cuisine. At $24 retail it's decent value."
+        },
+        {
+          "id": "ver_rev_004",
+          "platform": "Vivino",
+          "author": "Franziska M.",
+          "country": "germany",
+          "flag": "🇩🇪",
+          "rating": 4.6,
+          "date": "2024-03-08",
+          "text": "Bemerkenswerte DOCG-Qualität. Die Mineralität dieses Vermentino erinnert mich an die besten Muscadet de Sèvre-et-Maine sur lie, aber mit deutlich mediterranem Charakter. Die Salinität und Frische sind hervorragend — ein echter Gastronomiewein. Die Nachternternote mit sur lies gibt ihm eine cremige Textur, ohne Frische zu opfern."
+        },
+        {
+          "id": "ver_rev_005",
+          "platform": "Vivino",
+          "author": "Andreas P.",
+          "country": "germany",
+          "flag": "🇩🇪",
+          "rating": 4.4,
+          "date": "2023-11-30",
+          "text": "Technisch sehr sauber vinifiziert. Die frühe Nachtlese bewahrt die Aromatik perfekt — man schmeckt die Entscheidung des Winzers. Säure präzise und lang, Alkohol gut integriert. Interessante Rarität."
+        },
+        {
+          "id": "ver_rev_006",
+          "platform": "Vivino",
+          "author": "Giovanni F.",
+          "country": "italy",
+          "flag": "🇮🇹",
+          "rating": 4.7,
+          "date": "2024-05-02",
+          "text": "Il Vermentino di Gallura è il re dei bianchi italiani e questo Alios ne è una delle espressioni più riuscite. Profilo aromatico preciso, sapidità gallurese inconfondibile, quel finale ammandorlato che è la firma del vitigno. Perfetto con la bottarga e i ricci di mare. La vendemmia notturna si sente: profumi integri e precisi. Ottimo lavoro Tenute Ichnos."
+        }
+      ],
+      "carignano_doc": [
+        {
+          "id": "car_rev_001",
+          "platform": "Vivino",
+          "author": "Markus L.",
+          "country": "germany",
+          "flag": "🇩🇪",
+          "rating": 4.8,
+          "date": "2024-04-18",
+          "text": "Außergewöhnlicher Fund! Das Carignano del Sulcis ist in Deutschland praktisch unbekannt, was ein Jammer ist. Die 60-jährigen Alberello-Reben liefern eine Konzentration und Eleganz, die ihresgleichen sucht — und das bei moderatem Alkohol. Die Tanninstruktur ist ähnlich wie bei einem jungen Barolo, aber zugänglicher."
+        },
+        {
+          "id": "car_rev_002",
+          "platform": "Vivino",
+          "author": "Helga K.",
+          "country": "germany",
+          "flag": "🇩🇪",
+          "rating": 4.5,
+          "date": "2024-01-22",
+          "text": "Sehr eleganter Wein, deutlich delikater als ich bei Carignan erwartet hätte. Das alte Rebmaterial und die Botte-grande-Reifung ergeben eine Komplexität ohne Überextraktion. Rote Früchte, Veilchen, eine mineralische Schieferader."
+        },
+        {
+          "id": "car_rev_003",
+          "platform": "Vivino",
+          "author": "Peter S.",
+          "country": "germany",
+          "flag": "🇩🇪",
+          "rating": 4.1,
+          "date": "2023-12-14",
+          "text": "Interessante Rarität. Der Wein zeigt den Charakter alter Alberello-Reben deutlich: Konzentration und Frische gleichzeitig. Was mich leicht stört ist die fehlende Konsistenz im Jahrgangsvergleich — der 2018 war kantiger. Für professionelle Einkäufer."
+        },
+        {
+          "id": "car_rev_004",
+          "platform": "Vivino",
+          "author": "Wolfgang R.",
+          "country": "germany",
+          "flag": "🇩🇪",
+          "rating": 4.6,
+          "date": "2024-03-01",
+          "text": "Dieser Wein sollte viel bekannter sein. Carignan von 60-jährigen Weinstöcken aus dem Sulcis, vinifiziert in großen Holzfässern — das Ergebnis ist ein Wein von bemerkenswerter Tiefe und Eleganz. Keine neue Eiche, kein Make-up, nur pures Terroir. Die rote Frucht ist knackig und lebendig, die Säure präzise, die Tannine seidig."
+        },
+        {
+          "id": "car_rev_005",
+          "platform": "Vivino",
+          "author": "Giulia T.",
+          "country": "italy",
+          "flag": "🇮🇹",
+          "rating": 4.7,
+          "date": "2024-02-08",
+          "text": "Il Carignano del Sulcis è il grande vino dimenticato della Sardegna e questo Mastio lo dimostra alla grande. Viti di 60 anni, alberello, cemento — la filosofia è quella giusta. Il vino ha una beva incredibile nonostante la complessità: frutto croccante, tannini vivi, finale sapido lunghissimo. Prezzo più che onesto. Se fosse toscano costerebbe il doppio."
+        },
+        {
+          "id": "car_rev_006",
+          "platform": "Vivino",
+          "author": "Roberto C.",
+          "country": "italy",
+          "flag": "🇮🇹",
+          "rating": 4.4,
+          "date": "2023-08-20",
+          "text": "Grande interpretazione del Carignano sulcitano. Il passaggio in botte grande fa la differenza rispetto alle versioni barricate: il legno supporta senza sovrastare. Unico appunto: la distribuzione è ancora molto limitata fuori dalla Sardegna. Sarebbe ora che questo vino uscisse dai confini regionali."
+        }
+      ]
+    }
+  };
+
   // ===== TOAST =====
   function toast(msg, type = 'info') {
     const c = document.getElementById('toast-container');
@@ -1521,7 +1834,16 @@
       renderWineCards();
       if (wines.length > 0) selectWine(wines[0].id);
     } catch (e) {
-      toast('Impossibile raggiungere il server API. Avvia il backend con: python app.py', 'error');
+      console.log('API Server offline, loading offline local fallback.');
+      loadStaticData();
+    }
+  }
+
+  function loadStaticData() {
+    wines = LOCAL_DB.wines;
+    renderWineCards();
+    if (wines.length > 0) {
+      selectWine(wines[0].id);
     }
   }
 
@@ -1635,34 +1957,47 @@
         body: JSON.stringify({ wine_id: selectedWineId, market: localizeMarket })
       });
       const json = await res.json();
-      const d = json.data;
-
-      document.getElementById('out-title').textContent = d.adapted_title;
-      document.getElementById('out-tagline').textContent = d.tagline;
-      document.getElementById('out-tasting').textContent = d.tasting_notes;
-      document.getElementById('out-story').textContent = d.storytelling_paragraph;
-      document.getElementById('out-food').textContent = d.food_pairing;
-      document.getElementById('out-label').textContent = d.label_copy;
-
-      const techList = document.getElementById('out-tech');
-      techList.innerHTML = '';
-      (d.tech_highlights || []).forEach(h => {
-        const li = document.createElement('li');
-        li.textContent = h;
-        techList.appendChild(li);
-      });
-
-      document.getElementById('localize-loading').classList.remove('visible');
-      document.getElementById('localize-output').classList.add('visible');
-      if (json.source === 'mock') toast('Demo: dati mock (configura GEMINI_API_KEY per output AI reale)', 'info');
-      else toast('Localizzazione completata con Gemini AI', 'success');
+      renderLocalize(json.data, json.source);
     } catch (e) {
-      document.getElementById('localize-loading').classList.remove('visible');
-      document.getElementById('localize-placeholder').style.display = 'flex';
-      toast('Errore durante la localizzazione. Verifica che il server sia attivo.', 'error');
+      console.log('API error, falling back to local pre-rendered localization.');
+      const mockData = getLocalizeMock(selectedWineId, localizeMarket);
+      if (mockData) {
+        renderLocalize(mockData, 'mock-offline');
+      } else {
+        document.getElementById('localize-loading').classList.remove('visible');
+        document.getElementById('localize-placeholder').style.display = 'flex';
+        toast('Errore durante la localizzazione.', 'error');
+      }
     }
     btn.disabled = false;
   });
+
+  function renderLocalize(d, source) {
+    document.getElementById('out-title').textContent = d.adapted_title;
+    document.getElementById('out-tagline').textContent = d.tagline;
+    document.getElementById('out-tasting').textContent = d.tasting_notes;
+    document.getElementById('out-story').textContent = d.storytelling_paragraph;
+    document.getElementById('out-food').textContent = d.food_pairing;
+    document.getElementById('out-label').textContent = d.label_copy;
+
+    const techList = document.getElementById('out-tech');
+    techList.innerHTML = '';
+    (d.tech_highlights || []).forEach(h => {
+      const li = document.createElement('li');
+      li.textContent = h;
+      techList.appendChild(li);
+    });
+
+    document.getElementById('localize-loading').classList.remove('visible');
+    document.getElementById('localize-output').classList.add('visible');
+    if (source === 'mock') {
+      toast('Demo: dati mock (configura GEMINI_API_KEY per output AI reale)', 'info');
+    } else if (source === 'mock-offline') {
+      toast('Modalità offline: caricati dati adattati predefiniti', 'info');
+    } else {
+      toast('Localizzazione completata con Gemini AI', 'success');
+    }
+  }
 
   // ===== NEWSLETTER =====
   document.getElementById('btn-newsletter').addEventListener('click', async () => {
@@ -1690,30 +2025,43 @@
         })
       });
       const json = await res.json();
-      const d = json.data;
-
-      nlData = d;
-      document.getElementById('nl-subject').textContent = d.subject;
-      document.getElementById('nl-preheader').textContent = d.preheader;
-      document.getElementById('nl-cta-display').textContent = d.cta_text;
-
-      // Render body: convert **bold** to <strong>, \n to <br>
-      let bodyHtml = (d.body_html || '')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\n/g, '<br>');
-      document.getElementById('nl-body').innerHTML = bodyHtml;
-
-      document.getElementById('nl-loading').classList.remove('visible');
-      document.getElementById('nl-preview').style.display = 'block';
-      if (json.source === 'mock') toast('Demo: dati mock (configura GEMINI_API_KEY per output AI reale)', 'info');
-      else toast('Newsletter generata con Gemini AI', 'success');
+      renderNewsletter(json.data, json.source);
     } catch (e) {
-      document.getElementById('nl-loading').classList.remove('visible');
-      document.getElementById('nl-placeholder').style.display = 'flex';
-      toast('Errore durante la generazione. Verifica che il server sia attivo.', 'error');
+      console.log('API error, falling back to local newsletter generator.');
+      const mockData = getNewsletterMock(selectedWineId, nlMarket, importer, tone, occasion);
+      if (mockData) {
+        renderNewsletter(mockData, 'mock-offline');
+      } else {
+        document.getElementById('nl-loading').classList.remove('visible');
+        document.getElementById('nl-placeholder').style.display = 'flex';
+        toast('Errore durante la generazione della newsletter.', 'error');
+      }
     }
     btn.disabled = false;
   });
+
+  function renderNewsletter(d, source) {
+    nlData = d;
+    document.getElementById('nl-subject').textContent = d.subject;
+    document.getElementById('nl-preheader').textContent = d.preheader;
+    document.getElementById('nl-cta-display').textContent = d.cta_text;
+
+    // Render body: convert **bold** to <strong>, \n to <br>
+    let bodyHtml = (d.body_html || '')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br>');
+    document.getElementById('nl-body').innerHTML = bodyHtml;
+
+    document.getElementById('nl-loading').classList.remove('visible');
+    document.getElementById('nl-preview').style.display = 'block';
+    if (source === 'mock') {
+      toast('Demo: dati mock (configura GEMINI_API_KEY per output AI reale)', 'info');
+    } else if (source === 'mock-offline') {
+      toast('Modalità offline: generata newsletter predefinita', 'info');
+    } else {
+      toast('Newsletter generata con Gemini AI', 'success');
+    }
+  }
 
   // Copy newsletter
   document.getElementById('btn-copy-nl').addEventListener('click', () => {
@@ -1730,7 +2078,8 @@
       currentReviews = data.reviews || [];
       renderReviews(currentReviews);
     } catch (e) {
-      currentReviews = [];
+      currentReviews = LOCAL_DB.reviews[wineId] || [];
+      renderReviews(currentReviews);
     }
     // Reset sentiment
     document.getElementById('sentiment-placeholder').style.display = 'flex';
@@ -1781,20 +2130,33 @@
         body: JSON.stringify({ wine_id: selectedWineId })
       });
       const json = await res.json();
-      const d = json.data;
-
-      renderSentiment(d);
-      document.getElementById('sentiment-loading').classList.remove('visible');
-      document.getElementById('sentiment-output').classList.add('visible');
-      if (json.source === 'mock') toast('Demo: dati mock (configura GEMINI_API_KEY per output AI reale)', 'info');
-      else toast('Analisi sentiment completata con Gemini AI', 'success');
+      handleSentimentResponse(json.data, json.source);
     } catch (e) {
-      document.getElementById('sentiment-loading').classList.remove('visible');
-      document.getElementById('sentiment-placeholder').style.display = 'flex';
-      toast('Errore durante l\'analisi. Verifica che il server sia attivo.', 'error');
+      console.log('API error, falling back to local sentiment analysis.');
+      const mockData = getSentimentMock(selectedWineId);
+      if (mockData) {
+        handleSentimentResponse(mockData, 'mock-offline');
+      } else {
+        document.getElementById('sentiment-loading').classList.remove('visible');
+        document.getElementById('sentiment-placeholder').style.display = 'flex';
+        toast('Errore durante l\'analisi sentiment.', 'error');
+      }
     }
     btn.disabled = false;
   });
+
+  function handleSentimentResponse(d, source) {
+    renderSentiment(d);
+    document.getElementById('sentiment-loading').classList.remove('visible');
+    document.getElementById('sentiment-output').classList.add('visible');
+    if (source === 'mock') {
+      toast('Demo: dati mock (configura GEMINI_API_KEY per output AI reale)', 'info');
+    } else if (source === 'mock-offline') {
+      toast('Modalità offline: caricata analisi sentiment predefinita', 'info');
+    } else {
+      toast('Analisi sentiment completata con Gemini AI', 'success');
+    }
+  }
 
   function renderSentiment(d) {
     // Gauge
@@ -1867,6 +2229,252 @@
       chip.textContent = kw;
       kwEl.appendChild(chip);
     });
+  }
+
+  // ===== CLIENT-SIDE MOCKS FOR OFFLINE MODE =====
+  function getLocalizeMock(wineId, market) {
+    const mocks = {
+      "cannonau_riserva": {
+        "usa": {
+          "adapted_title": "Antico Cannonau Reserve — A Wine from the Land of the Centenarians",
+          "tagline": "Born in Sardinia's Blue Zone, where ancient vines and timeless traditions craft wines as enduring as the people who tend them.",
+          "tasting_notes": "Deep ruby red with garnet hues. The nose opens with wild blackberry, myrtle berry, and dried fig — signature flavors of the sun-drenched Ogliastra hills. On the palate, velvety tannins frame ripe plum, black cherry jam, and a whisper of espresso. The finish lingers long with dark chocolate and fresh Mediterranean herbs.",
+          "food_pairing": "Dry-aged ribeye at your favorite steakhouse, slow-smoked BBQ brisket, Sunday lamb roast, hearty Italian-American braised short ribs, aged Parmigiano-Reggiano.",
+          "storytelling_paragraph": "The Ogliastra region of Sardinia is one of only five Blue Zones on Earth — places where people routinely live past 100. The Sechi family has been tending these ancient granite hillsides since 1932, four generations pouring their soul into every bottle. The 45-year-old Cannonau vines here don't just produce wine; they express a philosophy of patience, quality, and deep respect for the land. 'Antico' — meaning 'ancient' — is their finest expression: a Reserve wine that carries the longevity of the people and the land into every glass.",
+          "label_copy": "Four generations. One Blue Zone. Sardinia's most celebrated Cannonau Reserve.",
+          "tech_highlights": [
+            "14.5% ABV — full-bodied and structured",
+            "Aged 18 months in French oak + 12 months bottle rest",
+            "Only 8,000 bottles produced — limited allocation",
+            "Drinking window: now through 2034"
+          ]
+        },
+        "germany": {
+          "adapted_title": "Antico — Cannonau di Sardegna DOC Riserva",
+          "tagline": "Granit, Meereswind und vier Generationen Können: der tiefste Ausdruck des ogliastresischen Terroirs.",
+          "tasting_notes": "Tiefes Rubinrot mit Granatnuancen. Die Nase zeigt dichte Aromatik aus schwarzen Waldbeeren, Lakritze und mediterranen Kräutern (Myrte, Lentiscus). Am Gaumen dichtes, seidiges Tanningerüst — vergleichbar einem großen Châteauneuf-du-Pape, jedoch mit unverkennbarer sardischer Salzmineralität. Der Abgang ist außergewöhnlich lang, mit Kakao und wilder Minze.",
+          "food_pairing": "Wildragout mit Preiselbeeren, geschmortes Lamm mit Rosmarin, Rinderschmorbraten, kräftiger Hartkäse (Pecorino stagionato, Comté), dunkle Schokoladenspezialitäten.",
+          "storytelling_paragraph": "Die Tenute Ichnos liegt in Jerzu, Ogliastra — einem der wenigen Gebiete der Welt, in denen der Granit des Grundgebirges auf 350 bis 620 Metern Höhe einen einzigartigen Terroir-Ausdruck schafft. Die tägliche Temperaturschwankung von 15–18°C sorgt für perfekte Aromatik und Säurestruktur. Mit einem Ertrag von nur 28 hl/ha und 45-jährigen Rebstöcken erzeugt Familie Sechi seit 1932 Weine, die die Langlebigkeit ihres Landes widerspiegeln — Ogliastra ist eine der fünf Blue Zones der Erde. Der 'Antico' 2019 zeigt seine optimale Trinkreife zwischen 2026 und 2034.",
+          "label_copy": "Granit-Terroir · 45-jährige Reben · 18 Monate Barrique · Trinkreife bis 2034.",
+          "tech_highlights": [
+            "Alkohol: 14,5 % vol.",
+            "Ertrag: 28 hl/ha — Konzentration durch natürliche Limitierung",
+            "Rebenalter: 45 Jahre — komplexere Polyphenolstruktur",
+            "Reifung: 18 Monate Barrique (30% neu) + 12 Monate Flasche",
+            "Lagerpotenzial: optimal 2026–2034, maximal bis 2038"
+          ]
+        }
+      },
+      "vermentino_docg": {
+        "usa": {
+          "adapted_title": "Alios Vermentino — Sardinia's Crown Jewel White",
+          "tagline": "Harvested by night on ancient Mediterranean granite, this DOCG white is the ocean breeze in a glass.",
+          "tasting_notes": "Bright straw yellow with vivid green reflections. Explosive aromatics: grapefruit, bergamot, white peach, and sea-washed pebbles. The palate is alive with salinity and citrus zest, finishing with a distinctive bitter almond signature unique to this ancient Sardinian grape variety.",
+          "food_pairing": "Grilled jumbo shrimp, seafood towers, fresh oysters on the half shell, Thai green curry, light ceviche, sushi and sashimi platters.",
+          "storytelling_paragraph": "Vermentino di Gallura is the only DOCG white wine from Sardinia — Italy's most rigorous quality designation. Tenute Ichnos' 'Alios' is harvested at night to protect its precious aromatics from the Mediterranean heat, then aged on its fine lees for complexity and texture. The result is a white wine with serious personality: salty, vivid, and utterly unique. If you love Sauvignon Blanc, Chablis, or Albariño, 'Alios' will become your new obsession.",
+          "label_copy": "Italy's only DOCG white from Sardinia. Night-harvested for pure, unforgettable aromatics.",
+          "tech_highlights": [
+            "13% ABV — elegant and food-friendly",
+            "Night harvest preserves full aromatic profile",
+            "4 months sur lies — extra texture and complexity",
+            "Best enjoyed: 2023–2026"
+          ]
+        },
+        "germany": {
+          "adapted_title": "Alios — Vermentino di Gallura DOCG",
+          "tagline": "Nachtlese auf sardischem Granit: Präzision, Salinität und mediterrane Frische in ihrer reinsten Form.",
+          "tasting_notes": "Helles Strohgelb mit lebhaften Grünreflexen. Aromatisch präzise: Grapefruit, Bergamotte, Weißdorn, Kräuter der Macchia. Am Gaumen erinnert die Säurestruktur an einen Mosel-Riesling Spätlese, jedoch mit deutlich mediterranem, salinitätsreichem Charakter. Die sur-lies-Reifung gibt eine cremige Textur ohne Frischeopfer. Mineralischer, leicht bittermandeliger Abgang — typisch für die Gallura-DOCG.",
+          "food_pairing": "Nordseeaustern und Meeresfrüchte, Zanderfilet mit Kapernbutter, frischer Ziegenkäse, leichtes Ceviche, gedämpfter Steinbutt.",
+          "storytelling_paragraph": "Der Vermentino di Gallura ist die einzige DOCG-Weißweinkategorie Sardiniens — Italiens strengste Qualitätskategorie. Tenute Ichnos' Alios entsteht aus Nachtlese (fine agosto/settembre), um die flüchtigen Aromastoffe zu schonen, gefolgt von 4 Monaten auf den feinen Hefen mit wöchentlichem Bâtonnage. Das Ergebnis: ein technisch tadelloser Wein mit außergewöhnlicher Mineralität und Frische. Für Liebhaber von Burgund-Weißweinen oder elsässischem Riesling ein unverzichtbarer Entdeckungswein.",
+          "label_copy": "DOCG Gallura · Nachtlese · sur lies · Granit-Terroir · trinkreif 2023–2026.",
+          "tech_highlights": [
+            "Alkohol: 13,0 % vol.",
+            "Nachtlese Ende August — Schutz der Aromaintegrität",
+            "4 Monate sur lies mit Bâtonnage — Textur und Komplexität",
+            "Trinkreife: optimal jetzt bis 2026"
+          ]
+        }
+      },
+      "carignano_doc": {
+        "usa": {
+          "adapted_title": "Mastio Carignan — Sardinia's Old Vines Secret",
+          "tagline": "Sixty-year-old vines tell no lies — only pure fruit, ancient soil, and the quiet wisdom of centuries.",
+          "tasting_notes": "Vivid ruby with violet flashes. Bright red berry fruit — raspberry, pomegranate, fresh cherry — with lavender and wild herbs. The palate is energetic and precise, with silky tannins from 60-year-old bush vines. A wine of joy and depth in equal measure.",
+          "food_pairing": "Wood-fired pizza, charcuterie boards, roasted pork tenderloin, mushroom risotto, medium-aged sheep's milk cheese.",
+          "storytelling_paragraph": "When grapevines are trained as individual bushes — the ancient 'alberello' method — and left to grow for 60 years, something extraordinary happens. Their roots reach deep into Sardinian volcanic soil, drawing minerals and character that younger vines simply cannot. Mastio is Tenute Ichnos' love letter to this tradition: a wine of remarkable elegance and approachability, produced from some of the oldest Carignan vines in Italy.",
+          "label_copy": "60-year-old bush vines. No new oak. Pure Sardinian soul.",
+          "tech_highlights": [
+            "13.5% ABV — balanced and elegant",
+            "Aged in large Slavonian oak barrels — zero new oak influence",
+            "60-year-old alberello (bush-trained) vines",
+            "Only 6,000 bottles — a true collector's wine"
+          ]
+        },
+        "germany": {
+          "adapted_title": "Mastio — Carignano del Sulcis DOC",
+          "tagline": "60-jährige Alberello-Reben, großes Holz, Null Kompromisse — Sardiniens eleganteste Rarität.",
+          "tasting_notes": "Lebhaftes Rubinrot mit violetten Reflexen. Nase: rote Früchte (Kirsche, Himbeere, Granatapfel), Veilchen, Lavendel, ein Hauch von Schiefer. Am Gaumen elegant und dynamisch — ähnlich einem Burgund oder einem feinen Pinot Noir aus dem Elsass, jedoch mit wärmerem Fruchtprofil. Tannine seidig und präzise, Säure knackig und lang.",
+          "food_pairing": "Geschmorter Lammrücken mit Kräutern, Wildschweingulasch, halbgereifter Schafskäse, Antipasti-Platten, leichte Pasta mit Tomatensauce.",
+          "storytelling_paragraph": "Das Sulcis im Südwesten Sardiniens beherbergt einige der ältesten Alberello-gepflanzten Carignano-Reben der Welt. Tenute Ichnos' 'Mastio' stammt aus 60-jährigen Rebstöcken con un Ertrag von nur 22 hl/ha. Die Vinifikation erfolgt in Zementsektoren ohne Temperatursimulation, die Reifung in 50-hl-Slavonia-Botti — kein neues Holz, keine Überextraktion. Das Ergebnis ist ein Wein von seltener Eleganz und Trinkfreude. Lagerpotenzial 2025–2030.",
+          "label_copy": "60 Jahre Alberello · Zement · Slavonia-Botte · Lagerpotenzial bis 2030.",
+          "tech_highlights": [
+            "Alkohol: 13,5 % vol.",
+            "Ertrag: 22 hl/ha — extreme Konzentration alter Reben",
+            "Rebenalter: 60 Jahre — Alberello-Erziehung",
+            "Reifung: 12 Monate Slavonia-Botte (50 hl)",
+            "Lagerpotenzial: optimal 2025–2030"
+          ]
+        }
+      }
+    };
+    return mocks[wineId]?.[market] || null;
+  }
+
+  function getNewsletterMock(wineId, market, importer, tone, occasion) {
+    const wine = LOCAL_DB.wines.find(w => w.id === wineId);
+    if (!wine) return null;
+
+    if (market === "usa") {
+      const occasionSubjects = {
+        "catalog": `Introducing Tenute Ichnos — Sardinia's Hidden Gem for Your Portfolio`,
+        "harvest": `2023 Harvest Report — Exceptional Year at Tenute Ichnos, Sardinia`,
+        "seasonal": `Spring Allocation Available — Tenute Ichnos Limited Releases`,
+      };
+      const subject = occasionSubjects[occasion] || occasionSubjects["catalog"];
+      return {
+        "subject": subject,
+        "preheader": "A four-generation Sardinian winery from one of Earth's five Blue Zones.",
+        "body_html": `Dear ${importer},\n\nI hope this message finds you well. My name is Marco Sechi, and I represent **Tenute Ichnos**, a family winery in **Jerzu, Ogliastra** — the heart of Sardinia's legendary Blue Zone, one of only five places on Earth where people routinely live past 100.\n\nWe have been cultivating our 45 hectares of ancient granite hillsides since **1932**, and today I am delighted to introduce you to our flagship wine: **${wine.full_name}, ${wine.vintage}**.\n\nThis is a wine that tells the story of our land. At **$${wine.trade_price_eur.toFixed(2)} trade price per bottle**, it represents extraordinary value for a wine of this heritage and quality — ${wine.aging_potential_years} years aging potential, only **${wine.bottles_produced.toLocaleString('en-US')} bottles produced**.\n\nWe are currently looking for **exclusive import partners** in the United States who share our passion for authentic, family-produced Italian wines. Our wines have been discovered by leading sommeliers and are generating significant buzz among wine enthusiasts on platforms like Vivino.\n\nI would be delighted to arrange a complimentary sample shipment and discuss allocation terms. Our export manager will be attending **Vinexpo New York** this spring and would welcome the opportunity to meet.\n\nWarm regards,\n**Marco Sechi**\nExport Director, Tenute Ichnos\nJerzu, Ogliastra — Sardegna, Italy`,
+        "cta_text": "Request Your Sample Allocation"
+      };
+    } else { // germany
+      const occasionSubjects = {
+        "catalog": `Tenute Ichnos — Sardiniens außergewöhnlichste Erzeugnisse für Ihr Portfolio`,
+        "harvest": `Erntebericht 2023 — Außergewöhnlicher Jahrgang bei Tenute Ichnos`,
+        "seasonal": `Frühjahrsallokation verfügbar — Tenute Ichnos limitierte Weine`,
+      };
+      const subject = occasionSubjects[occasion] || occasionSubjects["catalog"];
+      return {
+        "subject": subject,
+        "preheader": "Vier Generationen, 45 Hektar Granit-Terroir, Blue Zone Ogliastra.",
+        "body_html": `Sehr geehrte Damen und Herren, liebe/r ${importer},\n\nmein Name ist Marco Sechi, und ich vertrete **Tenute Ichnos**, ein Familienweingut in **Jerzu, Ogliastra** — im Herzen einer der Silicon Valleys der Langlebigkeit, wo Menschen regelmäßig über 100 Jahre alt werden.\n\nSeit **1932** bewirtschaften wir 45 Hektar auf 350–620 Metern Höhe im ogliastresischen Granit-Gebirge. Heute möchte ich Ihnen unseren Flaggschiff-Wein vorstellen: **${wine.full_name}, Jahrgang ${wine.vintage}**.\n\nDieser Wein entsteht aus **${wine.vine_age_years}-jährigen Rebstöcken** bei einem Ertrag von nur **${wine.yield_hl_ha} hl/ha** — eine natürliche Konzentration, die den Charakter del terroir widerspiegelt. Der **Handelspreis beträgt €${wine.trade_price_eur.toFixed(2)} pro Flasche** bei einer Produktion von nur **${wine.bottles_produced.toLocaleString('de-DE')} Flaschen**.\n\nWir suchen **qualifizierte Importpartner** im deutschsprachigen Raum con esperienza nel settore premium. Invieremo volentieri campioni di degustazione gratuiti.\n\nMit freundlichen Grüßen,\n**Marco Sechi**\nExportleiter, Tenute Ichnos\nJerzu, Ogliastra — Sardinien, Italien`,
+        "cta_text": "Jetzt Verkostungsmuster anfordern"
+      };
+    }
+  }
+
+  function getSentimentMock(wineId) {
+    const mocks = {
+      "cannonau_riserva": {
+        "overall_score": 8.7,
+        "positive_themes": [
+          {
+            "theme": "Qualità e complessità aromatica eccezionale",
+            "count": 6,
+            "quote": "Absolutely stunning Cannonau… The wine has this incredible depth — dark berries, leather, a hint of Mediterranean herbs."
+          },
+          {
+            "theme": "Eccellente rapporto qualità-prezzo vs. competitor internazionali",
+            "count": 5,
+            "quote": "At this price point it absolutely destroys many Napa Cabs I pay twice as much for."
+          },
+          {
+            "theme": "Struttura tannica superiore e potenziale di invecchiamento",
+            "count": 4,
+            "quote": "Lagerpotenzial schätze ich auf 10–12 Jahre problemlos."
+          }
+        ],
+        "negative_themes": [
+          {
+            "theme": "Eccessiva influenza del legno (barrique troppo presente)",
+            "count": 3,
+            "quote": "The oak is slightly too dominant for my taste — it somewhat muffles the terroir character."
+          },
+          {
+            "theme": "Design dell'etichetta datato",
+            "count": 2,
+            "quote": "Das Etikett wirkt leider etwas veraltet — hier potrebbe la Tenute Ichnos modernizzare."
+          }
+        ],
+        "production_insights": [
+          {
+            "insight": "La percentuale di legno nuovo (30%) copre leggermente la mineralità tipica del granito sardo.",
+            "priority": "alta",
+            "action": "Ridurre l'uso di barrique nuove favorendo botti grandi per preservare l'integrità del vitigno."
+          },
+          {
+            "insight": "Mancanza di schede tecniche professionali multilingue sul retro.",
+            "priority": "alta",
+            "action": "Introdurre un QR code con link a schede tecniche complete in EN/DE."
+          }
+        ],
+        "market_split": {"usa_score": 8.4, "germany_score": 8.9, "italy_score": 9.1},
+        "top_keywords": ["tannini setosi", "mineralità", "barrique", "Blue Zone", "longevità", "Ogliastra"]
+      },
+      "vermentino_docg": {
+        "overall_score": 8.5,
+        "positive_themes": [
+          {
+            "theme": "Profilo aromatico eccezionale e mineralità salmastra unica",
+            "count": 5,
+            "quote": "The aroma alone — citrus, white flowers, wild herbs — transports you to the Mediterranean coast."
+          },
+          {
+            "theme": "Perfetto per abbinamenti con pesce e crudi di mare",
+            "count": 4,
+            "quote": "Paired it with grilled shrimp and a light ceviche at our summer cookout and it was perfect."
+          }
+        ],
+        "negative_themes": [
+          {
+            "theme": "Palato meno complesso rispetto al naso promettente",
+            "count": 2,
+            "quote": "I found it slightly simple on the palate compared to the nose."
+          }
+        ],
+        "production_insights": [
+          {
+            "insight": "Il palato è descritto come più semplice rispetto al bouquet olfattivo.",
+            "priority": "media",
+            "action": "Aumentare il periodo di affinamento sur lies e intensificare i bâtonnage."
+          }
+        ],
+        "market_split": {"usa_score": 8.1, "germany_score": 9.0, "italy_score": 9.2},
+        "top_keywords": ["mineralità", "agrumi", "salinità", "sur lies", "freschezza", "seafood"]
+      },
+      "carignano_doc": {
+        "overall_score": 8.8,
+        "positive_themes": [
+          {
+            "theme": "Eleganza e bevibilità sorprendenti",
+            "count": 5,
+            "quote": "Eleganz und Trinkfreude, die Liebhaber von Burgund und Norditalien ansprechen wird."
+          },
+          {
+            "theme": "Concentrazione naturale da vigne vecchie ad alberello",
+            "count": 4,
+            "quote": "60-jährige Alberello-Reben liefern eine Konzentration und Eleganz, die ihresgleichen sucht."
+          }
+        ],
+        "negative_themes": [
+          {
+            "theme": "Difficoltà di reperibilità sui mercati esteri",
+            "count": 2,
+            "quote": "Der Vertrieb in Deutschland ist noch sehr sporadisch."
+          }
+        ],
+        "production_insights": [
+          {
+            "insight": "Grande potenziale commerciale limitato solo dalla distribuzione logistica.",
+            "priority": "alta",
+            "action": "Selezionare importatori dedicati per il settore HoReCa in Germania settentrionale."
+          }
+        ],
+        "market_split": {"usa_score": 0.0, "germany_score": 8.8, "italy_score": 8.9},
+        "top_keywords": ["Alberello", "vigne vecchie", "Carignano", "Sulcis", "eleganza"]
+      }
+    };
+    return mocks[wineId] || null;
   }
 
   // ===== INIT =====

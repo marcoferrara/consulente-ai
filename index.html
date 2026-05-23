@@ -2173,14 +2173,43 @@
 
     let serverOnline = false;
 
-    // Funzione per controllare lo stato del server locale
+    // Ritorna l'URL del server (custom se salvato in localStorage o localhost di default)
+    function getBackendUrl() {
+        return localStorage.getItem('sanna_backend_url') || 'http://localhost:8000';
+    }
+
+    // Configura il badge per essere interattivo e consentire l'inserimento di un server custom
+    chatServerStatus.style.cursor = 'pointer';
+    chatServerStatus.title = "Clicca per configurare l'indirizzo del server (es. ngrok HTTPS)";
+    chatServerStatus.addEventListener('click', () => {
+        const currentUrl = getBackendUrl();
+        const newUrl = prompt("Configura l'indirizzo del server per il test (es. ngrok HTTPS o localhost:8000):", currentUrl);
+        if (newUrl !== null) {
+            const trimmed = newUrl.trim();
+            if (trimmed === "" || trimmed === "http://localhost:8000") {
+                localStorage.removeItem('sanna_backend_url');
+                alert("Ripristinato server predefinito: http://localhost:8000");
+            } else {
+                // Rimuove slash finale se presente per coerenza con le rotte successive
+                const formatted = trimmed.endsWith('/') ? trimmed.slice(0, -1) : trimmed;
+                localStorage.setItem('sanna_backend_url', formatted);
+                alert("Nuovo server configurato: " + formatted);
+            }
+            checkBackendStatus();
+        }
+    });
+
+    // Funzione per controllare lo stato del server locale o del tunnel custom
     async function checkBackendStatus() {
+        const backendUrl = getBackendUrl();
         try {
-            // timeout di 1.2 secondi per il controllo del ping
+            // timeout di 1.5 secondi per il controllo del ping
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 1200);
+            const timeoutId = setTimeout(() => controller.abort(), 1500);
             
-            const res = await fetch('http://localhost:8000/', { 
+            // Aggiungiamo uno slash finale solo per il ping di test se necessario
+            const pingUrl = backendUrl.endsWith('/') ? backendUrl : backendUrl + '/';
+            const res = await fetch(pingUrl, { 
                 method: 'GET',
                 signal: controller.signal
             });
@@ -2188,7 +2217,8 @@
             
             if (res.status === 200) {
                 serverOnline = true;
-                chatServerStatus.textContent = "Server: Online";
+                const isCustom = !backendUrl.includes('localhost') && !backendUrl.includes('127.0.0.1');
+                chatServerStatus.textContent = isCustom ? "Server: Tunnel Online" : "Server: Online";
                 chatServerStatus.style.background = "rgba(82, 183, 136, 0.1)";
                 chatServerStatus.style.borderColor = "rgba(82, 183, 136, 0.3)";
                 chatServerStatus.style.color = "#52B788";
@@ -2197,7 +2227,9 @@
             }
         } catch (e) {
             serverOnline = false;
-            chatServerStatus.textContent = "Server: Offline (Mock)";
+            const backendUrl = getBackendUrl();
+            const isCustom = !backendUrl.includes('localhost') && !backendUrl.includes('127.0.0.1');
+            chatServerStatus.textContent = isCustom ? "Server: Tunnel Offline" : "Server: Offline (Mock)";
             chatServerStatus.style.background = "rgba(230, 57, 70, 0.1)";
             chatServerStatus.style.borderColor = "rgba(230, 57, 70, 0.3)";
             chatServerStatus.style.color = "#e63946";
@@ -2307,7 +2339,7 @@
 
         if (serverOnline) {
             try {
-                const response = await fetch('http://localhost:8000/webhook/whatsapp', {
+                const response = await fetch(getBackendUrl() + '/webhook/whatsapp', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -2376,7 +2408,7 @@
         }
         
         // Aggiungi un piccolo avviso informativo per lo sviluppatore
-        addChatMessage('Sistema', '💡 Nota: Stai vedendo la risposta del Mock del browser perché il server locale Python non è attivo su localhost:8000. Per testare il vero server Python FastAPI, avvialo su uvicorn.', 'system');
+        addChatMessage('Sistema', '💡 Nota: Stai vedendo la risposta del Mock del browser perché il server Python non è attivo su <strong>' + getBackendUrl() + '</strong>.<br>Clicca sul badge <strong>"Server: Offline (Mock)"</strong> in alto per inserire un URL sicuro personalizzato (es. ngrok HTTPS) o avvia il server locale su uvicorn.', 'system');
     }
     </script>
 </body>

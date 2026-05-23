@@ -1341,10 +1341,36 @@
     </footer>
 
     <script>
-        const API_URL = "http://localhost:8000/webhook/whatsapp";
-        const PMS_ROOMS_URL = "http://localhost:8000/api/pms/rooms";
-        const PMS_HOLDS_URL = "http://localhost:8000/api/pms/holds";
-        const PMS_RESET_URL = "http://localhost:8000/api/pms/reset";
+        // Ritorna l'URL del server (custom se salvato in localStorage o localhost di default)
+        function getBackendUrl() {
+            return localStorage.getItem('sanna_backend_url') || 'http://localhost:8000';
+        }
+
+        let API_URL = `${getBackendUrl()}/webhook/whatsapp`;
+        let PMS_ROOMS_URL = `${getBackendUrl()}/api/pms/rooms`;
+        let PMS_HOLDS_URL = `${getBackendUrl()}/api/pms/holds`;
+        let PMS_RESET_URL = `${getBackendUrl()}/api/pms/reset`;
+
+        function updateBackendUrls() {
+            const base = getBackendUrl();
+            API_URL = `${base}/webhook/whatsapp`;
+            PMS_ROOMS_URL = `${base}/api/pms/rooms`;
+            PMS_HOLDS_URL = `${base}/api/pms/holds`;
+            PMS_RESET_URL = `${base}/api/pms/reset`;
+            
+            // Aggiorna l'avatar di Sanna
+            const avatarEl = document.querySelector('.wa-avatar');
+            if (avatarEl) {
+                avatarEl.style.backgroundImage = `url('${base}/static/sanna_avatar.png')`;
+            }
+            
+            // Aggiorna il testo del badge di stato
+            const badgeText = document.querySelector('.status-badge span');
+            if (badgeText) {
+                const isCustom = !base.includes('localhost') && !base.includes('127.0.0.1');
+                badgeText.innerHTML = isCustom ? `TUNNEL ATTIVO: ${base}` : `PMS & ENGINE ATTIVI`;
+            }
+        }
         
         const USER_ID = "+393401122334";
         const USER_NAME = "Marco";
@@ -1726,6 +1752,33 @@
 
         // Inizializzazione pagina
         window.onload = function() {
+            // Aggiorna URL e avatar iniziali
+            updateBackendUrls();
+            
+            // Rende interattivo il badge di stato
+            const statusBadge = document.querySelector('.status-badge');
+            if (statusBadge) {
+                statusBadge.style.cursor = 'pointer';
+                statusBadge.title = "Clicca per configurare l'indirizzo del server (es. ngrok HTTPS)";
+                statusBadge.addEventListener('click', () => {
+                    const currentUrl = getBackendUrl();
+                    const newUrl = prompt("Configura l'indirizzo del server per il test (es. ngrok HTTPS o http://localhost:8000):", currentUrl);
+                    if (newUrl !== null) {
+                        const trimmed = newUrl.trim();
+                        if (trimmed === "" || trimmed === "http://localhost:8000") {
+                            localStorage.removeItem('sanna_backend_url');
+                            alert("Ripristinato server predefinito: http://localhost:8000");
+                        } else {
+                            const formatted = trimmed.endsWith('/') ? trimmed.slice(0, -1) : trimmed;
+                            localStorage.setItem('sanna_backend_url', formatted);
+                            alert("Nuovo server configurato: " + formatted);
+                        }
+                        updateBackendUrls();
+                        fetchPMSState();
+                    }
+                });
+            }
+
             syncFloorPlan([]);      // tutte le celle verdi all'avvio
             initFloorPlanClicks();  // click handlers floor plan
             fetchPMSState();

@@ -2,7 +2,7 @@
 
 Questo documento costituisce la specifica tecnica e il copy definitivo per la brochure di presentazione di **AIjò Consulenze**, strutturata su 4 pagine A5 rilegate (formato chiuso A5 148x210 mm, formato aperto A4 297x210 mm). 
 
-Il design segue la linea visiva concordata: **Luxury Dark**, con testi in bianco e oro su sfondo grigio scuro ardesia, impreziosito dal nuovo logo ufficiale **AIjò** con l'intaglio passante sulla banda inferiore.
+Il design segue la linea visiva concordata: **Luxury Dark**, con testi in bianco e oro su sfondo nero assoluto profondo (Luxury Black), impreziosito dal nuovo logo ufficiale **AIjò** con l'intaglio passante sulla banda inferiore.
 
 ---
 

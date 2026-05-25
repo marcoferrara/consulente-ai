@@ -12,23 +12,26 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   
   <!-- Styling -->
   <style>
     :root {
-      --bg: #0b0f19;
-      --card-bg: rgba(17, 24, 39, 0.65);
-      --border: rgba(255, 255, 255, 0.08);
-      --text: #f3f4f6;
-      --text-muted: #9ca3af;
-      --primary: #6366f1; /* Indigo */
-      --primary-glow: rgba(99, 102, 241, 0.35);
-      --accent: #f59e0b; /* Gold/Amber */
-      --accent-glow: rgba(245, 158, 11, 0.25);
+      --bg: #07090e; /* Nero della landing page */
+      --bg2: #0b0e16;
+      --surface: #111520;
+      --card-bg: rgba(11, 14, 22, 0.75); /* Slate calcolato su --bg2 */
+      --border: rgba(200, 167, 107, 0.22); /* Oro trasparente per i bordi */
+      --text: #ede8df; /* Testo chiaro calco della landing */
+      --text-muted: #7a7265; /* Testo attenuato calco della landing */
+      --primary: #c8a76b; /* Oro principale della landing */
+      --primary-glow: rgba(200, 167, 107, 0.25);
+      --accent: #c8a76b; /* Oro */
+      --accent-glow: rgba(200, 167, 107, 0.12);
+      --terra: #9a4f2e; /* Terracotta d'accento secondario */
       --radius: 24px;
-      --font-title: 'Outfit', sans-serif;
-      --font-body: 'Inter', sans-serif;
+      --font-title: 'Cormorant Garamond', serif; /* Serif premium */
+      --font-body: 'Jost', sans-serif; /* Sans-serif geometrico elegante */
     }
 
     * {
@@ -49,9 +52,22 @@
       overflow-x: hidden;
       position: relative;
       padding: 24px;
+      font-weight: 300;
     }
 
-    /* Ambient Background Glows */
+    /* Noise Texture Overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* Ambient Background Glows (Gold and Terra Warm Gradients) */
     .glow-container {
       position: absolute;
       top: 0;
@@ -67,7 +83,7 @@
       position: absolute;
       border-radius: 50%;
       filter: blur(140px);
-      opacity: 0.45;
+      opacity: 0.35;
       mix-blend-mode: screen;
       animation: float 25s infinite alternate ease-in-out;
     }
@@ -75,7 +91,7 @@
     .glow-orb-1 {
       width: 500px;
       height: 500px;
-      background: radial-gradient(circle, var(--primary) 0%, rgba(99, 102, 241, 0) 70%);
+      background: radial-gradient(circle, var(--primary) 0%, rgba(200, 167, 107, 0) 70%);
       top: -10%;
       left: -10%;
       animation-duration: 20s;
@@ -84,7 +100,7 @@
     .glow-orb-2 {
       width: 600px;
       height: 600px;
-      background: radial-gradient(circle, #3b82f6 0%, rgba(59, 130, 246, 0) 70%);
+      background: radial-gradient(circle, rgba(200, 167, 107, 0.45) 0%, rgba(200, 167, 107, 0) 70%);
       bottom: -20%;
       right: -10%;
       animation-duration: 28s;
@@ -93,7 +109,7 @@
     .glow-orb-3 {
       width: 400px;
       height: 400px;
-      background: radial-gradient(circle, #8b5cf6 0%, rgba(139, 92, 246, 0) 70%);
+      background: radial-gradient(circle, var(--terra) 0%, rgba(154, 79, 46, 0) 70%);
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -111,16 +127,16 @@
       max-width: 680px;
       width: 100%;
       background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 48px 40px;
       text-align: center;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
       z-index: 10;
       position: relative;
-      animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes fadeIn {
@@ -133,75 +149,93 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(99, 102, 241, 0.12);
-      border: 1px solid rgba(99, 102, 241, 0.25);
-      color: #a5b4fc;
-      padding: 8px 16px;
+      background: rgba(200, 167, 107, 0.08);
+      border: 1px solid var(--border);
+      color: var(--primary);
+      padding: 6px 16px;
       border-radius: 9999px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
-    .brand-logo {
-      font-family: var(--font-title);
-      font-size: 42px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: #fff;
-      margin-bottom: 12px;
+    .brand-logo-container {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
     }
 
-    .brand-logo span {
-      background: linear-gradient(135deg, #a5b4fc 0%, var(--primary) 50%, #818cf8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .brand-logo-img {
+      max-height: 110px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 30px rgba(200, 167, 107, 0.22));
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .brand-logo-container:hover .brand-logo-img {
+      transform: scale(1.04) translateY(-2px);
     }
 
     /* Content */
     h1 {
       font-family: var(--font-title);
-      font-size: 28px;
-      font-weight: 600;
-      line-height: 1.25;
+      font-size: clamp(26px, 6vw, 36px);
+      font-weight: 300;
+      line-height: 1.2;
       margin-bottom: 16px;
-      color: #f9fafb;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--primary);
     }
 
     .description {
       font-size: 15px;
-      line-height: 1.6;
+      line-height: 1.7;
       color: var(--text-muted);
       margin-bottom: 36px;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* Progress bar */
     .progress-wrapper {
       margin-bottom: 40px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .progress-info {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.15em;
       color: var(--text-muted);
       margin-bottom: 10px;
     }
 
     .progress-percentage {
       color: var(--primary);
+      font-weight: 600;
     }
 
     .progress-bar-bg {
       width: 100%;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.05);
+      height: 6px;
+      background: rgba(200, 167, 107, 0.05);
       border-radius: 99px;
       overflow: hidden;
       position: relative;
@@ -210,7 +244,7 @@
     .progress-bar-fill {
       width: 85%;
       height: 100%;
-      background: linear-gradient(90deg, var(--primary) 0%, #3b82f6 100%);
+      background: linear-gradient(90deg, var(--primary) 0%, #f6ecd9 100%);
       border-radius: 99px;
       box-shadow: 0 0 12px var(--primary-glow);
       position: relative;
@@ -245,24 +279,28 @@
 
     /* Interactive Accordion - Core Expertise */
     .accordion-trigger {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(200, 167, 107, 0.03);
       border: 1px solid var(--border);
       color: var(--text);
-      font-size: 14px;
-      font-weight: 500;
-      padding: 12px 20px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px 24px;
       border-radius: 12px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       margin-bottom: 24px;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
     }
 
     .accordion-trigger:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(200, 167, 107, 0.08);
+      border-color: rgba(200, 167, 107, 0.45);
+      color: var(--primary);
     }
 
     .accordion-content {
@@ -277,27 +315,28 @@
     }
 
     .accordion-content.open {
-      max-height: 350px;
+      max-height: 380px;
     }
 
     .expertise-item {
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(200, 167, 107, 0.01);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 16px;
       display: flex;
       gap: 14px;
       align-items: flex-start;
-      transition: transform 0.2s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
 
     .expertise-item:hover {
-      transform: translateX(4px);
-      border-color: rgba(99, 102, 241, 0.2);
+      transform: translateX(6px);
+      border-color: rgba(200, 167, 107, 0.4);
+      background: rgba(200, 167, 107, 0.03);
     }
 
     .expertise-icon {
-      background: rgba(99, 102, 241, 0.1);
+      background: rgba(200, 167, 107, 0.1);
       color: var(--primary);
       width: 36px;
       height: 36px;
@@ -306,29 +345,32 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-weight: 700;
+      font-weight: 600;
       font-size: 16px;
+      border: 1px solid rgba(200, 167, 107, 0.15);
     }
 
     .expertise-text h3 {
-      font-size: 14px;
-      font-weight: 600;
+      font-family: var(--font-title);
+      font-size: 16px;
+      font-weight: 400;
       margin-bottom: 4px;
-      color: #f3f4f6;
+      color: var(--text);
+      letter-spacing: 0.02em;
     }
 
     .expertise-text p {
       font-size: 12px;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     /* Newsletter Form */
     .form-title {
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.15em;
       color: var(--text-muted);
       margin-bottom: 12px;
     }
@@ -349,41 +391,44 @@
 
     .input-field {
       flex-grow: 1;
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(200, 167, 107, 0.02);
       border: 1.5px solid var(--border);
       border-radius: 12px;
-      padding: 14px 16px;
+      padding: 14px 18px;
       font-family: var(--font-body);
       color: #fff;
       font-size: 14px;
       outline: none;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
     }
 
     .input-field:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 10px rgba(99, 102, 241, 0.15);
-      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 12px rgba(200, 167, 107, 0.15);
+      background: rgba(200, 167, 107, 0.05);
     }
 
     .btn-submit {
-      background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
-      color: #fff;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--terra) 100%);
+      color: #07090e;
       font-family: var(--font-body);
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       border: none;
       border-radius: 12px;
       padding: 14px 24px;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
-      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(200, 167, 107, 0.25);
+      transition: all 0.3s ease;
       white-space: nowrap;
     }
 
     .btn-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+      box-shadow: 0 6px 20px rgba(200, 167, 107, 0.4);
+      filter: brightness(1.1);
     }
 
     .btn-submit:active {
@@ -393,7 +438,7 @@
     /* Success message */
     .success-alert {
       display: none;
-      background: rgba(16, 185, 129, 0.1);
+      background: rgba(16, 185, 129, 0.08);
       border: 1px solid rgba(16, 185, 129, 0.25);
       color: #34d399;
       border-radius: 12px;
@@ -420,16 +465,16 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(200, 167, 107, 0.02);
       border: 1px solid var(--border);
       color: var(--text-muted);
       text-decoration: none;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
     }
 
     .social-btn:hover {
-      background: rgba(99, 102, 241, 0.1);
-      border-color: rgba(99, 102, 241, 0.3);
+      background: rgba(200, 167, 107, 0.08);
+      border-color: var(--primary);
       color: #fff;
       transform: translateY(-2px);
     }
@@ -437,10 +482,11 @@
     /* Footer copy */
     footer {
       margin-top: 36px;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.25);
+      font-size: 11px;
+      color: var(--text-muted);
       text-align: center;
       z-index: 10;
+      letter-spacing: 0.05em;
     }
 
     /* Responsive */
@@ -448,11 +494,8 @@
       .container {
         padding: 36px 24px;
       }
-      .brand-logo {
-        font-size: 34px;
-      }
       h1 {
-        font-size: 22px;
+        font-size: 24px;
       }
       .description {
         font-size: 14px;
@@ -473,9 +516,12 @@
   <div class="container" id="main-card">
     
     <!-- Branding -->
-    <div class="brand-badge">UNDER CONSTRUCTION</div>
-    <div class="brand-logo">AI<span>jò</span></div>
-    <h1>Il nostro nuovo spazio digitale è in arrivo</h1>
+    <div class="brand-badge">IN COSTRUZIONE</div>
+    <div class="brand-logo-container">
+      <img src="assets/rebranding/logo_aijo_definitivo.png" alt="AIjò Logo" class="brand-logo-img">
+    </div>
+    
+    <h1>Il nostro nuovo spazio digitale è <em>in arrivo</em></h1>
     
     <p class="description">
       Stiamo perfezionando la nostra nuova identità e piattaforma operativa. AIjò unisce consulenza di direzione, intelligenza artificiale d'avanguardia e design premium per guidare il futuro del tuo business.

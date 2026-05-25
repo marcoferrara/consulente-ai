@@ -644,15 +644,16 @@
       ✨ Grazie! Registrazione effettuata. Ti contatteremo non appena saremo online!
     </div>
 
-    <form id="subscribe-form" action="https://formsubmit.co/marco.ferrara1980@gmail.com" method="POST" onsubmit="handleSubscribe(event)">
+    <form id="subscribe-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="handleSubscribe(event)">
       <div class="input-group">
         <input type="email" id="email" name="email" class="input-field" placeholder="Inserisci la tua email..." required>
         <button type="submit" class="btn-submit">Avvisami al Lancio</button>
       </div>
-      <!-- Configurazione FormSubmit per il fallback classico (in caso di AdBlocker o problemi CORS) -->
-      <input type="hidden" name="_next" id="next-field">
-      <input type="hidden" name="_subject" value="Nuovo Iscritto al Lancio - AIjò">
-      <input type="hidden" name="_captcha" value="false">
+      <!-- Configurazione Web3Forms per il funzionamento sia AJAX che Fallback nativo -->
+      <input type="hidden" name="access_key" value="96395c7b-00a5-4fd9-8d2e-16de2fbe7b16">
+      <input type="hidden" name="redirect" id="redirect-field">
+      <input type="hidden" name="subject" value="Nuovo Iscritto al Lancio - AIjò">
+      <input type="hidden" name="from_name" value="AIjò Website">
     </form>
 
     <!-- Socials / Contacts -->
@@ -700,11 +701,11 @@
       }
     }
 
-    // Configura il campo _next con l'URL corrente al caricamento
+    // Configura il campo redirect con l'URL corrente al caricamento
     document.addEventListener("DOMContentLoaded", function() {
-      const nextField = document.getElementById('next-field');
-      if (nextField) {
-        nextField.value = window.location.href;
+      const redirectField = document.getElementById('redirect-field');
+      if (redirectField) {
+        redirectField.value = window.location.href;
       }
     });
 
@@ -721,15 +722,17 @@
       submitBtn.textContent = "Invio in corso...";
 
       try {
-        const response = await fetch("https://formsubmit.co/ajax/marco.ferrara1980@gmail.com", {
+        const response = await fetch("https://api.web3forms.com/submit", {
           method: "POST",
           headers: { 
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
           body: JSON.stringify({
+            access_key: "96395c7b-00a5-4fd9-8d2e-16de2fbe7b16",
             email: emailInput.value,
-            _subject: "Nuovo Iscritto al Lancio - AIjò"
+            subject: "Nuovo Iscritto al Lancio - AIjò",
+            from_name: "AIjò Website"
           })
         });
 
@@ -737,7 +740,7 @@
           form.style.display = 'none';
           successMessage.style.display = 'block';
         } else {
-          // Se risponde ma c'è un errore (es. 400/500), esegue il fallback classico
+          // Se risponde ma c'è un errore (es. chiave errata/limite superato), esegue il fallback classico
           console.warn("API Error, eseguo invio classico");
           form.submit();
         }

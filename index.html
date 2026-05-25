@@ -644,11 +644,15 @@
       ✨ Grazie! Registrazione effettuata. Ti contatteremo non appena saremo online!
     </div>
 
-    <form id="subscribe-form" onsubmit="handleSubscribe(event)">
+    <form id="subscribe-form" action="https://formsubmit.co/marco.ferrara1980@gmail.com" method="POST" onsubmit="handleSubscribe(event)">
       <div class="input-group">
-        <input type="email" id="email" class="input-field" placeholder="Inserisci la tua email..." required>
+        <input type="email" id="email" name="email" class="input-field" placeholder="Inserisci la tua email..." required>
         <button type="submit" class="btn-submit">Avvisami al Lancio</button>
       </div>
+      <!-- Configurazione FormSubmit per il fallback classico (in caso di AdBlocker o problemi CORS) -->
+      <input type="hidden" name="_next" id="next-field">
+      <input type="hidden" name="_subject" value="Nuovo Iscritto al Lancio - AIjò">
+      <input type="hidden" name="_captcha" value="false">
     </form>
 
     <!-- Socials / Contacts -->
@@ -696,6 +700,14 @@
       }
     }
 
+    // Configura il campo _next con l'URL corrente al caricamento
+    document.addEventListener("DOMContentLoaded", function() {
+      const nextField = document.getElementById('next-field');
+      if (nextField) {
+        nextField.value = window.location.href;
+      }
+    });
+
     async function handleSubscribe(event) {
       event.preventDefault();
       const emailInput = document.getElementById('email');
@@ -725,14 +737,14 @@
           form.style.display = 'none';
           successMessage.style.display = 'block';
         } else {
-          alert("Si è verificato un errore. Riprova più tardi.");
+          // Se risponde ma c'è un errore (es. 400/500), esegue il fallback classico
+          console.warn("API Error, eseguo invio classico");
+          form.submit();
         }
       } catch (e) {
-        console.error("Errore nell'invio:", e);
-        alert("Errore di rete. Controlla la tua connessione.");
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Avvisami al Lancio";
+        console.warn("Errore di rete/CORS (AdBlocker rilevato). Eseguo invio di fallback classico nativo:", e);
+        // Il metodo submit() nativo del form non scatena l'evento onsubmit (previene i loop)
+        form.submit();
       }
     }
   </script>

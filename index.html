@@ -1,2424 +1,755 @@
 <!DOCTYPE html>
 <html lang="it">
-<!-- Aijò Landing Page v1.2.0 - Rebranded & Enhanced Netlify Forms AJAX -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aijò — Marco Ferrara · Consulente AI Sardegna</title>
-    <meta name="description" content="Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio.">
-    
-    <!-- SEO Optimization -->
-    <link rel="canonical" href="https://aijo.ai/" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    
-    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Aijò — Marco Ferrara · Consulente AI Sardegna" />
-    <meta property="og:description" content="Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio." />
-    <meta property="og:url" content="https://aijo.ai/" />
-    <meta property="og:site_name" content="Aijò" />
-    <meta property="og:image" content="https://aijo.ai/assets/og-image.png" />
-    <meta property="og:locale" content="it_IT" />
- 
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Aijò — Marco Ferrara · Consulente AI Sardegna" />
-    <meta name="twitter:description" content="Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio." />
-    <meta name="twitter:image" content="https://aijo.ai/assets/og-image.png" />
- 
-    <!-- Local Business Structured Data (Schema.org) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Aijò — Marco Ferrara Consulente AI",
-      "image": "https://aijo.ai/assets/og-image.png",
-      "description": "Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio.",
-      "@id": "https://aijo.ai/#professional-service",
-      "url": "https://aijo.ai/",ntai.com/",
-      "address": {
-        "@type": "PostalAddress",
-        "addressRegion": "Sardegna",
-        "addressCountry": "IT"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "39.2276",
-        "longitude": "9.1172"
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
-        "opens": "09:00",
-        "closes": "18:00"
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIjò — Consulenza AI ad Alto Impatto (In Costruzione)</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Il nuovo portale di AIjò (Consulente AI) è in arrivo. Strategia d'avanguardia, integrazione di intelligenza artificiale avanzata e design premium per il tuo business.">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Styling -->
+  <style>
+    :root {
+      --bg: #07090e; /* Nero della landing page */
+      --bg2: #0b0e16;
+      --surface: #111520;
+      --card-bg: rgba(11, 14, 22, 0.75); /* Slate calcolato su --bg2 */
+      --border: rgba(200, 167, 107, 0.22); /* Oro trasparente per i bordi */
+      --text: #ede8df; /* Testo chiaro calco della landing */
+      --text-muted: #7a7265; /* Testo attenuato calco della landing */
+      --primary: #c8a76b; /* Oro principale della landing */
+      --primary-glow: rgba(200, 167, 107, 0.25);
+      --accent: #c8a76b; /* Oro */
+      --accent-glow: rgba(200, 167, 107, 0.12);
+      --terra: #9a4f2e; /* Terracotta d'accento secondario */
+      --radius: 24px;
+      --font-title: 'Cormorant Garamond', serif; /* Serif premium */
+      --font-body: 'Jost', sans-serif; /* Sans-serif geometrico elegante */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+      padding: 24px;
+      font-weight: 300;
+    }
+
+    /* Noise Texture Overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* Ambient Background Glows (Gold and Terra Warm Gradients) */
+    .glow-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.35;
+      mix-blend-mode: screen;
+      animation: float 25s infinite alternate ease-in-out;
+    }
+
+    .glow-orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--primary) 0%, rgba(200, 167, 107, 0) 70%);
+      top: -10%;
+      left: -10%;
+      animation-duration: 20s;
+    }
+
+    .glow-orb-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(200, 167, 107, 0.45) 0%, rgba(200, 167, 107, 0) 70%);
+      bottom: -20%;
+      right: -10%;
+      animation-duration: 28s;
+    }
+
+    .glow-orb-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--terra) 0%, rgba(154, 79, 46, 0) 70%);
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-duration: 25s;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0px, 0px) scale(1); }
+      50% { transform: translate(60px, -40px) scale(1.1); }
+      100% { transform: translate(-30px, 50px) scale(0.95); }
+    }
+
+    /* Main Container Card */
+    .container {
+      max-width: 680px;
+      width: 100%;
+      background: var(--card-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 48px 40px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      z-index: 10;
+      position: relative;
+      animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Logo & Branding */
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200, 167, 107, 0.08);
+      border: 1px solid var(--border);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .brand-logo-frame {
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      background: linear-gradient(135deg, rgba(200, 167, 107, 0.12) 0%, rgba(200, 167, 107, 0.02) 100%);
+      border: 1px solid rgba(200, 167, 107, 0.25);
+      border-radius: 20px;
+      box-shadow: 
+        inset 0 0 20px rgba(200, 167, 107, 0.05),
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(200, 167, 107, 0.08);
+      margin-bottom: 28px;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    /* Light swipe animation overlay */
+    .brand-logo-frame::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -80%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.08) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotate(30deg);
+      transition: 0.8s ease;
+      pointer-events: none;
+    }
+
+    .brand-logo-frame:hover::before {
+      left: 150%;
+    }
+
+    .brand-logo-img {
+      max-height: 100px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.3));
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .brand-logo-frame:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: rgba(200, 167, 107, 0.55);
+      box-shadow: 
+        inset 0 0 30px rgba(200, 167, 107, 0.1),
+        0 20px 45px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(200, 167, 107, 0.18);
+    }
+
+    .brand-logo-frame:hover .brand-logo-img {
+      transform: scale(1.03);
+    }
+
+    .brand-title-text {
+      font-family: var(--font-title);
+      font-size: clamp(22px, 5vw, 28px);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--primary); /* Gold */
+      margin-top: -12px;
+      margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title-text span {
+      color: var(--text); /* Sand */
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    /* Content */
+    h1 {
+      font-family: var(--font-title);
+      font-size: clamp(26px, 6vw, 36px);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--primary);
+    }
+
+    .description {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Progress bar */
+    .progress-wrapper {
+      margin-bottom: 40px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .progress-percentage {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(200, 167, 107, 0.05);
+      border-radius: 99px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      width: 85%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary) 0%, #f6ecd9 100%);
+      border-radius: 99px;
+      box-shadow: 0 0 12px var(--primary-glow);
+      position: relative;
+      animation: fillBar 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .progress-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.25) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      animation: shine 2s infinite linear;
+    }
+
+    @keyframes fillBar {
+      from { width: 0%; }
+      to { width: 85%; }
+    }
+
+    @keyframes shine {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(100%); }
+    }
+
+    /* Interactive Accordion - Core Expertise */
+    .accordion-trigger {
+      background: rgba(200, 167, 107, 0.03);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px 24px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .accordion-trigger:hover {
+      background: rgba(200, 167, 107, 0.08);
+      border-color: rgba(200, 167, 107, 0.45);
+      color: var(--primary);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: left;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .accordion-content.open {
+      max-height: 380px;
+    }
+
+    .expertise-item {
+      background: rgba(200, 167, 107, 0.01);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .expertise-item:hover {
+      transform: translateX(6px);
+      border-color: rgba(200, 167, 107, 0.4);
+      background: rgba(200, 167, 107, 0.03);
+    }
+
+    .expertise-icon {
+      background: rgba(200, 167, 107, 0.1);
+      color: var(--primary);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 600;
+      font-size: 16px;
+      border: 1px solid rgba(200, 167, 107, 0.15);
+    }
+
+    .expertise-text h3 {
+      font-family: var(--font-title);
+      font-size: 16px;
+      font-weight: 400;
+      margin-bottom: 4px;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
+    .expertise-text p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Newsletter Form */
+    .form-title {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 8px;
+      max-width: 480px;
+      margin: 0 auto 36px auto;
+      position: relative;
+    }
+
+    @media (max-width: 520px) {
+      .input-group {
+        flex-direction: column;
       }
     }
-    </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .input-field {
+      flex-grow: 1;
+      background: rgba(200, 167, 107, 0.02);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-family: var(--font-body);
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
 
-        :root {
-            --bg:           #07090e;
-            --bg2:          #0b0e16;
-            --surface:      #111520;
-            --gold:         #c8a76b;
-            --gold-dim:     rgba(200, 167, 107, 0.12);
-            --gold-border:  rgba(200, 167, 107, 0.22);
-            --gold-glow:    rgba(200, 167, 107, 0.08);
-            --terra:        #9a4f2e;
-            --sea:          #1d6d94;
-            --text:         #ede8df;
-            --muted:        #7a7265;
-            --dim:          #3e3a34;
-        }
+    .input-field:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 12px rgba(200, 167, 107, 0.15);
+      background: rgba(200, 167, 107, 0.05);
+    }
 
-        html { scroll-behavior: smooth; }
+    .btn-submit {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--terra) 100%);
+      color: #07090e;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(200, 167, 107, 0.25);
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Jost', sans-serif;
-            font-weight: 300;
-            line-height: 1.6;
-            cursor: none;
-            overflow-x: hidden;
-        }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(200, 167, 107, 0.4);
+      filter: brightness(1.1);
+    }
 
-        /* ─── CURSOR ─── */
-        #cur { position:fixed; width:6px; height:6px; background:var(--gold); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); }
-        #cur-ring { position:fixed; width:32px; height:32px; border:1px solid rgba(200,167,107,.45); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .2s,height .2s,opacity .2s; }
+    .btn-submit:active {
+      transform: translateY(0);
+    }
 
-        /* ─── NOISE OVERLAY ─── */
-        body::after {
-            content:'';
-            position:fixed; inset:0;
-            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-size:180px;
-            opacity:.028;
-            pointer-events:none;
-            z-index:1000;
-        }
+    /* Success message */
+    .success-alert {
+      display: none;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #34d399;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 36px;
+      animation: fadeIn 0.4s ease;
+    }
 
-        /* ─── NAV ─── */
-        nav {
-            position:fixed; top:0; left:0; right:0; z-index:200;
-            padding:1.4rem 3rem;
-            display:flex; align-items:center; justify-content:space-between;
-            transition:background .4s, backdrop-filter .4s;
-        }
-        nav.scrolled {
-            background:rgba(7,9,14,.92);
-            backdrop-filter:blur(24px);
-            -webkit-backdrop-filter:blur(24px);
-        }
-        nav::after {
-            content:'';
-            position:absolute; bottom:0; left:3rem; right:3rem;
-            height:1px; background:var(--gold-border);
-        }
-        .nav-logo {
-            font-family:'Cormorant Garamond',serif;
-            font-size:1.2rem; font-weight:600; letter-spacing:.06em;
-            color:var(--text); text-decoration:none;
-            display:inline-flex; align-items:center; gap:0.5rem;
-        }
-        .nav-logo span { color:var(--gold); }
-        .nav-logo svg {
-            stroke: var(--gold);
-            fill: none;
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .nav-logo:hover svg {
-            transform: scale(1.1) rotate(12deg);
-        }
-        .nav-links { display:flex; gap:2.25rem; list-style:none; }
-        .nav-links a {
-            color:var(--muted); text-decoration:none;
-            font-size:.75rem; font-weight:400;
-            letter-spacing:.14em; text-transform:uppercase;
-            transition:color .2s;
-        }
-        .nav-links a:hover { color:var(--gold); }
-        .nav-cta {
-            color:var(--gold) !important;
-            border:1px solid var(--gold-border) !important;
-            padding:.45rem 1.1rem;
-            transition:background .2s, color .2s !important;
-        }
-        .nav-cta:hover { background:var(--gold) !important; color:var(--bg) !important; }
+    /* Contact Links / Social */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+    }
 
-        /* ─── HERO ─── */
-        #hero {
-            position:relative; min-height:100vh;
-            display:flex; align-items:center;
-            padding-top:6rem;
-            overflow:hidden;
-        }
-        #hero-canvas { position:absolute; inset:0; width:100%; height:100%; }
-        .hero-vignette {
-            position:absolute; inset:0;
-            background:radial-gradient(ellipse at 30% 60%, transparent 30%, rgba(7,9,14,.75) 100%);
-            pointer-events:none;
-        }
-        .hero-content {
-            position:relative; z-index:10;
-            padding:0 3rem; max-width:950px;
-        }
-        .hero-eyebrow {
-            display:inline-flex; align-items:center; gap:.8rem;
-            font-size:.68rem; letter-spacing:.22em; text-transform:uppercase;
-            color:var(--gold); margin-bottom:2.5rem;
-            opacity:0; animation:fadeUp .8s ease forwards .4s;
-        }
-        .hero-eyebrow::before { content:''; width:2rem; height:1px; background:var(--gold); }
-        h1 {
-            font-family:'Cormorant Garamond',serif;
-            font-weight:300;
-            font-size:clamp(3.2rem,7.5vw,7rem);
-            line-height:1.02; letter-spacing:-.025em;
-            margin-bottom:2rem;
-            opacity:0; animation:fadeUp 1s ease forwards .6s;
-        }
-        h1 em { font-style:italic; color:var(--gold); }
-        .hero-sub {
-            font-size:1rem; font-weight:300; color:var(--muted);
-            max-width:460px; line-height:1.85; margin-bottom:3rem;
-            opacity:0; animation:fadeUp 1s ease forwards .8s;
-        }
-        .hero-actions {
-            display:flex; gap:1.5rem; align-items:center;
-            opacity:0; animation:fadeUp 1s ease forwards 1s;
-        }
-        .btn-primary {
-            background:var(--gold); color:var(--bg);
-            padding:.9rem 2rem; text-decoration:none;
-            font-size:.78rem; font-weight:500;
-            letter-spacing:.1em; text-transform:uppercase;
-            display:inline-block;
-            transition:opacity .2s, transform .2s;
-        }
-        .btn-primary:hover { opacity:.82; transform:translateY(-1px); }
-        .btn-ghost {
-            color:var(--muted); text-decoration:none;
-            font-size:.78rem; font-weight:300;
-            letter-spacing:.1em; text-transform:uppercase;
-            display:flex; align-items:center; gap:.5rem;
-            transition:color .2s, gap .2s;
-        }
-        .btn-ghost:hover { color:var(--gold); gap:.85rem; }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(200, 167, 107, 0.02);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
 
-        .hero-stats {
-            position:absolute; right:3rem; bottom:6rem;
-            display:flex; flex-direction:column; gap:2rem;
-            z-index:10;
-            opacity:0; animation:fadeLeft 1s ease forwards 1.1s;
-        }
-        .stat { text-align:right; }
-        .stat-num {
-            font-family:'Cormorant Garamond',serif;
-            font-size:2.2rem; font-weight:600;
-            color:var(--gold); display:block; line-height:1;
-        }
-        .stat-label {
-            font-size:.62rem; letter-spacing:.16em;
-            text-transform:uppercase; color:var(--dim);
-            display:block; margin-top:.3rem;
-        }
+    .social-btn:hover {
+      background: rgba(200, 167, 107, 0.08);
+      border-color: var(--primary);
+      color: #fff;
+      transform: translateY(-2px);
+    }
 
-        .hero-scroll {
-            position:absolute; bottom:2.5rem; left:3rem;
-            display:flex; align-items:center; gap:1rem;
-            font-size:.67rem; letter-spacing:.2em;
-            text-transform:uppercase; color:var(--dim);
-            opacity:0; animation:fadeUp 1s ease forwards 1.3s;
-        }
-        .scroll-line {
-            width:36px; height:1px; background:var(--dim);
-            position:relative; overflow:hidden;
-        }
-        .scroll-line::after {
-            content:''; position:absolute; top:0; left:-100%;
-            width:100%; height:100%; background:var(--gold);
-            animation:scrollPulse 2.4s ease-in-out infinite 1.5s;
-        }
-        @keyframes scrollPulse { 0%{left:-100%} 50%{left:0} 100%{left:100%} }
+    /* Footer copy */
+    footer {
+      margin-top: 36px;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      z-index: 10;
+      letter-spacing: 0.05em;
+    }
 
-        /* ─── ORNAMENT DIVIDER ─── */
-        .ornament {
-            display:flex; align-items:center; gap:1.5rem;
-            max-width:1200px; margin:0 auto;
-            padding:0 3rem;
-        }
-        .ornament-line { flex:1; height:1px; background:var(--gold-border); }
-        .ornament-diamond {
-            width:8px; height:8px;
-            border:1px solid var(--gold);
-            transform:rotate(45deg);
-        }
-
-        /* ─── SECTION LABEL ─── */
-        .section-label {
-            font-size:.68rem; letter-spacing:.26em;
-            text-transform:uppercase; color:var(--gold);
-            display:flex; align-items:center; gap:.8rem;
-        }
-        .section-label::after {
-            content:''; width:2.5rem; height:1px;
-            background:var(--gold-border);
-        }
-
-        /* ─── MANIFESTO ─── */
-        #manifesto {
-            padding:11rem 3rem;
-            max-width:1200px; margin:0 auto;
-            display:grid; grid-template-columns:1fr 2fr;
-            gap:7rem; align-items:start;
-        }
-        .manifesto-label { padding-top:.4rem; }
-        .manifesto-text h2 {
-            font-family:'Cormorant Garamond',serif;
-            font-size:clamp(2.2rem,4.5vw,3.8rem);
-            font-weight:300; line-height:1.15;
-            margin-bottom:2.2rem;
-        }
-        .manifesto-text h2 strong { font-weight:600; font-style:italic; }
-        .manifesto-text p {
-            color:var(--muted); font-size:.98rem;
-            line-height:1.95; margin-bottom:1.5rem;
-            max-width:600px;
-        }
-        .pullquote {
-            margin-top:3rem; padding-left:2rem;
-            border-left:2px solid var(--gold);
-            font-family:'Cormorant Garamond',serif;
-            font-size:1.45rem; font-style:italic;
-            font-weight:300; line-height:1.55;
-            color:var(--text); opacity:.8;
-        }
-
-        /* ─── SERVICES ─── */
-        #servizi {
-            padding:8rem 0;
-            background:var(--bg2);
-            position:relative;
-        }
-        #servizi::before, #servizi::after {
-            content:''; position:absolute;
-            left:0; right:0; height:1px;
-            background:linear-gradient(to right, transparent, var(--gold-border), transparent);
-        }
-        #servizi::before { top:0; }
-        #servizi::after { bottom:0; }
-
-        .services-header {
-            max-width:1200px; margin:0 auto 5rem;
-            padding:0 3rem;
-            display:flex; justify-content:space-between; align-items:flex-end;
-        }
-        .services-header h2 {
-            font-family:'Cormorant Garamond',serif;
-            font-size:clamp(2.8rem,5.5vw,4.5rem);
-            font-weight:300; line-height:1.05;
-        }
-        .services-header h2 em { font-style:italic; color:var(--gold); }
-        .services-count {
-            font-size:.68rem; letter-spacing:.16em;
-            text-transform:uppercase; color:var(--muted);
-            padding-bottom:.5rem;
-        }
-
-        .services-grid {
-            max-width:1200px; margin:0 auto;
-            padding:0 3rem;
-            display:grid; grid-template-columns:repeat(2,1fr);
-            gap:1px; background:var(--gold-border);
-        }
-        .service-card {
-            background:var(--bg2); padding:3.5rem;
-            position:relative; overflow:hidden;
-            transition:background .35s;
-        }
-        .service-card::before {
-            content:''; position:absolute;
-            top:0; left:0; right:0; height:2px;
-            background:var(--gold);
-            transform:scaleX(0); transform-origin:left;
-            transition:transform .45s ease;
-        }
-        .service-card:hover { background:var(--surface); }
-        .service-card:hover::before { transform:scaleX(1); }
-        .service-num {
-            font-family:'Cormorant Garamond',serif;
-            font-size:.82rem; color:var(--gold);
-            letter-spacing:.12em; margin-bottom:2.2rem;
-        }
-        .service-card h3 {
-            font-family:'Cormorant Garamond',serif;
-            font-size:1.95rem; font-weight:400;
-            margin-bottom:1rem; line-height:1.2;
-        }
-        .service-card p {
-            color:var(--muted); font-size:.9rem; line-height:1.85;
-        }
-        .service-tags { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:2.2rem; }
-        .tag {
-            font-size:.62rem; letter-spacing:.13em;
-            text-transform:uppercase; color:var(--gold);
-            border:1px solid var(--gold-border); padding:.22rem .6rem;
-        }
-
-        /* ─── SIMULAZIONI ─── */
-        #simulazioni {
-            padding: 10rem 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-        }
-        .simulazioni-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.6fr;
-            gap: 5rem;
-            margin-top: 4rem;
-            align-items: start;
-        }
-        .sim-tabs {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .sim-tab-btn {
-            background: transparent;
-            border: 1px solid var(--gold-border);
-            padding: 1.5rem;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.35s ease;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .sim-tab-btn:hover {
-            border-color: var(--gold);
-            background: rgba(200, 167, 107, 0.03);
-            transform: translateX(5px);
-        }
-        .sim-tab-btn.active {
-            background: var(--surface);
-            border-color: var(--gold);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-        .sim-tab-btn.active::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: var(--gold);
-        }
-        .sim-tab-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-            pointer-events: none;
-        }
-        .sim-tab-num {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.8rem;
-            color: var(--gold);
-            letter-spacing: 0.1em;
-        }
-        .sim-tab-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.35rem;
-            font-weight: 500;
-            color: var(--text);
-            line-height: 1.2;
-        }
-        .sim-tab-tag {
-            font-size: 0.6rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--muted);
-            border: 1px solid var(--dim);
-            padding: 0.18rem 0.5rem;
-            height: fit-content;
-            pointer-events: none;
-        }
-        .sim-tab-btn.active .sim-tab-tag {
-            color: var(--gold);
-            border-color: var(--gold-border);
-        }
-
-        /* Console */
-        .sim-console {
-            background: var(--surface);
-            border: 1px solid var(--gold-border);
-            padding: 3rem;
-            position: relative;
-            overflow: hidden;
-            min-height: 480px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-        .sim-console::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, rgba(200,167,107,0.03) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        /* Screen state styling */
-        .console-screen {
-            opacity: 1;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            flex: 1;
-        }
-        .console-screen.fade-out {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        .console-screen.fade-in {
-            opacity: 0;
-            transform: translateY(10px);
-            animation: consoleReveal 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-        @keyframes consoleReveal {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Header of console */
-        .console-hdr {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(200, 167, 107, 0.1);
-            padding-bottom: 1.2rem;
-            margin-bottom: 1.8rem;
-        }
-        .console-hdr-left {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-        .console-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--gold);
-            box-shadow: 0 0 8px var(--gold);
-        }
-        .console-dot.pulse {
-            animation: dotPulse 1.8s infinite;
-        }
-        @keyframes dotPulse {
-            0% { opacity: 0.4; box-shadow: 0 0 2px var(--gold); }
-            50% { opacity: 1; box-shadow: 0 0 10px var(--gold); }
-            100% { opacity: 0.4; box-shadow: 0 0 2px var(--gold); }
-        }
-        .console-title {
-            font-size: 0.65rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-        .console-badge {
-            font-size: 0.55rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--gold);
-            background: var(--gold-dim);
-            padding: 0.2rem 0.6rem;
-            border: 1px solid var(--gold-border);
-        }
-
-        /* Challenge Screen */
-        .challenge-quote {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.35rem;
-            font-style: italic;
-            line-height: 1.6;
-            color: var(--text);
-            opacity: 0.9;
-            margin: 1.5rem 0 2.5rem;
-            position: relative;
-            padding-left: 2rem;
-            border-left: 1px solid var(--gold-border);
-        }
-        .challenge-quote::before {
-            content: '“';
-            position: absolute;
-            left: 0.5rem;
-            top: -0.5rem;
-            font-size: 3rem;
-            font-family: serif;
-            color: var(--gold);
-            line-height: 1;
-            opacity: 0.25;
-        }
-        .btn-solve {
-            align-self: center;
-            background: transparent;
-            color: var(--gold);
-            border: 1px solid var(--gold);
-            padding: 1rem 2.5rem;
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(200, 167, 107, 0.05);
-            margin-top: 1rem;
-        }
-        .btn-solve:hover {
-            background: var(--gold);
-            color: var(--bg);
-            box-shadow: 0 0 25px rgba(200, 167, 107, 0.2);
-            transform: translateY(-2px);
-        }
-        .btn-solve::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
-            transform: skewX(-25deg);
-            transition: 0.75s;
-        }
-        .btn-solve:hover::before {
-            left: 150%;
-        }
-
-        /* Pulsante Prototipo Evidenziato */
-        .btn-prototype-highlight {
-            position: relative;
-            overflow: hidden;
-            background: var(--gold) !important;
-            color: var(--bg) !important;
-            font-weight: 600 !important;
-            border: 1px solid var(--gold) !important;
-            box-shadow: 0 0 20px rgba(200, 167, 107, 0.4) !important;
-            animation: pulseGlow 2s infinite ease-in-out;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
-        }
-        .btn-prototype-highlight::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(
-                to right,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.4) 50%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            transform: skewX(-25deg);
-            animation: shineSweep 4s infinite ease-in-out;
-        }
-        .btn-prototype-highlight:hover {
-            transform: translateY(-3px) scale(1.02) !important;
-            box-shadow: 0 0 30px rgba(200, 167, 107, 0.7) !important;
-            background: #ede8df !important; /* light sand hover */
-            color: var(--bg) !important;
-            border-color: #ede8df !important;
-        }
-        @keyframes pulseGlow {
-            0% {
-                box-shadow: 0 0 15px rgba(200, 167, 107, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(200, 167, 107, 0.7);
-            }
-            100% {
-                box-shadow: 0 0 15px rgba(200, 167, 107, 0.3);
-            }
-        }
-        @keyframes shineSweep {
-            0% {
-                left: -150%;
-            }
-            30% {
-                left: 150%;
-            }
-            100% {
-                left: 150%;
-            }
-        }
-
-        /* Scan Line Effect */
-        .scan-bar {
-            position: absolute;
-            left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(to right, transparent, var(--gold), transparent);
-            box-shadow: 0 0 12px var(--gold);
-            pointer-events: none;
-            opacity: 0;
-            z-index: 15;
-            top: 0%;
-        }
-        .scan-bar.scanning {
-            animation: scanAnim 1.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        @keyframes scanAnim {
-            0% { top: 0%; opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { top: 100%; opacity: 0; }
-        }
-
-        /* Solution Screen */
-        .solution-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1.8rem;
-            text-align: left;
-        }
-        .sol-block h4 {
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 0.6rem;
-        }
-        .sol-block p {
-            font-size: 0.88rem;
-            color: var(--muted);
-            line-height: 1.75;
-        }
-        .sol-tech {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-            margin-top: 0.5rem;
-        }
-        .sol-tech span {
-            font-size: 0.58rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            background: rgba(255,255,255,0.03);
-            color: var(--text);
-            border: 1px solid rgba(255,255,255,0.06);
-            padding: 0.18rem 0.5rem;
-        }
-        .sol-impact {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            border-top: 1px solid rgba(200, 167, 107, 0.1);
-            padding-top: 1.5rem;
-            margin-top: 0.5rem;
-        }
-        .impact-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-        .impact-val {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--gold);
-            line-height: 1;
-            text-shadow: 0 0 10px rgba(200,167,107,0.15);
-        }
-        .impact-lbl {
-            font-size: 0.62rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
-        /* Back to challenge button */
-        .btn-back-sim {
-            background: transparent;
-            border: none;
-            color: var(--muted);
-            cursor: pointer;
-            font-size: 0.62rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            transition: color 0.2s;
-            margin-top: 1rem;
-            align-self: flex-start;
-        }
-        .btn-back-sim:hover {
-            color: var(--gold);
-        }
-
-        /* ─── CHAT WHATSAPP SIMULATOR ─── */
-        .chat-bubble {
-            max-width: 80%;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            line-height: 1.5;
-            position: relative;
-            animation: bubbleFade 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            word-wrap: break-word;
-        }
-        @keyframes bubbleFade {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: none; }
-        }
-        .chat-bubble.sanna {
-            background: var(--bg2);
-            color: var(--text);
-            border: 1px solid var(--gold-border);
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-        }
-        .chat-bubble.user {
-            background: var(--gold-dim);
-            color: var(--text);
-            border: 1px solid rgba(200, 167, 107, 0.35);
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-        }
-        .chat-system {
-            align-self: center;
-            font-size: 0.68rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: var(--gold);
-            background: rgba(200, 167, 107, 0.05);
-            padding: 0.35rem 0.8rem;
-            border: 1px solid var(--gold-border);
-            border-radius: 4px;
-            text-align: center;
-            margin: 0.5rem 0;
-            max-width: 90%;
-            line-height: 1.4;
-            animation: bubbleFade 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-        .chat-system.error {
-            color: #e63946;
-            background: rgba(230, 57, 70, 0.05);
-            border-color: rgba(230, 57, 70, 0.2);
-        }
-        #chat-messages-container::-webkit-scrollbar {
-            width: 4px;
-        }
-        #chat-messages-container::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        #chat-messages-container::-webkit-scrollbar-thumb {
-            background: var(--gold-border);
-            border-radius: 2px;
-        }
-        #chat-messages-container::-webkit-scrollbar-thumb:hover {
-            background: var(--gold);
-        }
-
-        @media (max-width: 900px) {
-            .simulazioni-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            #simulazioni {
-                padding: 6rem 2rem;
-            }
-        }
-
-        /* ─── TERRITORY ─── */
-        #territorio {
-            padding:11rem 3rem;
-            max-width:1200px; margin:0 auto;
-        }
-        .territorio-grid {
-            display:grid; grid-template-columns:1fr 1.2fr;
-            gap:8rem; align-items:center;
-        }
-        .territorio-visual {
-            position:relative;
-        }
-        .sard-svg-wrap {
-            position:relative;
-            display:flex; align-items:center; justify-content:center;
-        }
-        .sard-svg-wrap::before {
-            content:'';
-            position:absolute; inset:-2rem;
-            background:radial-gradient(ellipse, var(--gold-glow) 0%, transparent 70%);
-        }
-        .territorio-content h2 {
-            font-family:'Cormorant Garamond',serif;
-            font-size:clamp(2rem,3.8vw,3.2rem);
-            font-weight:300; line-height:1.2;
-            margin-bottom:1.8rem;
-        }
-        .territorio-content p {
-            color:var(--muted); font-size:.95rem;
-            line-height:1.9; margin-bottom:1.4rem;
-        }
-        .territory-points { margin-top:2.5rem; display:flex; flex-direction:column; gap:1.2rem; }
-        .territory-point { display:flex; align-items:flex-start; gap:1rem; }
-        .tp-icon {
-            width:22px; height:22px;
-            border:1px solid var(--gold-border);
-            display:flex; align-items:center; justify-content:center;
-            flex-shrink:0; margin-top:1px;
-        }
-        .tp-icon svg { width:9px; height:9px; }
-        .territory-point p {
-            margin:0; font-size:.88rem;
-            color:var(--muted); line-height:1.65;
-        }
-        .territory-point strong { color:var(--text); font-weight:500; }
-
-        /* ─── PROCESSO ─── */
-        #processo {
-            padding:8rem 3rem;
-            background:var(--bg2); position:relative;
-        }
-        #processo::before {
-            content:''; position:absolute; top:0; left:0; right:0;
-            height:1px;
-            background:linear-gradient(to right, transparent, var(--gold-border), transparent);
-        }
-        .processo-inner { max-width:1200px; margin:0 auto; }
-        .processo-header { margin-bottom:5rem; }
-        .processo-header h2 {
-            font-family:'Cormorant Garamond',serif;
-            font-size:clamp(2rem,4vw,3.5rem);
-            font-weight:300; margin-top:1.2rem;
-        }
-        .processo-steps {
-            display:grid; grid-template-columns:repeat(4,1fr);
-            gap:0; position:relative;
-        }
-        .processo-steps::before {
-            content:''; position:absolute;
-            top:1.15rem; left:1rem; right:1rem;
-            height:1px; background:var(--gold-border);
-        }
-        .step { padding:0 1.5rem 0 0; position:relative; }
-        .step-dot {
-            width:1.1rem; height:1.1rem;
-            background:var(--bg2);
-            border:1px solid var(--gold);
-            border-radius:50%; margin-bottom:2.2rem;
-            position:relative; z-index:1;
-            transition:box-shadow .3s;
-        }
-        .step:hover .step-dot { box-shadow:0 0 12px var(--gold-dim); }
-        .step-dot::after {
-            content:''; position:absolute; inset:3px;
-            background:var(--gold); border-radius:50%;
-            transform:scale(0); transition:transform .3s;
-        }
-        .step:hover .step-dot::after { transform:scale(1); }
-        .step-num {
-            font-family:'Cormorant Garamond',serif;
-            font-size:.78rem; color:var(--gold);
-            letter-spacing:.1em; margin-bottom:.8rem;
-        }
-        .step h3 {
-            font-family:'Cormorant Garamond',serif;
-            font-size:1.5rem; font-weight:400; margin-bottom:.8rem;
-        }
-        .step p { font-size:.86rem; color:var(--muted); line-height:1.85; }
-
-        /* ─── CONTACT ─── */
-        #contatto {
-            padding:11rem 3rem;
-            max-width:860px; margin:0 auto;
-            text-align:center;
-        }
-        #contatto .section-label { justify-content:center; margin-bottom:2rem; }
-        #contatto h2 {
-            font-family:'Cormorant Garamond',serif;
-            font-size:clamp(2.8rem,6vw,5.2rem);
-            font-weight:300; line-height:1.08;
-            margin-bottom:1.5rem;
-        }
-        #contatto h2 em { font-style:italic; color:var(--gold); }
-        #contatto > p {
-            color:var(--muted); font-size:1rem;
-            line-height:1.85; max-width:480px;
-            margin:0 auto 3.5rem;
-        }
-        .contact-form {
-            display:grid; grid-template-columns:1fr 1fr;
-            gap:1px; background:var(--gold-border);
-            text-align:left;
-        }
-        .form-field {
-            background:var(--surface);
-            padding:1.5rem; display:flex;
-            flex-direction:column; gap:.6rem;
-        }
-        .form-field.full { grid-column:1/-1; }
-        .form-field label {
-            font-size:.62rem; letter-spacing:.22em;
-            text-transform:uppercase; color:var(--gold);
-        }
-        .form-field input,
-        .form-field textarea,
-        .form-field select {
-            background:transparent;
-            border:none;
-            border-bottom:1px solid var(--gold-border);
-            color:var(--text);
-            padding:.5rem 0;
-            font-family:'Jost',sans-serif;
-            font-size:.9rem; font-weight:300;
-            outline:none;
-            transition:border-color .2s;
-            resize:none; width:100%;
-            appearance:none;
-        }
-        .form-field input::placeholder,
-        .form-field textarea::placeholder { color:var(--dim); }
-        .form-field input:focus,
-        .form-field textarea:focus,
-        .form-field select:focus { border-bottom-color:var(--gold); }
-        .form-field textarea { height:100px; }
-        .form-field select option { background:var(--surface); }
-        .form-submit {
-            background:var(--surface); border:none;
-            border-top:1px solid var(--gold-border);
-            color:var(--gold);
-            padding:1.35rem;
-            font-family:'Jost',sans-serif;
-            font-size:.78rem; font-weight:500;
-            letter-spacing:.18em; text-transform:uppercase;
-            cursor:none;
-            transition:background .3s, color .3s;
-            width:100%;
-        }
-        .form-submit:hover { background:var(--gold); color:var(--bg); }
-        .contact-alt {
-            margin-top:2.5rem;
-            display:flex; align-items:center;
-            justify-content:center; gap:.75rem;
-            color:var(--muted); font-size:.85rem;
-        }
-        .contact-alt a { color:var(--gold); text-decoration:none; }
-        .contact-alt a:hover { text-decoration:underline; }
-        .contact-alt span.sep { color:var(--dim); }
-
-        /* ─── FOOTER ─── */
-        footer {
-            padding:2rem 3rem;
-            border-top:1px solid var(--gold-border);
-            display:flex; align-items:center;
-            justify-content:space-between;
-        }
-        footer p { font-size:.72rem; color:var(--dim); letter-spacing:.04em; }
-        .footer-mark {
-            font-family:'Cormorant Garamond',serif;
-            font-size:1.1rem; color:var(--muted);
-            letter-spacing:.2em;
-        }
-
-        /* ─── ANIMATIONS ─── */
-        @keyframes fadeUp {
-            from { opacity:0; transform:translateY(22px); }
-            to   { opacity:1; transform:none; }
-        }
-        @keyframes fadeLeft {
-            from { opacity:0; transform:translateX(22px); }
-            to   { opacity:1; transform:none; }
-        }
-        .reveal {
-            opacity:0; transform:translateY(22px);
-            transition:opacity .75s ease, transform .75s ease;
-        }
-        .reveal.visible { opacity:1; transform:none; }
-        .reveal-d1 { transition-delay:.1s; }
-        .reveal-d2 { transition-delay:.2s; }
-        .reveal-d3 { transition-delay:.3s; }
-        .reveal-d4 { transition-delay:.4s; }
-
-        /* ─── RESPONSIVE (basic) ─── */
-        @media (max-width: 900px) {
-            nav { padding:1.2rem 1.5rem; }
-            nav::after { left:1.5rem; right:1.5rem; }
-            .nav-links { display:none; }
-            #manifesto { grid-template-columns:1fr; gap:3rem; padding:6rem 1.5rem; }
-            .services-header { padding:0 1.5rem; flex-direction:column; align-items:flex-start; gap:1rem; }
-            .services-grid { padding:0 1.5rem; grid-template-columns:1fr; }
-            #territorio { padding:6rem 1.5rem; }
-            .territorio-grid { grid-template-columns:1fr; gap:3rem; }
-            .sard-svg-wrap { max-width:280px; margin:0 auto; }
-            #processo { padding:6rem 1.5rem; }
-            .processo-steps { grid-template-columns:1fr 1fr; gap:3rem; }
-            .processo-steps::before { display:none; }
-            #contatto { padding:6rem 1.5rem; }
-            .contact-form { grid-template-columns:1fr; }
-            .hero-content { padding:0 1.5rem; }
-            .hero-stats { display:none; }
-            footer { padding:1.5rem; flex-direction:column; gap:1rem; text-align:center; }
-        }
-    </style>
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 36px 24px;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      .description {
+        font-size: 14px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div id="cur"></div>
-    <div id="cur-ring"></div>
+  <!-- Ambient Glow -->
+  <div class="glow-container">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+  </div>
 
-    <!-- ══ NAV ══ -->
-    <nav id="nav">
-        <a href="#" class="nav-logo">
-            <svg class="logo-svg" width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle;">
-                <!-- Fede & Microchip ring symbol (Aijò logo) -->
-                <circle cx="50" cy="50" r="38" stroke="var(--gold)" stroke-width="4" opacity="0.35"/>
-                <!-- Fede sarda filigree dots (left half) -->
-                <circle cx="16" cy="36" r="3" fill="var(--gold)"/>
-                <circle cx="12" cy="50" r="3" fill="var(--gold)"/>
-                <circle cx="16" cy="64" r="3" fill="var(--gold)"/>
-                <circle cx="25" cy="76" r="3" fill="var(--gold)"/>
-                <circle cx="25" cy="24" r="3" fill="var(--gold)"/>
-                <circle cx="36" cy="16" r="3" fill="var(--gold)"/>
-                <circle cx="36" cy="84" r="3" fill="var(--gold)"/>
-                <!-- Microchip circuits (right half) -->
-                <path d="M50 12 A38 38 0 0 1 88 50 A38 38 0 0 1 50 88" stroke="var(--gold)" stroke-width="4" stroke-linecap="round"/>
-                <path d="M50 22 A28 28 0 0 1 78 50 A28 28 0 0 1 50 78" stroke="var(--gold)" stroke-width="1.5" stroke-dasharray="3 2"/>
-                <line x1="72" y1="36" x2="84" y2="36" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                <circle cx="84" cy="36" r="2" fill="var(--gold)"/>
-                <line x1="78" y1="50" x2="88" y2="50" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                <circle cx="88" cy="50" r="2" fill="var(--gold)"/>
-                <line x1="72" y1="64" x2="84" y2="64" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/>
-                <circle cx="84" cy="64" r="2" fill="var(--gold)"/>
-            </svg>AI<span>JÒ</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#manifesto">Approccio</a></li>
-            <li><a href="#servizi">Servizi</a></li>
-            <li><a href="#simulazioni">Simulatori</a></li>
-            <li><a href="#territorio">Territorio</a></li>
-            <li><a href="#processo">Metodo</a></li>
-            <li><a href="#contatto" class="nav-cta">Contattami</a></li>
-        </ul>
-    </nav>
-
-    <!-- ══ HERO ══ -->
-    <section id="hero">
-        <canvas id="hero-canvas"></canvas>
-        <div class="hero-vignette"></div>
-
-        <div class="hero-content">
-            <div class="hero-eyebrow">Consulente AI &middot; Sardegna</div>
-            <h1>L'<em>intelligenza<br>artificiale</em><br>per la tua<br>impresa</h1>
-            <p class="hero-sub">Strategie e implementazioni AI su misura per le aziende sarde. Tecnologia di frontiera, radicamento nel territorio.</p>
-            <div class="hero-actions">
-                <a href="#contatto" class="btn-primary">Prima consulenza gratuita</a>
-                <a href="#servizi" class="btn-ghost">Scopri i servizi &rarr;</a>
-            </div>
-        </div>
-
-        <div class="hero-stats">
-            <div class="stat">
-                <span class="stat-num">+40%</span>
-                <span class="stat-label">Efficienza media</span>
-            </div>
-            <div class="stat">
-                <span class="stat-num">20+</span>
-                <span class="stat-label">Progetti completati</span>
-            </div>
-            <div class="stat">
-                <span class="stat-num">100%</span>
-                <span class="stat-label">Locale & dedicato</span>
-            </div>
-        </div>
-
-        <div class="hero-scroll">
-            <div class="scroll-line"></div>
-            Scorri
-        </div>
-    </section>
-
-    <!-- ══ MANIFESTO ══ -->
-    <section id="manifesto">
-        <div class="section-label manifesto-label reveal">Approccio</div>
-        <div class="manifesto-text">
-            <h2 class="reveal">L'AI non è il futuro.<br><strong>È il presente.</strong><br>E la Sardegna<br>merita di esserci.</h2>
-            <p class="reveal reveal-d1">Le grandi imprese del continente hanno già integrato l'intelligenza artificiale nei loro processi. Le PMI sarde hanno la stessa opportunità — ma hanno bisogno di un partner che capisca sia la tecnologia che il tessuto economico locale.</p>
-            <p class="reveal reveal-d2">Il mio approccio è concreto e misurabile: analisi dei processi esistenti, identificazione delle opportunità reali, implementazione graduale, verifica dei risultati. Niente buzzword, niente promesse vuote.</p>
-            <blockquote class="pullquote reveal reveal-d3">
-                &ldquo;L'obiettivo non è automatizzare per automatizzare, ma liberare le persone per fare ciò che sanno fare meglio.&rdquo;
-            </blockquote>
-        </div>
-    </section>
-
-    <!-- ══ SERVICES ══ -->
-    <section id="servizi">
-        <div class="services-header">
-            <h2 class="reveal">Cosa posso<br>fare per <em>te</em></h2>
-            <span class="services-count reveal">04 servizi</span>
-        </div>
-        <div class="services-grid">
-            <div class="service-card reveal">
-                <div class="service-num">01</div>
-                <h3>Strategia &amp; Roadmap AI</h3>
-                <p>Analizzo i tuoi processi, identifico dove l'AI crea valore reale e costruisco una roadmap di adozione realistica e sostenibile per la tua organizzazione.</p>
-                <div class="service-tags">
-                    <span class="tag">Audit processi</span>
-                    <span class="tag">Gap analysis</span>
-                    <span class="tag">Roadmap</span>
-                </div>
-            </div>
-            <div class="service-card reveal reveal-d1">
-                <div class="service-num">02</div>
-                <h3>Implementazione AI</h3>
-                <p>Dalla selezione degli strumenti all'integrazione con i sistemi esistenti. Implemento soluzioni pratiche — automazioni, chatbot, analisi predittiva — che funzionano davvero.</p>
-                <div class="service-tags">
-                    <span class="tag">LLM integration</span>
-                    <span class="tag">Automazione</span>
-                    <span class="tag">API &amp; workflow</span>
-                </div>
-            </div>
-            <div class="service-card reveal reveal-d2">
-                <div class="service-num">03</div>
-                <h3>Formazione del Team</h3>
-                <p>Workshop pratici e percorsi formativi personalizzati per portare il tuo team dalla curiosità alla competenza. L'AI diventa uno strumento quotidiano, non uno slogan.</p>
-                <div class="service-tags">
-                    <span class="tag">Workshop</span>
-                    <span class="tag">Prompt engineering</span>
-                    <span class="tag">AI literacy</span>
-                </div>
-            </div>
-            <div class="service-card reveal reveal-d3">
-                <div class="service-num">04</div>
-                <h3>AI per Marketing &amp; Dati</h3>
-                <p>Contenuti, SEO, campagne e analisi del cliente potenziati dall'AI. Strumenti specifici per il mercato sardo e per chi vuole crescere anche fuori dall'isola.</p>
-                <div class="service-tags">
-                    <span class="tag">Content AI</span>
-                    <span class="tag">Data analysis</span>
-                    <span class="tag">SEO automation</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ══ SIMULATIONS ══ -->
-    <section id="simulazioni">
-        <div class="ornament reveal">
-            <div class="ornament-line"></div>
-            <div class="ornament-diamond"></div>
-            <div class="ornament-line"></div>
-        </div>
-        
-        <div style="margin-top: 6rem; text-align: center;">
-            <div class="section-label reveal" style="justify-content: center; margin-bottom: 2rem;">Simulatore</div>
-            <h2 class="reveal" style="font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,5.5vw,4.5rem); font-weight:300; line-height:1.05;">
-                Casi Reali <em>Risolti</em>
-            </h2>
-            <p class="reveal" style="color:var(--muted); font-size:1rem; max-width:600px; margin:1.5rem auto 0; line-height:1.85;">
-                Seleziona uno scenario reale del tessuto economico sardo per simulare l'impatto di una consulenza strategica e dell'integrazione AI nei tuoi processi.
-            </p>
-        </div>
-
-        <div class="simulazioni-grid">
-            <!-- Left Column: Tabs -->
-            <div class="sim-tabs reveal">
-                <button class="sim-tab-btn active" data-sim="turismo">
-                    <div class="sim-tab-info">
-                        <span class="sim-tab-num">01</span>
-                        <span class="sim-tab-title">Boutique Hotel</span>
-                    </div>
-                    <span class="sim-tab-tag">Turismo</span>
-                </button>
-                <button class="sim-tab-btn" data-sim="export">
-                    <div class="sim-tab-info">
-                        <span class="sim-tab-num">02</span>
-                        <span class="sim-tab-title">Cantina Vinicola</span>
-                    </div>
-                    <span class="sim-tab-tag">Agroalimentare</span>
-                </button>
-                <button class="sim-tab-btn" data-sim="RAG">
-                    <div class="sim-tab-info">
-                        <span class="sim-tab-num">03</span>
-                        <span class="sim-tab-title">Studio Associato</span>
-                    </div>
-                    <span class="sim-tab-tag">Servizi</span>
-                </button>
-                <button class="sim-tab-btn" data-sim="artigianato">
-                    <div class="sim-tab-info">
-                        <span class="sim-tab-num">04</span>
-                        <span class="sim-tab-title">Laboratorio Artistico</span>
-                    </div>
-                    <span class="sim-tab-tag">Artigianato</span>
-                </button>
-                <button class="sim-tab-btn" data-sim="logistica">
-                    <div class="sim-tab-info">
-                        <span class="sim-tab-num">05</span>
-                        <span class="sim-tab-title">PMI Logistica</span>
-                    </div>
-                    <span class="sim-tab-tag">Logistica</span>
-                </button>
-            </div>
-
-            <!-- Right Column: Console -->
-            <div class="sim-console reveal" id="console-container">
-                <div class="scan-bar" id="console-scanner"></div>
-                
-                <div class="console-hdr">
-                    <div class="console-hdr-left">
-                        <div class="console-dot pulse" id="console-status-dot"></div>
-                        <span class="console-title" id="console-hdr-title">Engine Stato: In Attesa</span>
-                    </div>
-                    <span class="console-badge" id="console-hdr-badge">Turismo &amp; Hospitality</span>
-                </div>
-
-                <!-- Screen 1: Challenge (Initially Visible) -->
-                <div class="console-screen" id="screen-challenge">
-                    <div>
-                        <div style="font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold);">La Sfida del Cliente</div>
-                        <p class="challenge-quote" id="text-challenge">
-                            Da aprile a settembre riceviamo centinaia di richieste di prenotazione e informazioni personalizzate al giorno via email e WhatsApp (richieste di transfer, intolleranze, escursioni, cene tipiche). Il nostro personale alla reception è sopraffatto, risponde in ritardo e spesso perdiamo prenotazioni dirette a favore di Booking.com.
-                        </p>
-                    </div>
-                    <button class="btn-solve" id="btn-solve-trigger">Risolvi con l'AI &rarr;</button>
-                </div>
-
-                <!-- Screen 2: Solution (Initially Hidden) -->
-                <div class="console-screen" id="screen-solution" style="display: none;">
-                    <div class="solution-content">
-                        <div class="sol-block">
-                            <h4 id="sol-heading">La Soluzione Strategica</h4>
-                            <p id="text-solution">
-                                Progettazione e integrazione di un AI Brand Concierge multilingua su WhatsApp e sito web. Addestrato con le guide del territorio e i listini dei servizi dell'hotel, comunica direttamente con il gestionale (PMS) per preventivi in tempo reale.
-                            </p>
-                            <div class="sol-tech" id="container-tech">
-                                <span>LLM Customization</span>
-                                <span>PMS API Integration</span>
-                                <span>WhatsApp Business</span>
-                                <span>Multilingual NLP</span>
-                            </div>
-                        </div>
-
-                        <div class="sol-impact">
-                            <div class="impact-item">
-                                <span class="impact-val" id="val-impact1">+25%</span>
-                                <span class="impact-lbl" id="lbl-impact1">Prenotazioni dirette</span>
-                            </div>
-                            <div class="impact-item">
-                                <span class="impact-val" id="val-impact2">4 ore/giorno</span>
-                                <span class="impact-lbl" id="lbl-impact2">Tempo risparmiato per staff</span>
-                            </div>
-                        </div>
-
-                        <!-- CTA per avviare il prototipo reale (mostrato solo per Turismo) -->
-                        <div id="prototype-cta-container" style="margin-top: 2rem;">
-                            <button class="btn-solve btn-prototype-highlight" id="btn-test-prototype" style="width: 100%; margin: 0; display: none;">
-                                Avvia Prototipo Reale 💬
-                            </button>
-                        </div>
-                    </div>
-                    <button class="btn-back-sim" id="btn-back-trigger">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                        Riapri la sfida
-                    </button>
-                </div>
-
-                <!-- Screen 3: WhatsApp Web Chat Simulator (Initially Hidden) -->
-                <div class="console-screen" id="screen-chat" style="display: none; height: 100%; flex-direction: column;">
-                    <!-- Chat Header -->
-                    <div class="chat-header" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(200, 167, 107, 0.15); margin-bottom: 0.8rem;">
-                        <div style="display: flex; align-items: center; gap: 0.8rem;">
-                            <div style="position: relative;">
-                                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--gold-dim); border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); font-weight: 600;">S</div>
-                                <div style="position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-radius: 50%; background: #52B788; border: 2px solid var(--surface);"></div>
-                            </div>
-                            <div>
-                                <div style="font-size: 0.85rem; font-weight: 500; color: var(--text); line-height: 1.2;">Sanna</div>
-                                <div style="font-size: 0.65rem; color: #52B788; letter-spacing: 0.05em; text-transform: uppercase;">AI Brand Concierge</div>
-                            </div>
-                        </div>
-                        <div style="display: flex; align-items: center;">
-                            <span id="chat-server-status" class="console-badge" style="font-size: 0.55rem; padding: 0.15rem 0.4rem; background: rgba(230, 57, 70, 0.1); border-color: rgba(230, 57, 70, 0.3); color: #e63946;">Server: Offline</span>
-                        </div>
-                    </div>
-
-                    <!-- Chat Messages Box -->
-                    <div id="chat-messages-container" style="flex: 1; overflow-y: auto; padding: 0.5rem 0; display: flex; flex-direction: column; gap: 1rem; max-height: 250px; min-height: 220px; margin-bottom: 0.8rem;">
-                        <!-- Messages will be injected here -->
-                    </div>
-
-                    <!-- Chat Input Box -->
-                    <form id="chat-input-form" style="display: flex; gap: 0.5rem; border-top: 1px solid rgba(200, 167, 107, 0.1); padding-top: 0.8rem; margin-top: auto;">
-                        <input type="text" id="chat-message-input" placeholder="Scrivi a Sanna..." required style="flex: 1; background: rgba(7, 9, 14, 0.5); border: 1px solid var(--gold-border); border-radius: 4px; padding: 0.6rem 0.8rem; color: var(--text); font-family: 'Jost', sans-serif; font-size: 0.85rem; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--gold-border)'">
-                        <button type="submit" style="background: var(--gold); border: none; color: var(--bg); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 4px; cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseleave="this.style.opacity='1'">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(45deg); margin-left: -2px; margin-top: 2px;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                        </button>
-                    </form>
-                    
-                    <!-- Back to Solution -->
-                    <button class="btn-back-sim" id="btn-back-to-sol-trigger" style="margin-top: 0.6rem; align-self: flex-start;">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                        Torna alla soluzione
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ══ TERRITORY ══ -->
-    <section id="territorio">
-        <div class="territorio-grid">
-            <div class="territorio-visual reveal">
-                <div class="sard-svg-wrap">
-                    <svg viewBox="0 0 320 440" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:360px;">
-                        <defs>
-                            <radialGradient id="sg" cx="50%" cy="50%" r="50%">
-                                <stop offset="0%" stop-color="#c8a76b" stop-opacity=".18"/>
-                                <stop offset="100%" stop-color="#c8a76b" stop-opacity="0"/>
-                            </radialGradient>
-                            <pattern id="gp" width="18" height="18" patternUnits="userSpaceOnUse">
-                                <path d="M9 0 L18 9 L9 18 L0 9 Z" fill="none" stroke="#c8a76b" stroke-width=".5" opacity=".28"/>
-                            </pattern>
-                            <!--
-                                Coastline traced from geographic coordinates.
-                                Projection: x = 51.5 + (lon − 8.13) × 127.7
-                                            y = 420 − (lat − 38.85) × 166.7
-                                Clockwise from Capo Falcone (NW).
-                            -->
-                            <clipPath id="sardClip">
-                                <path d="M62,68 C76,80 81,84 86,88 C104,83 115,78 126,77 C152,66 170,40 187,23 C208,30 225,46 242,63 C250,72 254,77 256,82 C258,110 257,130 255,136 C253,152 250,162 247,178 C248,200 251,225 251,240 C253,241 255,241 256,241 C254,266 248,298 235,326 C231,345 229,364 227,378 C218,385 205,392 193,393 C186,392 180,378 178,358 C175,344 169,371 162,401 C146,413 131,418 115,420 C105,418 95,406 91,382 C87,372 84,366 82,358 C80,342 77,314 76,288 C75,268 82,252 97,248 C93,240 89,232 90,229 C93,220 96,210 97,205 C99,193 99,184 98,177 C94,161 84,148 76,135 C68,135 58,135 57,135 C54,126 52,110 52,97 C52,84 56,75 62,68 Z"/>
-                            </clipPath>
-                        </defs>
-
-                        <!-- Sardinia fill -->
-                        <path d="M62,68 C76,80 81,84 86,88 C104,83 115,78 126,77 C152,66 170,40 187,23 C208,30 225,46 242,63 C250,72 254,77 256,82 C258,110 257,130 255,136 C253,152 250,162 247,178 C248,200 251,225 251,240 C253,241 255,241 256,241 C254,266 248,298 235,326 C231,345 229,364 227,378 C218,385 205,392 193,393 C186,392 180,378 178,358 C175,344 169,371 162,401 C146,413 131,418 115,420 C105,418 95,406 91,382 C87,372 84,366 82,358 C80,342 77,314 76,288 C75,268 82,252 97,248 C93,240 89,232 90,229 C93,220 96,210 97,205 C99,193 99,184 98,177 C94,161 84,148 76,135 C68,135 58,135 57,135 C54,126 52,110 52,97 C52,84 56,75 62,68 Z"
-                              fill="url(#sg)"/>
-                        <!-- Geometric pattern inside Sardinia -->
-                        <rect x="0" y="0" width="320" height="440" fill="url(#gp)" clip-path="url(#sardClip)"/>
-                        <!-- Sardinia outline -->
-                        <path d="M62,68 C76,80 81,84 86,88 C104,83 115,78 126,77 C152,66 170,40 187,23 C208,30 225,46 242,63 C250,72 254,77 256,82 C258,110 257,130 255,136 C253,152 250,162 247,178 C248,200 251,225 251,240 C253,241 255,241 256,241 C254,266 248,298 235,326 C231,345 229,364 227,378 C218,385 205,392 193,393 C186,392 180,378 178,358 C175,344 169,371 162,401 C146,413 131,418 115,420 C105,418 95,406 91,382 C87,372 84,366 82,358 C80,342 77,314 76,288 C75,268 82,252 97,248 C93,240 89,232 90,229 C93,220 96,210 97,205 C99,193 99,184 98,177 C94,161 84,148 76,135 C68,135 58,135 57,135 C54,126 52,110 52,97 C52,84 56,75 62,68 Z"
-                              fill="none" stroke="#c8a76b" stroke-width="1.2" opacity=".55"/>
-
-                        <!-- CAGLIARI — 39.22°N 9.12°E → (178, 358) -->
-                        <circle cx="178" cy="358" r="3.5" fill="#c8a76b" opacity=".9"/>
-                        <text x="190" y="356" fill="#c8a76b" font-family="'Jost',sans-serif" font-size="8.5" opacity=".6" letter-spacing="2">CAGLIARI</text>
-
-                        <!-- SASSARI — 40.73°N 8.56°E → (106, 106) -->
-                        <circle cx="106" cy="106" r="2.5" fill="#c8a76b" opacity=".7"/>
-                        <text x="118" y="110" fill="#c8a76b" font-family="'Jost',sans-serif" font-size="7.5" opacity=".5" letter-spacing="1.5">SASSARI</text>
-
-                        <!-- OLBIA — 40.92°N 9.50°E → (226, 75) -->
-                        <circle cx="226" cy="75" r="2.5" fill="#c8a76b" opacity=".7"/>
-                        <text x="164" y="73" fill="#c8a76b" font-family="'Jost',sans-serif" font-size="7.5" opacity=".5" letter-spacing="1.5">OLBIA</text>
-
-                        <!-- NUORO — 40.32°N 9.33°E → (205, 175) -->
-                        <circle cx="205" cy="175" r="2.5" fill="#c8a76b" opacity=".5"/>
-                        <text x="142" y="179" fill="#c8a76b" font-family="'Jost',sans-serif" font-size="7.5" opacity=".42" letter-spacing="1.5">NUORO</text>
-
-                        <!-- ORISTANO — 39.90°N 8.59°E → (110, 245) -->
-                        <circle cx="110" cy="245" r="2.5" fill="#c8a76b" opacity=".5"/>
-                        <text x="122" y="249" fill="#c8a76b" font-family="'Jost',sans-serif" font-size="7.5" opacity=".42" letter-spacing="1.5">ORISTANO</text>
-
-                        <!-- Aijò symbol — centre island -->
-                        <g transform="translate(163,233)" opacity=".25">
-                            <circle cx="0" cy="0" r="10" fill="none" stroke="#c8a76b" stroke-width="1"/>
-                            <circle cx="0" cy="0" r="6" fill="none" stroke="#c8a76b" stroke-dasharray="2 1.5" stroke-width="0.8"/>
-                            <circle cx="0" cy="0" r="2" fill="#c8a76b"/>
-                        </g>
-
-                        <!-- Frame -->
-                        <rect x="12" y="12" width="296" height="416" fill="none" stroke="#c8a76b" stroke-width=".5" opacity=".12"/>
-                        <rect x="4"  y="4"  width="312" height="432" fill="none" stroke="#c8a76b" stroke-width=".3" opacity=".06"/>
-                    </svg>
-                </div>
-            </div>
-
-            <div class="territorio-content">
-                <div class="section-label reveal">Territorio</div>
-                <h2 class="reveal">Locale non<br>significa provinciale</h2>
-                <p class="reveal reveal-d1">Conosco le specificità del mercato sardo: le PMI familiari, il turismo di qualità, l'agroalimentare d'eccellenza, l'artigianato. Non porto soluzioni generiche — porto soluzioni che funzionano qui, in questo territorio.</p>
-                <div class="territory-points">
-                    <div class="territory-point reveal reveal-d1">
-                        <div class="tp-icon">
-                            <svg viewBox="0 0 9 9" fill="none" stroke="#c8a76b" stroke-width="1.2"><polyline points="1,4.5 3.5,7 8,2"/></svg>
-                        </div>
-                        <p><strong>Presenza fisica</strong> — Incontri in presenza in tutta la Sardegna, non solo videochiamate</p>
-                    </div>
-                    <div class="territory-point reveal reveal-d2">
-                        <div class="tp-icon">
-                            <svg viewBox="0 0 9 9" fill="none" stroke="#c8a76b" stroke-width="1.2"><polyline points="1,4.5 3.5,7 8,2"/></svg>
-                        </div>
-                        <p><strong>Conoscenza del tessuto locale</strong> — PMI, cooperative, enti pubblici, startup dell'isola</p>
-                    </div>
-                    <div class="territory-point reveal reveal-d3">
-                        <div class="tp-icon">
-                            <svg viewBox="0 0 9 9" fill="none" stroke="#c8a76b" stroke-width="1.2"><polyline points="1,4.5 3.5,7 8,2"/></svg>
-                        </div>
-                        <p><strong>Settori chiave</strong> — Turismo, agroalimentare, pesca, artigianato, PA, rinnovabili</p>
-                    </div>
-                    <div class="territory-point reveal reveal-d4">
-                        <div class="tp-icon">
-                            <svg viewBox="0 0 9 9" fill="none" stroke="#c8a76b" stroke-width="1.2"><polyline points="1,4.5 3.5,7 8,2"/></svg>
-                        </div>
-                        <p><strong>Competenze nazionali</strong> — Partner e metodologie al livello delle grandi città italiane</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ══ PROCESSO ══ -->
-    <section id="processo">
-        <div class="processo-inner">
-            <div class="processo-header">
-                <div class="section-label reveal">Metodo</div>
-                <h2 class="reveal">Come lavoro</h2>
-            </div>
-            <div class="processo-steps">
-                <div class="step reveal">
-                    <div class="step-dot"></div>
-                    <div class="step-num">01 &mdash; Ascolto</div>
-                    <h3>Comprendo</h3>
-                    <p>Prima sessione gratuita per capire la tua azienda, gli obiettivi e le sfide reali. Nessun presupposto, nessun template.</p>
-                </div>
-                <div class="step reveal reveal-d1">
-                    <div class="step-dot"></div>
-                    <div class="step-num">02 &mdash; Analisi</div>
-                    <h3>Mappo</h3>
-                    <p>Audit approfondito dei processi, identificazione delle opportunità AI e stima concreta dell'impatto atteso.</p>
-                </div>
-                <div class="step reveal reveal-d2">
-                    <div class="step-dot"></div>
-                    <div class="step-num">03 &mdash; Esecuzione</div>
-                    <h3>Implemento</h3>
-                    <p>Esecuzione graduale con checkpoint frequenti. Adattamento continuo al contesto reale della tua organizzazione.</p>
-                </div>
-                <div class="step reveal reveal-d3">
-                    <div class="step-dot"></div>
-                    <div class="step-num">04 &mdash; Autonomia</div>
-                    <h3>Ti lascio libero</h3>
-                    <p>L'obiettivo finale è la tua indipendenza. Formo le persone, non creo dipendenze dal consulente.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ══ CONTACT ══ -->
-    <section id="contatto">
-        <div class="section-label reveal">Contatto</div>
-        <h2 class="reveal">Parliamo del<br>tuo <em>progetto</em></h2>
-        <p class="reveal">Prima consulenza gratuita. Nessun impegno. Scopriamo insieme se e come l'AI può fare la differenza nella tua azienda.</p>
-
-        <form class="contact-form reveal" id="contact-form" name="contact" method="POST" data-netlify="true">
-            <input type="hidden" name="form-name" value="contact" />
-            <div class="form-field">
-                <label>Nome e cognome</label>
-                <input type="text" name="name" placeholder="Mario Rossi" required>
-            </div>
-            <div class="form-field">
-                <label>Email</label>
-                <input type="email" name="email" placeholder="mario@azienda.it" required>
-            </div>
-            <div class="form-field">
-                <label>Azienda</label>
-                <input type="text" name="company" placeholder="Nome dell'azienda">
-            </div>
-            <div class="form-field">
-                <label>Settore</label>
-                <select name="sector">
-                    <option value="">Seleziona&hellip;</option>
-                    <option>Turismo &amp; Hospitality</option>
-                    <option>Agroalimentare &amp; Vino</option>
-                    <option>Commercio &amp; Retail</option>
-                    <option>Servizi professionali</option>
-                    <option>Manifatturiero &amp; Artigianato</option>
-                    <option>Pesca &amp; Acquacoltura</option>
-                    <option>Pubblica Amministrazione</option>
-                    <option>Startup &amp; Tech</option>
-                    <option>Altro</option>
-                </select>
-            </div>
-            <div class="form-field full">
-                <label>Descrivi la tua sfida</label>
-                <textarea name="message" placeholder="Cosa vorresti migliorare o automatizzare nella tua azienda?"></textarea>
-            </div>
-            <button type="submit" class="form-submit full" id="submit-btn">Invia messaggio &rarr;</button>
-        </form>
-
-        <div class="contact-alt reveal">
-            <span>Oppure scrivi a</span>
-            <a href="mailto:marco.ferrara1980@gmail.com">marco.ferrara1980@gmail.com</a>
-            <span class="sep">&middot;</span>
-            <span>Rispondo entro 24h</span>
-        </div>
-    </section>
-
-    <!-- ══ FOOTER ══ -->
-    <footer>
-        <p>&copy; 2026 Aijò &mdash; Advanced Intelligence & Heritage. Di Marco Ferrara.</p>
-        <div class="footer-mark">Aijò</div>
-        <p>Sassari &middot; Cagliari &middot; Sardegna</p>
-    </footer>
-
-    <script>
-    /* ── CURSOR ── */
-    const cur = document.getElementById('cur');
-    const ring = document.getElementById('cur-ring');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-
-    document.addEventListener('mousemove', e => {
-        mx = e.clientX; my = e.clientY;
-        cur.style.left = mx + 'px';
-        cur.style.top  = my + 'px';
-    });
-
-    document.querySelectorAll('a, button').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            ring.style.width = '50px';
-            ring.style.height = '50px';
-            ring.style.opacity = '.6';
-        });
-        el.addEventListener('mouseleave', () => {
-            ring.style.width = '32px';
-            ring.style.height = '32px';
-            ring.style.opacity = '1';
-        });
-    });
-
-    (function animateRing() {
-        rx += (mx - rx) * 0.11;
-        ry += (my - ry) * 0.11;
-        ring.style.left = rx + 'px';
-        ring.style.top  = ry + 'px';
-        requestAnimationFrame(animateRing);
-    })();
-
-    /* ── HERO CANVAS ── */
-    const canvas = document.getElementById('hero-canvas');
-    const ctx = canvas.getContext('2d');
-    let nodes = [], W, H;
-    const N = 65, MAX_D = 145;
+  <!-- Content Card -->
+  <div class="container" id="main-card">
     
-    // Sardinia geometry vector matching the map in the territory section
-    const SARD_PATH_STR = "M62,68 C76,80 81,84 86,88 C104,83 115,78 126,77 C152,66 170,40 187,23 C208,30 225,46 242,63 C250,72 254,77 256,82 C258,110 257,130 255,136 C253,152 250,162 247,178 C248,200 251,225 251,240 C253,241 255,241 256,241 C254,266 248,298 235,326 C231,345 229,364 227,378 C218,385 205,392 193,393 C186,392 180,378 178,358 C175,344 169,371 162,401 C146,413 131,418 115,420 C105,418 95,406 91,382 C87,372 84,366 82,358 C80,342 77,314 76,288 C75,268 82,252 97,248 C93,240 89,232 90,229 C93,220 96,210 97,205 C99,193 99,184 98,177 C94,161 84,148 76,135 C68,135 58,135 57,135 C54,126 52,110 52,97 C52,84 56,75 62,68 Z";
+    <!-- Branding -->
+    <div class="brand-badge">IN COSTRUZIONE</div>
+    <div class="brand-logo-frame">
+      <img src="assets/rebranding/logo_aijo_definitivo.png" alt="AIjò Logo" class="brand-logo-img">
+    </div>
+    <div class="brand-title-text">AIjò <span>- Consulente AI</span></div>
     
-    let rawSardiniaPoints = [];
-    let lastMouseMoveTime = Date.now();
-    let idleMode = false;
-    let sardiniaRatio = 0;
-    let hx = -9999, hy = -9999;
-
-    function resize() {
-        W = canvas.width  = canvas.offsetWidth;
-        H = canvas.height = canvas.offsetHeight;
-    }
-
-    // Helper to ease transition curves smoothly
-    function easeInOutCubic(x) {
-        return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-    }
-
-    // Generate accurate geometry points inside/outline of Sardinia SVG path
-    function getSardiniaPoints(numPoints) {
-        const svgNS = "http://www.w3.org/2000/svg";
-        const path = document.createElementNS(svgNS, "path");
-        path.setAttribute("d", SARD_PATH_STR);
-        
-        const points = [];
-        
-        // 1. Core Cities (5 points, precise coordinates on 320x440 viewport)
-        const cities = [
-            { x: 178, y: 358, isCity: true, name: "Cagliari" },
-            { x: 106, y: 106, isCity: true, name: "Sassari" },
-            { x: 226, y: 75, isCity: true, name: "Olbia" },
-            { x: 205, y: 175, isCity: true, name: "Nuoro" },
-            { x: 110, y: 245, isCity: true, name: "Oristano" }
-        ];
-        cities.forEach(c => points.push(c));
-        
-        // 2. Outline points (precise sampling along the coastline path)
-        const outlineCount = 38;
-        try {
-            const totalLen = path.getTotalLength();
-            for (let i = 0; i < outlineCount; i++) {
-                const len = (i / outlineCount) * totalLen;
-                const pt = path.getPointAtLength(len);
-                points.push({ x: pt.x, y: pt.y, isOutline: true });
-            }
-        } catch (e) {
-            console.error("SVG path length sampling error: ", e);
-        }
-        
-        // 3. Interior points (fill the landmass using Canvas Path2D test)
-        const canvasTest = document.createElement('canvas');
-        const ctxTest = canvasTest.getContext('2d');
-        const path2D = new Path2D(SARD_PATH_STR);
-        
-        let attempts = 0;
-        const interiorCount = numPoints - points.length;
-        while (points.length < numPoints && attempts < 1000) {
-            attempts++;
-            // Bounding box of the original Sardinia coordinates
-            const rx = 52 + Math.random() * (256 - 52);
-            const ry = 23 + Math.random() * (420 - 23);
-            if (ctxTest.isPointInPath(path2D, rx, ry)) {
-                points.push({ x: rx, y: ry, isInterior: true });
-            }
-        }
-        
-        // Safety fallback if interior loops hit attempt limits
-        while (points.length < numPoints) {
-            points.push({ x: 160 + (Math.random() - 0.5) * 80, y: 220 + (Math.random() - 0.5) * 120 });
-        }
-        
-        return points;
-    }
-
-    // Scale target points coordinates according to responsive viewport columns
-    function updateTargetPoints() {
-        let sardW, sardH, sardX, sardY;
-        
-        if (W > 900) {
-            // Desktop: right half empty space next to hero text
-            sardW = Math.min(Math.max(W * 0.28, 220), 400);
-            sardH = sardW * (440 / 320);
-            sardX = W * 0.65;
-            sardY = H * 0.5 - sardH * 0.5;
-        } else {
-            // Mobile: centered background behind text with low opacity styling
-            sardW = Math.min(W * 0.65, 250);
-            sardH = sardW * (440 / 320);
-            sardX = W * 0.5 - sardW * 0.5;
-            sardY = H * 0.5 - sardH * 0.5;
-        }
-        
-        for (let i = 0; i < N; i++) {
-            if (nodes[i] && rawSardiniaPoints[i]) {
-                nodes[i].targetX = sardX + (rawSardiniaPoints[i].x / 320) * sardW;
-                nodes[i].targetY = sardY + (rawSardiniaPoints[i].y / 440) * sardH;
-            }
-        }
-    }
-
-    function initNodes() {
-        rawSardiniaPoints = getSardiniaPoints(N);
-        nodes = [];
-        for (let i = 0; i < N; i++) {
-            const isCity = rawSardiniaPoints[i].isCity || false;
-            const r = isCity ? 3.5 : (Math.random() * 1.3 + 0.4);
-            
-            nodes.push({
-                floatX: Math.random() * W,
-                floatY: Math.random() * H,
-                x: 0,
-                y: 0,
-                vx: (Math.random() - .5) * .35,
-                vy: (Math.random() - .5) * .35,
-                r: r,
-                origR: r,
-                isCity: isCity,
-                name: rawSardiniaPoints[i].name || "",
-                targetX: 0,
-                targetY: 0
-            });
-        }
-        updateTargetPoints();
-    }
-
-    resize();
-    initNodes();
+    <h1>Il nostro nuovo spazio digitale è <em>in arrivo</em></h1>
     
-    // Dynamic resizing: update targets coordinates without resetting physical nodes position
-    window.addEventListener('resize', () => { 
-        resize(); 
-        updateTargetPoints(); 
-    });
+    <p class="description">
+      Stiamo perfezionando la nostra nuova identità e piattaforma operativa. AIjò unisce consulenza di direzione, intelligenza artificiale d'avanguardia e design premium per guidare il futuro del tuo business.
+    </p>
 
-    window.addEventListener('mousemove', e => {
-        const r = canvas.getBoundingClientRect();
-        hx = e.clientX - r.left;
-        hy = e.clientY - r.top;
-        lastMouseMoveTime = Date.now();
-        idleMode = false;
-    });
+    <!-- Progress -->
+    <div class="progress-wrapper">
+      <div class="progress-info">
+        <span>Fase di Sviluppo</span>
+        <span class="progress-percentage">85% completato</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill"></div>
+      </div>
+    </div>
 
-    window.addEventListener('touchmove', e => {
-        if (e.touches.length > 0) {
-            const r = canvas.getBoundingClientRect();
-            hx = e.touches[0].clientX - r.left;
-            hy = e.touches[0].clientY - r.top;
-            lastMouseMoveTime = Date.now();
-            idleMode = false;
-        }
-    }, { passive: true });
+    <!-- Accordion Trigger (Interactive Skill/Focus list) -->
+    <button class="accordion-trigger" onclick="toggleAccordion()" id="acc-btn">
+      <span>Scopri i nostri servizi principali</span>
+      <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" style="transition: transform 0.3s; transform: rotate(0deg);" id="acc-arrow">
+        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
 
-    document.addEventListener('mouseleave', () => {
-        hx = -9999;
-        hy = -9999;
-    });
+    <!-- Accordion Content -->
+    <div class="accordion-content" id="acc-content">
+      <div class="expertise-item">
+        <div class="expertise-icon">🎯</div>
+        <div class="expertise-text">
+          <h3>Direzione & Strategia AI</h3>
+          <p>Forniamo consulenza esecutiva per ridisegnare i flussi di lavoro aziendali attorno all'Intelligenza Artificiale.</p>
+        </div>
+      </div>
+      <div class="expertise-item">
+        <div class="expertise-icon">🤖</div>
+        <div class="expertise-text">
+          <h3>Agenti Autonomi & Automazione</h3>
+          <p>Progettiamo e sviluppiamo assistenti intelligenti su misura per e-commerce, logistica e assistenza clienti.</p>
+        </div>
+      </div>
+      <div class="expertise-item">
+        <div class="expertise-icon">💎</div>
+        <div class="expertise-text">
+          <h3>Brand Identity & Design Premium</h3>
+          <p>Uniamo l'efficacia tecnologica a un'estetica premium per posizionare il tuo brand ai vertici del settore.</p>
+        </div>
+      </div>
+    </div>
 
-    function draw() {
-        ctx.clearRect(0, 0, W, H);
-        const now = Date.now();
-        
-        // Enter shape idle mode after 2.5 seconds of absolute user inactivity
-        if (now - lastMouseMoveTime > 2500) {
-            idleMode = true;
-        }
-        
-        // Asymptotical transition interpolation curves
-        if (idleMode) {
-            sardiniaRatio += (1 - sardiniaRatio) * 0.045;
-        } else {
-            sardiniaRatio += (0 - sardiniaRatio) * 0.07;
-        }
-        
-        const t = easeInOutCubic(sardiniaRatio);
-        
-        // 1. Physics update and layout interpolation
-        for (let i = 0; i < nodes.length; i++) {
-            const node = nodes[i];
-            
-            // Continuous background float updates
-            node.floatX += node.vx;
-            node.floatY += node.vy;
-            
-            if (node.floatX < 0 || node.floatX > W) node.vx *= -1;
-            if (node.floatY < 0 || node.floatY > H) node.vy *= -1;
-            
-            // Render position transition
-            node.x = node.floatX + (node.targetX - node.floatX) * t;
-            node.y = node.floatY + (node.targetY - node.floatY) * t;
-            
-            // Liquid ripple repulsion force
-            const mdx = node.x - hx;
-            const mdy = node.y - hy;
-            const md  = Math.sqrt(mdx*mdx + mdy*mdy);
-            if (md < 150) {
-                const force = (1 - md / 150) * 55;
-                const angle = Math.atan2(mdy, mdx);
-                node.x += Math.cos(angle) * force;
-                node.y += Math.sin(angle) * force;
-            }
-        }
-        
-        // 2. Render networks nodes connections
-        for (let i = 0; i < nodes.length; i++) {
-            for (let j = i + 1; j < nodes.length; j++) {
-                const dx = nodes[i].x - nodes[j].x;
-                const dy = nodes[i].y - nodes[j].y;
-                const d = Math.sqrt(dx*dx + dy*dy);
-                
-                if (d < MAX_D) {
-                    ctx.beginPath();
-                    ctx.moveTo(nodes[i].x, nodes[i].y);
-                    ctx.lineTo(nodes[j].x, nodes[j].y);
-                    
-                    // Increase line opacity in shape state to emphasize structure cohesion
-                    const baseOpacity = 0.13;
-                    const shapeBonus = 0.08 * t;
-                    const opacity = (1 - d / MAX_D) * (baseOpacity + shapeBonus);
-                    
-                    ctx.strokeStyle = `rgba(200, 167, 107, ${opacity})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.stroke();
-                }
-            }
-            
-            // Render subtle active links directly connecting to mouse cursor
-            const mdx = nodes[i].x - hx;
-            const mdy = nodes[i].y - hy;
-            const md  = Math.sqrt(mdx*mdx + mdy*mdy);
-            if (md < 160) {
-                ctx.beginPath();
-                ctx.moveTo(nodes[i].x, nodes[i].y);
-                ctx.lineTo(hx, hy);
-                const mouseOpacityRatio = 1 - 0.4 * t;
-                ctx.strokeStyle = `rgba(200, 167, 107, ${(1 - md / 160) * 0.38 * mouseOpacityRatio})`;
-                ctx.lineWidth = 0.7;
-                ctx.stroke();
-            }
-        }
-        
-        // 3. Render final stellar nodes & labels
-        for (let i = 0; i < nodes.length; i++) {
-            const node = nodes[i];
-            
-            // Draw city highlights (pulsing neon star cores & micro labels)
-            if (node.isCity && sardiniaRatio > 0.05) {
-                const glowOpacity = Math.sin(now * 0.003) * 0.22 + 0.38;
-                const activeGlow = glowOpacity * t;
-                
-                ctx.beginPath();
-                const grad = ctx.createRadialGradient(node.x, node.y, 1, node.x, node.y, 10);
-                grad.addColorStop(0, `rgba(200, 167, 107, ${activeGlow})`);
-                grad.addColorStop(1, 'rgba(200, 167, 107, 0)');
-                ctx.fillStyle = grad;
-                ctx.arc(node.x, node.y, 10, 0, Math.PI * 2);
-                ctx.fill();
-                
-                // Draw uppercase typography labels matching SVG
-                ctx.beginPath();
-                ctx.fillStyle = `rgba(200, 167, 107, ${t * 0.78})`;
-                ctx.font = "400 8px 'Jost', sans-serif";
-                ctx.textAlign = "left";
-                ctx.textBaseline = "middle";
-                ctx.fillText(node.name.toUpperCase(), node.x + 10, node.y + 1);
-            }
-            
-            ctx.beginPath();
-            ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
-            if (node.isCity) {
-                ctx.fillStyle = `rgba(200, 167, 107, ${0.6 + 0.4 * t})`;
-            } else {
-                ctx.fillStyle = 'rgba(200, 167, 107, 0.55)';
-            }
-            ctx.fill();
-        }
-        
-        requestAnimationFrame(draw);
-    }
+    <!-- Contact & Updates Form -->
+    <div class="form-title">Rimani in contatto per il lancio</div>
     
-    draw();
+    <div class="success-alert" id="success-message">
+      ✨ Grazie! Registrazione effettuata. Ti contatteremo non appena saremo online!
+    </div>
 
-    /* ── SCROLL REVEAL ── */
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: .08, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(el => observer.observe(el));
+    <form id="subscribe-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="handleSubscribe(event)">
+      <div class="input-group">
+        <input type="email" id="email" name="email" class="input-field" placeholder="Inserisci la tua email..." required>
+        <button type="submit" class="btn-submit">Avvisami al Lancio</button>
+      </div>
+      <!-- Configurazione Web3Forms per il funzionamento sia AJAX che Fallback nativo -->
+      <input type="hidden" name="access_key" value="96395c7b-00a5-4fd9-8d2e-16de2fbe7b16">
+      <input type="hidden" name="redirect" id="redirect-field">
+      <input type="hidden" name="subject" value="Nuovo Iscritto al Lancio - AIjò">
+      <input type="hidden" name="from_name" value="AIjò Website">
+    </form>
 
-    /* ── NAV SCROLL ── */
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 60);
+    <!-- Socials / Contacts -->
+    <div class="social-links">
+      <!-- Email Contact -->
+      <a href="mailto:info@aijo.it" class="social-btn" title="Scrivici una Email">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+        </svg>
+      </a>
+      <!-- LinkedIn -->
+      <a href="https://linkedin.com/in/marcoferrara" target="_blank" class="social-btn" title="Seguici su LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+          <rect x="2" y="9" width="4" height="12"></rect>
+          <circle cx="4" cy="4" r="2"></circle>
+        </svg>
+      </a>
+      <!-- Phone/WhatsApp -->
+      <a href="https://wa.me/393471645716" target="_blank" class="social-btn" title="Chatta su WhatsApp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2026 AIjò. Tutti i diritti riservati. Partita IVA IT03471645716.
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    function toggleAccordion() {
+      const content = document.getElementById('acc-content');
+      const arrow = document.getElementById('acc-arrow');
+      
+      content.classList.toggle('open');
+      if (content.classList.contains('open')) {
+        arrow.style.transform = 'rotate(180deg)';
+      } else {
+        arrow.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    // Configura il campo redirect con l'URL corrente al caricamento
+    document.addEventListener("DOMContentLoaded", function() {
+      const redirectField = document.getElementById('redirect-field');
+      if (redirectField) {
+        redirectField.value = window.location.href;
+      }
     });
 
-    /* ── FORM ── */
-    document.getElementById('contact-form').addEventListener('submit', e => {
-        e.preventDefault();
-        const btn = document.getElementById('submit-btn');
-        const formData = new FormData(e.target);
-        
-        btn.textContent = 'Invio in corso...';
-        btn.disabled = true;
+    async function handleSubscribe(event) {
+      event.preventDefault();
+      const emailInput = document.getElementById('email');
+      const form = document.getElementById('subscribe-form');
+      const successMessage = document.getElementById('success-message');
+      const submitBtn = form.querySelector('.btn-submit');
+      
+      if (!emailInput.value) return;
 
-        fetch('/', {
-            method: 'POST',
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(formData).toString()
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Errore di rete o risposta HTTP non valida.');
-            }
-            btn.textContent = 'Messaggio inviato ✓';
-            btn.style.background = 'var(--gold)';
-            btn.style.color = 'var(--bg)';
-            setTimeout(() => {
-                btn.textContent = 'Invia messaggio →';
-                btn.style.background = '';
-                btn.style.color = '';
-                btn.disabled = false;
-                e.target.reset();
-            }, 3500);
-        })
-        .catch(error => {
-            console.error('Errore invio form:', error);
-            btn.textContent = 'Errore! Riprova';
-            btn.style.background = '#e63946';
-            btn.style.color = '#fff';
-            setTimeout(() => {
-                btn.textContent = 'Invia messaggio →';
-                btn.style.background = '';
-                btn.style.color = '';
-                btn.disabled = false;
-            }, 3500);
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Invio in corso...";
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            access_key: "96395c7b-00a5-4fd9-8d2e-16de2fbe7b16",
+            email: emailInput.value,
+            subject: "Nuovo Iscritto al Lancio - AIjò",
+            from_name: "AIjò Website"
+          })
         });
-    });
 
-    /* ── SIMULATORE AI ── */
-    const SIM_DATA = {
-        turismo: {
-            sector: "Turismo & Hospitality",
-            badge: "Luxury Hospitality",
-            challenge: "Da aprile a settembre riceviamo centinaia di richieste di prenotazione e informazioni personalizzate al giorno via email e WhatsApp (richieste di transfer, intolleranze, escursioni, cene tipiche). Il nostro personale alla reception è sopraffatto, risponde in ritardo e spesso perdiamo prenotazioni dirette a favore di Booking.com.",
-            sol_desc: "Progettazione e integrazione di un AI Brand Concierge multilingua su WhatsApp e sito web. Addestrato con le guide del territorio e i listini dei servizi dell'hotel, comunica direttamente con il gestionale (PMS) per preventivi in tempo reale.",
-            tech: ["LLM Customization", "PMS API Integration", "WhatsApp Business", "Multilingual NLP"],
-            impact_val1: "+25%",
-            impact_lbl1: "Prenotazioni dirette",
-            impact_val2: "4 ore/giorno",
-            impact_lbl2: "Tempo risparmiato per staff"
-        },
-        export: {
-            sector: "Agroalimentare & Export",
-            badge: "Export & Wine",
-            challenge: "Vogliamo vendere all'estero (USA e Germania) ma non abbiamo un reparto marketing internazionale. Dobbiamo tradurre ed adattare culturalmente le nostre schede tecniche, scrivere newsletter B2B per importatori, e capire cosa dicono di noi sulle app e sui siti di recensioni internazionali (es. Vivino) per orientare la produzione.",
-            sol_desc: "Pipeline di Content AI e analisi del sentiment. L'AI non fa una semplice traduzione letterale, ma adatta lo storytelling (es. esalta il concetto di 'longevità sarda' per gli USA). In più, un sistema automatizzato estrae insight semantici dalle recensioni estere.",
-            tech: ["Localization AI", "Brand Voice Tuning", "Sentiment Analysis", "Market Intelligence"],
-            impact_val1: "3 Canali",
-            impact_lbl1: "Nuovi mercati aperti",
-            impact_val2: "-90%",
-            impact_lbl2: "Costo di localizzazione"
-        },
-        RAG: {
-            sector: "Servizi Professionali",
-            badge: "Legal & Corporate",
-            challenge: "Passiamo decine di ore alla settimana a scorrere i bandi della Regione Sardegna (es. POR FESR, incentivi agricoli) per capire quali dei nostri oltre 300 clienti aziendali abbiano i requisiti per accedere ai finanziamenti. Spesso ci sfuggono scadenze cruciali o bandi secondari.",
-            sol_desc: "Implementazione di un sistema di Knowledge Base privato intelligente (RAG) caricando i PDF dei bandi regionali, delibere e normative storiche. I professionisti interrogano il sistema in linguaggio naturale per incrociare istantaneamente i profili aziendali.",
-            tech: ["RAG Architecture", "Vector DB", "Semantic Search", "Document Indexing"],
-            impact_val1: "80%",
-            impact_lbl1: "Tempo di ricerca risparmiato",
-            impact_val2: "Azzerato",
-            impact_lbl2: "Rischio scadenze perse"
-        },
-        artigianato: {
-            sector: "Artigianato d'Eccellenza",
-            badge: "Crafts & E-Commerce",
-            challenge: "Produciamo pezzi unici di straordinario valore (tappeti sardi, filigrana) ma non riusciamo a venderli online. Scrivere descrizioni poetiche, accurate e ottimizzate SEO in più lingue per ogni singolo pezzo unico su Shopify ci richiede troppo tempo. E i clienti stranieri fanno troppe domande sulle spedizioni.",
-            sol_desc: "Integrazione di un sistema multimodale Vision-to-Text SEO. L'artigiano scatta una foto del gioiello, l'AI ne rileva la trama e il disegno simbolico, e genera automaticamente descrizioni emozionali e tradotte, collegate ad un assistente spedizioni specifico.",
-            tech: ["Multimodal Vision", "SEO Copywriting", "Shopify API", "Visual Recognition"],
-            impact_val1: "da 30m a 2m",
-            impact_lbl1: "Tempo inserimento prodotto",
-            impact_val2: "+40%",
-            impact_lbl2: "Conversioni e-commerce estero"
-        },
-        logistica: {
-            sector: "PMI Logistica & Distribuzione",
-            badge: "Smart Logistics",
-            challenge: "Consegniamo merci in tutta l'isola, compresi i piccoli centri dell'interno (Barbagia, Ogliastra). Le strade tortuose, le finestre orarie dei negozi e l'aumento dei costi del carburante stanno erodendo i nostri margini. Dobbiamo ottimizzare i carichi e le consegne.",
-            sol_desc: "Sviluppo di un sistema predittivo di gestione inventario e ottimizzazione rotte basato su Machine Learning leggero. Il sistema incrocia meteo, festività locali (es. Autunno in Barbagia) e storico ordini per anticipare la domanda ed evitare consegne a vuoto.",
-            tech: ["Predictive Analytics", "Routing Optimization", "Inventory Forecasting", "ML Forecasting"],
-            impact_val1: "15%",
-            impact_lbl1: "Risparmio carburante",
-            impact_val2: "-90%",
-            impact_lbl2: "Mancate consegne / out-of-stock"
-        }
-    };
-
-    let activeSimKey = "turismo";
-    let isSolving = false;
-
-    const tabs = document.querySelectorAll('.sim-tab-btn');
-    const scanner = document.getElementById('console-scanner');
-    const statusDot = document.getElementById('console-status-dot');
-    const statusTitle = document.getElementById('console-hdr-title');
-    const badgeEl = document.getElementById('console-hdr-badge');
-    const challengeText = document.getElementById('text-challenge');
-    const solutionText = document.getElementById('text-solution');
-    const techContainer = document.getElementById('container-tech');
-    const impactVal1 = document.getElementById('val-impact1');
-    const impactLbl1 = document.getElementById('lbl-impact1');
-    const impactVal2 = document.getElementById('val-impact2');
-    const impactLbl2 = document.getElementById('lbl-impact2');
-
-    const screenChallenge = document.getElementById('screen-challenge');
-    const screenSolution = document.getElementById('screen-solution');
-    const btnSolve = document.getElementById('btn-solve-trigger');
-    const btnBack = document.getElementById('btn-back-trigger');
-
-    function switchTab(simKey) {
-        if (isSolving) return; // Prevent switching during animation
-        
-        activeSimKey = simKey;
-        const data = SIM_DATA[simKey];
-
-        // Reset screens state
-        screenSolution.style.display = 'none';
-        screenChallenge.style.display = 'flex';
-        screenChallenge.classList.remove('fade-out');
-        
-        // Nascondi la chat se attiva
-        screenChat.style.display = 'none';
-        
-        // Update header & challenge
-        badgeEl.textContent = data.badge;
-        challengeText.textContent = data.challenge;
-        
-        statusTitle.textContent = "Engine Stato: In Attesa";
-        statusDot.style.background = 'var(--gold)';
-        statusDot.style.boxShadow = '0 0 8px var(--gold)';
-
-        // Update active tab button style
-        tabs.forEach(tab => {
-            if (tab.getAttribute('data-sim') === simKey) {
-                tab.classList.add('active');
-            } else {
-                tab.classList.remove('active');
-            }
-        });
-    }
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const key = tab.getAttribute('data-sim');
-            switchTab(key);
-        });
-    });
-
-    btnSolve.addEventListener('click', () => {
-        if (isSolving) return;
-        isSolving = true;
-
-        const data = SIM_DATA[activeSimKey];
-
-        // 1. Start scanner animation and sound/visual cues
-        scanner.classList.add('scanning');
-        statusTitle.textContent = "Engine Stato: Elaborazione flussi AI...";
-        btnSolve.textContent = "Elaborazione flussi...";
-        btnSolve.disabled = true;
-
-        // Fade out challenge screen slightly ahead of scan finish
-        setTimeout(() => {
-            screenChallenge.classList.add('fade-out');
-        }, 1000);
-
-        // 2. Reveal solution when scanner completes
-        setTimeout(() => {
-            // Update solution content
-            solutionText.textContent = data.sol_desc;
-            techContainer.innerHTML = data.tech.map(t => `<span>${t}</span>`).join('');
-            impactVal1.textContent = data.impact_val1;
-            impactLbl1.textContent = data.impact_lbl1;
-            impactVal2.textContent = data.impact_val2;
-            impactLbl2.textContent = data.impact_lbl2;
-
-            // Switch screens
-            screenChallenge.style.display = 'none';
-            screenSolution.style.display = 'flex';
-            screenSolution.classList.add('fade-in');
-
-            // Mostriamo il pulsante del prototipo per la tab Turismo (Boutique Hotel), RAG (Studio Associato), Cantina Vinicola (export), Laboratorio Artistico (artigianato) e Logistica
-            const prototypeCtaBtn = document.getElementById('btn-test-prototype');
-            if (activeSimKey === 'turismo' || activeSimKey === 'RAG' || activeSimKey === 'export' || activeSimKey === 'artigianato' || activeSimKey === 'logistica') {
-                prototypeCtaBtn.style.display = 'block';
-                
-                // Aggiorna il testo del pulsante in modo che sia super specifico ed evidente
-                if (activeSimKey === 'turismo') {
-                    prototypeCtaBtn.innerHTML = 'AVVIA PROTOTIPO CHATBOT REALE 💬';
-                } else if (activeSimKey === 'RAG') {
-                    prototypeCtaBtn.innerHTML = 'AVVIA PROTOTIPO RAG REALE 🔍';
-                } else if (activeSimKey === 'export') {
-                    prototypeCtaBtn.innerHTML = 'AVVIA PROTOTIPO EXPORT AI REALE 🍷';
-                } else if (activeSimKey === 'artigianato') {
-                    prototypeCtaBtn.innerHTML = 'AVVIA PROTOTIPO VISIONE ARTIGIANALE 🎨';
-                } else if (activeSimKey === 'logistica') {
-                    prototypeCtaBtn.innerHTML = 'AVVIA PROTOTIPO ROTTE OTTIMIZZATE 🚚';
-                }
-            } else {
-                prototypeCtaBtn.style.display = 'none';
-            }
-
-            // Reset scanner and buttons
-            scanner.classList.remove('scanning');
-            btnSolve.textContent = "Risolvi con l'AI →";
-            btnSolve.disabled = false;
-            
-            // Highlight active engine state
-            statusTitle.textContent = "Engine Stato: Flusso AI Attivo";
-            statusDot.style.background = '#52B788'; // Clean neon green for active success
-            statusDot.style.boxShadow = '0 0 10px #52B788';
-
-            isSolving = false;
-        }, 1600);
-    });
-
-    btnBack.addEventListener('click', () => {
-        if (isSolving) return;
-        
-        screenSolution.classList.remove('fade-in');
-        screenSolution.style.display = 'none';
-        
-        screenChallenge.style.display = 'flex';
-        screenChallenge.classList.remove('fade-out');
-        screenChallenge.classList.add('fade-in');
-
-        statusTitle.textContent = "Engine Stato: In Attesa";
-        statusDot.style.background = 'var(--gold)';
-        statusDot.style.boxShadow = '0 0 8px var(--gold)';
-
-        setTimeout(() => {
-            screenChallenge.classList.remove('fade-in');
-        }, 600);
-    });
-
-    /* ── LOGICA CHAT INTERATTIVA BOUTIQUE HOTEL ── */
-    const btnTestPrototype = document.getElementById('btn-test-prototype');
-    const screenChat = document.getElementById('screen-chat');
-    const btnBackToSol = document.getElementById('btn-back-to-sol-trigger');
-    const chatMessagesContainer = document.getElementById('chat-messages-container');
-    const chatInputForm = document.getElementById('chat-input-form');
-    const chatMessageInput = document.getElementById('chat-message-input');
-    const chatServerStatus = document.getElementById('chat-server-status');
-
-    let serverOnline = false;
-
-    // Ritorna l'URL del server (custom se salvato in localStorage o localhost di default)
-    function getBackendUrl() {
-        return localStorage.getItem('sanna_backend_url') || 'http://localhost:8000';
-    }
-
-    // Configura il badge per essere interattivo e consentire l'inserimento di un server custom
-    chatServerStatus.style.cursor = 'pointer';
-    chatServerStatus.title = "Clicca per configurare l'indirizzo del server (es. ngrok HTTPS)";
-    chatServerStatus.addEventListener('click', () => {
-        const currentUrl = getBackendUrl();
-        const newUrl = prompt("Configura l'indirizzo del server per il test (es. ngrok HTTPS o localhost:8000):", currentUrl);
-        if (newUrl !== null) {
-            const trimmed = newUrl.trim();
-            if (trimmed === "" || trimmed === "http://localhost:8000") {
-                localStorage.removeItem('sanna_backend_url');
-                alert("Ripristinato server predefinito: http://localhost:8000");
-            } else {
-                // Rimuove slash finale se presente per coerenza con le rotte successive
-                const formatted = trimmed.endsWith('/') ? trimmed.slice(0, -1) : trimmed;
-                localStorage.setItem('sanna_backend_url', formatted);
-                alert("Nuovo server configurato: " + formatted);
-            }
-            checkBackendStatus();
-        }
-    });
-
-    // Funzione per controllare lo stato del server locale o del tunnel custom
-    async function checkBackendStatus() {
-        const backendUrl = getBackendUrl();
-        try {
-            // timeout di 1.5 secondi per il controllo del ping
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 1500);
-            
-            // Aggiungiamo uno slash finale solo per il ping di test se necessario
-            const pingUrl = backendUrl.endsWith('/') ? backendUrl : backendUrl + '/';
-            const res = await fetch(pingUrl, { 
-                method: 'GET',
-                headers: {
-                    'ngrok-skip-browser-warning': 'true'
-                },
-                signal: controller.signal
-            });
-            clearTimeout(timeoutId);
-            
-            if (res.status === 200) {
-                serverOnline = true;
-                const isCustom = !backendUrl.includes('localhost') && !backendUrl.includes('127.0.0.1');
-                chatServerStatus.textContent = isCustom ? "Server: Tunnel Online" : "Server: Online";
-                chatServerStatus.style.background = "rgba(82, 183, 136, 0.1)";
-                chatServerStatus.style.borderColor = "rgba(82, 183, 136, 0.3)";
-                chatServerStatus.style.color = "#52B788";
-            } else {
-                throw new Error("Offline");
-            }
-        } catch (e) {
-            serverOnline = false;
-            const backendUrl = getBackendUrl();
-            const isCustom = !backendUrl.includes('localhost') && !backendUrl.includes('127.0.0.1');
-            chatServerStatus.textContent = isCustom ? "Server: Tunnel Offline" : "Server: Offline (Mock)";
-            chatServerStatus.style.background = "rgba(230, 57, 70, 0.1)";
-            chatServerStatus.style.borderColor = "rgba(230, 57, 70, 0.3)";
-            chatServerStatus.style.color = "#e63946";
-        }
-    }
-
-    // Aggiungi un messaggio all'area di chat
-    function addChatMessage(sender, text, type = 'sanna') {
-        const msgDiv = document.createElement('div');
-        if (type === 'system') {
-            msgDiv.className = 'chat-system';
-            if (text.includes('🚨') || text.includes('Errore')) {
-                msgDiv.classList.add('error');
-            }
+        if (response.ok) {
+          form.style.display = 'none';
+          successMessage.style.display = 'block';
         } else {
-            msgDiv.className = `chat-bubble ${type}`;
+          // Se risponde ma c'è un errore (es. chiave errata/limite superato), esegue il fallback classico
+          console.warn("API Error, eseguo invio classico");
+          form.submit();
         }
-        msgDiv.innerHTML = text.replace(/\n/g, '<br>');
-        chatMessagesContainer.appendChild(msgDiv);
-        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+      } catch (e) {
+        console.warn("Errore di rete/CORS (AdBlocker rilevato). Eseguo invio di fallback classico nativo:", e);
+        // Il metodo submit() nativo del form non scatena l'evento onsubmit (previene i loop)
+        form.submit();
+      }
     }
-
-    // Inizializza la chat con un messaggio di benvenuto se vuota
-    function initChat() {
-        chatMessagesContainer.innerHTML = '';
-        addChatMessage(
-            'Sanna', 
-            'Benvenuto a bordo, Marco! Sono Sanna, il concierge digitale del Boutique Hotel Antiga Luna. Posso aiutarti a trovare la camera perfetta (offrendoti i fantastici vantaggi della prenotazione diretta!), raccontarti i dettagli dei nostri servizi SPA e ristorante, o darti consigli sulle spiagge più belle del sud Sardegna. Come posso coccolarti oggi?',
-            'sanna'
-        );
-        
-        // Eseguiamo il controllo dello stato del server
-        checkBackendStatus();
-    }
-
-    // Passaggio alla schermata di chat o apertura prototipo reale
-    btnTestPrototype.addEventListener('click', () => {
-        if (isSolving) return;
-        
-        if (activeSimKey === 'RAG') {
-            window.open('progetti/studio_associato/index.html', '_blank');
-            return;
-        }
-        if (activeSimKey === 'export') {
-            window.open('progetti/cantina_vinicola/index.html', '_blank');
-            return;
-        }
-        if (activeSimKey === 'artigianato') {
-            window.open('progetti/laboratorio_artistico/index.html', '_blank');
-            return;
-        }
-        if (activeSimKey === 'logistica') {
-            window.open('progetti/logistica/index.html', '_blank');
-            return;
-        }
-        
-        screenSolution.classList.remove('fade-in');
-        screenSolution.style.display = 'none';
-        
-        screenChat.style.display = 'flex';
-        screenChat.classList.add('fade-in');
-        
-        statusTitle.textContent = "Engine Stato: Simulatore Chat Attivo";
-        statusDot.style.background = '#52B788';
-        statusDot.style.boxShadow = '0 0 10px #52B788';
-        
-        initChat();
-    });
-
-    // Ritorno alla schermata di soluzione
-    btnBackToSol.addEventListener('click', () => {
-        screenChat.classList.remove('fade-in');
-        screenChat.style.display = 'none';
-        
-        screenSolution.style.display = 'flex';
-        screenSolution.classList.add('fade-in');
-        
-        statusTitle.textContent = "Engine Stato: Flusso AI Attivo";
-        statusDot.style.background = '#52B788';
-        statusDot.style.boxShadow = '0 0 10px #52B788';
-    });
-
-    // Invio di un messaggio
-    chatInputForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const text = chatMessageInput.value.trim();
-        if (!text) return;
-        
-        chatMessageInput.value = '';
-        
-        // Mostra messaggio utente
-        addChatMessage('Marco', text, 'user');
-        
-        // Mostra indicatore di digitazione / attesa
-        const typingId = 'typing_' + Date.now();
-        const typingDiv = document.createElement('div');
-        typingDiv.id = typingId;
-        typingDiv.className = 'chat-bubble sanna';
-        typingDiv.style.fontStyle = 'italic';
-        typingDiv.style.opacity = '0.7';
-        typingDiv.textContent = 'Sanna sta digitando...';
-        chatMessagesContainer.appendChild(typingDiv);
-        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-
-        // Ritardo artificiale minimo per simulare naturalezza
-        await new Promise(resolve => setTimeout(resolve, 800));
-
-        if (serverOnline) {
-            try {
-                const response = await fetch(getBackendUrl() + '/webhook/whatsapp', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'ngrok-skip-browser-warning': 'true'
-                    },
-                    body: JSON.stringify({
-                        user_id: "+393401122334",
-                        message: text,
-                        user_name: "Marco"
-                    })
-                });
-                
-                // Rimuovi indicatore di digitazione
-                const typingEl = document.getElementById(typingId);
-                if (typingEl) typingEl.remove();
-
-                if (response.status === 200) {
-                    const data = await response.json();
-                    addChatMessage(data.sender || 'Sanna', data.reply, 'sanna');
-                    
-                    if (data.handover_triggered) {
-                        addChatMessage('Sistema', '🚨 Staff allertato! Un operatore umano della reception prenderà il controllo della conversazione entro pochi minuti.', 'system');
-                    }
-                } else {
-                    throw new Error("Errore risposta server");
-                }
-            } catch (err) {
-                console.error("Errore di connessione API, uso fallback:", err);
-                // Rimuovi indicatore di digitazione se ancora presente
-                const typingEl = document.getElementById(typingId);
-                if (typingEl) typingEl.remove();
-                
-                // Fallback a mock locale se il server cade
-                processLocalMockResponse(text);
-            }
-        } else {
-            // Rimuovi indicatore di digitazione
-            const typingEl = document.getElementById(typingId);
-            if (typingEl) typingEl.remove();
-            
-            // Motore di fallback locale integrato nel browser
-            processLocalMockResponse(text);
-        }
-    });
-
-    // Funzione mock locale (stessa identica logica del server python!)
-    function processLocalMockResponse(userMsg) {
-        const msg = userMsg.toLowerCase();
-        let reply = "";
-        let handover = false;
-        
-        if (msg.includes("blocca") || msg.includes("prenot")) {
-            reply = "Certamente Marco! Ho appena effettuato un blocco provvisorio (Opzione Opzionata) nel nostro gestionale PMS per la camera **Deluxe Vista Mare** a tuo nome! Codice opzione: **HLD-99812**. 📝\n\nTi ho inviato un'email con il riepilogo e il link sicuro per completare la conferma. La tua camera è al sicuro per le prossime 24 ore! Non vedo l'ora di farti degustare il nostro Vermentino di Gallura al tuo arrivo!";
-        } else if (msg.includes("disponib") || msg.includes("camer") || msg.includes("stanz") || msg.includes("cost") || msg.includes("prezz")) {
-            reply = "Benvenuto a bordo Marco! Ho interrogato all'istante il nostro PMS ed ecco le disponibilità per te per le prossime settimane. Ti ricordo con orgoglio che prenotando direttamente tramite questa chat otterrai subito l'esclusivo **welcome drink (Vermentino di Gallura e dolcetti sardi) + 1 ora di accesso esclusivo alla SPA**! 🍷✨\n\n1. **Classic Vista Giardino**: 180€ a notte (5 unità libere)\n2. **Deluxe Vista Mare**: 250€ a notte (3 unità libere) — *Fortemente raccomandata!*\n3. **Junior Suite con Jacuzzi**: 420€ a notte (Solo 1 rimasta!)\n\nDesideri che blocchi una di queste opzioni a tuo nome gratuitamente per 24 ore?";
-        } else if (msg.includes("umano") || msg.includes("staff") || msg.includes("parlare con") || msg.includes("reception") || msg.includes("lament")) {
-            reply = "Capisco perfettamente Marco. Sto passando immediatamente la nostra conversazione a un collega umano dello staff della reception. Sarà con te tra pochissimi istanti su questo canale per darti massima assistenza. A presto!";
-            handover = true;
-        } else if (msg.includes("spa") || msg.includes("benesser") || msg.includes("massagg") || msg.includes("trattament") || msg.includes("idromassag")) {
-            reply = "La nostra **Antiga Luna SPA & Wellness** è un vero tempio del relax, Marco! 🧖‍♀️✨\n\nOffriamo un percorso benessere completo che include:\n- **Piscina idromassaggio riscaldata** con acqua salina\n- **Sauna finlandese e Bagno turco** cromoterapico\n- **Area relax** con tisane biologiche sarde e dolci tipici leggeri\n- **Massaggi e trattamenti** corpo con oli essenziali biologici al mirto, lentisco ed elicriso locali.\n\nTi ricordo che prenotando direttamente otterrai **1 ora di accesso esclusivo gratuito**! Desideri che ti riservi una fascia oraria?";
-        } else if (msg.includes("ristorant") || msg.includes("cena") || msg.includes("colazion") || msg.includes("mangiar") || msg.includes("cibo")) {
-            reply = "Il nostro ristorante **L'Essenza Sarda** celebra i sapori autentici dell'isola con un tocco gourmet contemporaneo, Marco! 🍽️🍷\n\nI nostri punti di forza:\n- **Ingredienti a Km 0:** provenienti direttamente da piccoli produttori locali e dal nostro orto sinergico.\n- **Cena Degustazione:** ogni sera un menù a tema abbinato a una selezione di pregiati vini sardi (come il nostro immancabile Vermentino di Gallura).\n- **Opzioni personalizzate:** menù dedicati per intolleranze, celiachia ed esigenze vegane/vegetariane.\n\nLa colazione a buffet, con torte artigianali calde, è sempre inclusa! Vuoi prenotare un tavolo per la tua prima sera?";
-        } else {
-            reply = "Felice di conoscerti, Marco! Sono Sanna, il concierge digitale del Boutique Hotel Antiga Luna. Posso aiutarti a trovare la camera perfetta (offrendoti i fantastici vantaggi della prenotazione diretta!), raccontarti i dettagli dei nostri servizi SPA e ristorante, o darti consigli sulle spiagge più belle del sud Sardegna. Come posso coccolarti oggi?";
-        }
-        
-        // Mostra la risposta simulata locale
-        addChatMessage('Sanna (Mock Locale)', reply, 'sanna');
-        if (handover) {
-            addChatMessage('Sistema', '🚨 Staff allertato! Un operatore umano della reception prenderà il controllo della conversazione entro pochi minuti.', 'system');
-        }
-        
-        // Aggiungi un piccolo avviso informativo per lo sviluppatore
-        addChatMessage('Sistema', '💡 Nota: Stai vedendo la risposta del Mock del browser perché il server Python non è attivo su <strong>' + getBackendUrl() + '</strong>.<br>Clicca sul badge <strong>"Server: Offline (Mock)"</strong> in alto per inserire un URL sicuro personalizzato (es. ngrok HTTPS) o avvia il server locale su uvicorn.', 'system');
-    }
-    </script>
+  </script>
 </body>
 </html>

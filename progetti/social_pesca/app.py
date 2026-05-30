@@ -10,8 +10,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 import hashlib
 from pydantic import BaseModel
 from dotenv import load_dotenv
-import google.generativeai as genai
-from google import genai as genai_modern
+from google import genai
 from google.genai import types as genai_types
 
 # Forza l'encoding utf-8 per lo stdout su Windows per evitare crash con emoji
@@ -29,7 +28,6 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 # Configura Gemini API
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if GEMINI_API_KEY:
-    genai.configure(api_key=GEMINI_API_KEY)
     logger.info("Gemini API configurata con successo per Social Pesca.")
 else:
     logger.warning("ATTENZIONE: GEMINI_API_KEY non trovata nel file .env!")
@@ -740,7 +738,7 @@ async def search_grants(req: DynamicSearchRequest):
         return {"new_grants": []}
 
     try:
-        client = genai_modern.Client(api_key=GEMINI_API_KEY)
+        client = genai.Client(api_key=GEMINI_API_KEY)
         
         # Fase 1: Ricerca live con Google Search Grounding (senza JSON mode per limiti API)
         search_prompt = f"""
@@ -1123,10 +1121,11 @@ async def analyze_feasibility(req: FeasibilityRequest):
         return get_offline_feasibility()
 
     try:
-        model = genai.GenerativeModel("gemini-2.5-flash")
-        response = model.generate_content(
-            prompt,
-            generation_config={"response_mime_type": "application/json"}
+        client = genai.Client(api_key=GEMINI_API_KEY)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+            config=genai_types.GenerateContentConfig(response_mime_type="application/json")
         )
         parsed = json.loads(response.text.strip())
         parsed["cumulative_checks"] = cumulative_checks
@@ -1273,13 +1272,14 @@ async def generate_project_draft(req: FeasibilityRequest):
         return get_offline_project_draft()
 
     try:
-        model = genai.GenerativeModel("gemini-2.5-flash")
-        response = model.generate_content(
-            prompt,
-            generation_config={"response_mime_type": "application/json"}
+        client = genai.Client(api_key=GEMINI_API_KEY)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+            config=genai_types.GenerateContentConfig(response_mime_type="application/json")
         )
         parsed = json.loads(response.text.strip())
-        
+
         # Post-elaborazione di sicurezza dei link della roadmap per eliminare allucinazioni o URL inesistenti
         official_link = grant.get("official_link", "https://www.sardegnaprogrammazione.it")
         base_link = official_link.rstrip('/')
@@ -1377,11 +1377,12 @@ async def compile_grant_application(req: FeasibilityRequest):
 
     if GEMINI_API_KEY:
         try:
-            model = genai.GenerativeModel(
-                model_name="gemini-2.5-flash",
-                generation_config={"response_mime_type": "application/json"}
+            client = genai.Client(api_key=GEMINI_API_KEY)
+            response = client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=prompt,
+                config=genai_types.GenerateContentConfig(response_mime_type="application/json")
             )
-            response = model.generate_content(prompt)
             parsed = json.loads(response.text.strip())
             parsed["grant_title"] = grant_title
             parsed["grant_issuer"] = grant_issuer

@@ -1,0 +1,2646 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Pesca — Portale Bandi AI</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #040912;
+      --bg-secondary: #070e1c;
+      --surface: rgba(10, 21, 39, 0.7);
+      --border-color: rgba(0, 210, 196, 0.12);
+      --border-hover: rgba(0, 210, 196, 0.3);
+      --primary: #00d2c4;
+      --primary-dim: rgba(0, 210, 196, 0.12);
+      --primary-border: rgba(0, 210, 196, 0.25);
+      
+      --accent: #ff6b4a;
+      --accent-dim: rgba(255, 107, 74, 0.12);
+      --accent-border: rgba(255, 107, 74, 0.25);
+      
+      --gold: #ffd000;
+      
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --success: #52b788;
+      --danger: #ef4444;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-primary);
+      background-image: radial-gradient(circle at 10% 20%, rgba(0, 210, 196, 0.05) 0%, transparent 45%),
+                        radial-gradient(circle at 90% 80%, rgba(255, 107, 74, 0.04) 0%, transparent 45%);
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, .brand-font {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+    }
+
+    /* HEADER & NAVIGATION */
+    header {
+      background: rgba(4, 9, 18, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo-symbol {
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 21, 39, 0.8);
+      box-shadow: 0 0 12px rgba(0, 210, 196, 0.2);
+    }
+
+    .logo-symbol svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: var(--primary);
+      stroke-width: 2.5;
+    }
+
+    .logo-text-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #ffffff 0%, #7bf2ea 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-subtitle {
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-public-site {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-public-site:hover {
+      color: var(--primary);
+    }
+
+    .btn-logout {
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+      background: rgba(239, 68, 68, 0.05);
+      font-weight: 600;
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .btn-logout:hover {
+      background: var(--danger);
+      color: #ffffff;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.25);
+    }
+
+    /* CONTAINER LAYOUT */
+    .container {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 30px;
+      max-width: 1400px;
+      margin: 30px auto;
+      padding: 0 3%;
+      align-items: start;
+    }
+
+    @media (max-width: 992px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* CARD SYSTEM */
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      color: #ffffff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      padding-bottom: 12px;
+    }
+
+    .card h2 svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--primary);
+    }
+
+    /* FORMS & INPUTS */
+    .form-group {
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      background: rgba(4, 9, 18, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #ffffff;
+      font-size: 0.88rem;
+      outline: none;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 8px rgba(0, 210, 196, 0.15);
+      background: rgba(4, 9, 18, 0.85);
+    }
+
+    .form-group textarea {
+      height: 80px;
+      resize: none;
+    }
+
+    /* BUTTONS */
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, var(--primary) 0%, #00b0a5 100%);
+      color: var(--bg-primary);
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 5px 15px rgba(0, 210, 196, 0.25);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 210, 196, 0.4);
+      filter: brightness(1.05);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--accent-border);
+      color: var(--accent);
+      box-shadow: 0 5px 15px rgba(255, 107, 74, 0.1);
+    }
+
+    /* ASSEVERATED DOCS SIDEBAR LIST */
+    #uploaded-docs-list {
+      max-height: 280px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+      padding-right: 4px;
+    }
+
+    #uploaded-docs-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    #uploaded-docs-list::-webkit-scrollbar-thumb {
+      background: rgba(0, 210, 196, 0.2);
+      border-radius: 2px;
+    }
+
+    /* OBJECTIVES TAB BAR */
+    .objectives-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .obj-card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: left;
+    }
+
+    .obj-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      box-shadow: 0 8px 24px rgba(0, 210, 196, 0.08);
+    }
+
+    .obj-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .obj-icon.gold { color: var(--gold); border-color: rgba(255, 208, 0, 0.2); background: rgba(255, 208, 0, 0.05); }
+    .obj-icon.cyan { color: var(--primary); border-color: var(--primary-border); background: var(--primary-dim); }
+    .obj-icon.accent { color: var(--accent); border-color: var(--accent-border); background: var(--accent-dim); }
+
+    .obj-text h3 {
+      font-size: 0.95rem;
+      color: #ffffff;
+    }
+
+    .obj-text p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* DYNAMIC SEARCH BAR */
+    .ai-search-box {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .ai-search-box input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 16px 20px 16px 48px;
+      color: #ffffff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    .ai-search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(0, 210, 196, 0.25);
+    }
+
+    .ai-search-box svg {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      stroke: var(--primary);
+      pointer-events: none;
+    }
+
+    /* GRANTS GRID */
+    .grants-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .grant-card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      text-align: left;
+      transition: var(--transition);
+    }
+
+    .grant-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 210, 196, 0.08);
+    }
+
+    .grant-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .grant-cat {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      color: var(--primary);
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: var(--primary-dim);
+      border: 1px solid var(--primary-border);
+    }
+
+    .grant-diff {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .grant-card h3 {
+      font-size: 1.2rem;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .grant-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .grant-meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      background: rgba(0,0,0,0.15);
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.03);
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 576px) {
+      .grant-meta {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .meta-item strong {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .meta-val {
+      font-size: 0.82rem;
+      color: #ffffff;
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* IN-PAGE NAVIGATION & BACK BUTTONS */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .section-header h2 {
+      font-size: 1.35rem;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 0.65rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .info-trigger:hover {
+      background: var(--primary-dim);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .insight-box {
+      background: var(--primary-dim);
+      border: 1px solid var(--primary-border);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 0.82rem;
+      color: #7bf2ea;
+      text-align: left;
+      line-height: 1.5;
+    }
+
+    /* FEASIBILITY ANALYSIS PANEL */
+    .analysis-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .radar-banner {
+      background: linear-gradient(135deg, var(--surface) 0%, #0c1c2b 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      gap: 20px;
+      text-align: left;
+    }
+
+    @media (max-width: 576px) {
+      .radar-banner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .scanner-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+      animation: scanning-line 4s infinite linear;
+    }
+
+    @keyframes scanning-line {
+      0% { top: 0%; }
+      50% { top: 100%; }
+      100% { top: 0%; }
+    }
+
+    .analysis-intro-text {
+      flex: 1;
+    }
+
+    .analysis-intro-text h3 {
+      font-size: 1.15rem;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .analysis-intro-text p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      max-width: 600px;
+    }
+
+    .eligibility-status {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .eligibility-status.done {
+      background: rgba(82, 183, 136, 0.12);
+      border: 1px solid var(--success);
+      color: #52b788;
+    }
+
+    .eligibility-status.risk {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid var(--danger);
+      color: #ff7676;
+    }
+
+    .gauge-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .gauge-circle {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      border: 4px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+      box-shadow: 0 0 15px rgba(0, 210, 196, 0.1);
+      background: rgba(4, 9, 18, 0.6);
+    }
+
+    .gauge-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .analysis-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .analysis-card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: left;
+    }
+
+    .analysis-card h4 {
+      font-size: 0.95rem;
+      color: #ffffff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .analysis-card h4.gold { color: var(--gold); }
+
+    .analysis-card h4 svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--primary);
+    }
+
+    .analysis-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* COMPATIBILITY CUMULATIVE PANEL */
+    .cumulative-checks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .cum-check-item {
+      background: rgba(4, 9, 18, 0.4);
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cum-check-item span {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .cum-check-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cum-check-row strong {
+      font-size: 1.05rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+    }
+
+    .cum-check-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    /* BUSINESS PLAN & COMPILE VIEW */
+    .project-panel, .compile-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .project-document {
+      background: #ffffff;
+      color: #1f2937;
+      border-radius: 18px;
+      padding: 40px;
+      text-align: left;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .doc-badge {
+      background: #040912;
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      padding: 6px 14px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-radius: 6px;
+      width: fit-content;
+      margin-bottom: 24px;
+    }
+
+    .doc-hdr {
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+
+    .doc-hdr h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #111827;
+      line-height: 1.2;
+    }
+
+    .doc-hdr p {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #ff6b4a;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    .doc-section {
+      margin-bottom: 28px;
+    }
+
+    .doc-section h4 {
+      font-size: 0.95rem;
+      color: #111827;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .doc-section p {
+      font-size: 0.88rem;
+      color: #374151;
+      line-height: 1.7;
+    }
+
+    .doc-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .doc-bullets li {
+      font-size: 0.85rem;
+      color: #374151;
+      position: relative;
+      padding-left: 20px;
+      line-height: 1.6;
+    }
+
+    .doc-bullets li::before {
+      content: '📌';
+      position: absolute;
+      left: 0;
+      top: 1px;
+      font-size: 0.75rem;
+    }
+
+    .doc-bullets.checks li::before {
+      content: '⬜';
+      font-size: 0.8rem;
+      top: 0px;
+    }
+
+    .doc-bullets.checks li.doc-bullet-acquired::before {
+      content: '✅';
+    }
+
+    .doc-bullets.checks li.doc-bullet-pending::before {
+      content: '⚠️';
+    }
+
+    .doc-bullets.checks li strong {
+      color: #111827;
+    }
+
+    .budget-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid #f3f4f6;
+    }
+
+    .budget-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .budget-item:last-child {
+      border-bottom: none;
+    }
+
+    .budget-item.total {
+      border-top: 2px solid #e5e7eb;
+      padding-top: 12px;
+      margin-top: 6px;
+      font-weight: 800;
+    }
+
+    .budget-item.total .budget-val {
+      color: #00b0a5;
+      font-size: 1.1rem;
+    }
+
+    .budget-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #4b5563;
+    }
+
+    .budget-val {
+      font-size: 0.88rem;
+      color: #111827;
+      font-weight: 700;
+    }
+
+    .commercial-callout {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .commercial-callout-icon {
+      font-size: 1.5rem;
+    }
+
+    .commercial-callout h5 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #065f46;
+      margin-bottom: 4px;
+    }
+
+    .commercial-callout p {
+      font-size: 0.82rem;
+      color: #047857;
+      line-height: 1.5;
+    }
+
+    .advise-block {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 10px 14px;
+      text-align: left;
+      margin-top: 8px;
+    }
+
+    .advise-block h5 {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+
+    .advise-block p {
+      font-size: 0.8rem;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    /* ARCHIVE SHELF */
+    .projects-shelf {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .proj-item {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 14px 18px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .proj-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .proj-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* LOADER & MODALS */
+    #loader {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(4, 9, 18, 0.85);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(0, 210, 196, 0.1);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #loader-text {
+      font-size: 0.95rem;
+      color: #ffffff;
+      max-width: 450px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(4, 9, 18, 0.7);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-content {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 480px;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    .modal-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    }
+
+    .modal-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .modal-hdr h3 {
+      font-size: 1.15rem;
+      color: #ffffff;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="/" class="logo-container">
+      <div class="logo-symbol">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2v10M12 12c0 2.2 1.8 4 4 4s4-1.8 4-4v-1M16 12l4-2-4-2" stroke-linecap="round"/>
+          <path d="M7 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+        </svg>
+      </div>
+      <div class="logo-text-wrapper">
+        <span class="logo-text">Social Pesca</span>
+        <span class="logo-subtitle">Backoffice Bandi</span>
+      </div>
+    </a>
+    <div class="header-actions">
+      <a href="/logout" class="btn-logout">Esci</a>
+    </div>
+  </header>
+
+  <!-- CONTAINER -->
+  <div class="container">
+    
+    <!-- SIDEBAR (PROFILE & GENERAL DOCS) -->
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+      
+      <!-- Profilo Aziendale -->
+      <div class="card">
+        <h2>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+          Profilo Aziendale PMI
+        </h2>
+        <form id="profile-form">
+          <div class="form-group">
+            <label>Ragione Sociale</label>
+            <input type="text" id="prof-name" required>
+          </div>
+          <div class="form-group">
+            <label>Forma Giuridica</label>
+            <input type="text" id="prof-type" required>
+          </div>
+          <div class="form-group">
+            <label>Partita IVA</label>
+            <input type="text" id="prof-piva" required>
+          </div>
+          <div class="form-group">
+            <label>Codice ATECO</label>
+            <input type="text" id="prof-ateco" required>
+          </div>
+          <div class="form-group">
+            <label>Sede Operativa / Legale</label>
+            <input type="text" id="prof-hq" required>
+          </div>
+          <div class="form-group">
+            <label>Titolare &amp; Socio Lavoratore</label>
+            <input type="number" id="prof-staff" required readonly style="background: rgba(255, 255, 255, 0.05); color: var(--text-muted); cursor: not-allowed;" title="Socio unico lavoratore stante ad atto costitutivo">
+          </div>
+          <div class="form-group">
+            <label>Fatturato Annuo Stimato (€)</label>
+            <input type="number" id="prof-budget" required>
+          </div>
+          <div class="form-group">
+            <label>Attività e Oggetto Sociale</label>
+            <textarea id="prof-scope" required></textarea>
+          </div>
+          <button type="submit" class="btn">Aggiorna Profilo</button>
+        </form>
+      </div>
+
+      <!-- Supporto Operativo Info Box -->
+      <div class="card">
+        <h2>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Supporto d'Impresa
+        </h2>
+        <div style="font-size: 0.8rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.8rem;">
+          <p>📍 <strong>Oristano &amp; Sinis:</strong> L'hub integra i parametri territoriali della Sardegna per il calcolo di co-marketing e turismo costiero.</p>
+          <p>💼 <strong>Socio Lavoratore Unico (S.r.l.s.):</strong> L'AI analizza costantemente il sovraccarico di ore lavoro ed il pre-finanziamento sostenibile.</p>
+          <button class="btn btn-secondary" onclick="resetGrants()">Ripristina Bandi Default</button>
+        </div>
+      </div>
+
+      <!-- Documenti Aziendali Asseverati -->
+      <div class="card">
+        <h2>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          Documenti Societari
+        </h2>
+        <div id="uploaded-docs-list" style="font-size: 0.8rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.8rem; min-height: 80px;">
+          <!-- Caricati dinamicamente -->
+        </div>
+        <button class="btn btn-secondary" style="width: 100%; padding: 0.45rem; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.25rem;" onclick="openGeneralUploadModal()">
+          ➕ Assevera Documento
+        </button>
+      </div>
+
+    </div>
+
+    <!-- MAIN DASHBOARD CONTENT -->
+    <main>
+      
+      <!-- Objectives (Quick Filter & Info Cards) -->
+      <div class="objectives-bar">
+        <div class="obj-card" onclick="triggerSearchTopic('Digitalizzazione commercio al dettaglio distributori automatici')">
+          <div class="obj-icon gold">💻</div>
+          <div class="obj-text">
+            <h3>Digitalizzazione</h3>
+            <p>E-Commerce &amp; H24</p>
+          </div>
+        </div>
+        <div class="obj-card" onclick="triggerSearchTopic('Contributo acquisto macchinari vetrine arredi Sabatini')">
+          <div class="obj-icon cyan">💶</div>
+          <div class="obj-text">
+            <h3>Finanziamenti &amp; Sede</h3>
+            <p>Bandi Commercio &amp; Sabatini</p>
+          </div>
+        </div>
+        <div class="obj-card" onclick="triggerSearchTopic('Efficientamento energetico fotovoltaico celle frigorifere Transizione 5.0')">
+          <div class="obj-icon accent">🌱</div>
+          <div class="obj-text">
+            <h3>Transizione Green</h3>
+            <p>Impianti Solari &amp; 5.0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPLORER VIEW -->
+      <div id="view-explorer">
+        <div class="section-header">
+          <h2>Hub Ricerca Bandi AI <span class="info-trigger" onclick="showSectionInsight('explorer-info')">?</span></h2>
+          <span style="font-size: 0.75rem; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em;" id="grants-count">5 Bandi Trovati</span>
+        </div>
+
+        <div id="explorer-info" class="insight-box" style="display: none; margin-bottom: 1.5rem;">
+          Benvenuto nel **Consulente AI Bandi** di Social Pesca. Scrivi in linguaggio naturale cosa ti occorre finanziare (es: *'fotovoltaico per frigoriferi'* o *'contributo e-commerce e distributori automatici'*). L'AI effettuerà una scansione semantica sui portali sardi e nazionali, popolando la tua lista con opportunità reali ed eseguendo gap analysis aziendali.
+        </div>
+
+        <!-- AI Dynamic Search Bar -->
+        <div class="ai-search-box">
+          <input type="text" id="ai-search-input" placeholder="Chiedi all'AI di cercare opportunità specifiche (es: 'Bandi fotovoltaico celle frigo' o 'Contributo e-commerce e casse automatiche'). Premi Invio...">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+
+        <!-- Filter Feedback Box -->
+        <div id="search-filter-feedback" style="display: none; align-items: center; justify-content: space-between; background: rgba(0, 210, 196, 0.08); border: 1px solid rgba(0, 210, 196, 0.2); padding: 10px 16px; border-radius: 10px; margin-bottom: 20px; font-size: 0.88rem;">
+          <div>
+            <span style="color: var(--text-muted);">Risultati di ricerca per:</span> 
+            <strong id="search-filter-query" style="color: var(--primary);">"query"</strong>
+          </div>
+          <button onclick="clearSearchFilter()" style="background: rgba(255, 107, 74, 0.1); border: 1px solid rgba(255, 107, 74, 0.25); color: var(--accent); font-weight: 700; cursor: pointer; padding: 6px 12px; border-radius: 20px; display: flex; align-items: center; gap: 4px; font-size: 0.82rem; transition: var(--transition);">
+            ✖ Rimuovi Filtro
+          </button>
+        </div>
+
+        <!-- Grants Grid -->
+        <div class="grants-grid" id="grants-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- FEASIBILITY ANALYSIS VIEW -->
+      <div id="view-analysis" class="analysis-panel" style="display: none;">
+        <div class="section-header">
+          <h2 id="analysis-grant-title">Analisi Fattibilità Bando</h2>
+          <button class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem;" onclick="goBackToExplorer()">← Torna all'Explorer</button>
+        </div>
+
+        <div class="radar-banner">
+          <div class="scanner-line"></div>
+          <div class="analysis-intro-text">
+            <h3 id="analysis-grant-issuer">Ente Erogatore</h3>
+            <p>L'AI ha incrociato la partita IVA, la forma societaria (S.r.l.s.), i limiti di fatturato e la cassa di Social Pesca con le regole legali di ammissibilità del bando.</p>
+            <span class="eligibility-status done" id="analysis-eligibility">IDONEO</span>
+          </div>
+          <div class="gauge-container">
+            <div class="gauge-circle" id="analysis-score">0%</div>
+            <div class="gauge-label">Punteggio AI</div>
+          </div>
+        </div>
+
+        <div class="analysis-grid">
+          
+          <!-- CONTROLLI CUMULATIVI CARD -->
+          <div class="analysis-card" style="grid-column: 1 / -1; background: rgba(0, 210, 196, 0.02); border: 1px solid rgba(0, 210, 196, 0.15);">
+            <h4 style="color: var(--primary); display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem;">
+              <span style="font-size:1.2rem;">📊</span>
+              Controlli Sostenibilità d'Impresa (Incrocio Cumulativo)
+              <span class="info-trigger" onclick="showSectionInsight('cumulative-checks-info')">?</span>
+            </h4>
+            <div id="cumulative-checks-info" class="insight-box" style="display:none; margin-top:0.5rem; margin-bottom:1rem;">
+              Questo pannello calcola la sostenibilità della nuova candidatura incrociando i dati di tutte le bozze/progetti in corso per l'anno. Stante la struttura a socio unico (1 lavoratore), monitora il sovraccarico di ore FTE totali e la capacità di esposizione cassa temporanea rispetto al fatturato.
+            </div>
+            
+            <div class="cumulative-checks-grid">
+              <!-- De Minimis -->
+              <div class="cum-check-item">
+                <span>Limite De Minimis (Microimprese)</span>
+                <div class="cum-check-row">
+                  <strong id="cum-deminimis-val">0 €</strong>
+                  <span id="cum-deminimis-badge" class="badge">N/D</span>
+                </div>
+                <div class="cum-check-desc" id="cum-deminimis-desc">Budget cumulativo su max 300.000 €</div>
+              </div>
+              
+              <!-- Staff capacity -->
+              <div class="cum-check-item">
+                <span>Carico Lavorativo Socio Unico</span>
+                <div class="cum-check-row">
+                  <strong id="cum-staff-val">0 / 1 FTE</strong>
+                  <span id="cum-staff-badge" class="badge">N/D</span>
+                </div>
+                <div class="cum-check-desc" id="cum-staff-desc">Impegno operativo su socio/titolare</div>
+              </div>
+
+              <!-- Cash flow -->
+              <div class="cum-check-item">
+                <span>Esposizione Cassa Anticipata</span>
+                <div class="cum-check-row">
+                  <strong id="cum-cash-val">0 €</strong>
+                  <span id="cum-cash-badge" class="badge">N/D</span>
+                </div>
+                <div class="cum-check-desc" id="cum-cash-desc">Anticipo 35% vs fatturato d'impresa</div>
+              </div>
+
+              <!-- Ente Conflict -->
+              <div class="cum-check-item">
+                <span>Conflitto Ente Erogatore</span>
+                <div class="cum-check-row">
+                  <strong id="cum-conflict-val" style="font-size:0.85rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:140px;">Nessuno</strong>
+                  <span id="cum-conflict-badge" class="badge">N/D</span>
+                </div>
+                <div class="cum-check-desc" id="cum-conflict-desc">Candidature doppie stesso erogatore</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Legal -->
+          <div class="analysis-card">
+            <h4>
+              <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+              Fattibilità Legale (PMI &amp; ATECO)
+            </h4>
+            <p id="analysis-legal"></p>
+          </div>
+
+          <!-- Technical -->
+          <div class="analysis-card">
+            <h4>
+              <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              Capacità Tecnica &amp; Esecuzione
+            </h4>
+            <p id="analysis-technical"></p>
+          </div>
+
+          <!-- Social -->
+          <div class="analysis-card">
+            <h4>
+              <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              Impatto Locale &amp; Commerciale
+            </h4>
+            <p id="analysis-social"></p>
+          </div>
+
+          <!-- Financial -->
+          <div class="analysis-card">
+            <h4>
+              <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              Tensione Cash Flow &amp; Sostenibilità
+            </h4>
+            <p id="analysis-financial"></p>
+          </div>
+
+          <!-- Partnerships & Advisory -->
+          <div class="analysis-card" style="grid-column: 1 / -1;">
+            <h4 class="gold">
+              <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+              Accordi di Co-Marketing &amp; Fornitori Chiave
+            </h4>
+            <p id="analysis-partnership" style="margin-bottom: 1rem;"></p>
+            <div id="analysis-experts-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <!-- Injected expert recommendations -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SEZIONE OBIETTIVI & PRIORITÀ FINANZIAMENTO -->
+        <div class="analysis-card priorities-card" style="margin-top: 1.5rem; margin-bottom: 1.5rem; background: rgba(255, 107, 74, 0.02); border: 1px solid rgba(255, 107, 74, 0.15);">
+          <h4 style="color: #ff6b4a; display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem;">
+            <span style="font-size:1.2rem;">🎯</span>
+            Punti Principali &amp; Obiettivi del Finanziamento
+            <span class="info-trigger" onclick="showSectionInsight('priorities-info')">?</span>
+          </h4>
+          <div id="priorities-info" class="insight-box" style="display:none; margin-top:0.5rem; margin-bottom:1rem; border-color: rgba(255, 107, 74, 0.3); background: rgba(255, 107, 74, 0.05); color: #ffebd9;">
+            Inserisci qui cosa il cliente desidera prioritariamente acquistare o realizzare con questo finanziamento (es. tipo di distributore, focus su fotovoltaico per celle frigo, e-commerce, o allestimento). L'AI allineerà e personalizzerà sia il Business Plan, sia i testi di candidatura formali per riflettere con precisione queste preferenze.
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; display: block;">Cosa desidera finanziare principalmente il cliente? (Opzionale)</label>
+            <textarea id="funding-priorities" placeholder="Es: Dare massima priorità all'acquisto di un distributore automatico intelligente refrigerato H24 per vendere esche vive nelle ore notturne, e installare pannelli fotovoltaici per abbattere i costi delle celle frigo di stoccaggio. Sviluppare inoltre un e-commerce integrato a WhatsApp per vendere kit pronti anche fuori Oristano." style="width: 100%; min-height: 90px; background: rgba(4, 9, 18, 0.6); border: 1px solid rgba(255, 107, 74, 0.2); border-radius: 12px; color: #ffffff; padding: 12px; font-family: inherit; font-size: 0.85rem; line-height: 1.5; transition: all 0.3s; resize: vertical;" onfocus="this.style.borderColor='#ff6b4a'; this.style.boxShadow='0 0 12px rgba(255, 107, 74, 0.2)';" onblur="this.style.borderColor='rgba(255, 107, 74, 0.2)'; this.style.boxShadow='none';"></textarea>
+          </div>
+        </div>
+
+        <button class="btn" style="padding: 1.1rem; font-size: 1rem;" id="btn-generate-bp">Genera Progetto &amp; Business Plan di Candidatura 🚀</button>
+        <button class="btn" style="padding: 1.1rem; font-size: 1rem; background: linear-gradient(135deg, #ff6b4a, #d44e2b); margin-top: 0.75rem;" id="btn-compile-grant">📝 Compila Candidatura d'Impresa Completa (Genera Testi)</button>
+      </div>
+
+      <!-- BUSINESS PLAN & PROJECT BOARD -->
+      <div id="view-project" class="project-panel" style="display: none;">
+        <div class="section-header">
+          <h2>Business Plan &amp; Documentazione <span class="info-trigger" onclick="showSectionInsight('bp-info')">?</span></h2>
+          <div style="display: flex; gap: 0.75rem;">
+            <button class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem;" onclick="goBackToAnalysis()">← Torna all'Analisi</button>
+            <button class="btn" style="width: auto; padding: 0.5rem 1.25rem;" id="btn-save-project">Archivia in database.json</button>
+          </div>
+        </div>
+
+        <div id="bp-info" class="insight-box" style="display: none; margin-bottom: 1.5rem;">
+          In questa sezione viene elaborata la **bozza di candidatura aziendale** strutturata da Gemini. Troverai la suddivisione del budget estimativo per arredi, distributori automatici H24 e consulenze, la strategia di partnership commerciali e la **checklist asseverata di documenti societari** da preparare.
+        </div>
+
+        <div class="project-document">
+          <div class="doc-badge">BOZZA DI CANDIDATURA AZIENDALE</div>
+          
+          <div class="doc-hdr">
+            <h3 id="doc-title">TITOLO DEL PROGETTO</h3>
+            <p>PIANO OPERATIVO COMMERCIALIZZAZIONE &amp; FINANZIAMENTI</p>
+          </div>
+
+          <div class="doc-section">
+            <h4>1. Sintesi Esecutiva d'Impresa</h4>
+            <p id="doc-summary">Sintesi del progetto...</p>
+          </div>
+
+          <div class="doc-section">
+            <h4>2. Macro-Azioni d'Investimento</h4>
+            <ul class="doc-bullets" id="doc-actions">
+              <!-- Actions -->
+            </ul>
+          </div>
+
+          <div class="doc-section">
+            <h4>3. Piano Finanziario Estimativo</h4>
+            <div class="budget-grid" id="doc-budget">
+              <!-- Budget items -->
+            </div>
+          </div>
+
+          <div class="doc-section">
+            <h4>4. Strategia dei Partenariati di Rete</h4>
+            <p id="doc-partnership">Strategia...</p>
+          </div>
+
+          <!-- Commercial callout -->
+          <div class="commercial-callout">
+            <div class="commercial-callout-icon">🎣</div>
+            <div>
+              <h5>Roadmap Commerciale nel Sinis (Co-Marketing)</h5>
+              <p id="doc-academic">Percorso...</p>
+            </div>
+          </div>
+
+          <div class="doc-section" style="margin-top: 2rem;">
+            <h4>5. Checklist Documentazione Societaria (Asseverata)</h4>
+            <ul class="doc-bullets checks" id="doc-documents">
+              <!-- Documents -->
+            </ul>
+          </div>
+
+          <div class="doc-section">
+            <h4>6. Figure Professionali d'Impresa Consigliate</h4>
+            <ul class="doc-bullets" id="doc-professionals">
+              <!-- Professionals -->
+            </ul>
+          </div>
+
+          <div class="doc-section" style="margin-top: 2rem; border-top: 2px dashed rgba(255, 107, 74, 0.25); padding-top: 2rem;">
+            <h4 style="color: #ff6b4a; display: flex; align-items: center; gap: 8px;">
+              <span>🛡️</span> 7. Roadmap e Adempimenti Post-Ottenimento (Rendicontazione)
+            </h4>
+            <p style="font-size: 0.82rem; color: #4b5563; margin-bottom: 16px; font-style: italic;">
+              Guida operativa ed adempimenti da seguire rigorosamente una volta che il bando è stato approvato dall'Ente.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+              <div class="advise-block" style="border: 1px solid rgba(0, 210, 196, 0.15); background: rgba(0, 210, 196, 0.02); border-radius: 12px; padding: 14px; margin-top: 0;">
+                <h5 style="color: var(--primary); font-size: 0.78rem; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">1. Accettazione &amp; Avvio (Entro 30 giorni)</h5>
+                <p id="doc-post-accettazione" style="font-size: 0.8rem; color: #374151; line-height: 1.5;"></p>
+              </div>
+              <div class="advise-block" style="border: 1px solid rgba(255, 107, 74, 0.15); background: rgba(255, 107, 74, 0.02); border-radius: 12px; padding: 14px; margin-top: 0;">
+                <h5 style="color: var(--accent); font-size: 0.78rem; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">2. Esecuzione &amp; Tracciabilità (Mesi 1-6)</h5>
+                <p id="doc-post-esecuzione" style="font-size: 0.8rem; color: #374151; line-height: 1.5;"></p>
+              </div>
+              <div class="advise-block" style="border: 1px solid rgba(255, 208, 0, 0.2); background: rgba(255, 208, 0, 0.02); border-radius: 12px; padding: 14px; margin-top: 0;">
+                <h5 style="color: var(--gold); font-size: 0.78rem; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">3. Documentazione Contabile (Mesi 6-9)</h5>
+                <p id="doc-post-documenti" style="font-size: 0.8rem; color: #374151; line-height: 1.5;"></p>
+              </div>
+              <div class="advise-block" style="border: 1px solid #52b788; background: rgba(82, 187, 136, 0.02); border-radius: 12px; padding: 14px; margin-top: 0;">
+                <h5 style="color: #52b788; font-size: 0.78rem; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">4. Pratiche Amministrative &amp; SCIA</h5>
+                <p id="doc-post-pratiche" style="font-size: 0.8rem; color: #374151; line-height: 1.5;"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPILATORE DOMANDA PANEL -->
+      <div id="view-compile" style="display:none; flex-direction:column; gap:1.5rem;">
+        <div class="section-header">
+          <h2>📝 Compilatore Candidatura Professionale</h2>
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+            <button class="btn btn-secondary" style="width:auto; padding:0.5rem 1rem;" onclick="goBackToAnalysis()">← Torna all'Analisi</button>
+            <button class="btn btn-secondary" style="width:auto; padding:0.5rem 1.25rem;" id="btn-copy-compile" onclick="copyCompileText()">📋 Copia Testi</button>
+            <button class="btn" style="width:auto; padding:0.5rem 1.25rem; background:linear-gradient(135deg,#00d2c4,#00b0a5); color:#040912;" id="btn-download-compile" onclick="downloadCompileText()">⬇ Scarica .txt</button>
+          </div>
+        </div>
+        <div class="project-document" id="compile-document">
+          <div class="doc-badge">DOMANDA DI CANDIDATURA — BOZZA DI EUROPROGETTAZIONE D'IMPRESA</div>
+          <div class="doc-hdr">
+            <h3 id="compile-grant-title">TITOLO BANDO</h3>
+            <p id="compile-grant-meta">Ente Erogatore</p>
+          </div>
+          <div class="doc-section">
+            <h4>A. Presentazione dell'Impresa Proponente</h4>
+            <p id="compile-sec-a" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>B. Descrizione del Progetto e Risoluzione Problemi d'Efficienza</h4>
+            <p id="compile-sec-b" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>C. Analisi del Mercato Locale, Target e Bisogni</h4>
+            <p id="compile-sec-c" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>D. Soluzione Tecnologica ed Architettura E-Commerce</h4>
+            <p id="compile-sec-d" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>E. Piano delle Attività, Fasi e Cronoprogramma</h4>
+            <p id="compile-sec-e" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>F. Giustificazione della Spesa (Congruità dei Preventivi)</h4>
+            <p id="compile-sec-f" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>G. Impatto Commerciale, ROI e Sostenibilità Economica</h4>
+            <p id="compile-sec-g" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>H. Reti Commerciali, Co-Marketing e Fornitori</h4>
+            <p id="compile-sec-h" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECTS ARCHIVE SHELF -->
+      <div class="projects-shelf" id="archive-section">
+        <h2 style="font-size: 1.15rem; margin-bottom: 0.75rem;">Archivio Bozze Progetti Salvare</h2>
+        <div class="projects-list" id="archive-container">
+          <!-- Injected saved projects -->
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- UPLOAD DOCUMENT MODAL -->
+  <div class="modal" id="upload-modal">
+    <div class="modal-content">
+      <div class="modal-hdr">
+        <h3 id="modal-title">Assevera Documento</h3>
+        <button class="modal-close" onclick="closeUploadModal()">&times;</button>
+      </div>
+      <form id="upload-doc-form">
+        <input type="hidden" id="upload-cert-type">
+        <input type="hidden" id="upload-req-name">
+        <input type="hidden" id="upload-existing-filename">
+        
+        <div class="form-group" id="group-cert-select">
+          <label for="upload-cert-select">Destinazione Documento</label>
+          <select id="upload-cert-select">
+            <option value="visura_camerale">Visura Camerale ordinaria</option>
+            <option value="durc_attivo">DURC in corso di validità</option>
+            <option value="piva_attribuzione">Certificato P.IVA</option>
+            <option value="bilanci_depositati">Bilanci depositati / Redditi</option>
+            <option value="locazione_registrata">Contratto di affitto del locale</option>
+            <option value="preventivi_fornitori">Preventivo spesa fornitore</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Nome del Requisito</label>
+          <input type="text" id="upload-req-display" required placeholder="Es: 'Visura Camerale della S.r.l.s.'">
+        </div>
+        
+        <div class="form-group">
+          <label>Nome Documento (Ufficiale)</label>
+          <input type="text" id="upload-doc-name" required placeholder="Es: 'Visura Camerale CCIAA 2026'">
+        </div>
+        
+        <div class="form-group">
+          <label>Breve descrizione/note</label>
+          <textarea id="upload-doc-desc" required placeholder="Inserisci note sulla validità ed il contenuto del file asseverato..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>Seleziona file PDF o Immagine (Simulato se vuoto)</label>
+          <input type="file" id="upload-doc-file" style="padding: 6px;">
+        </div>
+        
+        <button type="submit" class="btn" style="margin-top: 15px;">💾 Valida ed Assevera</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <h3 id="loader-text">L'AI sta elaborando la richiesta...</h3>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    let activeProfile = {};
+    let activeGrants = [];
+    let selectedGrant = null;
+    let selectedFeasibility = null;
+    let selectedProjectDraft = null;
+    let completedRequirements = {};
+    let uploadedDocuments = [];
+    let currentCertTypeAnalyzed = null;
+
+    function showSectionInsight(id) {
+      const box = document.getElementById(id);
+      if (box) {
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    function renderDocumentItem(docText, container) {
+      const li = document.createElement('li');
+      const docLower = docText.toLowerCase();
+      
+      const isUploaded = (uploadedDocuments || []).some(d => 
+        d.document_name.toLowerCase().includes(docLower) || 
+        d.requirement_name.toLowerCase().includes(docLower) || 
+        d.filename.toLowerCase().includes(docLower) ||
+        docLower.includes(d.document_name.toLowerCase())
+      );
+      
+      let acquired = false;
+      let statusText = "";
+      let infoNote = "";
+      
+      if (docLower.includes("visura")) {
+        if (isUploaded) {
+          acquired = true;
+          statusText = "Asseverato";
+          infoNote = " — Visura Camerale valida depositata nel fascicolo digitale";
+        } else {
+          acquired = false;
+          statusText = "Da Caricare";
+          infoNote = " — Estrarre Visura Ordinaria aggiornata (massimo 3 mesi) da Registro Imprese";
+        }
+      } else if (docLower.includes("p.iva") || docLower.includes("partita iva") || docLower.includes("attribuzione")) {
+        acquired = true;
+        statusText = "Pronto";
+        infoNote = " — Rilevato e pre-compilato da profilo aziendale attivo";
+      } else if (docLower.includes("durc")) {
+        if (isUploaded) {
+          acquired = true;
+          statusText = "Asseverato";
+          infoNote = " — DURC attivo e regolare caricato negli allegati";
+        } else {
+          acquired = false;
+          statusText = "Da Caricare";
+          infoNote = " — Il DURC ha validità limitata, richiedere sul portale INPS";
+        }
+      } else if (docLower.includes("affitto") || docLower.includes("locazione") || docLower.includes("contratto")) {
+        if (isUploaded) {
+          acquired = true;
+          statusText = "Asseverato";
+          infoNote = " — Contratto di locazione regolarmente registrato depositato";
+        } else {
+          acquired = false;
+          statusText = "Da Caricare";
+          infoNote = " — Richiesto per asseverare la sede operativa di Via della Conciliazione";
+        }
+      } else if (docLower.includes("bilancio") || docLower.includes("dichiarazione") || docLower.includes("unico")) {
+        if (isUploaded) {
+          acquired = true;
+          statusText = "Asseverato";
+          infoNote = " — Dichiarazione dei redditi societaria presente nel database";
+        } else {
+          acquired = false;
+          statusText = "Da Caricare";
+          infoNote = " — Fornire Modello Redditi SC o Bilancio depositato";
+        }
+      } else if (docLower.includes("preventiv")) {
+        if (isUploaded) {
+          acquired = true;
+          statusText = "Asseverato";
+          infoNote = " — Preventivi di fornitura asseverati caricati";
+        } else {
+          acquired = false;
+          statusText = "Da Caricare";
+          infoNote = " — Obbligatorio allegare preventivi dettagliati (es. per distributori, solare)";
+        }
+      } else if (docLower.includes("identità") || docLower.includes("titolare") || docLower.includes("amministratore")) {
+        acquired = true;
+        statusText = "Pronto";
+        infoNote = " — Documento d'identità del Legale Rappresentante pre-caricato";
+      } else if (docLower.includes("de minimis")) {
+        acquired = true;
+        statusText = "OK";
+        infoNote = " — Dichiarazione De Minimis pre-compilata automaticamente dall'AI";
+      } else {
+        if (isUploaded) {
+          acquired = true;
+          statusText = "Asseverato";
+          infoNote = " — Documento caricato con successo nel database asseverazioni";
+        } else {
+          acquired = false;
+          statusText = "Da Caricare";
+          infoNote = " — Caricare il documento nella sezione societaria";
+        }
+      }
+      
+      li.className = acquired ? "doc-bullet-acquired" : "doc-bullet-pending";
+      li.innerHTML = `<strong>${docText}</strong> <span style="font-size:0.7rem; font-weight:600; padding:0.15rem 0.35rem; border-radius:4px; ${acquired ? 'background:rgba(82,183,136,0.12); border:1px solid rgba(82,183,136,0.25); color:#52b788;' : 'background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.25); color:#f59e0b;'}">${statusText}</span><span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-top:0.15rem;">${infoNote}</span>`;
+      container.appendChild(li);
+    }
+
+    // Inizializzazione
+    window.onload = async function() {
+      await loadProfile();
+      await loadGrants();
+      await loadSavedProjects();
+      await loadCertStatus();
+
+      // Listener ricerca AI
+      document.getElementById('ai-search-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          triggerAISearch(this.value);
+        }
+      });
+
+      // Salva profilo
+      document.getElementById('profile-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        await saveProfile();
+      });
+
+      // Generazione BP
+      document.getElementById('btn-generate-bp').addEventListener('click', async function() {
+        if (selectedGrant) {
+          await generateBusinessPlan(selectedGrant.id);
+        }
+      });
+
+      // Compilazione domanda
+      document.getElementById('btn-compile-grant').addEventListener('click', async function() {
+        if (selectedGrant) {
+          await compileGrantApplication(selectedGrant.id);
+        }
+      });
+
+      // Salva bozza progetto
+      document.getElementById('btn-save-project').addEventListener('click', async function() {
+        if (selectedProjectDraft) {
+          await saveProject();
+        }
+      });
+
+      // Form caricamento documenti
+      document.getElementById('upload-doc-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        await uploadDocumentFile();
+      });
+    };
+
+    // --- API BACKEND CALLS ---
+
+    async function loadCertStatus() {
+      try {
+        const response = await fetch('/api/certifications/status');
+        const data = await response.json();
+        completedRequirements = data.completed_requirements || {};
+        uploadedDocuments = data.uploaded_documents || [];
+        
+        const container = document.getElementById('uploaded-docs-list');
+        if (uploadedDocuments.length === 0) {
+          container.innerHTML = `<div style="font-size:0.75rem; color:var(--text-muted); text-align:center; padding:1rem; background:rgba(255,255,255,0.01); border-radius:8px;">Nessun documento societario asseverato. Carica Visure/DURC.</div>`;
+          return;
+        }
+        
+        container.innerHTML = '';
+        uploadedDocuments.forEach((doc, idx) => {
+          const item = document.createElement('div');
+          item.style.cssText = "background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); padding:0.75rem; border-radius:8px; display:flex; flex-direction:column; gap:0.25rem;";
+          
+          let certLabel = doc.certification_type;
+          if (certLabel === 'visura_camerale') certLabel = 'Visura';
+          else if (certLabel === 'durc_attivo') certLabel = 'DURC';
+          else if (certLabel === 'piva_attribuzione') certLabel = 'P.IVA';
+          else if (certLabel === 'bilanci_depositati') certLabel = 'Redditi/Bilancio';
+          else if (certLabel === 'locazione_registrata') certLabel = 'Locazione';
+          else if (certLabel === 'preventivi_fornitori') certLabel = 'Preventivi';
+          
+          item.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem;">
+              <span style="font-weight:600; color:var(--text); font-size:0.8rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:180px;">${doc.document_name}</span>
+              <span style="font-size:0.55rem; color:var(--primary); border:1px solid var(--primary-border); padding:0.1rem 0.3rem; border-radius:3px; background:var(--primary-dim); text-transform:uppercase;">${certLabel}</span>
+            </div>
+            <div style="font-size:0.7rem; color:var(--text-muted); line-height:1.3;">Requisito: <strong>${doc.requirement_name}</strong></div>
+            <div style="font-size:0.65rem; color:var(--primary); margin-top:0.15rem; display:flex; align-items:center; gap:0.2rem;">
+              <span>📎</span> <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:200px;">${doc.filename}</span>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:0.5rem; border-top:1px solid rgba(255,255,255,0.05); padding-top:0.4rem;">
+              <button onclick="deleteDocument(${idx})" style="background:none; border:none; color:#ff4d4d; font-size:0.7rem; cursor:pointer; padding:0.2rem; display:flex; align-items:center; gap:0.25rem;">
+                🗑️ Rimuovi
+              </button>
+            </div>
+          `;
+          container.appendChild(item);
+        });
+      } catch (err) {
+        console.error("Errore caricamento status documenti:", err);
+      }
+    }
+
+    function openUploadModal(certType, reqName) {
+      document.getElementById('modal-title').textContent = "Assevera Documento Requisito";
+      document.getElementById('group-cert-select').style.display = 'none';
+      
+      document.getElementById('upload-cert-type').value = certType;
+      document.getElementById('upload-req-name').value = reqName;
+      document.getElementById('upload-existing-filename').value = '';
+      
+      const reqInput = document.getElementById('upload-req-display');
+      reqInput.value = reqName;
+      reqInput.disabled = true;
+      reqInput.style.background = "rgba(255,255,255,0.05)";
+      reqInput.style.color = "var(--text-muted)";
+      
+      document.getElementById('upload-doc-name').value = '';
+      document.getElementById('upload-doc-desc').value = '';
+      document.getElementById('upload-doc-file').value = '';
+      
+      document.getElementById('upload-modal').style.display = 'flex';
+    }
+
+    function openGeneralUploadModal() {
+      document.getElementById('modal-title').textContent = "Assevera Nuovo Documento";
+      document.getElementById('group-cert-select').style.display = 'block';
+      
+      document.getElementById('upload-cert-type').value = '';
+      document.getElementById('upload-req-name').value = '';
+      document.getElementById('upload-existing-filename').value = '';
+      
+      const reqInput = document.getElementById('upload-req-display');
+      reqInput.value = '';
+      reqInput.disabled = false;
+      reqInput.placeholder = "Es: Visura Camerale o Contratto Affitto";
+      reqInput.style.background = "rgba(255,255,255,0.02)";
+      reqInput.style.color = "var(--text)";
+      
+      document.getElementById('upload-doc-name').value = '';
+      document.getElementById('upload-doc-desc').value = '';
+      document.getElementById('upload-doc-file').value = '';
+      
+      document.getElementById('upload-modal').style.display = 'flex';
+    }
+
+    function closeUploadModal() {
+      document.getElementById('upload-modal').style.display = 'none';
+    }
+
+    async function deleteDocument(idx) {
+      const doc = uploadedDocuments[idx];
+      if (!doc) return;
+      
+      if (!confirm(`Rimuovere il documento asseverato "${doc.document_name}" dal fascicolo d'impresa?`)) {
+        return;
+      }
+      
+      showLoader("Rimozione del documento in corso...");
+      try {
+        const response = await fetch('/api/documents/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            certification_type: doc.certification_type,
+            requirement_name: doc.requirement_name
+          })
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          alert("Documento rimosso. La compliance aziendale è stata aggiornata.");
+          await loadCertStatus();
+          if (selectedGrant) {
+            await startFeasibilityAnalysis(selectedGrant.id); // Rinfresca analisi attiva
+          }
+        }
+      } catch (err) {
+        alert("Errore: " + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    async function uploadDocumentFile() {
+      let certType = document.getElementById('upload-cert-type').value;
+      let reqName = document.getElementById('upload-req-name').value;
+      const docName = document.getElementById('upload-doc-name').value;
+      const docDesc = document.getElementById('upload-doc-desc').value;
+      const fileInput = document.getElementById('upload-doc-file');
+      
+      if (!certType) {
+        certType = document.getElementById('upload-cert-select').value;
+      }
+      if (!reqName) {
+        reqName = document.getElementById('upload-req-display').value.trim();
+      }
+      
+      if (!reqName) {
+        alert("Per favore inserisci il nome del requisito che questo documento assevera.");
+        return;
+      }
+      
+      const formData = new FormData();
+      formData.append('certification_type', certType);
+      formData.append('requirement_name', reqName);
+      formData.append('document_name', docName);
+      formData.append('description', docDesc);
+      
+      const existingFilename = document.getElementById('upload-existing-filename').value;
+      if (existingFilename) {
+        formData.append('existing_filename', existingFilename);
+      }
+      
+      if (fileInput.files.length > 0) {
+        formData.append('file', fileInput.files[0]);
+      }
+      
+      closeUploadModal();
+      showLoader("Caricamento dell'evidenza e asseverazione in corso...");
+      
+      try {
+        const response = await fetch('/api/documents/upload', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          alert("Documento asseverato con successo!");
+          await loadCertStatus();
+          if (selectedGrant) {
+            await startFeasibilityAnalysis(selectedGrant.id); // Rinfresca analisi
+          }
+        }
+      } catch (err) {
+        alert("Errore durante il caricamento: " + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    async function loadProfile() {
+      try {
+        const response = await fetch('/api/profile');
+        const data = await response.json();
+        activeProfile = data;
+        
+        document.getElementById('prof-name').value = data.name || '';
+        document.getElementById('prof-type').value = data.legal_type || 'S.r.l.s. con unico socio lavoratore';
+        document.getElementById('prof-piva').value = data.piva || '';
+        document.getElementById('prof-ateco').value = data.ateco_code || '';
+        document.getElementById('prof-hq').value = data.headquarters || '';
+        document.getElementById('prof-staff').value = data.staff_count || 1;
+        document.getElementById('prof-budget').value = data.annual_revenue || 0;
+        document.getElementById('prof-scope').value = data.business_activity || '';
+      } catch (err) {
+        console.error("Errore caricamento profilo:", err);
+      }
+    }
+
+    async function saveProfile() {
+      showLoader("Salvataggio profilo aziendale in corso...");
+      const profile = {
+        name: document.getElementById('prof-name').value,
+        legal_type: document.getElementById('prof-type').value,
+        piva: document.getElementById('prof-piva').value,
+        ateco_code: document.getElementById('prof-ateco').value,
+        constitution_date: "2018-04-12",
+        headquarters: document.getElementById('prof-hq').value,
+        staff_count: parseInt(document.getElementById('prof-staff').value),
+        annual_revenue: parseFloat(document.getElementById('prof-budget').value),
+        business_activity: document.getElementById('prof-scope').value
+      };
+
+      try {
+        const response = await fetch('/api/profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(profile)
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          activeProfile = profile;
+          alert("Profilo aziendale salvato! L'AI aggiornerà le valutazioni future in base alle nuove specifiche d'impresa.");
+        }
+      } catch (err) {
+        alert("Errore salvataggio profilo: " + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    let searchActive = false;
+    let searchResults = [];
+
+    async function loadGrants(shouldRender = true) {
+      try {
+        const response = await fetch('/api/grants');
+        const data = await response.json();
+        activeGrants = data;
+        if (shouldRender) {
+          renderGrants(data);
+        }
+      } catch (err) {
+        console.error("Errore caricamento bandi:", err);
+      }
+    }
+
+    function renderGrants(grants) {
+      const container = document.getElementById('grants-container');
+      const countLabel = document.getElementById('grants-count');
+      container.innerHTML = '';
+      
+      if (searchActive) {
+        countLabel.textContent = `${grants.length} Bandi Trovati`;
+      } else {
+        countLabel.textContent = `${grants.length} Bandi Disponibili`;
+      }
+
+      grants.forEach(grant => {
+        const card = document.createElement('div');
+        card.className = 'grant-card';
+        
+        card.innerHTML = `
+          <div>
+            <div class="grant-hdr">
+              <span class="grant-cat">${grant.category}</span>
+              <span class="grant-diff">Difficoltà: ${grant.difficulty}</span>
+            </div>
+            <h3>${grant.title}</h3>
+            <p class="grant-desc">${grant.description}</p>
+          </div>
+          <div>
+            <div class="grant-meta">
+              <div class="meta-item">
+                <strong>Ente Erogatore</strong>
+                <span class="meta-val">${grant.issuer}</span>
+              </div>
+              <div class="meta-item">
+                <strong>Budget Max</strong>
+                <span class="meta-val">${grant.budget_max.toLocaleString()} €</span>
+              </div>
+              <div class="meta-item">
+                <strong>Scadenza</strong>
+                <span class="meta-val">${grant.deadline}</span>
+              </div>
+              <div class="meta-item">
+                <strong>Fondo Perduto</strong>
+                <span class="meta-val">${grant.financing_percentage}%</span>
+              </div>
+            </div>
+            <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
+              ${grant.official_link ? `
+                <a href="${grant.official_link}" target="_blank" class="btn btn-secondary" style="width: auto; flex: 1; padding: 10px 14px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.82rem;">
+                  🌐 Sito Ufficiale
+                </a>
+              ` : ''}
+              <button class="btn" style="flex: 2; min-width: 180px;" onclick="startFeasibilityAnalysis('${grant.id}')">
+                Analisi di Fattibilità AI →
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function triggerAISearch(query) {
+      if (!query.trim()) return;
+      showLoader("L'AI sta scansionando i bandi camerali, sardi e nazionali per trovare opportunità commerciali compatibili...");
+      try {
+        const response = await fetch('/api/grants/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: query })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          alert("Errore ricerca AI: " + (data.detail || "Errore del server."));
+          return;
+        }
+        if (data.new_grants && data.new_grants.length > 0) {
+          await loadGrants(false);
+          
+          searchActive = true;
+          searchResults = data.new_grants;
+          
+          document.getElementById('search-filter-query').textContent = `"${query}"`;
+          document.getElementById('search-filter-feedback').style.display = 'flex';
+          
+          renderGrants(data.new_grants);
+          alert(`Scansione completata! Trovati e caricati ${data.new_grants.length} nuovi bandi retail/PMI compatibili.`);
+        } else {
+          const queryLower = query.toLowerCase();
+          const localMatches = activeGrants.filter(g => 
+            g.title.toLowerCase().includes(queryLower) || 
+            g.description.toLowerCase().includes(queryLower) ||
+            g.scope.toLowerCase().includes(queryLower)
+          );
+          
+          if (localMatches.length > 0) {
+            searchActive = true;
+            searchResults = localMatches;
+            document.getElementById('search-filter-query').textContent = `"${query}"`;
+            document.getElementById('search-filter-feedback').style.display = 'flex';
+            renderGrants(localMatches);
+          } else {
+            alert("Nessun bando commerciale rilevato compatibile con la tua ricerca specifica.");
+          }
+        }
+      } catch (err) {
+        alert("Errore ricerca AI: " + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    async function clearSearchFilter() {
+      searchActive = false;
+      searchResults = [];
+      document.getElementById('search-filter-feedback').style.display = 'none';
+      document.getElementById('ai-search-input').value = '';
+      await loadGrants(true);
+    }
+
+    function triggerSearchTopic(query) {
+      document.getElementById('ai-search-input').value = query;
+      triggerAISearch(query);
+    }
+
+    async function startFeasibilityAnalysis(grantId) {
+      if (document.getElementById('funding-priorities')) {
+        document.getElementById('funding-priorities').value = '';
+      }
+      showLoader("Incrocio dei parametri del bando con il Profilo Social Pesca (S.r.l.s., socio unico, fatturato, cassa)...");
+      try {
+        const response = await fetch('/api/feasibility', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ grant_id: grantId })
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          alert("Errore analisi: " + (data.detail || "Risposta inattesa."));
+          return;
+        }
+        
+        selectedGrant = activeGrants.find(g => g.id === grantId);
+        selectedFeasibility = data;
+
+        document.getElementById('analysis-grant-title').textContent = `Analisi Fattibilità: ${selectedGrant.title}`;
+        document.getElementById('analysis-grant-issuer').textContent = `Ente: ${selectedGrant.issuer}`;
+        
+        const scoreEl = document.getElementById('analysis-score');
+        scoreEl.textContent = `${data.feasibility_score || 0}%`;
+        
+        const eligBadge = document.getElementById('analysis-eligibility');
+        eligBadge.textContent = data.eligibility_status || 'N/D';
+        eligBadge.className = `eligibility-status ${data.eligibility_status === 'IDONEO' ? 'done' : 'risk'}`;
+
+        document.getElementById('analysis-legal').textContent = data.legal_analysis || '';
+        document.getElementById('analysis-technical').textContent = data.technical_analysis || '';
+        document.getElementById('analysis-social').textContent = data.social_analysis || '';
+        document.getElementById('analysis-financial').textContent = data.financial_analysis || '';
+        document.getElementById('analysis-partnership').textContent = data.partnership_need || '';
+
+        // Popola controlli cumulativi
+        if (data.cumulative_checks) {
+          const checks = data.cumulative_checks;
+
+          document.getElementById('cum-deminimis-val').textContent = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(checks.projected_cumulative_budget);
+          const deMinimisBadge = document.getElementById('cum-deminimis-badge');
+          if (checks.de_minimis_warning) {
+            deMinimisBadge.textContent = "SOGLIA SUPERATA";
+            deMinimisBadge.className = "badge risk";
+          } else {
+            deMinimisBadge.textContent = "OK";
+            deMinimisBadge.className = "badge done";
+          }
+
+          document.getElementById('cum-staff-val').textContent = `${checks.projected_staff_occupied} / ${checks.staff_limit} FTE`;
+          const staffBadge = document.getElementById('cum-staff-badge');
+          if (checks.staff_warning) {
+            staffBadge.textContent = "SOVRACCARICO";
+            staffBadge.className = "badge risk";
+          } else {
+            staffBadge.textContent = "SUFFICIENTE";
+            staffBadge.className = "badge done";
+          }
+
+          document.getElementById('cum-cash-val').textContent = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(checks.projected_pre_financing_needed);
+          const cashBadge = document.getElementById('cum-cash-badge');
+          if (checks.cash_flow_warning) {
+            cashBadge.textContent = "TENSIONE";
+            cashBadge.className = "badge risk";
+          } else {
+            cashBadge.textContent = "SUFFICIENTE";
+            cashBadge.className = "badge done";
+          }
+
+          const conflictValEl = document.getElementById('cum-conflict-val');
+          const conflictBadgeEl = document.getElementById('cum-conflict-badge');
+          if (checks.issuer_conflict) {
+            conflictValEl.textContent = checks.conflicting_project_title || "Rilevato";
+            conflictBadgeEl.textContent = "ATTIVO";
+            conflictBadgeEl.className = "badge risk";
+          } else {
+            conflictValEl.textContent = "Nessuno";
+            conflictBadgeEl.textContent = "OK";
+            conflictBadgeEl.className = "badge done";
+          }
+        }
+
+        // Raccomandazioni consulenti
+        const recList = document.getElementById('analysis-experts-list');
+        recList.innerHTML = '';
+        (data.expert_recommendations || []).forEach(rec => {
+          const item = document.createElement('div');
+          item.className = 'advise-block';
+          item.innerHTML = `
+            <h5>Ruolo Professionale Raccomandato</h5>
+            <p>${rec}</p>
+          `;
+          recList.appendChild(item);
+        });
+
+        // Switch Views
+        document.getElementById('view-explorer').style.display = 'none';
+        document.getElementById('view-analysis').style.display = 'flex';
+        document.getElementById('view-project').style.display = 'none';
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        alert("Errore: " + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    async function generateBusinessPlan(grantId) {
+      const priorities = document.getElementById('funding-priorities')?.value || '';
+      showLoader("L'AI sta assemblando la bozza di Business Plan, i preventivi, la checklist documentale societaria e di logistica...");
+      try {
+        const response = await fetch('/api/project-draft', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ grant_id: grantId, funding_priorities: priorities })
+        });
+        const data = await response.json();
+        selectedProjectDraft = data;
+
+        document.getElementById('doc-title').textContent = data.project_title.toUpperCase();
+        document.getElementById('doc-summary').textContent = data.project_summary;
+
+        // Azioni
+        const actionsList = document.getElementById('doc-actions');
+        actionsList.innerHTML = '';
+        data.key_actions.forEach(action => {
+          const li = document.createElement('li');
+          li.textContent = action;
+          actionsList.appendChild(li);
+        });
+
+        // Budget
+        const budgetGrid = document.getElementById('doc-budget');
+        budgetGrid.innerHTML = '';
+        const b = data.budget_draft;
+        for (const [key, value] of Object.entries(b)) {
+          if (key !== 'totale_stimato') {
+            const cleanLabel = key.replace(/_/g, ' ').toUpperCase();
+            const item = document.createElement('div');
+            item.className = 'budget-item';
+            item.innerHTML = `
+              <span class="budget-label">${cleanLabel}</span>
+              <span class="budget-val">${value}</span>
+            `;
+            budgetGrid.appendChild(item);
+          }
+        }
+        
+        const totalItem = document.createElement('div');
+        totalItem.className = 'budget-item total';
+        totalItem.innerHTML = `
+          <span class="budget-label">TOTALE STRUMENTALE PREVISTO</span>
+          <span class="budget-val">${b.totale_stimato}</span>
+        `;
+        budgetGrid.appendChild(totalItem);
+
+        // Partnership & Roadmap
+        document.getElementById('doc-partnership').textContent = data.partnership_strategy;
+        document.getElementById('doc-academic').textContent = data.academic_path_advice;
+
+        // Post Award Roadmap
+        if (data.post_award_roadmap) {
+          document.getElementById('doc-post-accettazione').innerHTML = data.post_award_roadmap.accettazione_e_avvio || '';
+          document.getElementById('doc-post-esecuzione').innerHTML = data.post_award_roadmap.esecuzione_investimenti || '';
+          document.getElementById('doc-post-documenti').innerHTML = data.post_award_roadmap.documentazione_rendicontazione || '';
+          document.getElementById('doc-post-pratiche').innerHTML = data.post_award_roadmap.pratiche_e_collaudo || '';
+        } else {
+          document.getElementById('doc-post-accettazione').textContent = 'Nessuna indicazione fornita dall\'AI per questa misura.';
+          document.getElementById('doc-post-esecuzione').textContent = 'Nessuna indicazione fornita dall\'AI per questa misura.';
+          document.getElementById('doc-post-documenti').textContent = 'Nessuna indicazione fornita dall\'AI per questa misura.';
+          document.getElementById('doc-post-pratiche').textContent = 'Nessuna indicazione fornita dall\'AI per questa misura.';
+        }
+
+        // Documenti Checklist
+        const docList = document.getElementById('doc-documents');
+        docList.innerHTML = '';
+        (data.checklist_documents || []).forEach(doc => {
+          renderDocumentItem(doc, docList);
+        });
+
+        // Figure d'impresa
+        const profList = document.getElementById('doc-professionals');
+        profList.innerHTML = '';
+        data.external_professionals.forEach(prof => {
+          const li = document.createElement('li');
+          li.textContent = prof;
+          profList.appendChild(li);
+        });
+
+        document.getElementById('view-analysis').style.display = 'none';
+        document.getElementById('view-project').style.display = 'flex';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        alert("Errore: " + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    async function saveProject() {
+      if (!selectedProjectDraft) return;
+      showLoader("Salvataggio della bozza di bando nell'archivio...");
+      try {
+        const response = await fetch('/api/projects/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(selectedProjectDraft)
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          await loadSavedProjects();
+          alert("Candidatura archiviata con successo in database.json!");
+        }
+      } catch (err) {
+        alert("Errore salvataggio: " + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    async function compileGrantApplication(grantId) {
+      const priorities = document.getElementById('funding-priorities')?.value || '';
+      showLoader("Generazione testi formali di candidatura per la domanda a fondo perduto... Potrebbe richiedere 10-15 secondi...");
+      try {
+        const response = await fetch('/api/grants/compile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ grant_id: grantId, funding_priorities: priorities })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          alert("Errore compilazione: " + (data.detail || "Errore."));
+          return;
+        }
+
+        document.getElementById('compile-grant-title').textContent = data.grant_title || selectedGrant?.title || '';
+        document.getElementById('compile-grant-meta').textContent = `Ente Erogatore: ${data.grant_issuer || ''} — Impresa: ${data.association_name || ''}`;
+        document.getElementById('compile-sec-a').textContent = data.sezione_a_presentazione || '';
+        document.getElementById('compile-sec-b').textContent = data.sezione_b_descrizione_progetto || '';
+        document.getElementById('compile-sec-c').textContent = data.sezione_c_analisi_bisogni || '';
+        document.getElementById('compile-sec-d').textContent = data.sezione_d_metodologia || '';
+        document.getElementById('compile-sec-e').textContent = data.sezione_e_piano_attivita || '';
+        document.getElementById('compile-sec-f').textContent = data.sezione_f_budget_narrativo || '';
+        document.getElementById('compile-sec-g').textContent = data.sezione_g_impatto || '';
+        document.getElementById('compile-sec-h').textContent = data.sezione_h_partenariato || '';
+
+        window._compiledData = data;
+
+        document.getElementById('view-explorer').style.display = 'none';
+        document.getElementById('view-analysis').style.display = 'none';
+        document.getElementById('view-project').style.display = 'none';
+        document.getElementById('view-compile').style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        alert("Errore compilazione: " + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    function copyCompileText() {
+      const d = window._compiledData;
+      if (!d) return;
+      const text = [
+        `DOMANDA DI FINANZIAMENTO: ${d.grant_title}`,
+        `Ente Erogatore: ${d.grant_issuer}`,
+        `Impresa Proponente: ${d.association_name}`,
+        '\n=== A. PRESENTAZIONE IMPRESA ===', d.sezione_a_presentazione,
+        '\n=== B. DESCRIZIONE PROGETTO ===', d.sezione_b_descrizione_progetto,
+        '\n=== C. ANALISI DI MERCATO E BISOGNI ===', d.sezione_c_analisi_bisogni,
+        '\n=== D. SOLUZIONE TECNOLOGICA ED E-COMMERCE ===', d.sezione_d_metodologia,
+        '\n=== E. PIANO DELLE ATTIVITÀ ===', d.sezione_e_piano_attivita,
+        '\n=== F. GIUSTIFICAZIONE SPESA ===', d.sezione_f_budget_narrativo,
+        '\n=== G. IMPATTO COMMERCIALE E ROI ===', d.sezione_g_impatto,
+        '\n=== H. RETI COMMERCIALI E CO-MARKETING ===', d.sezione_h_partenariato
+      ].join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btn-copy-compile');
+        btn.textContent = '✅ Copiato!';
+        setTimeout(() => btn.textContent = '📋 Copia Testi', 2000);
+      });
+    }
+
+    function downloadCompileText() {
+      const d = window._compiledData;
+      if (!d) return;
+      const text = [
+        `DOMANDA DI FINANZIAMENTO: ${d.grant_title}`,
+        `Ente Erogatore: ${d.grant_issuer}`,
+        `Impresa Proponente: ${d.association_name}`,
+        '\n=== A. PRESENTAZIONE IMPRESA ===', d.sezione_a_presentazione,
+        '\n=== B. DESCRIZIONE PROGETTO ===', d.sezione_b_descrizione_progetto,
+        '\n=== C. ANALISI DI MERCATO E BISOGNI ===', d.sezione_c_analisi_bisogni,
+        '\n=== D. SOLUZIONE TECNOLOGICA ED E-COMMERCE ===', d.sezione_d_metodologia,
+        '\n=== E. PIANO DELLE ATTIVITÀ ===', d.sezione_e_piano_attivita,
+        '\n=== F. GIUSTIFICAZIONE SPESA ===', d.sezione_f_budget_narrativo,
+        '\n=== G. IMPATTO COMMERCIALE E ROI ===', d.sezione_g_impatto,
+        '\n=== H. RETI COMMERCIALI E CO-MARKETING ===', d.sezione_h_partenariato
+      ].join('\n');
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `domanda_${d.grant_title.replace(/[^a-z0-9]/gi,'_').toLowerCase()}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function loadSavedProjects() {
+      try {
+        const response = await fetch('/api/projects');
+        const data = await response.json();
+        const container = document.getElementById('archive-container');
+        
+        if (data.length === 0) {
+          container.innerHTML = `<div style="font-size:0.8rem; color:var(--text-muted); text-align:center; padding:1.5rem; background:rgba(255,255,255,0.01); border-radius:8px;">Nessuna bozza archiviata. Completa ed archivia un bando per iniziare.</div>`;
+          return;
+        }
+
+        container.innerHTML = '';
+        data.forEach(proj => {
+          const item = document.createElement('div');
+          item.className = 'proj-item';
+          item.innerHTML = `
+            <div>
+              <div class="proj-title">${proj.project_title}</div>
+              <div class="proj-meta">Bando: ${proj.grant_id} &middot; Budget stimato: ${proj.budget_draft.totale_stimato}</div>
+            </div>
+            <button class="btn btn-secondary" style="width:auto; padding:0.4rem 0.8rem; font-size:0.75rem;" onclick="loadSavedProjectIntoViewer('${proj.grant_id}')">
+              Esamina Bozza 📄
+            </button>
+          `;
+          container.appendChild(item);
+        });
+      } catch (err) {
+        console.error("Errore archivio progetti:", err);
+      }
+    }
+
+    async function loadSavedProjectIntoViewer(grantId) {
+      showLoader("Caricamento bozza in corso...");
+      try {
+        const response = await fetch('/api/projects');
+        const projects = await response.json();
+        const proj = projects.find(p => p.grant_id === grantId);
+        
+        if (proj) {
+          selectedProjectDraft = proj;
+          selectedGrant = activeGrants.find(g => g.id === grantId);
+
+          document.getElementById('doc-title').textContent = proj.project_title.toUpperCase();
+          document.getElementById('doc-summary').textContent = proj.project_summary;
+
+          const actionsList = document.getElementById('doc-actions');
+          actionsList.innerHTML = '';
+          proj.key_actions.forEach(action => {
+            const li = document.createElement('li');
+            li.textContent = action;
+            actionsList.appendChild(li);
+          });
+
+          const budgetGrid = document.getElementById('doc-budget');
+          budgetGrid.innerHTML = '';
+          const b = proj.budget_draft;
+          for (const [key, value] of Object.entries(b)) {
+            if (key !== 'totale_stimato') {
+              const cleanLabel = key.replace(/_/g, ' ').toUpperCase();
+              const item = document.createElement('div');
+              item.className = 'budget-item';
+              item.innerHTML = `
+                <span class="budget-label">${cleanLabel}</span>
+                <span class="budget-val">${value}</span>
+              `;
+              budgetGrid.appendChild(item);
+            }
+          }
+          
+          const totalItem = document.createElement('div');
+          totalItem.className = 'budget-item total';
+          totalItem.innerHTML = `
+            <span class="budget-label">TOTALE STRUMENTALE PREVISTO</span>
+            <span class="budget-val">${b.totale_stimato}</span>
+          `;
+          budgetGrid.appendChild(totalItem);
+
+          document.getElementById('doc-partnership').textContent = proj.partnership_strategy;
+          document.getElementById('doc-academic').textContent = proj.academic_path_advice;
+
+          // Post Award Roadmap
+          if (proj.post_award_roadmap) {
+            document.getElementById('doc-post-accettazione').innerHTML = proj.post_award_roadmap.accettazione_e_avvio || '';
+            document.getElementById('doc-post-esecuzione').innerHTML = proj.post_award_roadmap.esecuzione_investimenti || '';
+            document.getElementById('doc-post-documenti').innerHTML = proj.post_award_roadmap.documentazione_rendicontazione || '';
+            document.getElementById('doc-post-pratiche').innerHTML = proj.post_award_roadmap.pratiche_e_collaudo || '';
+          } else {
+            document.getElementById('doc-post-accettazione').textContent = 'Nessuna indicazione fornita per questa misura.';
+            document.getElementById('doc-post-esecuzione').textContent = 'Nessuna indicazione fornita per questa misura.';
+            document.getElementById('doc-post-documenti').textContent = 'Nessuna indicazione fornita per questa misura.';
+            document.getElementById('doc-post-pratiche').textContent = 'Nessuna indicazione fornita per questa misura.';
+          }
+
+          const docList = document.getElementById('doc-documents');
+          docList.innerHTML = '';
+          proj.checklist_documents.forEach(doc => {
+            renderDocumentItem(doc, docList);
+          });
+
+          const profList = document.getElementById('doc-professionals');
+          profList.innerHTML = '';
+          proj.external_professionals.forEach(prof => {
+            const li = document.createElement('li');
+            li.textContent = prof;
+            profList.appendChild(li);
+          });
+
+          document.getElementById('view-explorer').style.display = 'none';
+          document.getElementById('view-analysis').style.display = 'none';
+          document.getElementById('view-project').style.display = 'flex';
+          
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      } catch (err) {
+        alert("Errore caricamento: " + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    async function resetGrants() {
+      if (confirm("Ripristinare i bandi aziendali predefiniti? Le bozze salvate non verranno eliminate.")) {
+        showLoader("Ripristino bandi...");
+        try {
+          await loadGrants();
+          goBackToExplorer();
+          alert("Lista bandi ripristinata!");
+        } catch (err) {
+          alert("Errore: " + err);
+        } finally {
+          hideLoader();
+        }
+      }
+    }
+
+    // --- NAVIGATION ---
+    function goBackToExplorer() {
+      document.getElementById('view-explorer').style.display = 'block';
+      document.getElementById('view-analysis').style.display = 'none';
+      document.getElementById('view-project').style.display = 'none';
+      document.getElementById('view-compile').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goBackToAnalysis() {
+      document.getElementById('view-explorer').style.display = 'none';
+      document.getElementById('view-analysis').style.display = 'flex';
+      document.getElementById('view-project').style.display = 'none';
+      document.getElementById('view-compile').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showLoader(text) {
+      document.getElementById('loader-text').textContent = text;
+      document.getElementById('loader').style.display = 'flex';
+    }
+
+    function hideLoader() {
+      document.getElementById('loader').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

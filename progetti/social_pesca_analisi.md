@@ -1,6 +1,6 @@
-# Analisi Strategica di Mercato & Brainstorming: Ichnos Pesca Oristano
+# Analisi Strategica di Mercato & Brainstorming: Social Pesca Oristano
 
-Questo documento analizza lo scenario competitivo dei negozi di articoli da pesca a Oristano e dintorni, valuta il posizionamento SEO/SEM del cliente **Ichnos Pesca**, e propone un piano d'azione commerciale basato su tendenze di consumo, analisi dei marchi e servizi innovativi extra-negozio.
+Questo documento analizza lo scenario competitivo dei negozi di articoli da pesca a Oristano e dintorni, valuta il posizionamento SEO/SEM del cliente **Social Pesca**, e propone un piano d'azione commerciale basato su tendenze di consumo, analisi dei marchi e servizi innovativi extra-negozio.
 
 ---
 
@@ -22,10 +22,10 @@ Oristano e la penisola del Sinis rappresentano un paradiso per la pesca sportiva
 
 ---
 
-## 2. Audit SEO & SEM di Ichnos Pesca
+## 2. Audit SEO & SEM di Social Pesca
 
 ### A. Posizionamento Organico (SEO) — *Stato Attuale: Critico*
-* **Assenza di un Sito Proprietario:** Al momento, Ichnos Pesca non possiede un sito web ufficiale o una piattaforma e-commerce. La visibilità online è affidata a directory terze (Pagine Gialle, ReteImprese) e alla pagina Facebook.
+* **Assenza di un Sito Proprietario:** Al momento, Social Pesca non possiede un sito web ufficiale o una piattaforma e-commerce. La visibilità online è affidata a directory terze (Pagine Gialle, ReteImprese) e alla pagina Facebook.
 * **Google Business Profile (Google Maps):** La scheda esiste ma è scarsamente ottimizzata. Mancano un link a un catalogo, post aggiornati con le catture dei clienti e una strategia attiva per raccogliere recensioni (fondamentali per le ricerche locali come *"negozio pesca vicino a me"* effettuate dai turisti).
 * **Mancata Intercettazione delle Keyword Locali:** Per ricerche come *"esche vive Oristano"*, *"canne da pesca Oristano"* o *"articoli pesca Sinis"*, i concorrenti (in particolare *Fishing Time*) monopolizzano la prima pagina di Google grazie all'e-commerce e all'anzianità del dominio.
 
@@ -34,13 +34,13 @@ Oristano e la penisola del Sinis rappresentano un paradiso per la pesca sportiva
 * Nessuna sponsorizzata geolocalizzata su Meta (Facebook/Instagram) focalizzata sui pescatori locali o sui turisti che arrivano nella provincia.
 
 > [!IMPORTANT]
-> **Il Gap Digitale come Opportunità:** L'assenza di un e-commerce non è necessariamente una debolezza insormontabile. Competere a livello nazionale di SEO/SEM contro giganti come Sergio Pesca o Piscor richiede budget enormi. La strategia vincente per Ichnos Pesca deve essere **iper-locale e relazionale (SEO Locale + Conversational Commerce)**.
+> **Il Gap Digitale come Opportunità:** L'assenza di un e-commerce non è necessariamente una debolezza insormontabile. Competere a livello nazionale di SEO/SEM contro giganti come Sergio Pesca o Piscor richiede budget enormi. La strategia vincente per Social Pesca deve essere **iper-locale e relazionale (SEO Locale + Conversational Commerce)**.
 
 ---
 
 ## 3. Offerta Commerciale: Analisi dei Marchi & Sentiment
 
-Ichnos Pesca ha un portafoglio di marchi ufficiali eccellente, che copre perfettamente diverse fasce di consumatori e tecniche. Ecco come valorizzarli:
+Social Pesca ha un portafoglio di marchi ufficiali eccellente, che copre perfettamente diverse fasce di consumatori e tecniche. Ecco come valorizzarli:
 
 ### 1. SHIMANO (Mulinelli e Canne di fascia medio-alta)
 * **Sentiment:** Massimo rispetto e desiderabilità. Il pescatore sardo associa Shimano a robustezza marina (fondamentale contro la salsedine e i grandi predatori come ricciole e serra).
@@ -52,7 +52,7 @@ Ichnos Pesca ha un portafoglio di marchi ufficiali eccellente, che copre perfett
 
 ### 3. FEENYX (Spinning, Eging e Light Game)
 * **Sentiment:** Brand moderno, dinamico ed emergente. Gode di un eccezionale sentiment tra le nuove generazioni di pescatori che praticano la pesca con esche artificiali (specialmente eging per seppie/calamari e spinning alla spigola in laguna/foce).
-* **Azione:** Ichnos Pesca deve posizionarsi come il **"Tempio Feenyx"** nell'oristanese. I prodotti Feenyx hanno un'estetica accattivante ideale per i contenuti Instagram e TikTok.
+* **Azione:** Social Pesca deve posizionarsi come il **"Tempio Feenyx"** nell'oristanese. I prodotti Feenyx hanno un'estetica accattivante ideale per i contenuti Instagram e TikTok.
 
 ---
 
@@ -61,14 +61,14 @@ Ichnos Pesca ha un portafoglio di marchi ufficiali eccellente, che copre perfett
 Per incrementare il valore medio dello scontrino e la frequenza di acquisto, possiamo "lavorare" su queste offerte:
 
 ### A. I "Kit Pronti per il Sinis" (Product Bundling)
-I pescatori occasionali o i turisti spesso non sanno cosa comprare. Creiamo dei kit completi marchiati Ichnos Pesca:
+I pescatori occasionali o i turisti spesso non sanno cosa comprare. Creiamo dei kit completi marchiati Social Pesca:
 * **"Kit Eging Calamaro Facile"**: Canna + mulinello Feenyx imbobinato, 2 totanare selezionate per il porto di Torregrande e una guida plastificata sugli spot del Sinis.
 * **"Kit Spigola in Foce"**: Selezione di esche artificiali (siliconici e jerk) Tubertini/Feenyx adatti alle acque salmastre del Tirso.
 
 ### B. Custom Rigging Lab (Servizio in Negozio)
 Molti pescatori (soprattutto chi lavora o ha poco tempo) odiano legare i terminali o imbobinare i mulinelli.
 * Offrire il servizio gratuito di imbobinamento professionale sotto tensione acquistando il trecciato in negozio.
-* Vendere terminali "Ichnos Pesca Custom" legati a mano dallo staff del negozio, ottimizzati per le specie locali (orate a Santa Giusta, spigole a Cabras).
+* Vendere terminali "Social Pesca Custom" legati a mano dallo staff del negozio, ottimizzati per le specie locali (orate a Santa Giusta, spigole a Cabras).
 
 ### C. Distributore Automatico di Esche 24/7
 * **Il Problema:** Le esche vive (coreano, arenicola, bibi) sono il prodotto a più alta frequenza di acquisto. I pescatori partono all'alba (ore 04:00) o pescano di notte, quando i negozi sono chiusi.
@@ -78,9 +78,9 @@ Molti pescatori (soprattutto chi lavora o ha poco tempo) odiano legare i termina
 
 ## 5. Strategia Extra-Negozio (Business Model Innovation)
 
-Per differenziarsi nettamente da internet e dai competitor fisici tradizionali, Ichnos Pesca deve vendere **esperienze e community**, non solo oggetti.
+Per differenziarsi nettamente da internet e dai competitor fisici tradizionali, Social Pesca deve vendere **esperienze e community**, non solo oggetti.
 
-### Idea 1: Il Club "Ichnos Pesca Academy"
+### Idea 1: Il Club "Social Pesca Academy"
 Organizzare clinic e masterclass a pagamento (o gratuite a fronte di una spesa minima in negozio) sul campo:
 * **Autunno (Eging):** Corso pratico di pesca ai cefalopodi dagli scogli di San Giovanni o Torregrande con pro-staff Feenyx.
 * **Inverno (Surfcasting):** Lettura della spiaggia ed evoluzione del moto ondoso a Is Arenas.
@@ -88,12 +88,12 @@ Organizzare clinic e masterclass a pagamento (o gratuite a fronte di una spesa m
 
 ### Idea 2: La Rete dei Charter & Guide di Pesca
 * Oristano ha diversi skipper di pesca (charter di traina, drifting o pesca d'altura) e guide certificate da terra.
-* **La Partnership:** Ichnos Pesca diventa l'infopoint e il canale di prenotazione ufficiale per queste guide. In cambio:
+* **La Partnership:** Social Pesca diventa l'infopoint e il canale di prenotazione ufficiale per queste guide. In cambio:
   1. Riceve una commissione sulle prenotazioni dei turisti.
-  2. Le guide inviano i clienti a comprare le esche e l'attrezzatura consigliata direttamente da Ichnos Pesca prima dell'uscita.
+  2. Le guide inviano i clienti a comprare le esche e l'attrezzatura consigliata direttamente da Social Pesca prima dell'uscita.
 
 ### Idea 3: "La Preda del Mese" (Gamification e Social Loyalty)
-Sfruttare il nome del brand: **Ichnos Pesca**.
+Sfruttare il nome del brand: **Social Pesca**.
 * Creare un tabellone fisico in negozio e una rubrica settimanale su Facebook/Instagram.
 * I clienti inviano la foto della cattura effettuata con attrezzatura acquistata in negozio (es. *"Presa con esca Feenyx"*).
 * La foto con più interazioni vince un buono sconto o un accessorio in omaggio. Questa iniziativa genera tonnellate di pubblicità gratuita (User Generated Content) sui profili personali dei pescatori locali.
@@ -113,8 +113,8 @@ graph TD
 ```
 
 ### Fase 1: Ottimizzazione Locale & Presenza Digitale (Mese 1)
-1. **Google Business Profile:** Aggiornare gli orari di apertura, caricare foto professionali del negozio e dei marchi (Shimano, Tubertini, Feenyx). Creare un QR Code in cassa che dice *"Ti sei trovato bene? Lasciaci una recensione su Google e ricevi uno sticker Ichnos Pesca!"*.
-2. **Local SEO:** Creare una pagina di atterraggio gratuita (anche tramite Google Sites o Canva) molto semplice, ottimizzata per parole chiave geografiche: *"Articoli da Pesca Oristano - Ichnos Pesca"*, indicando chiaramente i marchi trattati e il contatto WhatsApp.
+1. **Google Business Profile:** Aggiornare gli orari di apertura, caricare foto professionali del negozio e dei marchi (Shimano, Tubertini, Feenyx). Creare un QR Code in cassa che dice *"Ti sei trovato bene? Lasciaci una recensione su Google e ricevi uno sticker Social Pesca!"*.
+2. **Local SEO:** Creare una pagina di atterraggio gratuita (anche tramite Google Sites o Canva) molto semplice, ottimizzata per parole chiave geografiche: *"Articoli da Pesca Oristano - Social Pesca"*, indicando chiaramente i marchi trattati e il contatto WhatsApp.
 
 ### Fase 2: Conversational Commerce (Mese 2-3)
 1. **WhatsApp Business Catalog:** Inserire le esche disponibili settimanalmente e i 5 mulinelli/canne più venduti nel catalogo WhatsApp. Consentire il servizio *"Prenota su WhatsApp e ritira in 5 minuti in negozio"* (fondamentale per evitare code a chi ha fretta di andare a pescare).
@@ -123,3 +123,4 @@ graph TD
 ### Fase 3: Il Rilancio Fisico ed Esperienziale (Mese 4+)
 1. **Distributore di Esche 24/7:** Valutare l'investimento finanziario per il distributore esterno. È il miglior generatore di cassa ricorrente per questo settore.
 2. **Primo Evento Academy:** Organizzare un raduno o una giornata di prova attrezzatura (es. *"Feenyx Test Day"*) in una spiaggia locale, consolidando la community e portando clienti in negozio.
+

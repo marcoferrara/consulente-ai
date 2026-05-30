@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 # Evita che Python scriva i file .pyc e abilita il logging non bufferizzato
 ENV PYTHONDONTWRITEBYTECODE=1

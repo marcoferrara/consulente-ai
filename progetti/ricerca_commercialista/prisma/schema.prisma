@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Firm {
+  id               String    @id @default(uuid())
+  name             String
+  vatNumber        String    @unique // Partita IVA
+  subscriptionPlan String    @default("FREE") // FREE, PROFESSIONAL, ENTERPRISE
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  users            User[]
+
+  @@index([vatNumber])
+}
+
+model User {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  name         String
+  passwordHash String
+  role         String      @default("COMMERCIALISTA") // ADMIN, COMMERCIALISTA, COLLABORATORE
+  firmId       String
+  firm         Firm        @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  searchLogs   SearchLog[]
+
+  @@index([email])
+  @@index([firmId])
+}
+
+model AccountingProcedure {
+  id                        String       @id @default(uuid())
+  title                     String
+  normativeSummary          String // Max 3 lines plain language explanation
+  electronicInvoicingFields Json // To store { tipo_documento: string, natura_iva: string }
+  officialSources           Json // To store Array of [{ source_name: string, url: string, target_paragraph: string }]
+  sourceContents            Json? // To store Array of [{ source_name: string, url: string, content: string }] per Citations API
+  createdAt                 DateTime     @default(now())
+  updatedAt                 DateTime     @updatedAt
+  erpMappings               ErpMapping[]
+
+  @@index([title])
+}
+
+model ErpMapping {
+  id              String              @id @default(uuid())
+  procedureId     String
+  procedure       AccountingProcedure @relation(fields: [procedureId], references: [id], onDelete: Cascade)
+  erpName         String // e.g., "Zucchetti", "TeamSystem", "Danea Easyfatt"
+  stepByStepGuide Json // To store Array of strings
+  notes           String?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  @@index([procedureId])
+  @@index([erpName])
+}
+
+model SearchLog {
+  id                     String   @id @default(uuid())
+  userId                 String
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  query                  String
+  erpFilter              String?
+  searchIntent           String?  // NLP parsed search intent
+  matchedProceduresCount Int      @default(0)
+  responseGiven          String   // Summary of matching IDs or text response
+  executionTimeMs        Int
+  createdAt              DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}

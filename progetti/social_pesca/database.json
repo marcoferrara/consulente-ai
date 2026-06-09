@@ -8,7 +8,20 @@
     "annual_revenue": 180000.0,
     "piva": "IT01234567890",
     "ateco_code": "47.64.00",
-    "business_activity": "Commercio al dettaglio di articoli da pesca sportiva, attrezzatura marina, esche vive refrigerate H24, terminali artigianali legati a mano, e-commerce locale e organizzazione di corsi e raduni di pesca sportiva nel Sinis."
+    "business_activity": "Commercio al dettaglio di articoli da pesca sportiva, attrezzatura marina, esche vive refrigerate H24, terminali artigianali legati a mano, e-commerce locale e organizzazione di corsi e raduni di pesca sportiva nel Sinis.",
+    "property_status": "affitto",
+    "roof_access": "no",
+    "sun_exposure": "sole_diretto",
+    "digital_channels": [
+      "whatsapp"
+    ],
+    "strategic_goals": [
+      "transizione_green",
+      "digitalizzazione"
+    ],
+    "custom_constraints": "Locale in affitto, esposizione sole diretto",
+    "market_context": "Forte stagionalità estiva legata al turismo nella Penisola del Sinis, e forte richiesta di esche vive a tutte le ore della notte e dell'alba per surfcasting ed eging.",
+    "ai_instructions": "Focalizzati sulla promozione di terminali custom fatti a mano e sull'efficienza di conservazione termica del distributore intelligente. Evidenzia la partnership strategica con i charter del porto di Torregrande."
   },
   "grants": [
     {

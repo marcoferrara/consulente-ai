@@ -969,6 +969,89 @@
       line-height: 1.4;
     }
 
+    /* PROFILE ACCORDION STYLES */
+    .profile-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      margin-top: 8px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+
+    .profile-section-header:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: #ffffff;
+      border-color: rgba(0, 210, 196, 0.2);
+    }
+
+    .profile-section-header.active {
+      color: var(--primary);
+      border-color: rgba(0, 210, 196, 0.3);
+      background: rgba(0, 210, 196, 0.04);
+    }
+
+    .profile-section-header .arrow {
+      font-size: 0.65rem;
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+
+    .profile-section-header.active .arrow {
+      transform: rotate(90deg);
+    }
+
+    .profile-section-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      padding: 0 4px;
+    }
+
+    .profile-section-content.active {
+      max-height: 2000px;
+      transition: max-height 0.3s ease-in;
+      padding: 10px 4px 5px 4px;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 4px;
+      background: rgba(255, 255, 255, 0.01);
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .checkbox-item input {
+      accent-color: var(--primary);
+      cursor: pointer;
+      width: 14px;
+      height: 14px;
+      margin: 0;
+    }
+
     /* ARCHIVE SHELF */
     .projects-shelf {
       background: rgba(0, 0, 0, 0.25);
@@ -1144,39 +1227,126 @@
           Profilo Aziendale PMI
         </h2>
         <form id="profile-form">
-          <div class="form-group">
-            <label>Ragione Sociale</label>
-            <input type="text" id="prof-name" required>
+          <!-- Sezione 1: Anagrafica Base -->
+          <div class="profile-section-header active" onclick="toggleProfileAccordion('profile-sec-base', this)">
+            <span>Anagrafica &amp; Attività</span>
+            <span class="arrow">▶</span>
           </div>
-          <div class="form-group">
-            <label>Forma Giuridica</label>
-            <input type="text" id="prof-type" required>
+          <div id="profile-sec-base" class="profile-section-content active">
+            <div class="form-group">
+              <label>Ragione Sociale</label>
+              <input type="text" id="prof-name" required>
+            </div>
+            <div class="form-group">
+              <label>Forma Giuridica</label>
+              <input type="text" id="prof-type" required>
+            </div>
+            <div class="form-group">
+              <label>Partita IVA</label>
+              <input type="text" id="prof-piva" required>
+            </div>
+            <div class="form-group">
+              <label>Codice ATECO</label>
+              <input type="text" id="prof-ateco" required>
+            </div>
+            <div class="form-group">
+              <label>Sede Operativa / Legale</label>
+              <input type="text" id="prof-hq" required>
+            </div>
+            <div class="form-group">
+              <label>Titolare &amp; Socio Lavoratore</label>
+              <input type="number" id="prof-staff" required readonly style="background: rgba(255, 255, 255, 0.05); color: var(--text-muted); cursor: not-allowed;" title="Socio unico lavoratore stante ad atto costitutivo">
+            </div>
+            <div class="form-group">
+              <label>Fatturato Annuo Stimato (€)</label>
+              <input type="number" id="prof-budget" required>
+            </div>
+            <div class="form-group">
+              <label>Attività e Oggetto Sociale</label>
+              <textarea id="prof-scope" required></textarea>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Partita IVA</label>
-            <input type="text" id="prof-piva" required>
+
+          <!-- Sezione 2: Vincoli Logistici & Immobile -->
+          <div class="profile-section-header" onclick="toggleProfileAccordion('profile-sec-infrastructure', this)">
+            <span>Vincoli Fisici &amp; Immobile</span>
+            <span class="arrow">▶</span>
           </div>
-          <div class="form-group">
-            <label>Codice ATECO</label>
-            <input type="text" id="prof-ateco" required>
+          <div id="profile-sec-infrastructure" class="profile-section-content">
+            <div class="form-group">
+              <label>Stato di possesso locali</label>
+              <select id="prof-property-status">
+                <option value="affitto">In Affitto</option>
+                <option value="proprieta">Di Proprietà</option>
+                <option value="comodato">In Comodato / Altro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Accesso al Tetto per impianti</label>
+              <select id="prof-roof-access">
+                <option value="no">Nessun Accesso al Tetto</option>
+                <option value="si">Accesso Disponibile / Libero</option>
+                <option value="limitato">Accesso Limitato / Condominiale</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Esposizione Sole Area Esterna</label>
+              <select id="prof-sun-exposure">
+                <option value="sole_diretto">Sole Diretto tutto il giorno (Esposizione Sfavorevole)</option>
+                <option value="riparato">Parzialmente Ombreggiato / Riparato</option>
+                <option value="ombra">Ombra Permanente / Nessun Sole Diretto</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Altri Vincoli Fisici/Spazio</label>
+              <textarea id="prof-custom-constraints" placeholder="Es. vincoli storici comunali sulle vetrine, allacciamento elettrico limitato a 3kW..."></textarea>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Sede Operativa / Legale</label>
-            <input type="text" id="prof-hq" required>
+
+          <!-- Sezione 3: Canali & Obiettivi Strategici -->
+          <div class="profile-section-header" onclick="toggleProfileAccordion('profile-sec-goals', this)">
+            <span>Canali &amp; Obiettivi Strategici</span>
+            <span class="arrow">▶</span>
           </div>
-          <div class="form-group">
-            <label>Titolare &amp; Socio Lavoratore</label>
-            <input type="number" id="prof-staff" required readonly style="background: rgba(255, 255, 255, 0.05); color: var(--text-muted); cursor: not-allowed;" title="Socio unico lavoratore stante ad atto costitutivo">
+          <div id="profile-sec-goals" class="profile-section-content">
+            <div class="form-group">
+              <label>Canali Digitali Attivi</label>
+              <div class="checkbox-grid">
+                <label class="checkbox-item"><input type="checkbox" name="prof-digital" value="sito"> Sito Web statico</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-digital" value="ecommerce"> E-Commerce attivo</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-digital" value="whatsapp"> WhatsApp Business / CRM</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-digital" value="social"> Canali Social (FB, IG)</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Obiettivi Strategici Aziendali</label>
+              <div class="checkbox-grid">
+                <label class="checkbox-item"><input type="checkbox" name="prof-goal" value="transizione_green"> Transizione Energetica / Green</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-goal" value="digitalizzazione"> Digitalizzazione &amp; Automazione H24</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-goal" value="staff_pmi"> Inserimento Nuove Figure/Dipendenti</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-goal" value="espansione_commercio"> Espansione Commerciale nel Sinis</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-goal" value="marketing_brand"> Rebranding &amp; Marketing Turistico</label>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Fatturato Annuo Stimato (€)</label>
-            <input type="number" id="prof-budget" required>
+
+          <!-- Sezione 4: Contesto di Mercato & Note AI -->
+          <div class="profile-section-header" onclick="toggleProfileAccordion('profile-sec-market', this)">
+            <span>Mercato &amp; Istruzioni AI</span>
+            <span class="arrow">▶</span>
           </div>
-          <div class="form-group">
-            <label>Attività e Oggetto Sociale</label>
-            <textarea id="prof-scope" required></textarea>
+          <div id="profile-sec-market" class="profile-section-content">
+            <div class="form-group">
+              <label>Contesto Territoriale/Mercato</label>
+              <textarea id="prof-market-context" placeholder="Es. Forte afflusso turistico estivo, clientela notturna/alba per surfcasting..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Istruzioni Custom per l'AI</label>
+              <textarea id="prof-ai-instructions" placeholder="Es. Evidenzia la Shimano e la produzione artigianale dei terminali..."></textarea>
+            </div>
           </div>
-          <button type="submit" class="btn">Aggiorna Profilo</button>
+
+          <button type="submit" class="btn" style="margin-top: 15px;">Aggiorna Profilo</button>
         </form>
       </div>
 
@@ -1980,6 +2150,23 @@
       }
     }
 
+    function toggleProfileAccordion(sectionId, headerEl) {
+      const contentEl = document.getElementById(sectionId);
+      const isCurrentlyActive = contentEl.classList.contains('active');
+      
+      document.querySelectorAll('.profile-section-content').forEach(el => {
+        el.classList.remove('active');
+      });
+      document.querySelectorAll('.profile-section-header').forEach(el => {
+        el.classList.remove('active');
+      });
+      
+      if (!isCurrentlyActive) {
+        contentEl.classList.add('active');
+        headerEl.classList.add('active');
+      }
+    }
+
     async function loadProfile() {
       try {
         const response = await fetch('/api/profile');
@@ -1994,6 +2181,26 @@
         document.getElementById('prof-staff').value = data.staff_count || 1;
         document.getElementById('prof-budget').value = data.annual_revenue || 0;
         document.getElementById('prof-scope').value = data.business_activity || '';
+        
+        // Nuovi campi
+        document.getElementById('prof-property-status').value = data.property_status || 'affitto';
+        document.getElementById('prof-roof-access').value = data.roof_access || 'no';
+        document.getElementById('prof-sun-exposure').value = data.sun_exposure || 'sole_diretto';
+        document.getElementById('prof-custom-constraints').value = data.custom_constraints || '';
+        document.getElementById('prof-market-context').value = data.market_context || '';
+        document.getElementById('prof-ai-instructions').value = data.ai_instructions || '';
+        
+        // Checkboxes Canali Digitali
+        const digitalChannels = data.digital_channels || [];
+        document.querySelectorAll('input[name="prof-digital"]').forEach(cb => {
+          cb.checked = digitalChannels.includes(cb.value);
+        });
+        
+        // Checkboxes Obiettivi
+        const strategicGoals = data.strategic_goals || [];
+        document.querySelectorAll('input[name="prof-goal"]').forEach(cb => {
+          cb.checked = strategicGoals.includes(cb.value);
+        });
       } catch (err) {
         console.error("Errore caricamento profilo:", err);
       }
@@ -2001,6 +2208,19 @@
 
     async function saveProfile() {
       showLoader("Salvataggio profilo aziendale in corso...");
+      
+      // Raccoglie i canali digitali
+      const digital_channels = [];
+      document.querySelectorAll('input[name="prof-digital"]:checked').forEach(cb => {
+        digital_channels.push(cb.value);
+      });
+      
+      // Raccoglie gli obiettivi
+      const strategic_goals = [];
+      document.querySelectorAll('input[name="prof-goal"]:checked').forEach(cb => {
+        strategic_goals.push(cb.value);
+      });
+
       const profile = {
         name: document.getElementById('prof-name').value,
         legal_type: document.getElementById('prof-type').value,
@@ -2010,7 +2230,15 @@
         headquarters: document.getElementById('prof-hq').value,
         staff_count: parseInt(document.getElementById('prof-staff').value),
         annual_revenue: parseFloat(document.getElementById('prof-budget').value),
-        business_activity: document.getElementById('prof-scope').value
+        business_activity: document.getElementById('prof-scope').value,
+        property_status: document.getElementById('prof-property-status').value,
+        roof_access: document.getElementById('prof-roof-access').value,
+        sun_exposure: document.getElementById('prof-sun-exposure').value,
+        custom_constraints: document.getElementById('prof-custom-constraints').value,
+        market_context: document.getElementById('prof-market-context').value,
+        ai_instructions: document.getElementById('prof-ai-instructions').value,
+        digital_channels: digital_channels,
+        strategic_goals: strategic_goals
       };
 
       try {

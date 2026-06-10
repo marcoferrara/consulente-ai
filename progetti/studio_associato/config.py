@@ -8,7 +8,7 @@ PORT = int(os.getenv("PORT", 8001))  # Run on port 8001 to avoid conflicting wit
 AZIENDE_DB = [
     {
         "id": "sacorona_vino",
-        "denominazione": "Cantine Sa Corona S.r.l.",
+        "denominazione": "Cantine Nuraghe Rosso S.r.l.",
         "ateco": "11.02.10",
         "ateco_desc": "Produzione di vini da uve prodotte in aziende agricole",
         "sede": "Serdiana (CA)",
@@ -17,13 +17,13 @@ AZIENDE_DB = [
         "dimensione": "PMI",
         "eta_titolare": 52,
         "area_zes": False,
-        "email_referente": "direzione@sacorona-vino.it",
-        "telefono_referente": "+39 348 7654321",
-        "referente": "Dott. Franco Corona"
+        "email_referente": "direzione@esempio.it",
+        "telefono_referente": "+39 000 0000001",
+        "referente": "Dott. Mario Bassu"
     },
     {
         "id": "barbagia_pastori",
-        "denominazione": "Cooperativa Barbagia Pastori",
+        "denominazione": "Cooperativa Montagne Sarde",
         "ateco": "01.45.00",
         "ateco_desc": "Allevamento di ovini e caprini",
         "sede": "Fonni (NU)",
@@ -32,13 +32,13 @@ AZIENDE_DB = [
         "dimensione": "Micro",
         "eta_titolare": 34,
         "area_zes": False,
-        "email_referente": "m.loddo@barbagiapastori.it",
-        "telefono_referente": "+39 333 1234567",
-        "referente": "Michele Loddo"
+        "email_referente": "info@esempio.it",
+        "telefono_referente": "+39 000 0000002",
+        "referente": "Andrea Piras"
     },
     {
         "id": "sardinia_tech",
-        "denominazione": "Sardinia Tech Solutions S.r.l.",
+        "denominazione": "Isola Digital S.r.l.",
         "ateco": "62.01.00",
         "ateco_desc": "Produzione di software non personalizzato",
         "sede": "Area Industriale Elmas (CA)",
@@ -47,13 +47,13 @@ AZIENDE_DB = [
         "dimensione": "Micro",
         "eta_titolare": 29,
         "area_zes": True,
-        "email_referente": "a.sanna@sardiniatech.io",
-        "telefono_referente": "+39 349 9876543",
-        "referente": "Ing. Alessandro Sanna"
+        "email_referente": "tech@esempio.it",
+        "telefono_referente": "+39 000 0000003",
+        "referente": "Ing. Luca Orrù"
     },
     {
         "id": "hotel_antigaluna",
-        "denominazione": "Boutique Hotel Antiga Luna Charme & Spa",
+        "denominazione": "Boutique Hotel Su Golfo Charme & Spa",
         "ateco": "55.10.00",
         "ateco_desc": "Alberghi e strutture simili",
         "sede": "Domus de Maria (SU)",
@@ -62,13 +62,13 @@ AZIENDE_DB = [
         "dimensione": "PMI",
         "eta_titolare": 45,
         "area_zes": False,
-        "email_referente": "m.ferru@hotel-antigaluna.it",
-        "telefono_referente": "+39 340 1122334",
-        "referente": "Marianna Ferru"
+        "email_referente": "hotel@esempio.it",
+        "telefono_referente": "+39 000 0000004",
+        "referente": "Carla Spano"
     },
     {
         "id": "pastificio_armonia",
-        "denominazione": "Pastificio Artigianale Antiga Armonia",
+        "denominazione": "Pastificio Artigianale Sa Farra",
         "ateco": "10.73.00",
         "ateco_desc": "Produzione di paste alimentari, di cuscus e di prodotti farinacei simili",
         "sede": "Tempio Pausania (SS)",
@@ -77,13 +77,13 @@ AZIENDE_DB = [
         "dimensione": "Micro",
         "eta_titolare": 39,
         "area_zes": False,
-        "email_referente": "g.mu@pastificioantigaarmonia.it",
-        "telefono_referente": "+39 328 4455667",
-        "referente": "Giovanni Mu"
+        "email_referente": "pasta@esempio.it",
+        "telefono_referente": "+39 000 0000005",
+        "referente": "Giovanni Pinna"
     },
     {
         "id": "officine_macc_sarde",
-        "denominazione": "Officine Meccaniche Sarde S.r.l.",
+        "denominazione": "Officine Meccaniche Ogliastrina S.r.l.",
         "ateco": "25.62.00",
         "ateco_desc": "Lavorazione di metalli e meccanica generale",
         "sede": "Zona Industriale Tossilo - Macomer (NU)",
@@ -92,13 +92,13 @@ AZIENDE_DB = [
         "dimensione": "PMI",
         "eta_titolare": 48,
         "area_zes": True,
-        "email_referente": "produzione@officinemeccanichesarde.it",
-        "telefono_referente": "+39 347 5566778",
-        "referente": "Ing. Pietro Meloni"
+        "email_referente": "produzione@esempio.it",
+        "telefono_referente": "+39 000 0000006",
+        "referente": "Ing. Roberto Secci"
     },
     {
         "id": "agriturismo_antigaluna",
-        "denominazione": "Agriturismo Antiga Luna S.r.l.",
+        "denominazione": "Agriturismo Su Entu S.r.l.",
         "ateco": "56.10.12",
         "ateco_desc": "Attività di ristorazione connesse alle aziende agricole (Agriturismi)",
         "sede": "Oliena (NU)",
@@ -107,9 +107,9 @@ AZIENDE_DB = [
         "dimensione": "PMI",
         "eta_titolare": 62,
         "area_zes": False,
-        "email_referente": "prenotazioni@antigaluna-agriturismo.it",
-        "telefono_referente": "+39 335 9988776",
-        "referente": "Elena Contini"
+        "email_referente": "agriturismo@esempio.it",
+        "telefono_referente": "+39 000 0000007",
+        "referente": "Francesca Muru"
     }
 ]
 

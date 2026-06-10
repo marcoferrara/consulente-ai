@@ -217,7 +217,7 @@ def post_send_alert(req: AlertRequest):
             f"🎯 *Il vostro Fit:* {eval_res['score']}% (Soddisfatti tutti i requisiti ATECO, di sede e dimensione!)\n"
             f"⏰ *Scadenza presentazione:* {bando['scadenza']}\n\n"
             f"Abbiamo già predisposto la bozza di istruttoria tecnica con i vostri dati d'ufficio. Clicchi sul link sotto o risponda a questo messaggio per pianificare un incontro di convalida in studio.\n"
-            f"👉 _Pianifica call con Consulente: https://calendly.com/studio-associato-sardegna_"
+            f"👉 _Pianifica call con Consulente: https://calendly.com/studio-esempio_"
         )
     else:  # email
         message_content = (
@@ -235,7 +235,7 @@ def post_send_alert(req: AlertRequest):
             f"PROSSIMI PASSI:\n"
             f"Abbiamo già pre-caricato la documentazione contabile di base per la vostra impresa. Le chiediamo di risponderci a questa email o di contattarci telefonicamente ({azienda['telefono_referente']}) per confermare il vostro interesse ad aderire alla misura, così da avviare l'istruttoria prima della chiusura dello sportello.\n\n"
             f"Cordiali saluti,\n"
-            f"Dott. Marco Ferrara\n"
+            f"Dott. Luca Manca\n"
             f"Studio Associato per le Imprese Sarde"
         )
         

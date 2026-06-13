@@ -5,41 +5,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aijò — Marco Ferrara · Consulente AI Sardegna</title>
+    <title>Aijò — Consulente AI Sardegna</title>
     <meta name="description"
-        content="Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio.">
+        content="Integra l'intelligenza artificiale nella tua azienda in Sardegna: strategia, implementazione e formazione AI a Cagliari, Sassari e Olbia. Prima consulenza gratuita.">
 
     <!-- SEO Optimization -->
     <link rel="canonical" href="https://www.aijo-consulenteai.it/" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
+    <!-- Geo targeting (local SEO Sardegna) -->
+    <meta name="geo.region" content="IT-88" />
+    <meta name="geo.placename" content="Cagliari, Sassari, Sardegna" />
+    <meta name="geo.position" content="39.2276;9.1172" />
+    <meta name="ICBM" content="39.2276, 9.1172" />
+
     <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Aijò — Marco Ferrara · Consulente AI Sardegna" />
+    <meta property="og:title" content="Aijò — Consulente AI Sardegna" />
     <meta property="og:description"
         content="Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio." />
     <meta property="og:url" content="https://www.aijo-consulenteai.it/" />
     <meta property="og:site_name" content="Aijò" />
-    <meta property="og:image" content="https://www.aijo-consulenteai.it/assets/og-image.png" />
+    <meta property="og:image" content="https://www.aijo-consulenteai.it/assets/rebranding/logo_aijo_definitivo.png" />
     <meta property="og:locale" content="it_IT" />
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Aijò — Marco Ferrara · Consulente AI Sardegna" />
+    <meta name="twitter:title" content="Aijò — Consulente AI Sardegna" />
     <meta name="twitter:description"
         content="Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio." />
-    <meta name="twitter:image" content="https://www.aijo-consulenteai.it/assets/og-image.png" />
+    <meta name="twitter:image" content="https://www.aijo-consulenteai.it/assets/rebranding/logo_aijo_definitivo.png" />
 
     <!-- Local Business Structured Data (Schema.org) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
-      "name": "Aijò — Marco Ferrara Consulente AI",
-      "image": "https://www.aijo-consulenteai.it/assets/og-image.png",
-      "description": "Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio.",
+      "name": "Aijò — Consulente AI",
+      "image": "https://www.aijo-consulenteai.it/assets/rebranding/logo_aijo_definitivo.png",
+      "logo": "https://www.aijo-consulenteai.it/assets/rebranding/logo_aijo_definitivo.png",
+      "description": "Consulente per l'integrazione dell'intelligenza artificiale nelle aziende sarde: strategia, implementazione e formazione AI a Cagliari, Sassari, Olbia e in tutta la Sardegna.",
       "@id": "https://www.aijo-consulenteai.it/#professional-service",
       "url": "https://www.aijo-consulenteai.it/",
+      "email": "info@aijo-consulenteai.it",
+      "priceRange": "€€",
       "address": {
         "@type": "PostalAddress",
         "addressRegion": "Sardegna",
@@ -49,6 +58,33 @@
         "@type": "GeoCoordinates",
         "latitude": "39.2276",
         "longitude": "9.1172"
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Cagliari" },
+        { "@type": "City", "name": "Sassari" },
+        { "@type": "City", "name": "Olbia" },
+        { "@type": "City", "name": "Nuoro" },
+        { "@type": "City", "name": "Oristano" },
+        { "@type": "AdministrativeArea", "name": "Sardegna" }
+      ],
+      "knowsAbout": [
+        "Intelligenza artificiale",
+        "Integrazione AI in azienda",
+        "Automazione dei processi",
+        "Machine learning",
+        "Formazione AI",
+        "Prompt engineering",
+        "Chatbot e assistenti virtuali"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servizi di consulenza AI",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Strategia e Roadmap AI", "description": "Analisi dei processi e roadmap di adozione dell'intelligenza artificiale." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Implementazione AI", "description": "Integrazione di soluzioni AI, automazioni e chatbot nei sistemi aziendali esistenti." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Formazione del Team", "description": "Workshop e percorsi formativi su intelligenza artificiale e prompt engineering." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI per Marketing e Dati", "description": "Contenuti, SEO e analisi dei dati potenziati dall'intelligenza artificiale." } }
+        ]
       },
       "openingHoursSpecification": {
         "@type": "OpeningHoursSpecification",
@@ -1313,6 +1349,39 @@
             font-weight: 500;
         }
 
+        /* Link alle pagine città (navigazione + SEO interno) */
+        .territory-cities {
+            margin-top: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: .6rem;
+            align-items: center;
+        }
+
+        .territory-cities .cl-label {
+            font-size: .62rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-right: .4rem;
+        }
+
+        .territory-cities a {
+            font-size: .68rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid var(--gold-border);
+            padding: .32rem .75rem;
+            text-decoration: none;
+            transition: background .2s, color .2s;
+        }
+
+        .territory-cities a:hover {
+            background: var(--gold);
+            color: var(--bg);
+        }
+
         /* ─── PROCESSO ─── */
         #processo {
             padding: 8rem 3rem;
@@ -1574,6 +1643,17 @@
             font-size: .72rem;
             color: var(--dim);
             letter-spacing: .04em;
+        }
+
+        /* Link interni footer: stesso aspetto del testo, hover oro */
+        footer a {
+            color: inherit;
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        footer a:hover {
+            color: var(--gold);
         }
 
         .footer-mark {
@@ -2421,6 +2501,16 @@
                             italiane</p>
                     </div>
                 </div>
+
+                <!-- Link alle pagine città dedicate (navigazione + SEO interno) -->
+                <div class="territory-cities reveal reveal-d4">
+                    <span class="cl-label">Consulenza AI per città</span>
+                    <a href="/intelligenza-artificiale-cagliari/">Cagliari</a>
+                    <a href="/intelligenza-artificiale-sassari/">Sassari</a>
+                    <a href="/intelligenza-artificiale-olbia/">Olbia</a>
+                    <a href="/intelligenza-artificiale-oristano/">Oristano</a>
+                    <a href="/intelligenza-artificiale-nuoro/">Nuoro</a>
+                </div>
             </div>
         </div>
     </section>
@@ -2522,9 +2612,9 @@
 
     <!-- ══ FOOTER ══ -->
     <footer>
-        <p>&copy; 2026 Aijò &mdash; Advanced Intelligence & Heritage. Di Marco Ferrara.</p>
+        <p>&copy; 2026 Aijò &mdash; Advanced Intelligence & Heritage.</p>
         <div class="footer-mark">Aijò</div>
-        <p>Sassari &middot; Cagliari &middot; Sardegna</p>
+        <p><a href="/intelligenza-artificiale-sassari/">Sassari</a> &middot; <a href="/intelligenza-artificiale-cagliari/">Cagliari</a> &middot; Sardegna</p>
     </footer>
 
     <script>

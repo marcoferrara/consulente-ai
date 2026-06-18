@@ -1,0 +1,2676 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ME.NE.E.S.CO. — Portale Bandi AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #F2EAD5;
+      --bg-secondary: #EAE0C8;
+      --surface: rgba(242, 234, 213, 0.88);
+      --border-color: rgba(140, 27, 27, 0.12);
+      --border-hover: rgba(140, 27, 27, 0.32);
+
+      --primary: #8C1B1B;
+      --primary-dim: rgba(140, 27, 27, 0.07);
+      --primary-border: rgba(140, 27, 27, 0.22);
+
+      --accent: #B8882E;
+      --accent-dim: rgba(184, 136, 46, 0.08);
+      --accent-border: rgba(184, 136, 46, 0.28);
+
+      --gold: #B8882E;
+
+      --text: #18100A;
+      --text-muted: #6B5744;
+      --success: #2D6A4F;
+      --danger: #C62828;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Source Serif 4', serif;
+      background-color: var(--bg-primary);
+      background-image:
+        radial-gradient(circle at 8% 15%, rgba(140, 27, 27, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 92% 85%, rgba(184, 136, 46, 0.04) 0%, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, .brand-font {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+    }
+
+    code, .mono {
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      background: rgba(234, 224, 200, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(140, 27, 27, 0.14);
+      padding: 14px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo-img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .logo-text-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--primary);
+      letter-spacing: 0.06em;
+    }
+
+    .logo-subtitle {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-logout {
+      padding: 8px 18px;
+      border-radius: 6px;
+      border: 1px solid rgba(198, 40, 40, 0.25);
+      color: var(--danger);
+      background: rgba(198, 40, 40, 0.05);
+      font-family: 'Source Serif 4', serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .btn-logout:hover {
+      background: var(--danger);
+      color: #ffffff;
+    }
+
+    /* ─── CONTAINER LAYOUT ─── */
+    .container {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 30px;
+      max-width: 1400px;
+      margin: 30px auto;
+      padding: 0 3%;
+      align-items: start;
+    }
+
+    @media (max-width: 992px) {
+      .container { grid-template-columns: 1fr; }
+    }
+
+    /* ─── CARD SYSTEM ─── */
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 4px 20px rgba(140, 27, 27, 0.06);
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .card h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(140, 27, 27, 0.1);
+      padding-bottom: 10px;
+    }
+
+    .card h2 svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--primary);
+      flex-shrink: 0;
+    }
+
+    /* ─── FORMS & INPUTS ─── */
+    .form-group {
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(234, 224, 200, 0.6);
+      border: 1px solid rgba(140, 27, 27, 0.14);
+      border-radius: 8px;
+      padding: 9px 12px;
+      color: var(--text);
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.87rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(140, 27, 27, 0.08);
+      background: rgba(242, 234, 213, 0.95);
+    }
+
+    .form-group textarea {
+      height: 78px;
+      resize: none;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      width: 100%;
+      padding: 11px;
+      background: linear-gradient(135deg, var(--primary) 0%, #6B1212 100%);
+      color: #F2EAD5;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(140, 27, 27, 0.22);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 20px rgba(140, 27, 27, 0.32);
+      filter: brightness(1.06);
+    }
+
+    .btn-secondary {
+      background: rgba(140, 27, 27, 0.04);
+      border: 1px solid rgba(140, 27, 27, 0.18);
+      color: var(--text);
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(140, 27, 27, 0.08);
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: none;
+    }
+
+    /* ─── DOCS LIST SIDEBAR ─── */
+    #uploaded-docs-list {
+      max-height: 280px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+      padding-right: 4px;
+    }
+
+    #uploaded-docs-list::-webkit-scrollbar { width: 4px; }
+    #uploaded-docs-list::-webkit-scrollbar-thumb {
+      background: rgba(140, 27, 27, 0.18);
+      border-radius: 2px;
+    }
+
+    /* ─── OBJECTIVES BAR ─── */
+    .objectives-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .obj-card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: left;
+    }
+
+    .obj-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-hover);
+      box-shadow: 0 6px 20px rgba(140, 27, 27, 0.08);
+    }
+
+    .obj-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      background: rgba(255,255,255,0.3);
+      border: 1px solid rgba(140,27,27,0.08);
+      flex-shrink: 0;
+    }
+
+    .obj-icon.gold  { color: var(--gold);    border-color: var(--accent-border); background: var(--accent-dim); }
+    .obj-icon.red   { color: var(--primary); border-color: var(--primary-border); background: var(--primary-dim); }
+    .obj-icon.sage  { color: var(--success); border-color: rgba(45,106,79,0.25); background: rgba(45,106,79,0.06); }
+
+    .obj-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .obj-text p {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ─── AI SEARCH BOX ─── */
+    .ai-search-box {
+      position: relative;
+      margin-bottom: 22px;
+    }
+
+    .ai-search-box input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 15px 18px 15px 46px;
+      color: var(--text);
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.92rem;
+      outline: none;
+      transition: var(--transition);
+      box-shadow: 0 3px 12px rgba(140, 27, 27, 0.05);
+    }
+
+    .ai-search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(140, 27, 27, 0.08);
+    }
+
+    .ai-search-box input::placeholder { color: var(--text-muted); font-style: italic; }
+
+    .ai-search-box svg {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      stroke: var(--primary);
+      pointer-events: none;
+    }
+
+    /* ─── GRANTS GRID ─── */
+    .grants-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .grant-card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      text-align: left;
+      transition: var(--transition);
+    }
+
+    .grant-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(140, 27, 27, 0.08);
+    }
+
+    .grant-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .grant-cat {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 500;
+      color: var(--primary);
+      padding: 3px 8px;
+      border-radius: 5px;
+      background: var(--primary-dim);
+      border: 1px solid var(--primary-border);
+    }
+
+    .grant-diff {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .grant-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.18rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 7px;
+      line-height: 1.3;
+    }
+
+    .grant-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .grant-meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      background: rgba(140, 27, 27, 0.03);
+      border-radius: 10px;
+      padding: 11px;
+      border: 1px solid rgba(140, 27, 27, 0.07);
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 576px) {
+      .grant-meta { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .meta-item { display: flex; flex-direction: column; gap: 3px; }
+
+    .meta-item strong {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .meta-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.88rem;
+      color: var(--text);
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      font-size: 0.6rem;
+      font-family: 'IBM Plex Mono', monospace;
+      background: rgba(140, 27, 27, 0.07);
+      border: 1px solid rgba(140, 27, 27, 0.18);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .info-trigger:hover {
+      background: var(--primary-dim);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .insight-box {
+      background: var(--primary-dim);
+      border: 1px solid var(--primary-border);
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 0.82rem;
+      color: var(--primary);
+      text-align: left;
+      line-height: 1.55;
+    }
+
+    /* ─── FEASIBILITY ANALYSIS PANEL ─── */
+    .analysis-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .radar-banner {
+      background: linear-gradient(135deg, var(--surface) 0%, #e8ddc8 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      gap: 18px;
+      text-align: left;
+    }
+
+    @media (max-width: 576px) {
+      .radar-banner { flex-direction: column; align-items: flex-start; }
+    }
+
+    .scanner-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+      box-shadow: 0 0 8px rgba(140, 27, 27, 0.5);
+      animation: scanning-line 4s infinite linear;
+    }
+
+    @keyframes scanning-line {
+      0%   { top: 0%; }
+      50%  { top: 100%; }
+      100% { top: 0%; }
+    }
+
+    .analysis-intro-text { flex: 1; }
+
+    .analysis-intro-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    .analysis-intro-text p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      max-width: 600px;
+    }
+
+    .eligibility-status {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .eligibility-status.done {
+      background: rgba(45, 106, 79, 0.1);
+      border: 1px solid var(--success);
+      color: var(--success);
+    }
+
+    .eligibility-status.risk {
+      background: rgba(198, 40, 40, 0.1);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+    }
+
+    .gauge-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .gauge-circle {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      border: 3px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      box-shadow: 0 0 12px rgba(140, 27, 27, 0.1);
+      background: rgba(242, 234, 213, 0.7);
+    }
+
+    .gauge-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .analysis-grid { grid-template-columns: 1fr; }
+    }
+
+    .analysis-card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: left;
+    }
+
+    .analysis-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .analysis-card h4.gold { color: var(--gold); }
+
+    .analysis-card h4 svg {
+      width: 15px;
+      height: 15px;
+      stroke: var(--primary);
+    }
+
+    .analysis-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── CUMULATIVE CHECKS ─── */
+    .cumulative-checks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .cum-check-item {
+      background: rgba(234, 224, 200, 0.5);
+      padding: 13px;
+      border-radius: 10px;
+      border: 1px solid rgba(140, 27, 27, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .cum-check-item span {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .cum-check-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cum-check-row strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .cum-check-desc {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 500;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .badge.done {
+      background: rgba(45, 106, 79, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(45, 106, 79, 0.3);
+    }
+
+    .badge.risk {
+      background: rgba(198, 40, 40, 0.1);
+      color: var(--danger);
+      border: 1px solid rgba(198, 40, 40, 0.3);
+    }
+
+    /* ─── BUSINESS PLAN & COMPILE VIEW ─── */
+    .project-panel, .compile-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .project-document {
+      background: #FDFAF4;
+      color: #18100A;
+      border-radius: 16px;
+      padding: 38px;
+      text-align: left;
+      box-shadow: 0 10px 35px rgba(140, 27, 27, 0.1);
+      position: relative;
+    }
+
+    .doc-badge {
+      background: var(--primary);
+      color: #F2EAD5;
+      padding: 5px 13px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-radius: 5px;
+      width: fit-content;
+      margin-bottom: 22px;
+    }
+
+    .doc-hdr {
+      border-bottom: 2px solid rgba(140, 27, 27, 0.15);
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+    }
+
+    .doc-hdr h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .doc-hdr p {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.09em;
+      margin-top: 5px;
+    }
+
+    .doc-section { margin-bottom: 26px; }
+
+    .doc-section h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      border-bottom: 1px solid rgba(140, 27, 27, 0.12);
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .doc-section p {
+      font-size: 0.87rem;
+      color: #3D2B1F;
+      line-height: 1.7;
+    }
+
+    .doc-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 8px;
+    }
+
+    .doc-bullets li {
+      font-size: 0.85rem;
+      color: #3D2B1F;
+      position: relative;
+      padding-left: 20px;
+      line-height: 1.6;
+    }
+
+    .doc-bullets li::before {
+      content: '📌';
+      position: absolute;
+      left: 0;
+      top: 1px;
+      font-size: 0.72rem;
+    }
+
+    .doc-bullets.checks li::before { content: '⬜'; font-size: 0.78rem; top: 0; }
+    .doc-bullets.checks li.doc-bullet-acquired::before { content: '✅'; }
+    .doc-bullets.checks li.doc-bullet-pending::before  { content: '⚠️'; }
+    .doc-bullets.checks li strong { color: var(--text); }
+
+    .budget-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      background: rgba(234, 224, 200, 0.4);
+      border-radius: 10px;
+      padding: 14px;
+      border: 1px solid rgba(140, 27, 27, 0.08);
+    }
+
+    .budget-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(140, 27, 27, 0.07);
+    }
+
+    .budget-item:last-child { border-bottom: none; }
+
+    .budget-item.total {
+      border-top: 2px solid rgba(140, 27, 27, 0.2);
+      padding-top: 11px;
+      margin-top: 5px;
+      font-weight: 800;
+    }
+
+    .budget-item.total .budget-val {
+      color: var(--primary);
+      font-size: 1.05rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+    }
+
+    .budget-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #4B3728;
+    }
+
+    .budget-val {
+      font-size: 0.87rem;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .institutional-callout {
+      background: rgba(140, 27, 27, 0.04);
+      border: 1px solid rgba(140, 27, 27, 0.15);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-top: 18px;
+      text-align: left;
+    }
+
+    .institutional-callout-icon { font-size: 1.4rem; }
+
+    .institutional-callout h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .institutional-callout p {
+      font-size: 0.82rem;
+      color: #5D3A2A;
+      line-height: 1.55;
+    }
+
+    .advise-block {
+      background: rgba(234, 224, 200, 0.4);
+      border: 1px solid rgba(140, 27, 27, 0.1);
+      border-radius: 9px;
+      padding: 10px 13px;
+      text-align: left;
+      margin-top: 8px;
+    }
+
+    .advise-block h5 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      margin-bottom: 3px;
+    }
+
+    .advise-block p {
+      font-size: 0.8rem;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    /* ─── PROFILE ACCORDION ─── */
+    .profile-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 11px;
+      background: rgba(234, 224, 200, 0.5);
+      border: 1px solid rgba(140, 27, 27, 0.08);
+      border-radius: 7px;
+      margin-top: 7px;
+      cursor: pointer;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.67rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+
+    .profile-section-header:hover {
+      background: rgba(234, 224, 200, 0.8);
+      color: var(--text);
+      border-color: rgba(140, 27, 27, 0.2);
+    }
+
+    .profile-section-header.active {
+      color: var(--primary);
+      border-color: rgba(140, 27, 27, 0.28);
+      background: rgba(140, 27, 27, 0.05);
+    }
+
+    .profile-section-header .arrow {
+      font-size: 0.62rem;
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+
+    .profile-section-header.active .arrow { transform: rotate(90deg); }
+
+    .profile-section-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      padding: 0 4px;
+    }
+
+    .profile-section-content.active {
+      max-height: 2000px;
+      transition: max-height 0.3s ease-in;
+      padding: 10px 4px 5px 4px;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 7px;
+      margin-top: 4px;
+      background: rgba(234, 224, 200, 0.4);
+      padding: 9px;
+      border-radius: 7px;
+      border: 1px solid rgba(140, 27, 27, 0.06);
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.8rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .checkbox-item input {
+      accent-color: var(--primary);
+      cursor: pointer;
+      width: 14px;
+      height: 14px;
+      margin: 0;
+    }
+
+    /* ─── ARCHIVE SHELF ─── */
+    .projects-shelf {
+      background: rgba(234, 224, 200, 0.4);
+      border: 1px solid rgba(140, 27, 27, 0.08);
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 28px;
+      text-align: left;
+    }
+
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 10px;
+    }
+
+    .proj-item {
+      background: var(--surface);
+      border: 1px solid rgba(140, 27, 27, 0.08);
+      padding: 13px 16px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .proj-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .proj-meta {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ─── LOADER & MODALS ─── */
+    #loader {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(242, 234, 213, 0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 18px;
+      backdrop-filter: blur(12px);
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(140, 27, 27, 0.12);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #loader-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--text);
+      max-width: 440px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(140, 27, 27, 0.12);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-content {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 480px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(140, 27, 27, 0.15);
+      position: relative;
+    }
+
+    .modal-content::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      border-radius: 16px 16px 0 0;
+    }
+
+    .modal-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .modal-hdr h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .modal-close:hover { color: var(--text); }
+
+    /* ─── SEARCH FILTER FEEDBACK ─── */
+    #search-filter-feedback {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--primary-dim);
+      border: 1px solid var(--primary-border);
+      padding: 9px 15px;
+      border-radius: 9px;
+      margin-bottom: 18px;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header>
+    <a href="/" class="logo-container">
+      <img src="/47120255_padded_logo.png" class="logo-img" alt="ME.NE.E.S.CO. logo">
+      <div class="logo-text-wrapper">
+        <span class="logo-text">ME.NE.E.S.CO.</span>
+        <span class="logo-subtitle">Backoffice Bandi PA</span>
+      </div>
+    </a>
+    <div class="header-actions">
+      <a href="/logout" class="btn-logout">Esci</a>
+    </div>
+  </header>
+
+  <!-- ═══ CONTAINER ═══ -->
+  <div class="container">
+
+    <!-- ─── SIDEBAR ─── -->
+    <div style="display: flex; flex-direction: column; gap: 22px;">
+
+      <!-- Profilo Ente Pubblico -->
+      <div class="card">
+        <h2>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+          Profilo Ente Pubblico
+        </h2>
+        <form id="profile-form">
+
+          <!-- Sezione 1: Anagrafica Ente -->
+          <div class="profile-section-header active" onclick="toggleProfileAccordion('profile-sec-base', this)">
+            <span>Anagrafica &amp; Missione</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div id="profile-sec-base" class="profile-section-content active">
+            <div class="form-group">
+              <label>Nome Ente</label>
+              <input type="text" id="prof-name" placeholder="Es. Comune di Oristano">
+            </div>
+            <div class="form-group">
+              <label>Tipo Ente</label>
+              <input type="text" id="prof-type" placeholder="Es. Comune, Provincia, ASL...">
+            </div>
+            <div class="form-group">
+              <label>Codice Fiscale Ente</label>
+              <input type="text" id="prof-piva">
+            </div>
+            <div class="form-group">
+              <label>Settore / ATECO Ente</label>
+              <input type="text" id="prof-ateco" placeholder="Es. Ente Locale / Comune">
+            </div>
+            <div class="form-group">
+              <label>Sede Legale</label>
+              <input type="text" id="prof-hq">
+            </div>
+            <div class="form-group">
+              <label>N. Dipendenti Totali</label>
+              <input type="number" id="prof-staff">
+            </div>
+            <div class="form-group">
+              <label>Budget Formazione Annuo (€)</label>
+              <input type="number" id="prof-budget">
+            </div>
+            <div class="form-group">
+              <label>Missione Istituzionale / Attività dell'Ente</label>
+              <textarea id="prof-scope" placeholder="Es. Erogazione servizi pubblici, gestione territorio, welfare locale..."></textarea>
+            </div>
+          </div>
+
+          <!-- Sezione 2: Risorse & Infrastruttura -->
+          <div class="profile-section-header" onclick="toggleProfileAccordion('profile-sec-infrastructure', this)">
+            <span>Risorse &amp; Infrastruttura</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div id="profile-sec-infrastructure" class="profile-section-content">
+            <div class="form-group">
+              <label>Disponibilità Aula / Spazio Formativo</label>
+              <select id="prof-property-status">
+                <option value="si">Aula Interna Disponibile</option>
+                <option value="no">Nessuna Aula Interna</option>
+                <option value="parziale">Spazio Parziale / Da Allestire</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Infrastruttura Digitale</label>
+              <select id="prof-roof-access">
+                <option value="si">Connessione e dispositivi adeguati</option>
+                <option value="no">Infrastruttura assente / da potenziare</option>
+                <option value="limitato">Parzialmente attrezzato</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Profilo del Personale da Formare</label>
+              <select id="prof-sun-exposure">
+                <option value="misto">Misto (dirigenti + operativi)</option>
+                <option value="dirigenziale">Prevalentemente Dirigenziale</option>
+                <option value="operativo">Prevalentemente Operativo / Front-Office</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Note Organizzative / Vincoli</label>
+              <textarea id="prof-custom-constraints" placeholder="Es. personale distribuito su più sedi, turni, vincoli CCNL..."></textarea>
+            </div>
+          </div>
+
+          <!-- Sezione 3: Canali & Obiettivi -->
+          <div class="profile-section-header" onclick="toggleProfileAccordion('profile-sec-goals', this)">
+            <span>Canali &amp; Obiettivi Strategici</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div id="profile-sec-goals" class="profile-section-content">
+            <div class="form-group">
+              <label>Canali Digitali Attivi</label>
+              <div class="checkbox-grid">
+                <label class="checkbox-item"><input type="checkbox" name="prof-digital" value="sito"> Sito Istituzionale</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-digital" value="ecommerce"> Portale Servizi Online</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-digital" value="whatsapp"> Canale WhatsApp / Telegram</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-digital" value="social"> Canali Social Istituzionali</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Obiettivi Strategici dell'Ente</label>
+              <div class="checkbox-grid">
+                <label class="checkbox-item"><input type="checkbox" name="prof-goal" value="formazione_continua"> Formazione Continua del Personale</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-goal" value="benessere_organizzativo"> Benessere Organizzativo &amp; Anti-burnout</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-goal" value="de_escalation"> De-escalation &amp; Gestione Conflitti</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-goal" value="innovazione_processi"> Innovazione Processi Interni</label>
+                <label class="checkbox-item"><input type="checkbox" name="prof-goal" value="efficienza_admin"> Efficienza Amministrativa</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sezione 4: Contesto & Istruzioni AI -->
+          <div class="profile-section-header" onclick="toggleProfileAccordion('profile-sec-market', this)">
+            <span>Contesto &amp; Istruzioni AI</span>
+            <span class="arrow">▶</span>
+          </div>
+          <div id="profile-sec-market" class="profile-section-content">
+            <div class="form-group">
+              <label>Contesto Territoriale / Istituzionale</label>
+              <textarea id="prof-market-context" placeholder="Es. Comune rurale sardo, forte flusso migratorio, carenza personale specializzato..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Istruzioni Custom per l'AI</label>
+              <textarea id="prof-ai-instructions" placeholder="Es. Priorità ai bandi FSE+ e PNRR formazione PA, Metodo ME.NE.E.S.CO., mediazione istituzionale..."></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn" style="margin-top: 14px;">Aggiorna Profilo Ente</button>
+        </form>
+      </div>
+
+      <!-- Supporto Istituzionale -->
+      <div class="card">
+        <h2>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Supporto Istituzionale
+        </h2>
+        <div style="font-size: 0.82rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.8rem;">
+          <p>🏛️ <strong>Metodo ME.NE.E.S.CO.:</strong> L'AI integra il metodo per mediazione, negoziazione e de-escalation cognitiva nei percorsi formativi proposti.</p>
+          <p>📋 <strong>De Minimis SIEG:</strong> Il limite per enti pubblici è <strong>500.000 €</strong> su 3 anni, superiore ai 300k delle imprese commerciali.</p>
+          <button class="btn btn-secondary" onclick="resetGrants()">Ripristina Bandi Default</button>
+        </div>
+      </div>
+
+      <!-- Documenti Ente -->
+      <div class="card">
+        <h2>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          Documenti dell'Ente
+        </h2>
+        <div id="uploaded-docs-list" style="font-size: 0.8rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.8rem; min-height: 70px;"></div>
+        <button class="btn btn-secondary" style="width:100%; padding:0.45rem; font-size:0.75rem; display:flex; align-items:center; justify-content:center; gap:0.25rem;" onclick="openGeneralUploadModal()">
+          ➕ Assevera Documento
+        </button>
+      </div>
+
+    </div><!-- /sidebar -->
+
+    <!-- ─── MAIN ─── -->
+    <main>
+
+      <!-- Objectives Bar -->
+      <div class="objectives-bar">
+        <div class="obj-card" onclick="triggerSearchTopic('FSE+ formazione dipendenti pubblici comuni sardegna competenze trasversali')">
+          <div class="obj-icon gold">🎓</div>
+          <div class="obj-text">
+            <h3>Formazione Personale</h3>
+            <p>FSE+ &amp; Competenze PA</p>
+          </div>
+        </div>
+        <div class="obj-card" onclick="triggerSearchTopic('Bandi PNRR formazione pubblica amministrazione enti locali sardegna 2026')">
+          <div class="obj-icon red">💶</div>
+          <div class="obj-text">
+            <h3>FSE+ &amp; PNRR</h3>
+            <p>Finanziamenti Enti Locali</p>
+          </div>
+        </div>
+        <div class="obj-card" onclick="triggerSearchTopic('benessere organizzativo de-escalation prevenzione burnout personale PA comune')">
+          <div class="obj-icon sage">🌿</div>
+          <div class="obj-text">
+            <h3>Benessere Organizzativo</h3>
+            <p>De-escalation &amp; Anti-burnout</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── EXPLORER VIEW ── -->
+      <div id="view-explorer">
+        <div class="section-header">
+          <h2>Hub Ricerca Bandi AI — PA <span class="info-trigger" onclick="showSectionInsight('explorer-info')">?</span></h2>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--primary); text-transform:uppercase; letter-spacing:0.05em;" id="grants-count">5 Bandi Disponibili</span>
+        </div>
+
+        <div id="explorer-info" class="insight-box" style="display:none; margin-bottom:1.5rem;">
+          Benvenuto nel Consulente AI Bandi di ME.NE.E.S.CO. Scrivi in linguaggio naturale cosa l'ente intende finanziare (es: <em>"formazione de-escalation dipendenti front-office"</em> o <em>"percorso FSE+ benessere organizzativo comuni sardi"</em>). L'AI scansionerà i portali europei, nazionali e regionali sardi per individuare bandi compatibili con il profilo istituzionale dell'ente.
+        </div>
+
+        <div class="ai-search-box">
+          <input type="text" id="ai-search-input" placeholder="Cerca bandi PA (es: 'formazione mediazione conflitti dipendenti comuni' oppure 'PNRR benessere organizzativo enti locali'). Premi Invio...">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+
+        <div id="search-filter-feedback" style="display:none; align-items:center; justify-content:space-between; background:var(--primary-dim); border:1px solid var(--primary-border); padding:9px 15px; border-radius:9px; margin-bottom:18px; font-size:0.87rem;">
+          <div>
+            <span style="color:var(--text-muted);">Risultati per:</span>
+            <strong id="search-filter-query" style="color:var(--primary);">"query"</strong>
+          </div>
+          <button onclick="clearSearchFilter()" style="background:rgba(140,27,27,0.08); border:1px solid rgba(140,27,27,0.22); color:var(--primary); font-weight:700; cursor:pointer; padding:5px 11px; border-radius:6px; font-size:0.8rem; transition:var(--transition);">
+            ✖ Rimuovi Filtro
+          </button>
+        </div>
+
+        <div class="grants-grid" id="grants-container"></div>
+      </div>
+
+      <!-- ── FEASIBILITY ANALYSIS VIEW ── -->
+      <div id="view-analysis" class="analysis-panel" style="display:none;">
+        <div class="section-header">
+          <h2 id="analysis-grant-title">Analisi Fattibilità Bando</h2>
+          <button class="btn btn-secondary" style="width:auto; padding:0.5rem 1rem;" onclick="goBackToExplorer()">← Torna all'Explorer</button>
+        </div>
+
+        <div class="radar-banner">
+          <div class="scanner-line"></div>
+          <div class="analysis-intro-text">
+            <h3 id="analysis-grant-issuer">Ente Erogatore</h3>
+            <p>L'AI ha incrociato il codice fiscale, il tipo di ente, il numero di dipendenti e il budget formativo con le regole di ammissibilità del bando e i limiti De Minimis SIEG (500.000 €).</p>
+            <span class="eligibility-status done" id="analysis-eligibility">IDONEO</span>
+          </div>
+          <div class="gauge-container">
+            <div class="gauge-circle" id="analysis-score">0%</div>
+            <div class="gauge-label">Punteggio AI</div>
+          </div>
+        </div>
+
+        <div class="analysis-grid">
+
+          <!-- Controlli Cumulativi -->
+          <div class="analysis-card" style="grid-column:1/-1; background:var(--primary-dim); border:1px solid var(--primary-border);">
+            <h4 style="color:var(--primary); display:flex; align-items:center; gap:0.6rem; margin-bottom:0.5rem;">
+              <span style="font-size:1.2rem;">📊</span>
+              Controlli Sostenibilità Istituzionale (Incrocio Cumulativo)
+              <span class="info-trigger" onclick="showSectionInsight('cumulative-checks-info')">?</span>
+            </h4>
+            <div id="cumulative-checks-info" class="insight-box" style="display:none; margin-top:0.5rem; margin-bottom:1rem;">
+              Questo pannello verifica la sostenibilità della candidatura incrociando tutte le bozze/progetti in corso per l'anno. Monitora il rispetto del limite De Minimis SIEG (500.000 €), la copertura del personale coinvolto e la capacità di anticipazione finanziaria dell'ente.
+            </div>
+            <div class="cumulative-checks-grid">
+              <div class="cum-check-item">
+                <span>Limite De Minimis SIEG (Enti PA)</span>
+                <div class="cum-check-row">
+                  <strong id="cum-deminimis-val">0 €</strong>
+                  <span id="cum-deminimis-badge" class="badge">N/D</span>
+                </div>
+                <div class="cum-check-desc" id="cum-deminimis-desc">Budget cumulativo su max 500.000 €</div>
+              </div>
+              <div class="cum-check-item">
+                <span>Dipendenti Coinvolti nella Formazione</span>
+                <div class="cum-check-row">
+                  <strong id="cum-staff-val">0 / 0 FTE</strong>
+                  <span id="cum-staff-badge" class="badge">N/D</span>
+                </div>
+                <div class="cum-check-desc" id="cum-staff-desc">Coinvolgimento su totale dipendenti</div>
+              </div>
+              <div class="cum-check-item">
+                <span>Esposizione Liquidità Anticipata</span>
+                <div class="cum-check-row">
+                  <strong id="cum-cash-val">0 €</strong>
+                  <span id="cum-cash-badge" class="badge">N/D</span>
+                </div>
+                <div class="cum-check-desc" id="cum-cash-desc">Anticipo 20% vs budget formazione</div>
+              </div>
+              <div class="cum-check-item">
+                <span>Conflitto Ente Erogatore</span>
+                <div class="cum-check-row">
+                  <strong id="cum-conflict-val" style="font-size:0.85rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:130px;">Nessuno</strong>
+                  <span id="cum-conflict-badge" class="badge">N/D</span>
+                </div>
+                <div class="cum-check-desc" id="cum-conflict-desc">Candidature doppie stesso erogatore</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fattibilità Normativa -->
+          <div class="analysis-card">
+            <h4>
+              <svg style="width:15px;height:15px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+              Fattibilità Normativa (Ente &amp; Settore)
+            </h4>
+            <p id="analysis-legal"></p>
+          </div>
+
+          <!-- Capacità Tecnica -->
+          <div class="analysis-card">
+            <h4>
+              <svg style="width:15px;height:15px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              Capacità Tecnica &amp; Organizzativa
+            </h4>
+            <p id="analysis-technical"></p>
+          </div>
+
+          <!-- Impatto Istituzionale -->
+          <div class="analysis-card">
+            <h4>
+              <svg style="width:15px;height:15px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              Impatto sul Servizio Pubblico
+            </h4>
+            <p id="analysis-social"></p>
+          </div>
+
+          <!-- Sostenibilità Finanziaria -->
+          <div class="analysis-card">
+            <h4>
+              <svg style="width:15px;height:15px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              Sostenibilità Finanziaria dell'Ente
+            </h4>
+            <p id="analysis-financial"></p>
+          </div>
+
+          <!-- Rete Istituzionale -->
+          <div class="analysis-card" style="grid-column:1/-1;">
+            <h4 class="gold">
+              <svg style="width:15px;height:15px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+              Rete Istituzionale &amp; Fornitori Formativi
+            </h4>
+            <p id="analysis-partnership" style="margin-bottom:1rem;"></p>
+            <div id="analysis-experts-list" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
+          </div>
+
+        </div>
+
+        <!-- Obiettivi Finanziamento -->
+        <div class="analysis-card" style="margin-top:1.5rem; margin-bottom:1.5rem; background:var(--accent-dim); border:1px solid var(--accent-border);">
+          <h4 style="color:var(--accent); display:flex; align-items:center; gap:0.6rem; margin-bottom:0.5rem;">
+            <span style="font-size:1.2rem;">🎯</span>
+            Obiettivi e Priorità del Finanziamento Formativo
+            <span class="info-trigger" onclick="showSectionInsight('priorities-info')">?</span>
+          </h4>
+          <div id="priorities-info" class="insight-box" style="display:none; margin-top:0.5rem; margin-bottom:1rem; border-color:var(--accent-border); background:var(--accent-dim); color:var(--accent);">
+            Inserisci qui cosa l'ente vuole prioritariamente finanziare (es. tipo di corso, target del personale, focus sul Metodo ME.NE.E.S.CO.). L'AI allineerà il Piano Formativo e i testi di candidatura istituzionale a queste priorità.
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label style="font-size:0.72rem; color:var(--text-muted); margin-bottom:0.5rem; display:block;">Cosa intende finanziare prioritariamente l'ente? (Opzionale)</label>
+            <textarea id="funding-priorities" placeholder="Es: Percorso di formazione su de-escalation cognitiva e mediazione dei conflitti per 15 dipendenti front-office. Focus sulla gestione di situazioni critiche con l'utenza e prevenzione del burnout del personale." style="width:100%; min-height:88px; background:rgba(234,224,200,0.5); border:1px solid var(--accent-border); border-radius:10px; color:var(--text); padding:11px; font-family:'Source Serif 4',serif; font-size:0.85rem; line-height:1.5; transition:all 0.3s; resize:vertical;" onfocus="this.style.borderColor='var(--accent)'; this.style.boxShadow='0 0 0 3px rgba(184,136,46,0.1)';" onblur="this.style.borderColor='var(--accent-border)'; this.style.boxShadow='none';"></textarea>
+          </div>
+        </div>
+
+        <button class="btn" style="padding:1.1rem; font-size:1rem;" id="btn-generate-bp">Genera Piano Formativo &amp; Business Plan Istituzionale 🚀</button>
+        <button class="btn" style="padding:1.1rem; font-size:1rem; background:linear-gradient(135deg,var(--accent),#8C6218); margin-top:0.75rem;" id="btn-compile-grant">📝 Compila Candidatura Istituzionale Completa (Genera Testi)</button>
+      </div>
+
+      <!-- ── BUSINESS PLAN VIEW ── -->
+      <div id="view-project" class="project-panel" style="display:none;">
+        <div class="section-header">
+          <h2>Piano Formativo &amp; Documentazione <span class="info-trigger" onclick="showSectionInsight('bp-info')">?</span></h2>
+          <div style="display:flex; gap:0.75rem;">
+            <button class="btn btn-secondary" style="width:auto; padding:0.5rem 1rem;" onclick="goBackToAnalysis()">← Torna all'Analisi</button>
+            <button class="btn" style="width:auto; padding:0.5rem 1.25rem;" id="btn-save-project">Archivia in database.json</button>
+          </div>
+        </div>
+
+        <div id="bp-info" class="insight-box" style="display:none; margin-bottom:1.5rem;">
+          In questa sezione viene elaborata la <strong>bozza di candidatura istituzionale</strong> strutturata dall'AI. Troverai la ripartizione del budget formativo, la strategia di rete tra enti, la <strong>checklist documentale asseverata</strong> (Delibera di Giunta, RUP, DURC Ente) e il cronoprogramma di adempimenti post-approvazione.
+        </div>
+
+        <div class="project-document">
+          <div class="doc-badge">BOZZA DI CANDIDATURA ISTITUZIONALE</div>
+          <div class="doc-hdr">
+            <h3 id="doc-title">TITOLO DEL PIANO FORMATIVO</h3>
+            <p>PIANO DI FORMAZIONE E SVILUPPO ORGANIZZATIVO — METODO ME.NE.E.S.CO.</p>
+          </div>
+
+          <div class="doc-section">
+            <h4>1. Sintesi Istituzionale del Piano</h4>
+            <p id="doc-summary">Sintesi del piano formativo...</p>
+          </div>
+
+          <div class="doc-section">
+            <h4>2. Macro-Azioni Formative Previste</h4>
+            <ul class="doc-bullets" id="doc-actions"></ul>
+          </div>
+
+          <div class="doc-section">
+            <h4>3. Piano Finanziario Estimativo</h4>
+            <div class="budget-grid" id="doc-budget"></div>
+          </div>
+
+          <div class="doc-section">
+            <h4>4. Strategia di Rete Istituzionale</h4>
+            <p id="doc-partnership">Strategia...</p>
+          </div>
+
+          <div class="institutional-callout">
+            <div class="institutional-callout-icon">🏛️</div>
+            <div>
+              <h5>Roadmap Istituzionale &amp; Metodo ME.NE.E.S.CO.</h5>
+              <p id="doc-academic">Percorso...</p>
+            </div>
+          </div>
+
+          <div class="doc-section" style="margin-top:2rem;">
+            <h4>5. Checklist Documentazione Ente (Asseverata)</h4>
+            <ul class="doc-bullets checks" id="doc-documents"></ul>
+          </div>
+
+          <div class="doc-section">
+            <h4>6. Figure Professionali Istituzionali Consigliate</h4>
+            <ul class="doc-bullets" id="doc-professionals"></ul>
+          </div>
+
+          <div class="doc-section" style="margin-top:2rem; border-top:2px dashed rgba(140,27,27,0.2); padding-top:2rem;">
+            <h4 style="color:var(--primary); display:flex; align-items:center; gap:8px;">
+              <span>🛡️</span> 7. Roadmap e Adempimenti Post-Ottenimento (Rendicontazione PA)
+            </h4>
+            <p style="font-size:0.82rem; color:#5D3A2A; margin-bottom:16px; font-style:italic;">
+              Guida operativa ed adempimenti da seguire rigorosamente una volta approvato il bando dall'Ente erogatore. Conservare documentazione per 10 anni (obbligo FSE).
+            </p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:14px;">
+              <div class="advise-block" style="border:1px solid rgba(140,27,27,0.2); background:rgba(140,27,27,0.03); border-radius:10px; padding:13px; margin-top:0;">
+                <h5 style="color:var(--primary); font-size:0.72rem; text-transform:uppercase; font-weight:600; margin-bottom:4px;">1. Accettazione &amp; Avvio (Entro 30 giorni)</h5>
+                <p id="doc-post-accettazione" style="font-size:0.8rem; color:#3D2B1F; line-height:1.5;"></p>
+              </div>
+              <div class="advise-block" style="border:1px solid rgba(184,136,46,0.25); background:rgba(184,136,46,0.04); border-radius:10px; padding:13px; margin-top:0;">
+                <h5 style="color:var(--accent); font-size:0.72rem; text-transform:uppercase; font-weight:600; margin-bottom:4px;">2. Esecuzione &amp; Tracciabilità (Mesi 1-6)</h5>
+                <p id="doc-post-esecuzione" style="font-size:0.8rem; color:#3D2B1F; line-height:1.5;"></p>
+              </div>
+              <div class="advise-block" style="border:1px solid rgba(184,136,46,0.3); background:rgba(184,136,46,0.05); border-radius:10px; padding:13px; margin-top:0;">
+                <h5 style="color:var(--gold); font-size:0.72rem; text-transform:uppercase; font-weight:600; margin-bottom:4px;">3. Rendicontazione &amp; Documenti Contabili (Mesi 6-9)</h5>
+                <p id="doc-post-documenti" style="font-size:0.8rem; color:#3D2B1F; line-height:1.5;"></p>
+              </div>
+              <div class="advise-block" style="border:1px solid rgba(45,106,79,0.3); background:rgba(45,106,79,0.04); border-radius:10px; padding:13px; margin-top:0;">
+                <h5 style="color:var(--success); font-size:0.72rem; text-transform:uppercase; font-weight:600; margin-bottom:4px;">4. Adempimenti Amministrativi &amp; Delibera di Chiusura</h5>
+                <p id="doc-post-pratiche" style="font-size:0.8rem; color:#3D2B1F; line-height:1.5;"></p>
+              </div>
+            </div>
+          </div>
+        </div><!-- /project-document -->
+      </div>
+
+      <!-- ── COMPILATORE CANDIDATURA ── -->
+      <div id="view-compile" style="display:none; flex-direction:column; gap:1.5rem;">
+        <div class="section-header">
+          <h2>📝 Compilatore Candidatura Istituzionale</h2>
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+            <button class="btn btn-secondary" style="width:auto; padding:0.5rem 1rem;" onclick="goBackToAnalysis()">← Torna all'Analisi</button>
+            <button class="btn btn-secondary" style="width:auto; padding:0.5rem 1.25rem;" id="btn-copy-compile" onclick="copyCompileText()">📋 Copia Testi</button>
+            <button class="btn" style="width:auto; padding:0.5rem 1.25rem;" id="btn-download-compile" onclick="downloadCompileText()">⬇ Scarica .txt</button>
+          </div>
+        </div>
+        <div class="project-document" id="compile-document">
+          <div class="doc-badge">DOMANDA DI CANDIDATURA — EUROPROGETTAZIONE ISTITUZIONALE PA</div>
+          <div class="doc-hdr">
+            <h3 id="compile-grant-title">TITOLO BANDO</h3>
+            <p id="compile-grant-meta">Ente Erogatore</p>
+          </div>
+          <div class="doc-section">
+            <h4>A. Presentazione dell'Ente Proponente</h4>
+            <p id="compile-sec-a" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>B. Descrizione del Piano Formativo e Obiettivi Istituzionali</h4>
+            <p id="compile-sec-b" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>C. Analisi dei Fabbisogni Formativi e del Contesto Istituzionale</h4>
+            <p id="compile-sec-c" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>D. Metodologia Formativa (Metodo ME.NE.E.S.CO. &amp; De-escalation)</h4>
+            <p id="compile-sec-d" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>E. Piano delle Attività, Fasi e Cronoprogramma</h4>
+            <p id="compile-sec-e" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>F. Giustificazione della Spesa (Congruità Preventivi Formativi)</h4>
+            <p id="compile-sec-f" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>G. Impatto Istituzionale, Indicatori di Risultato e Sostenibilità</h4>
+            <p id="compile-sec-g" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+          <div class="doc-section">
+            <h4>H. Reti Istituzionali, Partenariati e Fornitori Formativi</h4>
+            <p id="compile-sec-h" style="line-height:1.8; white-space:pre-wrap;"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ARCHIVIO BOZZE ── -->
+      <div class="projects-shelf" id="archive-section">
+        <h2 style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; margin-bottom:0.75rem;">Archivio Bozze Candidature</h2>
+        <div class="projects-list" id="archive-container"></div>
+      </div>
+
+    </main>
+  </div><!-- /container -->
+
+  <!-- ═══ MODAL UPLOAD DOCUMENTO ═══ -->
+  <div class="modal" id="upload-modal">
+    <div class="modal-content">
+      <div class="modal-hdr">
+        <h3 id="modal-title">Assevera Documento</h3>
+        <button class="modal-close" onclick="closeUploadModal()">&times;</button>
+      </div>
+      <form id="upload-doc-form">
+        <input type="hidden" id="upload-cert-type">
+        <input type="hidden" id="upload-req-name">
+        <input type="hidden" id="upload-existing-filename">
+
+        <div class="form-group" id="group-cert-select">
+          <label for="upload-cert-select">Categoria Documento</label>
+          <select id="upload-cert-select">
+            <option value="delibera_giunta">Delibera di Giunta / Consiglio</option>
+            <option value="rup_nomina">Nomina RUP (Responsabile Unico Procedimento)</option>
+            <option value="durc_ente">DURC dell'Ente in corso di validità</option>
+            <option value="ptfp">Piano della Performance / PTFP</option>
+            <option value="preventivi_formativi">Preventivi Soggetti Formativi</option>
+            <option value="dichiarazione_de_minimis">Dichiarazione De Minimis SIEG</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Nome del Requisito</label>
+          <input type="text" id="upload-req-display" required placeholder="Es: Delibera di Giunta n. 45/2026">
+        </div>
+
+        <div class="form-group">
+          <label>Nome Documento (Ufficiale)</label>
+          <input type="text" id="upload-doc-name" required placeholder="Es: Delibera Giunta Comunale 45-2026">
+        </div>
+
+        <div class="form-group">
+          <label>Note / Validità</label>
+          <textarea id="upload-doc-desc" required placeholder="Inserisci note sulla validità ed il contenuto del documento asseverato..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Seleziona file PDF (Simulato se vuoto)</label>
+          <input type="file" id="upload-doc-file" style="padding:6px;">
+        </div>
+
+        <button type="submit" class="btn" style="margin-top:14px;">💾 Valida ed Assevera</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══ LOADER ═══ -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <h3 id="loader-text">L'AI sta elaborando la richiesta...</h3>
+  </div>
+
+  <!-- ═══ SCRIPT ═══ -->
+  <script>
+    let activeProfile = {};
+    let activeGrants = [];
+    let selectedGrant = null;
+    let selectedFeasibility = null;
+    let selectedProjectDraft = null;
+    let completedRequirements = {};
+    let uploadedDocuments = [];
+    let searchActive = false;
+    let searchResults = [];
+
+    function showSectionInsight(id) {
+      const box = document.getElementById(id);
+      if (box) box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
+
+    /* ── renderDocumentItem — adattato per documenti PA ── */
+    function renderDocumentItem(docText, container) {
+      const li = document.createElement('li');
+      const docLower = docText.toLowerCase();
+
+      const isUploaded = (uploadedDocuments || []).some(d =>
+        d.document_name.toLowerCase().includes(docLower) ||
+        d.requirement_name.toLowerCase().includes(docLower) ||
+        d.filename.toLowerCase().includes(docLower) ||
+        docLower.includes(d.document_name.toLowerCase())
+      );
+
+      let acquired = false;
+      let statusText = '';
+      let infoNote = '';
+
+      if (docLower.includes('delibera')) {
+        if (isUploaded) {
+          acquired = true; statusText = 'Asseverata';
+          infoNote = ' — Delibera di Giunta/Consiglio depositata nel fascicolo istituzionale';
+        } else {
+          acquired = false; statusText = 'Da Caricare';
+          infoNote = ' — Richiedere delibera autorizzativa alla segreteria comunale';
+        }
+      } else if (docLower.includes('rup') || docLower.includes('responsabile')) {
+        if (isUploaded) {
+          acquired = true; statusText = 'Asseverata';
+          infoNote = ' — Nomina RUP presente e depositata';
+        } else {
+          acquired = false; statusText = 'Da Caricare';
+          infoNote = ' — Nominare il RUP con atto formale prima della presentazione';
+        }
+      } else if (docLower.includes('durc')) {
+        if (isUploaded) {
+          acquired = true; statusText = 'Asseverato';
+          infoNote = ' — DURC Ente attivo e regolare caricato';
+        } else {
+          acquired = false; statusText = 'Da Caricare';
+          infoNote = ' — DURC ha validità 120 giorni, richiedere su portale INPS/ADE';
+        }
+      } else if (docLower.includes('ptfp') || docLower.includes('performance') || docLower.includes('piano della')) {
+        if (isUploaded) {
+          acquired = true; statusText = 'Asseverato';
+          infoNote = ' — Piano Performance / PTFP depositato nel fascicolo';
+        } else {
+          acquired = false; statusText = 'Da Caricare';
+          infoNote = ' — Allegare PTFP o Piano della Performance vigente dell\'ente';
+        }
+      } else if (docLower.includes('preventiv') || docLower.includes('formativ') || docLower.includes('soggetto')) {
+        if (isUploaded) {
+          acquired = true; statusText = 'Asseverati';
+          infoNote = ' — Preventivi soggetti formativi asseverati e caricati';
+        } else {
+          acquired = false; statusText = 'Da Caricare';
+          infoNote = ' — Allegare almeno 2 preventivi comparativi da soggetti formatori accreditati';
+        }
+      } else if (docLower.includes('de minimis') || docLower.includes('minimis')) {
+        acquired = true; statusText = 'OK';
+        infoNote = ' — Dichiarazione De Minimis SIEG pre-compilata dall\'AI (limite 500.000 €)';
+      } else if (docLower.includes('codice fiscale') || docLower.includes('statuto') || docLower.includes('atto')) {
+        acquired = true; statusText = 'Pronto';
+        infoNote = ' — Statuto / CF Ente pre-caricato dal profilo istituzionale attivo';
+      } else if (docLower.includes('bilancio') || docLower.includes('preventivo comunale') || docLower.includes('rendiconto')) {
+        if (isUploaded) {
+          acquired = true; statusText = 'Asseverato';
+          infoNote = ' — Bilancio / Rendiconto comunale presente nel fascicolo';
+        } else {
+          acquired = false; statusText = 'Da Caricare';
+          infoNote = ' — Allegare ultimo bilancio approvato o previsionale vigente';
+        }
+      } else {
+        if (isUploaded) {
+          acquired = true; statusText = 'Asseverato';
+          infoNote = ' — Documento caricato con successo nel database istituzionale';
+        } else {
+          acquired = false; statusText = 'Da Caricare';
+          infoNote = ' — Caricare il documento nella sezione documentale dell\'ente';
+        }
+      }
+
+      li.className = acquired ? 'doc-bullet-acquired' : 'doc-bullet-pending';
+      li.innerHTML = `<strong>${docText}</strong> <span style="font-size:0.68rem; font-weight:600; padding:0.15rem 0.35rem; border-radius:4px; ${acquired ? 'background:rgba(45,106,79,0.1); border:1px solid rgba(45,106,79,0.3); color:var(--success);' : 'background:rgba(184,136,46,0.1); border:1px solid rgba(184,136,46,0.3); color:var(--accent);'}">${statusText}</span><span style="font-size:0.73rem; color:var(--text-muted); display:block; margin-top:0.15rem;">${infoNote}</span>`;
+      container.appendChild(li);
+    }
+
+    /* ── INIT ── */
+    window.onload = async function() {
+      await loadProfile();
+      await loadGrants();
+      await loadSavedProjects();
+      await loadCertStatus();
+
+      document.getElementById('ai-search-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') triggerAISearch(this.value);
+      });
+
+      document.getElementById('profile-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        await saveProfile();
+      });
+
+      document.getElementById('btn-generate-bp').addEventListener('click', async function() {
+        if (selectedGrant) await generateBusinessPlan(selectedGrant.id);
+      });
+
+      document.getElementById('btn-compile-grant').addEventListener('click', async function() {
+        if (selectedGrant) await compileGrantApplication(selectedGrant.id);
+      });
+
+      document.getElementById('btn-save-project').addEventListener('click', async function() {
+        if (selectedProjectDraft) await saveProject();
+      });
+
+      document.getElementById('upload-doc-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        await uploadDocumentFile();
+      });
+    };
+
+    /* ── DOCUMENTI ── */
+    async function loadCertStatus() {
+      try {
+        const response = await fetch('/api/certifications/status');
+        const data = await response.json();
+        completedRequirements = data.completed_requirements || {};
+        uploadedDocuments = data.uploaded_documents || [];
+
+        const container = document.getElementById('uploaded-docs-list');
+        if (uploadedDocuments.length === 0) {
+          container.innerHTML = `<div style="font-size:0.75rem; color:var(--text-muted); text-align:center; padding:1rem; background:rgba(140,27,27,0.03); border-radius:8px;">Nessun documento asseverato. Carica Delibere, DURC o Preventivi.</div>`;
+          return;
+        }
+
+        container.innerHTML = '';
+        uploadedDocuments.forEach((doc, idx) => {
+          const item = document.createElement('div');
+          item.style.cssText = 'background:rgba(234,224,200,0.5); border:1px solid rgba(140,27,27,0.1); padding:0.7rem; border-radius:8px; display:flex; flex-direction:column; gap:0.22rem;';
+
+          let certLabel = doc.certification_type;
+          const labelMap = {
+            delibera_giunta: 'Delibera',
+            rup_nomina: 'RUP',
+            durc_ente: 'DURC',
+            ptfp: 'PTFP',
+            preventivi_formativi: 'Preventivi',
+            dichiarazione_de_minimis: 'De Minimis'
+          };
+          certLabel = labelMap[certLabel] || certLabel;
+
+          item.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem;">
+              <span style="font-family:'Cormorant Garamond',serif; font-weight:600; color:var(--text); font-size:0.82rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:175px;">${doc.document_name}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:0.52rem; color:var(--primary); border:1px solid var(--primary-border); padding:0.1rem 0.3rem; border-radius:3px; background:var(--primary-dim); text-transform:uppercase;">${certLabel}</span>
+            </div>
+            <div style="font-size:0.7rem; color:var(--text-muted); line-height:1.3;">Requisito: <strong>${doc.requirement_name}</strong></div>
+            <div style="font-size:0.65rem; color:var(--primary); margin-top:0.1rem; display:flex; align-items:center; gap:0.2rem;">
+              <span>📎</span> <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:200px;">${doc.filename}</span>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:0.4rem; border-top:1px solid rgba(140,27,27,0.08); padding-top:0.35rem;">
+              <button onclick="deleteDocument(${idx})" style="background:none; border:none; color:var(--danger); font-size:0.7rem; cursor:pointer; padding:0.2rem; display:flex; align-items:center; gap:0.2rem;">🗑️ Rimuovi</button>
+            </div>
+          `;
+          container.appendChild(item);
+        });
+      } catch (err) {
+        console.error('Errore caricamento documenti:', err);
+      }
+    }
+
+    function openUploadModal(certType, reqName) {
+      document.getElementById('modal-title').textContent = 'Assevera Documento Requisito';
+      document.getElementById('group-cert-select').style.display = 'none';
+      document.getElementById('upload-cert-type').value = certType;
+      document.getElementById('upload-req-name').value = reqName;
+      document.getElementById('upload-existing-filename').value = '';
+      const reqInput = document.getElementById('upload-req-display');
+      reqInput.value = reqName;
+      reqInput.disabled = true;
+      reqInput.style.background = 'rgba(234,224,200,0.4)';
+      reqInput.style.color = 'var(--text-muted)';
+      document.getElementById('upload-doc-name').value = '';
+      document.getElementById('upload-doc-desc').value = '';
+      document.getElementById('upload-doc-file').value = '';
+      document.getElementById('upload-modal').style.display = 'flex';
+    }
+
+    function openGeneralUploadModal() {
+      document.getElementById('modal-title').textContent = 'Assevera Nuovo Documento';
+      document.getElementById('group-cert-select').style.display = 'block';
+      document.getElementById('upload-cert-type').value = '';
+      document.getElementById('upload-req-name').value = '';
+      document.getElementById('upload-existing-filename').value = '';
+      const reqInput = document.getElementById('upload-req-display');
+      reqInput.value = '';
+      reqInput.disabled = false;
+      reqInput.placeholder = 'Es: Delibera di Giunta n. 45/2026';
+      reqInput.style.background = 'rgba(234,224,200,0.6)';
+      reqInput.style.color = 'var(--text)';
+      document.getElementById('upload-doc-name').value = '';
+      document.getElementById('upload-doc-desc').value = '';
+      document.getElementById('upload-doc-file').value = '';
+      document.getElementById('upload-modal').style.display = 'flex';
+    }
+
+    function closeUploadModal() {
+      document.getElementById('upload-modal').style.display = 'none';
+    }
+
+    async function deleteDocument(idx) {
+      const doc = uploadedDocuments[idx];
+      if (!doc) return;
+      if (!confirm(`Rimuovere il documento asseverato "${doc.document_name}" dal fascicolo istituzionale?`)) return;
+      showLoader('Rimozione del documento in corso...');
+      try {
+        const response = await fetch('/api/documents/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ certification_type: doc.certification_type, requirement_name: doc.requirement_name })
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          alert('Documento rimosso. Il fascicolo istituzionale è stato aggiornato.');
+          await loadCertStatus();
+          if (selectedGrant) await startFeasibilityAnalysis(selectedGrant.id);
+        }
+      } catch (err) {
+        alert('Errore: ' + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    async function uploadDocumentFile() {
+      let certType = document.getElementById('upload-cert-type').value;
+      let reqName = document.getElementById('upload-req-name').value;
+      const docName = document.getElementById('upload-doc-name').value;
+      const docDesc = document.getElementById('upload-doc-desc').value;
+      const fileInput = document.getElementById('upload-doc-file');
+
+      if (!certType) certType = document.getElementById('upload-cert-select').value;
+      if (!reqName) reqName = document.getElementById('upload-req-display').value.trim();
+
+      if (!reqName) {
+        alert('Per favore inserisci il nome del requisito che questo documento assevera.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('certification_type', certType);
+      formData.append('requirement_name', reqName);
+      formData.append('document_name', docName);
+      formData.append('description', docDesc);
+
+      const existingFilename = document.getElementById('upload-existing-filename').value;
+      if (existingFilename) formData.append('existing_filename', existingFilename);
+      if (fileInput.files.length > 0) formData.append('file', fileInput.files[0]);
+
+      closeUploadModal();
+      showLoader('Caricamento del documento e asseverazione in corso...');
+      try {
+        const response = await fetch('/api/documents/upload', { method: 'POST', body: formData });
+        const result = await response.json();
+        if (result.status === 'success') {
+          alert('Documento asseverato con successo nel fascicolo istituzionale!');
+          await loadCertStatus();
+          if (selectedGrant) await startFeasibilityAnalysis(selectedGrant.id);
+        }
+      } catch (err) {
+        alert('Errore durante il caricamento: ' + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    /* ── ACCORDION PROFILO ── */
+    function toggleProfileAccordion(sectionId, headerEl) {
+      const contentEl = document.getElementById(sectionId);
+      const isActive = contentEl.classList.contains('active');
+      document.querySelectorAll('.profile-section-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.profile-section-header').forEach(el => el.classList.remove('active'));
+      if (!isActive) {
+        contentEl.classList.add('active');
+        headerEl.classList.add('active');
+      }
+    }
+
+    /* ── PROFILO ── */
+    async function loadProfile() {
+      try {
+        const response = await fetch('/api/profile');
+        const data = await response.json();
+        activeProfile = data;
+
+        document.getElementById('prof-name').value = data.name || '';
+        document.getElementById('prof-type').value = data.legal_type || 'Comune';
+        document.getElementById('prof-piva').value = data.piva || '';
+        document.getElementById('prof-ateco').value = data.ateco_code || '';
+        document.getElementById('prof-hq').value = data.headquarters || '';
+        document.getElementById('prof-staff').value = data.staff_count || 20;
+        document.getElementById('prof-budget').value = data.annual_revenue || 0;
+        document.getElementById('prof-scope').value = data.business_activity || '';
+        document.getElementById('prof-property-status').value = data.property_status || 'si';
+        document.getElementById('prof-roof-access').value = data.roof_access || 'si';
+        document.getElementById('prof-sun-exposure').value = data.sun_exposure || 'misto';
+        document.getElementById('prof-custom-constraints').value = data.custom_constraints || '';
+        document.getElementById('prof-market-context').value = data.market_context || '';
+        document.getElementById('prof-ai-instructions').value = data.ai_instructions || '';
+
+        const digitalChannels = data.digital_channels || [];
+        document.querySelectorAll('input[name="prof-digital"]').forEach(cb => {
+          cb.checked = digitalChannels.includes(cb.value);
+        });
+
+        const strategicGoals = data.strategic_goals || [];
+        document.querySelectorAll('input[name="prof-goal"]').forEach(cb => {
+          cb.checked = strategicGoals.includes(cb.value);
+        });
+      } catch (err) {
+        console.error('Errore caricamento profilo:', err);
+      }
+    }
+
+    async function saveProfile() {
+      showLoader('Salvataggio profilo ente in corso...');
+
+      const digital_channels = [];
+      document.querySelectorAll('input[name="prof-digital"]:checked').forEach(cb => digital_channels.push(cb.value));
+
+      const strategic_goals = [];
+      document.querySelectorAll('input[name="prof-goal"]:checked').forEach(cb => strategic_goals.push(cb.value));
+
+      const profile = {
+        name: document.getElementById('prof-name').value,
+        legal_type: document.getElementById('prof-type').value,
+        piva: document.getElementById('prof-piva').value,
+        ateco_code: document.getElementById('prof-ateco').value,
+        constitution_date: '2000-01-01',
+        headquarters: document.getElementById('prof-hq').value,
+        staff_count: parseInt(document.getElementById('prof-staff').value) || 20,
+        annual_revenue: parseFloat(document.getElementById('prof-budget').value) || 0,
+        business_activity: document.getElementById('prof-scope').value,
+        property_status: document.getElementById('prof-property-status').value,
+        roof_access: document.getElementById('prof-roof-access').value,
+        sun_exposure: document.getElementById('prof-sun-exposure').value,
+        custom_constraints: document.getElementById('prof-custom-constraints').value,
+        market_context: document.getElementById('prof-market-context').value,
+        ai_instructions: document.getElementById('prof-ai-instructions').value,
+        digital_channels,
+        strategic_goals
+      };
+
+      try {
+        const response = await fetch('/api/profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(profile)
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          activeProfile = profile;
+          alert("Profilo ente salvato! L'AI aggiornerà le valutazioni future in base al nuovo profilo istituzionale.");
+        }
+      } catch (err) {
+        alert('Errore salvataggio profilo: ' + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    /* ── BANDI ── */
+    async function loadGrants(shouldRender = true) {
+      try {
+        const response = await fetch('/api/grants');
+        const data = await response.json();
+        activeGrants = data;
+        if (shouldRender) renderGrants(data);
+      } catch (err) {
+        console.error('Errore caricamento bandi:', err);
+      }
+    }
+
+    function renderGrants(grants) {
+      const container = document.getElementById('grants-container');
+      const countLabel = document.getElementById('grants-count');
+      container.innerHTML = '';
+      countLabel.textContent = searchActive ? `${grants.length} Bandi Trovati` : `${grants.length} Bandi Disponibili`;
+
+      grants.forEach(grant => {
+        const card = document.createElement('div');
+        card.className = 'grant-card';
+        card.innerHTML = `
+          <div>
+            <div class="grant-hdr">
+              <span class="grant-cat">${grant.category}</span>
+              <span class="grant-diff">Difficoltà: ${grant.difficulty}</span>
+            </div>
+            <h3>${grant.title}</h3>
+            <p class="grant-desc">${grant.description}</p>
+          </div>
+          <div>
+            <div class="grant-meta">
+              <div class="meta-item"><strong>Ente Erogatore</strong><span class="meta-val">${grant.issuer}</span></div>
+              <div class="meta-item"><strong>Budget Max</strong><span class="meta-val">${grant.budget_max.toLocaleString()} €</span></div>
+              <div class="meta-item"><strong>Scadenza</strong><span class="meta-val">${grant.deadline}</span></div>
+              <div class="meta-item"><strong>Finanziamento</strong><span class="meta-val">${grant.financing_percentage}%</span></div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+              ${grant.official_link ? `<a href="${grant.official_link}" target="_blank" class="btn btn-secondary" style="width:auto; flex:1; padding:9px 13px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:5px; font-size:0.82rem;">🌐 Sito Ufficiale</a>` : ''}
+              <button class="btn" style="flex:2; min-width:170px;" onclick="startFeasibilityAnalysis('${grant.id}')">Analisi di Fattibilità AI →</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function triggerAISearch(query) {
+      if (!query.trim()) return;
+      showLoader("L'AI sta scansionando i portali FSE+, PNRR, regionali sardi e nazionali per individuare bandi compatibili con il profilo istituzionale dell'ente...");
+      try {
+        const response = await fetch('/api/grants/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query })
+        });
+        const data = await response.json();
+        if (!response.ok) { alert('Errore ricerca AI: ' + (data.detail || 'Errore del server.')); return; }
+
+        if (data.new_grants && data.new_grants.length > 0) {
+          await loadGrants(false);
+          searchActive = true;
+          searchResults = data.new_grants;
+          document.getElementById('search-filter-query').textContent = `"${query}"`;
+          document.getElementById('search-filter-feedback').style.display = 'flex';
+          renderGrants(data.new_grants);
+          alert(`Scansione completata! Trovati e caricati ${data.new_grants.length} nuovi bandi PA compatibili.`);
+        } else {
+          const queryLower = query.toLowerCase();
+          const localMatches = activeGrants.filter(g =>
+            g.title.toLowerCase().includes(queryLower) ||
+            g.description.toLowerCase().includes(queryLower) ||
+            g.scope.toLowerCase().includes(queryLower)
+          );
+          if (localMatches.length > 0) {
+            searchActive = true;
+            searchResults = localMatches;
+            document.getElementById('search-filter-query').textContent = `"${query}"`;
+            document.getElementById('search-filter-feedback').style.display = 'flex';
+            renderGrants(localMatches);
+          } else {
+            alert('Nessun bando PA rilevato compatibile con la ricerca specifica.');
+          }
+        }
+      } catch (err) {
+        alert('Errore ricerca AI: ' + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    async function clearSearchFilter() {
+      searchActive = false;
+      searchResults = [];
+      document.getElementById('search-filter-feedback').style.display = 'none';
+      document.getElementById('ai-search-input').value = '';
+      await loadGrants(true);
+    }
+
+    function triggerSearchTopic(query) {
+      document.getElementById('ai-search-input').value = query;
+      triggerAISearch(query);
+    }
+
+    /* ── ANALISI FATTIBILITÀ ── */
+    async function startFeasibilityAnalysis(grantId) {
+      if (document.getElementById('funding-priorities')) {
+        document.getElementById('funding-priorities').value = '';
+      }
+      showLoader('Incrocio dei parametri del bando con il profilo istituzionale (tipo ente, n. dipendenti, budget formativo, limiti De Minimis SIEG 500.000 €)...');
+      try {
+        const response = await fetch('/api/feasibility', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ grant_id: grantId })
+        });
+        const data = await response.json();
+        if (!response.ok) { alert('Errore analisi: ' + (data.detail || 'Risposta inattesa.')); return; }
+
+        selectedGrant = activeGrants.find(g => g.id === grantId);
+        selectedFeasibility = data;
+
+        document.getElementById('analysis-grant-title').textContent = `Analisi Fattibilità: ${selectedGrant.title}`;
+        document.getElementById('analysis-grant-issuer').textContent = `Ente Erogatore: ${selectedGrant.issuer}`;
+        const scoreEl = document.getElementById('analysis-score');
+        scoreEl.textContent = `${data.feasibility_score || 0}%`;
+        const eligBadge = document.getElementById('analysis-eligibility');
+        eligBadge.textContent = data.eligibility_status || 'N/D';
+        eligBadge.className = `eligibility-status ${data.eligibility_status === 'IDONEO' ? 'done' : 'risk'}`;
+
+        document.getElementById('analysis-legal').textContent = data.legal_analysis || '';
+        document.getElementById('analysis-technical').textContent = data.technical_analysis || '';
+        document.getElementById('analysis-social').textContent = data.social_analysis || '';
+        document.getElementById('analysis-financial').textContent = data.financial_analysis || '';
+        document.getElementById('analysis-partnership').textContent = data.partnership_need || '';
+
+        if (data.cumulative_checks) {
+          const checks = data.cumulative_checks;
+          const fmt = v => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(v);
+
+          document.getElementById('cum-deminimis-val').textContent = fmt(checks.projected_cumulative_budget);
+          const dmBadge = document.getElementById('cum-deminimis-badge');
+          dmBadge.textContent = checks.de_minimis_warning ? 'SOGLIA SUPERATA' : 'OK';
+          dmBadge.className = `badge ${checks.de_minimis_warning ? 'risk' : 'done'}`;
+
+          document.getElementById('cum-staff-val').textContent = `${checks.projected_staff_occupied} / ${checks.staff_limit} FTE`;
+          const stBadge = document.getElementById('cum-staff-badge');
+          stBadge.textContent = checks.staff_warning ? 'SOVRACCARICO' : 'SUFFICIENTE';
+          stBadge.className = `badge ${checks.staff_warning ? 'risk' : 'done'}`;
+
+          document.getElementById('cum-cash-val').textContent = fmt(checks.projected_pre_financing_needed);
+          const cashBadge = document.getElementById('cum-cash-badge');
+          cashBadge.textContent = checks.cash_flow_warning ? 'TENSIONE' : 'SUFFICIENTE';
+          cashBadge.className = `badge ${checks.cash_flow_warning ? 'risk' : 'done'}`;
+
+          const conflictVal = document.getElementById('cum-conflict-val');
+          const conflictBadge = document.getElementById('cum-conflict-badge');
+          if (checks.issuer_conflict) {
+            conflictVal.textContent = checks.conflicting_project_title || 'Rilevato';
+            conflictBadge.textContent = 'ATTIVO';
+            conflictBadge.className = 'badge risk';
+          } else {
+            conflictVal.textContent = 'Nessuno';
+            conflictBadge.textContent = 'OK';
+            conflictBadge.className = 'badge done';
+          }
+        }
+
+        const recList = document.getElementById('analysis-experts-list');
+        recList.innerHTML = '';
+        (data.expert_recommendations || []).forEach(rec => {
+          const item = document.createElement('div');
+          item.className = 'advise-block';
+          item.innerHTML = `<h5>Figura Professionale Raccomandata</h5><p>${rec}</p>`;
+          recList.appendChild(item);
+        });
+
+        document.getElementById('view-explorer').style.display = 'none';
+        document.getElementById('view-analysis').style.display = 'flex';
+        document.getElementById('view-project').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        alert('Errore: ' + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    /* ── BUSINESS PLAN ── */
+    async function generateBusinessPlan(grantId) {
+      const priorities = document.getElementById('funding-priorities')?.value || '';
+      showLoader("L'AI sta assemblando il Piano Formativo Istituzionale, il budget estimativo, la checklist documentale (Delibera, RUP, DURC) e gli adempimenti post-approvazione...");
+      try {
+        const response = await fetch('/api/project-draft', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ grant_id: grantId, funding_priorities: priorities })
+        });
+        const data = await response.json();
+        selectedProjectDraft = data;
+
+        document.getElementById('doc-title').textContent = data.project_title.toUpperCase();
+        document.getElementById('doc-summary').textContent = data.project_summary;
+
+        const actionsList = document.getElementById('doc-actions');
+        actionsList.innerHTML = '';
+        data.key_actions.forEach(action => {
+          const li = document.createElement('li');
+          li.textContent = action;
+          actionsList.appendChild(li);
+        });
+
+        const budgetGrid = document.getElementById('doc-budget');
+        budgetGrid.innerHTML = '';
+        const b = data.budget_draft;
+        for (const [key, value] of Object.entries(b)) {
+          if (key !== 'totale_stimato') {
+            const cleanLabel = key.replace(/_/g, ' ').toUpperCase();
+            const item = document.createElement('div');
+            item.className = 'budget-item';
+            item.innerHTML = `<span class="budget-label">${cleanLabel}</span><span class="budget-val">${value}</span>`;
+            budgetGrid.appendChild(item);
+          }
+        }
+        const totalItem = document.createElement('div');
+        totalItem.className = 'budget-item total';
+        totalItem.innerHTML = `<span class="budget-label">TOTALE FORMATIVO PREVISTO</span><span class="budget-val">${b.totale_stimato}</span>`;
+        budgetGrid.appendChild(totalItem);
+
+        document.getElementById('doc-partnership').textContent = data.partnership_strategy;
+        document.getElementById('doc-academic').textContent = data.academic_path_advice;
+
+        if (data.post_award_roadmap) {
+          document.getElementById('doc-post-accettazione').innerHTML = data.post_award_roadmap.accettazione_e_avvio || '';
+          document.getElementById('doc-post-esecuzione').innerHTML = data.post_award_roadmap.esecuzione_investimenti || '';
+          document.getElementById('doc-post-documenti').innerHTML = data.post_award_roadmap.documentazione_rendicontazione || '';
+          document.getElementById('doc-post-pratiche').innerHTML = data.post_award_roadmap.pratiche_e_collaudo || '';
+        } else {
+          ['doc-post-accettazione','doc-post-esecuzione','doc-post-documenti','doc-post-pratiche'].forEach(id => {
+            document.getElementById(id).textContent = 'Nessuna indicazione fornita per questa misura.';
+          });
+        }
+
+        const docList = document.getElementById('doc-documents');
+        docList.innerHTML = '';
+        (data.checklist_documents || []).forEach(doc => renderDocumentItem(doc, docList));
+
+        const profList = document.getElementById('doc-professionals');
+        profList.innerHTML = '';
+        data.external_professionals.forEach(prof => {
+          const li = document.createElement('li');
+          li.textContent = prof;
+          profList.appendChild(li);
+        });
+
+        document.getElementById('view-analysis').style.display = 'none';
+        document.getElementById('view-project').style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        alert('Errore: ' + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    async function saveProject() {
+      if (!selectedProjectDraft) return;
+      showLoader("Salvataggio della bozza nell'archivio istituzionale...");
+      try {
+        const response = await fetch('/api/projects/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(selectedProjectDraft)
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          await loadSavedProjects();
+          alert('Candidatura archiviata con successo in database.json!');
+        }
+      } catch (err) {
+        alert('Errore salvataggio: ' + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    /* ── COMPILATORE ── */
+    async function compileGrantApplication(grantId) {
+      const priorities = document.getElementById('funding-priorities')?.value || '';
+      showLoader('Generazione testi formali di candidatura istituzionale (D.Lgs. 267/2000, D.Lgs. 150/2009)... Potrebbe richiedere 10-15 secondi...');
+      try {
+        const response = await fetch('/api/grants/compile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ grant_id: grantId, funding_priorities: priorities })
+        });
+        const data = await response.json();
+        if (!response.ok) { alert('Errore compilazione: ' + (data.detail || 'Errore.')); return; }
+
+        document.getElementById('compile-grant-title').textContent = data.grant_title || selectedGrant?.title || '';
+        document.getElementById('compile-grant-meta').textContent = `Ente Erogatore: ${data.grant_issuer || ''} — Ente Proponente: ${data.association_name || ''}`;
+        document.getElementById('compile-sec-a').textContent = data.sezione_a_presentazione || '';
+        document.getElementById('compile-sec-b').textContent = data.sezione_b_descrizione_progetto || '';
+        document.getElementById('compile-sec-c').textContent = data.sezione_c_analisi_bisogni || '';
+        document.getElementById('compile-sec-d').textContent = data.sezione_d_metodologia || '';
+        document.getElementById('compile-sec-e').textContent = data.sezione_e_piano_attivita || '';
+        document.getElementById('compile-sec-f').textContent = data.sezione_f_budget_narrativo || '';
+        document.getElementById('compile-sec-g').textContent = data.sezione_g_impatto || '';
+        document.getElementById('compile-sec-h').textContent = data.sezione_h_partenariato || '';
+
+        window._compiledData = data;
+
+        document.getElementById('view-explorer').style.display = 'none';
+        document.getElementById('view-analysis').style.display = 'none';
+        document.getElementById('view-project').style.display = 'none';
+        document.getElementById('view-compile').style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        alert('Errore compilazione: ' + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    function _buildCompileText(d) {
+      return [
+        `DOMANDA DI FINANZIAMENTO ISTITUZIONALE: ${d.grant_title}`,
+        `Ente Erogatore: ${d.grant_issuer}`,
+        `Ente Proponente: ${d.association_name}`,
+        '\n=== A. PRESENTAZIONE ENTE PROPONENTE ===', d.sezione_a_presentazione,
+        '\n=== B. PIANO FORMATIVO E OBIETTIVI ISTITUZIONALI ===', d.sezione_b_descrizione_progetto,
+        '\n=== C. ANALISI FABBISOGNI FORMATIVI ===', d.sezione_c_analisi_bisogni,
+        '\n=== D. METODOLOGIA (METODO ME.NE.E.S.CO.) ===', d.sezione_d_metodologia,
+        '\n=== E. PIANO ATTIVITÀ E CRONOPROGRAMMA ===', d.sezione_e_piano_attivita,
+        '\n=== F. GIUSTIFICAZIONE SPESA (PREVENTIVI FORMATIVI) ===', d.sezione_f_budget_narrativo,
+        '\n=== G. IMPATTO ISTITUZIONALE E INDICATORI ===', d.sezione_g_impatto,
+        '\n=== H. RETI ISTITUZIONALI E PARTENARIATI ===', d.sezione_h_partenariato
+      ].join('\n');
+    }
+
+    function copyCompileText() {
+      const d = window._compiledData;
+      if (!d) return;
+      navigator.clipboard.writeText(_buildCompileText(d)).then(() => {
+        const btn = document.getElementById('btn-copy-compile');
+        btn.textContent = '✅ Copiato!';
+        setTimeout(() => btn.textContent = '📋 Copia Testi', 2000);
+      });
+    }
+
+    function downloadCompileText() {
+      const d = window._compiledData;
+      if (!d) return;
+      const blob = new Blob([_buildCompileText(d)], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `candidatura_PA_${d.grant_title.replace(/[^a-z0-9]/gi,'_').toLowerCase()}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    /* ── ARCHIVIO PROGETTI ── */
+    async function loadSavedProjects() {
+      try {
+        const response = await fetch('/api/projects');
+        const data = await response.json();
+        const container = document.getElementById('archive-container');
+
+        if (data.length === 0) {
+          container.innerHTML = `<div style="font-size:0.8rem; color:var(--text-muted); text-align:center; padding:1.5rem; background:rgba(140,27,27,0.03); border-radius:8px;">Nessuna bozza archiviata. Completa ed archivia una candidatura per iniziare.</div>`;
+          return;
+        }
+
+        container.innerHTML = '';
+        data.forEach(proj => {
+          const item = document.createElement('div');
+          item.className = 'proj-item';
+          item.innerHTML = `
+            <div>
+              <div class="proj-title">${proj.project_title}</div>
+              <div class="proj-meta">Bando: ${proj.grant_id} &middot; Budget: ${proj.budget_draft.totale_stimato}</div>
+            </div>
+            <button class="btn btn-secondary" style="width:auto; padding:0.4rem 0.8rem; font-size:0.75rem;" onclick="loadSavedProjectIntoViewer('${proj.grant_id}')">
+              Esamina Bozza 📄
+            </button>
+          `;
+          container.appendChild(item);
+        });
+      } catch (err) {
+        console.error('Errore archivio:', err);
+      }
+    }
+
+    async function loadSavedProjectIntoViewer(grantId) {
+      showLoader('Caricamento bozza istituzionale in corso...');
+      try {
+        const response = await fetch('/api/projects');
+        const projects = await response.json();
+        const proj = projects.find(p => p.grant_id === grantId);
+
+        if (proj) {
+          selectedProjectDraft = proj;
+          selectedGrant = activeGrants.find(g => g.id === grantId);
+
+          document.getElementById('doc-title').textContent = proj.project_title.toUpperCase();
+          document.getElementById('doc-summary').textContent = proj.project_summary;
+
+          const actionsList = document.getElementById('doc-actions');
+          actionsList.innerHTML = '';
+          proj.key_actions.forEach(action => {
+            const li = document.createElement('li');
+            li.textContent = action;
+            actionsList.appendChild(li);
+          });
+
+          const budgetGrid = document.getElementById('doc-budget');
+          budgetGrid.innerHTML = '';
+          const b = proj.budget_draft;
+          for (const [key, value] of Object.entries(b)) {
+            if (key !== 'totale_stimato') {
+              const item = document.createElement('div');
+              item.className = 'budget-item';
+              item.innerHTML = `<span class="budget-label">${key.replace(/_/g,' ').toUpperCase()}</span><span class="budget-val">${value}</span>`;
+              budgetGrid.appendChild(item);
+            }
+          }
+          const totalItem = document.createElement('div');
+          totalItem.className = 'budget-item total';
+          totalItem.innerHTML = `<span class="budget-label">TOTALE FORMATIVO PREVISTO</span><span class="budget-val">${b.totale_stimato}</span>`;
+          budgetGrid.appendChild(totalItem);
+
+          document.getElementById('doc-partnership').textContent = proj.partnership_strategy;
+          document.getElementById('doc-academic').textContent = proj.academic_path_advice;
+
+          if (proj.post_award_roadmap) {
+            document.getElementById('doc-post-accettazione').innerHTML = proj.post_award_roadmap.accettazione_e_avvio || '';
+            document.getElementById('doc-post-esecuzione').innerHTML = proj.post_award_roadmap.esecuzione_investimenti || '';
+            document.getElementById('doc-post-documenti').innerHTML = proj.post_award_roadmap.documentazione_rendicontazione || '';
+            document.getElementById('doc-post-pratiche').innerHTML = proj.post_award_roadmap.pratiche_e_collaudo || '';
+          } else {
+            ['doc-post-accettazione','doc-post-esecuzione','doc-post-documenti','doc-post-pratiche'].forEach(id => {
+              document.getElementById(id).textContent = 'Nessuna indicazione per questa misura.';
+            });
+          }
+
+          const docList = document.getElementById('doc-documents');
+          docList.innerHTML = '';
+          proj.checklist_documents.forEach(doc => renderDocumentItem(doc, docList));
+
+          const profList = document.getElementById('doc-professionals');
+          profList.innerHTML = '';
+          proj.external_professionals.forEach(prof => {
+            const li = document.createElement('li');
+            li.textContent = prof;
+            profList.appendChild(li);
+          });
+
+          document.getElementById('view-explorer').style.display = 'none';
+          document.getElementById('view-analysis').style.display = 'none';
+          document.getElementById('view-project').style.display = 'flex';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      } catch (err) {
+        alert('Errore caricamento: ' + err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    /* ── RESET & NAVIGAZIONE ── */
+    async function resetGrants() {
+      if (confirm('Ripristinare i bandi PA predefiniti? Le bozze salvate non verranno eliminate.')) {
+        showLoader('Ripristino bandi istituzionali...');
+        try {
+          await loadGrants();
+          goBackToExplorer();
+          alert('Lista bandi PA ripristinata!');
+        } catch (err) {
+          alert('Errore: ' + err);
+        } finally {
+          hideLoader();
+        }
+      }
+    }
+
+    function goBackToExplorer() {
+      document.getElementById('view-explorer').style.display = 'block';
+      document.getElementById('view-analysis').style.display = 'none';
+      document.getElementById('view-project').style.display = 'none';
+      document.getElementById('view-compile').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goBackToAnalysis() {
+      document.getElementById('view-explorer').style.display = 'none';
+      document.getElementById('view-analysis').style.display = 'flex';
+      document.getElementById('view-project').style.display = 'none';
+      document.getElementById('view-compile').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showLoader(text) {
+      document.getElementById('loader-text').textContent = text;
+      document.getElementById('loader').style.display = 'flex';
+    }
+
+    function hideLoader() {
+      document.getElementById('loader').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,249 @@
+# knowledge_base/mercedes.yaml
+# Guida di navigazione per il software EPC MERCEDES-BENZ TRUCKS
+# Basata su conoscenza di Mercedes-Benz EPC (Electronic Parts Catalogue) e eParts
+# DA VERIFICARE e integrare con l'esperienza diretta del cliente
+
+marchio: MERCEDES
+software_tipo: mix  # EPC desktop o eParts web, a seconda dell'installazione del dealer
+software_nome: "Mercedes-Benz EPC / eParts (Mercedes-Benz Truck Parts)"
+software_icona_desktop: "Mercedes-Benz EPC"
+software_url: ""  # eParts: accesso tramite portale dealer Mercedes-Benz
+
+# --- NOTA IMPORTANTISSIMA ---
+# Mercedes-Benz produce sia AUTO che TRUCK. Il software EPC è LO STESSO per entrambi
+# ma il catalogo è SEPARATO per tipo veicolo.
+# All'avvio VERIFICARE SEMPRE di aver selezionato la sezione TRUCK/NFZ (Nutzfahrzeuge = veicoli commerciali)
+# e NON la sezione PKW (Personenkraftwagen = autovetture).
+# I modelli truck rilevanti per l'Italia: Actros, Atego, Axor, Arocs, Econic, Sprinter (furgone).
+
+# --- AVVIO MERCEDES EPC ---
+avvio:
+  - tipo: doppio_click
+    target: "icona Mercedes-Benz EPC sul desktop"
+    note: "Icona con stella Mercedes su sfondo blu scuro. In alcune installazioni: 'MB EPC' o 'eParts'."
+  - tipo: attendi
+    secondi: 10
+    note: "L'EPC Mercedes si connette al server locale o remoto per l'autenticazione. Attendere."
+  - tipo: note_contestuale
+    testo: "Se appare una schermata di selezione prodotto, scegliere 'Truck & Unimog' o 'NFZ' (Nutzfahrzeuge), NON 'PKW'."
+  - tipo: note_contestuale
+    testo: "Alcune versioni EPC chiedono la lingua: scegliere Italiano o Inglese. I codici sono uguali in tutte le lingue."
+
+# --- INSERIMENTO TELAIO MERCEDES TRUCKS ---
+inserimento_telaio:
+  - tipo: note_contestuale
+    testo: >
+      Mercedes-Benz usa il VIN standard 17 caratteri (prefisso WDB per Actros/Atego/Axor,
+      WEB per versioni aggiornate, WDC per varianti).
+      In alternativa accetta il 'Fahrzeug-Identifizierungsnummer' (FIN), che è il VIN tedesco
+      — stesso formato, stesso valore.
+      IMPORTANTE: l'EPC Mercedes accetta anche il numero di telaio a 9-10 cifre visibile
+      sul veicolo (ultime 9 cifre del VIN + eventuale lettera), utile se il VIN completo
+      non viene trovato.
+  - tipo: click
+    target: "icona 'Ricerca VIN/FIN' o campo 'Fahrzeug suchen' (Cerca veicolo)"
+    note: "In EPC Mercedes la ricerca VIN è di solito il primo pulsante nella barra degli strumenti (lente d'ingrandimento o icona veicolo)."
+  - tipo: input_testo
+    campo: "VIN / FIN"
+    valore: "{{TELAIO}}"
+    note: "Inserire il VIN completo 17 caratteri. Il programma decodifica modello, motore e allestimento."
+  - tipo: invio
+  - tipo: attendi
+    secondi: 5
+  - tipo: note_contestuale
+    testo: >
+      L'EPC mostra una schermata di conferma con: denominazione modello (es. Actros 1845 LS),
+      tipo di motore (OM 471), anno di produzione, tipo di cabina.
+      VERIFICARE sempre corrispondenza con il veicolo fisico prima di procedere.
+  - tipo: note_contestuale
+    testo: >
+      Se il VIN non viene trovato direttamente, provare con il pannello 'Selezione modello manuale':
+      scegliere Truck > famiglia (Actros/Atego/ecc.) > anno > variante.
+      Questa modalità è meno precisa ma funziona anche per veicoli con VIN non standard.
+
+# --- NAVIGAZIONE CATALOGO EPC MERCEDES ---
+navigazione_catalogo:
+  - tipo: note_contestuale
+    testo: >
+      Il catalogo EPC Mercedes è organizzato per 'Aggregat' (Aggregato) e 'Gruppe' (Gruppo).
+      La struttura ad albero è nella barra sinistra con espansione cliccando.
+  - tipo: note_contestuale
+    testo: >
+      Struttura principale aggregati EPC Mercedes Trucks:
+      Motor (Motore) — completo: testata, basamento, distribuzione, lubrificazione
+      Kühlung (Raffreddamento) — radiatore, pompa acqua, termostato, ventola
+      Kraftstoffanlage (Alimentazione) — pompa, iniettori, filtri, serbatoi
+      Abgasanlage (Scarico) — silenziatore, DPF, SCR, EGR
+      Luftversorgung (Aspirazione) — turbocompressore, intercooler, filtro aria
+      Elektrische Anlage (Elettrico) — alternatore, avviamento, cablaggi, batterie
+      Schaltgetriebe/Automatikgetriebe (Cambio) — manuale e automatico (G-Tronic)
+      Gelenkwelle (Albero di trasmissione)
+      Hinterachse (Assale posteriore) — differenziale, semiassi, riduttori
+      Vorderachse (Assale anteriore) — sterzo, fusello, mozzi
+      Bremsanlage (Impianto frenante) — EBS, ABS, disco, tamburo
+      Lenkung (Sterzo) — scatola, piantone, tiranteria
+      Federung (Sospensioni) — pneumatica e parabolica
+      Rahmen (Telaio) — longheroni, traversine
+      Fahrerhaus (Cabina) — interno, esterno, sedili, clima
+      Aufbau (Allestimento)
+  - tipo: note_contestuale
+    testo: >
+      Navigazione: espandere aggregato → gruppo → sottogruppo → tavola esplosa appare
+      nel pannello centrale (Bildtafel). Cliccare sul numero nella tavola per evidenziare
+      la parte nella lista destra (Positionsliste).
+
+# --- PARTICOLARITÀ MERCEDES TRUCKS ---
+particolarita:
+  - modelli: ["Actros (MP1, MP2, MP3, MP4, MP5)"]
+    note: >
+      Actros è il modello di punta Mercedes (lungo raggio). 5 generazioni:
+      MP1: 1996-2002 | MP2: 2002-2008 | MP3: 2008-2011 | MP4: 2011-2018 | MP5: 2018-oggi
+      Le parti cambiano SIGNIFICATIVAMENTE tra generazioni. L'EPC le distingue dal VIN.
+      Il MP4/MP5 usano motori OM471 (13L) e OM473 (16L), molto diversi dal precedente OM501/502.
+  - modelli: ["Atego"]
+    note: >
+      Atego (1998-oggi) è il medio-leggero Mercedes (7.5-26t). Motori OM904/906 (4/6 cil, 4-7L).
+      Molto usato nella distribuzione urbana. Manutenzione frequente, ricambi molto richiesti.
+      Versione aggiornata dal 2012 con modifiche significative al sistema frenante EBS.
+  - modelli: ["Axor (2001-2014)"]
+    note: >
+      Axor occupa la fascia tra Atego e Actros. Fuori produzione dal 2014.
+      Motori OM926 (7L) e OM457 (12L). Ancora molto presente nel parco italiano.
+  - modelli: ["Arocs (dal 2013)"]
+    note: >
+      Arocs è il modello off-road/cantiere Mercedes. Sostituisce il versione cantiere di Actros.
+      Sospensioni rinforzate, assali specifici. Frequente nelle cave e nei cantieri.
+  - modelli: ["Econic"]
+    note: >
+      Econic è il camion a pianale ribassato per raccolta rifiuti e distribuzione urbana.
+      Ha caratteristiche molto specifiche (visibilità 360°, accesso facilitato, pavimento piatto).
+      Ricambi specifici non condivisi con altri modelli Mercedes truck.
+  - modelli: ["tutti con motore OM serie"]
+    note: >
+      I motori Mercedes trucks OM sono specifici per ogni generazione:
+      OM904/906: Atego e Axor leggeri
+      OM926: Axor medio
+      OM457/460: Axor/Actros MP1-MP3 pesanti
+      OM471: Actros MP4/MP5 13L (più moderno)
+      OM473: Actros MP4/MP5 16L (il più potente)
+      Non sono intercambiabili tra generazioni diverse.
+  - modelli: ["tutti Euro 6 (Actros MP4 dal 2014, Atego dal 2012)"]
+    note: >
+      Sistema SCR AdBlue e EGR. Parti frequentemente richieste: valvola EGR, sensore NOx,
+      pompa dosatrice AdBlue, catalizzatore SCR. In EPC: Abgasanlage > SCR/EGR Anlage.
+  - modelli: ["Actros MP4/MP5 con cambio G-Tronic"]
+    note: >
+      Il cambio G-Tronic (automatico a 12/16 marce) è esclusivo Mercedes.
+      Le parti del G-Tronic si trovano in Automatikgetriebe nell'EPC.
+      Alcune parti sono condivise con il cambio manuale G (Schaltgetriebe) ma non tutte.
+  - modelli: ["tutti"]
+    note: >
+      Mercedes-Benz Trucks è parte del gruppo Daimler Truck AG (dal 2021 separato da Mercedes-Benz auto).
+      Il brand si chiama ora 'Mercedes-Benz Trucks' separatamente da 'Mercedes-Benz Cars'.
+      I codici EPC rimangono compatibili tra le due ere (pre e post separazione).
+
+# --- CODICI DI SOSTITUZIONE MERCEDES ---
+codici_sostituzione:
+  - testo: >
+      In EPC Mercedes la sostituzione è indicata nella colonna 'Nachfolger' (Successore)
+      o con la dicitura 'Wird ersetzt durch' (Viene sostituito da).
+      Cliccare sul codice per vedere tutta la catena di sostituzioni.
+  - testo: >
+      I codici Mercedes (A-Nummer, B-Nummer) hanno formato:
+      A XXXX XXX XXXX = Ricambio originale Mercedes-Benz (il più comune)
+      N XXXX XXX XXXX = Ricambio normalizzato (bulloneria, guarnizioni standard)
+      Q XXXX XXX XXXX = Ricambio approvato non originale (aftermarket qualificato)
+      Per i codici originali annotare sempre gli A-Nummer.
+  - testo: >
+      Il prefisso 'A' è parte integrante del codice (es. A 006 154 7602).
+      Molti sistemi di ricerca aftermarket vogliono il codice senza la 'A' e senza spazi
+      (es. 0061547602) — annotare entrambe le versioni.
+  - testo: >
+      Mercedes-Benz Genuine Parts = originali OE.
+      Mercedes-Benz Remanufactured = rigenerati (codice inizia con R o ha marcatura REMAN).
+      Preferire sempre i codici Genuine per la lista originale.
+
+# --- SCREENSHOT ---
+screenshot:
+  - testo: >
+      In EPC Mercedes la tavola esplosa (Bildtafel) occupa il pannello centrale.
+      La parte selezionata viene evidenziata in rosso/arancio nella tavola e nella lista.
+      Catturare schermata con tavola + lista posizioni + codici A-Nummer visibili.
+  - testo: >
+      EPC Mercedes ha una funzione 'Druckvorschau' (Anteprima di stampa) che mostra
+      la tavola in formato pulito senza toolbar — utile per screenshot professionali.
+  - testo: >
+      Per tavole con molti particolari, il numero di posizione nella lista corrisponde
+      al numero nella tavola. Assicurarsi che entrambi siano visibili nello screenshot.
+
+# --- CATEGORIE E PERCORSI MERCEDES TRUCKS ---
+categorie:
+  filtro_olio:
+    percorso: "Motor > Schmierung (Lubrificazione) > Ölfilter (Filtro olio)"
+    sinonimi: ["filtro olio", "oil filter", "ölfilter"]
+  filtro_gasolio:
+    percorso: "Kraftstoffanlage > Kraftstofffilter (Filtro gasolio)"
+    sinonimi: ["filtro gasolio", "fuel filter", "kraftstofffilter", "separatore acqua"]
+  filtro_aria:
+    percorso: "Luftversorgung > Luftfilter (Filtro aria)"
+    sinonimi: ["filtro aria", "air filter", "luftfilter"]
+  filtro_abitacolo:
+    percorso: "Fahrerhaus > Heizung/Klima > Innenraumfilter (Filtro abitacolo)"
+    sinonimi: ["filtro abitacolo", "cabin filter", "innenraumfilter", "pollenfilter"]
+  alternatore:
+    percorso: "Elektrische Anlage > Lichtmaschine (Alternatore)"
+    sinonimi: ["alternatore", "alternator", "lichtmaschine", "generator"]
+  motorino_avviamento:
+    percorso: "Elektrische Anlage > Anlasser (Motorino avviamento)"
+    sinonimi: ["motorino avviamento", "starter", "anlasser"]
+  pastiglia_freno:
+    percorso: "Bremsanlage > Scheibenbremse > Bremsbelag (Pastiglie freno)"
+    sinonimi: ["pastiglie freno", "brake pad", "bremsbelag"]
+  disco_freno:
+    percorso: "Bremsanlage > Scheibenbremse > Bremsscheibe (Disco freno)"
+    sinonimi: ["disco freno", "brake disc", "bremsscheibe"]
+  tamburo_freno:
+    percorso: "Bremsanlage > Trommelbremse > Bremstrommel (Tamburo freno)"
+    sinonimi: ["tamburo freno", "brake drum", "bremstrommel"]
+  ganasce_freno:
+    percorso: "Bremsanlage > Trommelbremse > Bremsbacke (Ganasce freno)"
+    sinonimi: ["ganasce freno", "brake shoe", "bremsbacken"]
+  soffione_sospensione:
+    percorso: "Federung > Luftfederung > Luftbalg / Luftfederbalg (Soffietto sospensione)"
+    sinonimi: ["soffione", "soffietto", "air spring", "luftfederbalg", "luftbalg"]
+  ammortizzatore:
+    percorso: "Federung > Schwingungsdämpfer (Ammortizzatore)"
+    sinonimi: ["ammortizzatore", "shock absorber", "schwingungsdämpfer", "dämpfer"]
+  kit_frizione:
+    percorso: "Schaltgetriebe > Kupplung > Kupplungssatz (Kit frizione)"
+    sinonimi: ["frizione", "kit frizione", "clutch kit", "kupplungssatz"]
+  pompa_acqua:
+    percorso: "Kühlung > Kühlmittelpumpe (Pompa acqua)"
+    sinonimi: ["pompa acqua", "water pump", "kühlmittelpumpe", "kühlwasserpumpe"]
+  termostato:
+    percorso: "Kühlung > Thermostat"
+    sinonimi: ["termostato", "thermostat"]
+  iniettore:
+    percorso: "Kraftstoffanlage > Common-Rail > Einspritzventil / Injektor"
+    sinonimi: ["iniettore", "injector", "einspritzventil", "injektor"]
+  turbocompressore:
+    percorso: "Luftversorgung > Turbolader (Turbocompressore)"
+    sinonimi: ["turbo", "turbocompressore", "turbocharger", "turbolader"]
+  valvola_egr:
+    percorso: "Abgasanlage > AGR-Anlage > AGR-Ventil (Valvola EGR)"
+    sinonimi: ["valvola egr", "egr valve", "agr-ventil", "abgasrückführung"]
+  dpf:
+    percorso: "Abgasanlage > Dieselpartikelfilter (DPF)"
+    sinonimi: ["dpf", "filtro antiparticolato", "dieselpartikelfilter", "rußpartikelfilter"]
+  scr:
+    percorso: "Abgasanlage > SCR-Anlage > SCR-Katalysator"
+    sinonimi: ["scr", "adblue", "harnstoff", "scr-katalysator", "sistema scr"]
+  cinghia_distribuzione:
+    percorso: "Motor > Steuerung (Distribuzione) > Zahnriemen / Steuerkette (Cinghia/Catena)"
+    sinonimi: ["cinghia distribuzione", "timing belt", "zahnriemen", "steuerkette", "catena distribuzione"]
+  testata:
+    percorso: "Motor > Zylinderkopf (Testata)"
+    sinonimi: ["testata", "cylinder head", "zylinderkopf", "testa motore"]
+  guarnizione_testata:
+    percorso: "Motor > Zylinderkopf > Zylinderkopfdichtung (Guarnizione testata)"
+    sinonimi: ["guarnizione testata", "head gasket", "zylinderkopfdichtung"]

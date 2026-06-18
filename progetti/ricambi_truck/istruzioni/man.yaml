@@ -1,0 +1,190 @@
+# knowledge_base/man.yaml
+# Guida di navigazione per il software EPC MAN
+# Basata su conoscenza di MAN Rapido e MAN Parts (MANPC)
+# DA VERIFICARE e integrare con l'esperienza diretta del cliente
+
+marchio: MAN
+software_tipo: desktop
+software_nome: "MAN Rapido / MAN Parts Catalogue (MANPC)"
+software_icona_desktop: "MAN Rapido"
+software_exe: ""  # es. C:\Program Files\MAN\Rapido\Rapido.exe — da verificare
+
+# --- AVVIO MAN RAPIDO ---
+avvio:
+  - tipo: doppio_click
+    target: "icona MAN Rapido sul desktop"
+    note: "Icona con leone MAN su sfondo rosso/bianco. Alcune installazioni mostrano 'MANPC' come nome."
+  - tipo: attendi
+    secondi: 8
+    note: "Il software carica il database locale. Attendere la schermata principale."
+  - tipo: note_contestuale
+    testo: "All'avvio potrebbe richiedere l'inserimento di un codice di licenza o credenziali dealer. Normalmente si bypassa se la workstation è già autenticata."
+  - tipo: note_contestuale
+    testo: "Alcune versioni mostrano un selettore lingua all'avvio: scegliere Italiano (IT) o lasciare Inglese per terminologia standard."
+
+# --- INSERIMENTO TELAIO MAN ---
+inserimento_telaio:
+  - tipo: note_contestuale
+    testo: >
+      MAN usa il VIN completo (17 caratteri, prefisso WMA o WMN) come identificatore principale.
+      In alternativa accetta il 'Fahrgestellnummer' (numero di telaio tedesco) che può essere
+      più corto — visibile sulla targhetta di identificazione sotto il parabrezza lato guida.
+  - tipo: click
+    target: "campo 'Fahrzeugidentifikation' o 'Vehicle Identification' o 'VIN/Fahrgestell'"
+    note: "Di solito accessibile dal menu principale o dalla barra di ricerca in alto."
+  - tipo: note_contestuale
+    testo: "In alcune versioni di MAN Rapido: Menu 'Fahrzeug' (Veicolo) > 'Neues Fahrzeug' (Nuovo veicolo) o 'Suche' (Cerca)."
+  - tipo: input_testo
+    campo: "VIN / Fahrgestellnummer"
+    valore: "{{TELAIO}}"
+    note: "Inserire il VIN completo. Il programma mostra la configurazione trovata (modello, motore, anno, allestimento)."
+  - tipo: invio
+  - tipo: attendi
+    secondi: 4
+  - tipo: note_contestuale
+    testo: >
+      Dopo la ricerca, MAN Rapido mostra una finestra di conferma con i dati del veicolo decodificati:
+      tipo, modello, anno di produzione, variante motore.
+      IMPORTANTE: verificare che il modello visualizzato corrisponda al camion reale prima di procedere.
+
+# --- NAVIGAZIONE CATALOGO MAN ---
+navigazione_catalogo:
+  - tipo: note_contestuale
+    testo: >
+      La struttura del catalogo MAN Rapido è ad albero sulla sinistra, organizzata per
+      'Baugruppen' (gruppi costruttivi) numerati secondo la classificazione MAN.
+  - tipo: note_contestuale
+    testo: >
+      Struttura principale dei gruppi MAN:
+      00 General / Identificazione veicolo
+      01 Motore (Engine) — testata, distribuzione, lubrificazione
+      02 Raffreddamento (Cooling)
+      03 Alimentazione carburante (Fuel system)
+      04 Aspirazione e scarico (Air/Exhaust)
+      05 Cambio (Gearbox) — manuale e automatico (ZF)
+      06 Albero di trasmissione (Propshaft)
+      07 Assale anteriore (Front axle) e posteriore (Rear axle)
+      08 Freni (Brakes) — EBS, ABS, tamburo e disco
+      09 Sterzo (Steering)
+      10 Sospensioni (Suspension) — a balestra e pneumatica
+      11 Telaio (Frame / Chassis)
+      12 Impianto elettrico (Electrical)
+      13 Cabina (Cab) — interno ed esterno
+      14 Allestimento (Body equipment)
+  - tipo: note_contestuale
+    testo: "Cliccare sul gruppo → lista sottogruppi → clic sul sottogruppo → tavola esplosa con numerazione."
+
+# --- PARTICOLARITÀ MAN ---
+particolarita:
+  - modelli: ["TGX", "TGS"]
+    note: >
+      TGX (trasporto a lunga percorrenza) e TGS (servizio pesante) sono i modelli principali
+      dal 2007 in poi. Entrambi usano motori D20 (10,5L) e D26 (12,4L) Euro 4/5/6.
+      Verificare sempre la variante motore nel VIN: la sesta cifra del VIN MAN indica la potenza.
+  - modelli: ["TGA (2000-2007)"]
+    note: >
+      Il TGA è il predecessore del TGX/TGS. Alcune parti sono condivise, molte no.
+      MAN Rapido le distingue automaticamente, ma attenzione alle sovrapposizioni nei codici.
+  - modelli: ["TGM", "TGL"]
+    note: >
+      TGM (medio) e TGL (leggero) usano motori più piccoli (D08, D0836).
+      Il percorso catalogo è lo stesso ma le tavole sono diverse dai modelli pesanti.
+  - modelli: ["tutti con cambio ZF"]
+    note: >
+      Il cambio automatico ZF TipMatic/Astronic è molto diffuso sui MAN pesanti.
+      I ricambi del cambio si trovano sia nel catalogo MAN (Gruppo 05) sia nel catalogo ZF separato.
+      Preferire il catalogo MAN per avere i codici MAN, non ZF, a meno di richiesta specifica.
+  - modelli: ["Euro 6 (dal 2012)"]
+    note: >
+      I veicoli Euro 6 MAN hanno sistema SCR (AdBlue/UREA) e DPF (filtro antiparticolato).
+      Componenti SCR si trovano in Gruppo 04 Scarico > SCR System.
+      Il sensore NOx e la centralina SCR sono parti molto richieste.
+  - modelli: ["tutti"]
+    note: >
+      MAN è parte del gruppo TRATON (insieme a Scania e Volkswagen Truck).
+      Alcune parti sono condivise con Scania (post-2020) ma i codici rimangono separati.
+
+# --- CODICI DI SOSTITUZIONE MAN ---
+codici_sostituzione:
+  - testo: >
+      MAN Rapido mostra i codici nella colonna 'Sachnummer' (numero di parte).
+      La colonna 'Nachfolge' o 'ersetzt durch' indica il codice sostitutivo.
+  - testo: >
+      I codici MAN hanno tipicamente formato: XXXXXXXXX (9 cifre numeriche).
+      Esempi: 51.01503-6065, 81.07501-0056 (con punti nel formato ufficiale MAN).
+  - testo: >
+      MAN Reman (ricambi rigenerati ufficiali MAN) hanno il prefisso 'R' nel codice
+      o sono identificati dalla label 'MAN Genuine Reman Parts'. Prezzo ~40% inferiore al nuovo.
+  - testo: >
+      Alcuni ricambi MAN condividono il codice con NEOPLAN (bus MAN) — evitare confusione,
+      i bus Neoplan non sono camion. Il catalogo Rapido li separa automaticamente.
+
+# --- SCREENSHOT ---
+screenshot:
+  - testo: >
+      In MAN Rapido la tavola esplosa si apre in una finestra separata o nel pannello principale.
+      Il numero del pezzo selezionato viene evidenziato con un riquadro rosso/giallo.
+      Catturare la schermata con tavola + lista codici visibili contemporaneamente.
+  - testo: >
+      Se necessario, usare il tasto 'Zoom' nella toolbar per ingrandire la zona di interesse
+      prima dello screenshot.
+
+# --- CATEGORIE E PERCORSI MAN ---
+categorie:
+  filtro_olio:
+    percorso: "01 Motore > Lubrificazione > Filtro olio / Oil filter"
+    sinonimi: ["filtro olio", "oil filter", "filtro lubrificante"]
+  filtro_gasolio:
+    percorso: "03 Alimentazione > Filtro carburante / Fuel filter"
+    sinonimi: ["filtro gasolio", "fuel filter", "filtro carburante", "prefilter"]
+  filtro_aria:
+    percorso: "04 Aspirazione > Filtro aria / Air filter"
+    sinonimi: ["filtro aria", "air filter", "air cleaner", "filtro aspirazione"]
+  separatore_acqua:
+    percorso: "03 Alimentazione > Water separator / Separatore acqua"
+    sinonimi: ["separatore acqua", "water separator", "decantatore"]
+  alternatore:
+    percorso: "12 Elettrico > Generatore / Alternatore"
+    sinonimi: ["alternatore", "alternator", "generatore"]
+  motorino_avviamento:
+    percorso: "12 Elettrico > Motorino avviamento / Starter motor"
+    sinonimi: ["motorino avviamento", "starter motor", "avviamento", "starter"]
+  pastiglia_freno:
+    percorso: "08 Freni > Freni disco > Guarnizione / Brake pad"
+    sinonimi: ["pastiglie freno", "brake pad", "guarnizioni freno disco"]
+  disco_freno:
+    percorso: "08 Freni > Freni disco > Disco freno / Brake disc"
+    sinonimi: ["disco freno", "brake disc", "disco"]
+  tamburo_freno:
+    percorso: "08 Freni > Freni tamburo > Tamburo / Drum brake"
+    sinonimi: ["tamburo freno", "brake drum", "tamburo"]
+  ganasce_freno:
+    percorso: "08 Freni > Freni tamburo > Ganasce / Brake shoe"
+    sinonimi: ["ganasce freno", "brake shoe", "ganasce"]
+  soffione_sospensione:
+    percorso: "10 Sospensioni > Sospensione pneumatica > Soffietto / Air spring"
+    sinonimi: ["soffione", "soffietto", "air spring", "air bag", "cuscino pneumatico"]
+  molla_sospensione:
+    percorso: "10 Sospensioni > Sospensione a balestra > Molla / Leaf spring"
+    sinonimi: ["molla", "balestra", "leaf spring", "molla a balestra"]
+  kit_frizione:
+    percorso: "05 Cambio > Frizione > Kit frizione / Clutch kit"
+    sinonimi: ["frizione", "kit frizione", "clutch", "disco frizione", "spingidisco"]
+  pompa_acqua:
+    percorso: "02 Raffreddamento > Pompa acqua / Water pump"
+    sinonimi: ["pompa acqua", "water pump", "pompa refrigerante"]
+  cinghia_distribuzione:
+    percorso: "01 Motore > Distribuzione > Cinghia / Timing belt"
+    sinonimi: ["cinghia distribuzione", "timing belt", "kit distribuzione", "catena distribuzione"]
+  iniettore:
+    percorso: "03 Alimentazione > Common rail > Iniettore / Injector"
+    sinonimi: ["iniettore", "injector", "polverizzatore"]
+  turbocompressore:
+    percorso: "04 Aspirazione > Turbocompressore / Turbocharger"
+    sinonimi: ["turbo", "turbocompressore", "turbocharger"]
+  ammortizzatore:
+    percorso: "10 Sospensioni > Ammortizzatori / Shock absorber"
+    sinonimi: ["ammortizzatore", "shock absorber", "ammortizzatori"]
+  testata:
+    percorso: "01 Motore > Testata / Cylinder head"
+    sinonimi: ["testata", "cylinder head", "testa motore"]

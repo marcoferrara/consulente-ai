@@ -1,0 +1,90 @@
+{
+  "company_profile": {
+    "name": "",
+    "legal_type": "Comune",
+    "constitution_date": "2000-01-01",
+    "headquarters": "",
+    "staff_count": 20,
+    "annual_revenue": 50000.0,
+    "piva": "",
+    "ateco_code": "Ente Locale / Comune",
+    "business_activity": "",
+    "property_status": "si",
+    "roof_access": "si",
+    "sun_exposure": "misto",
+    "digital_channels": [],
+    "strategic_goals": [],
+    "custom_constraints": "",
+    "market_context": "",
+    "ai_instructions": ""
+  },
+  "grants": [
+    {
+      "id": "pnrr-formazione-pa-competenze-2026",
+      "title": "PNRR Mis. 1.4 — Formazione e Sviluppo delle Competenze Trasversali nella P.A.",
+      "issuer": "Dipartimento della Funzione Pubblica — PCM",
+      "budget_max": 120000,
+      "deadline": "2026-12-31",
+      "scope": "Finanzia percorsi di formazione su competenze relazionali, leadership, gestione dei conflitti e comunicazione istituzionale per dipendenti pubblici.",
+      "category": "Nazionale — PNRR",
+      "difficulty": "Media",
+      "financing_percentage": 100,
+      "description": "Misura del Piano Nazionale di Ripresa e Resilienza dedicata al potenziamento del capitale umano della Pubblica Amministrazione. Ammessi Comuni, Province, Regioni, ASL e aziende strumentali. Finanziate: consulenze organizzative, corsi di mediazione e de-escalation cognitiva, leadership istituzionale, benessere organizzativo, prevenzione del burn-out del personale.",
+      "official_link": "https://www.funzionepubblica.gov.it/formazione"
+    },
+    {
+      "id": "fse-plus-sardegna-formazione-pa-2026",
+      "title": "FSE+ Sardegna 2021-2027 — Competenze e Qualità degli Enti Pubblici",
+      "issuer": "Regione Autonoma della Sardegna — Assessorato al Lavoro",
+      "budget_max": 80000,
+      "deadline": "2026-09-30",
+      "scope": "Finanzia percorsi formativi per dipendenti PA sardi su innovazione organizzativa, gestione dei conflitti e de-escalation istituzionale.",
+      "category": "Regionale Sardegna — FSE+",
+      "difficulty": "Bassa",
+      "financing_percentage": 100,
+      "description": "Il Fondo Sociale Europeo Plus in Sardegna finanzia al 100% la formazione professionale continua per i dipendenti degli enti pubblici sardi. Ammissibili: Comuni, Province, Consorzi ed enti strumentali. Temi finanziabili: mediazione e gestione dei conflitti, de-escalation cognitiva, comunicazione interna e pubblica, gestione dello stress, benessere lavorativo e prevenzione dell'escalation nei servizi al cittadino.",
+      "official_link": "https://sardegnalavoro.it/"
+    },
+    {
+      "id": "interno-comuni-innovazione-organizzativa-2026",
+      "title": "Bando Capacità Amministrativa — Innovazione Organizzativa per Enti Locali",
+      "issuer": "Ministero dell'Interno — DAIT / Direzione Finanza Locale",
+      "budget_max": 200000,
+      "deadline": "2026-11-15",
+      "scope": "Finanzia consulenze per il miglioramento organizzativo e percorsi di formazione su leadership, gestione dei conflitti e comunicazione pubblica per Comuni fino a 15.000 abitanti.",
+      "category": "Nazionale — Ministero dell'Interno",
+      "difficulty": "Alta",
+      "financing_percentage": 85,
+      "description": "Bando rivolto ai Comuni con popolazione fino a 15.000 abitanti per la realizzazione di percorsi di innovazione organizzativa. Finanziabili: consulenze specializzate per il miglioramento dei processi decisionali interni, corsi intensivi su leadership istituzionale, mediazione, gestione dei conflitti tra uffici, prevenzione del burn-out del personale e protocolli di comunicazione di crisi verso i cittadini.",
+      "official_link": "https://www.interno.gov.it/it/ministero/dipartimenti/dipartimento-per-gli-affari-interni-e-territoriali"
+    },
+    {
+      "id": "pnrr-snam4-benessere-organizzativo-pa",
+      "title": "SNAM4 — Programma Nazionale per il Benessere Organizzativo e la Prevenzione dei Conflitti nella P.A.",
+      "issuer": "INAIL / Dipartimento della Funzione Pubblica",
+      "budget_max": 60000,
+      "deadline": "2026-10-31",
+      "scope": "Finanzia interventi di analisi organizzativa, formazione su benessere lavorativo e protocolli di de-escalation per prevenire contenziosi interni ed esterni.",
+      "category": "Nazionale — INAIL / Funzione Pubblica",
+      "difficulty": "Bassa-Media",
+      "financing_percentage": 80,
+      "description": "Programma dedicato agli enti pubblici per la valutazione e riduzione dei rischi stress lavoro-correlato e la prevenzione dei conflitti. Finanziabili: valutazione dei rischi psicosociali, percorsi di formazione su de-escalation cognitiva, protocolli per la gestione dei conflitti con l'utenza, supervisione e coaching per dirigenti e personale di front-office.",
+      "official_link": "https://www.inail.it/"
+    },
+    {
+      "id": "pnrr-coesione-meridione-pa-servizi",
+      "title": "PN METRO Plus — Potenziamento dei Servizi Pubblici e Formazione del Personale",
+      "issuer": "Agenzia per la Coesione Territoriale — ACT",
+      "budget_max": 150000,
+      "deadline": "2026-08-31",
+      "scope": "Finanzia piani di potenziamento dei servizi comunali e percorsi di formazione del personale, inclusi corsi su mediazione, comunicazione istituzionale e gestione delle situazioni di crisi con i cittadini.",
+      "category": "Nazionale — Coesione",
+      "difficulty": "Media-Alta",
+      "financing_percentage": 90,
+      "description": "Programma Nazionale rivolto ai Comuni delle aree del Mezzogiorno per il miglioramento dei servizi pubblici e della capacità amministrativa. Finanziabili: piani formativi per il personale dipendente, con focus sulla qualità relazionale dei servizi al cittadino, la comunicazione pubblica efficace, la negoziazione istituzionale e la prevenzione dei conflitti nei servizi di front-office e back-office.",
+      "official_link": "https://www.agenziacoesione.gov.it/"
+    }
+  ],
+  "projects": [],
+  "uploaded_documents": []
+}

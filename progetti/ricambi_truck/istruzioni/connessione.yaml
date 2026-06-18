@@ -1,0 +1,23 @@
+# progetti/ricambi_truck/istruzioni/connessione.yaml
+# Istruzioni generiche per stabilire la connessione al Desktop Remoto
+# prima di poter avviare i singoli software dei marchi.
+
+connessione_tipo: desktop_remoto  # es. "AnyDesk", "RDP", "Chrome Remote Desktop"
+software_nome: "AnyDesk"
+
+avvio:
+  - tipo: doppio_click
+    target: "icona Full_Truck_and_Bus_Package_Online_R3 sul desktop"
+    note: "Avvia l'applicazione AnyDesk sul PC fisico locale."
+  - tipo: attendi
+    secondi: 3
+    note: "Attendi il caricamento dell'interfaccia di AnyDesk."
+  - tipo: doppio_click
+    target: "icona connessione PC Ricambi o Server"
+    note: "Fai doppio click sulla connessione preferita salvata in AnyDesk per collegarti al server remoto."
+  - tipo: clicca_connetti
+    target: "Connetti"
+    note: "Clicca sul pulsante Connetti per stabilire la connessione al server remoto."
+  - tipo: clicca_si
+    target: "Si"
+    note: "Clicca sul pulsante Si per stabilire la connessione al server remoto."

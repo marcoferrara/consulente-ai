@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "il-campanellino",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "4201", "."],
+      "port": 4201
+    }
+  ]
+}

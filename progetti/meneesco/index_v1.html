@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meneesco — Negoziazione e Gestione delle Crisi per la Pubblica Amministrazione</title>
+    <meta name="description"
+        content="Il protocollo di comunicazione efficace e de-escalation cognitiva per Comuni ed Enti Pubblici. Gestisci il dissenso ed eleva l'autorevolezza istituzionale.">
+    <link rel="icon" type="image/png" href="47120255_padded_logo.png">
+    <!-- Google Fonts: Inter per leggibilità e Outfit per titoli prestigiosi/istituzionali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #0A0F1D;
+            --bg-secondary: #131A30;
+            --brand-primary: #C5A880;
+            /* Oro Champagne Prestigioso */
+            --brand-primary-light: #DFCDA6;
+            --brand-secondary: #38BDF8;
+            /* Celeste Autorità */
+            --text-main: #F1F5F9;
+            --text-muted: #94A3B8;
+            --border-color: rgba(197, 168, 128, 0.15);
+            --glass-bg: rgba(19, 26, 48, 0.7);
+            --glow-gold: rgba(197, 168, 128, 0.25);
+            --glow-blue: rgba(56, 189, 248, 0.25);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* SFONDI DINAMICI E GRADIENTI PREMIUM */
+        .ambient-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--glow-gold) 0%, rgba(10, 15, 29, 0) 70%);
+            top: -200px;
+            right: -100px;
+            z-index: 0;
+            pointer-events: none;
+            filter: blur(80px);
+            animation: pulse-slow 15s infinite alternate;
+        }
+
+        .ambient-glow-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--glow-blue) 0%, rgba(10, 15, 29, 0) 70%);
+            bottom: 10%;
+            left: -200px;
+            z-index: 0;
+            pointer-events: none;
+            filter: blur(80px);
+            animation: pulse-slow 20s infinite alternate-reverse;
+        }
+
+        @keyframes pulse-slow {
+            0% {
+                transform: scale(1) translate(0, 0);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: scale(1.2) translate(50px, 50px);
+                opacity: 0.9;
+            }
+        }
+
+        /* HEADER ISTITUZIONALE */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 15, 29, 0.75);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-symbol {
+            width: 38px;
+            height: 38px;
+            border: 2px solid var(--brand-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--brand-primary);
+            box-shadow: 0 0 15px var(--glow-gold);
+            font-size: 1.2rem;
+            letter-spacing: 0;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--brand-primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-subtitle {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--brand-secondary);
+            font-weight: 600;
+            margin-top: -2px;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--brand-primary);
+        }
+
+        .btn-header {
+            padding: 10px 22px;
+            border: 1px solid var(--brand-primary);
+            color: var(--brand-primary);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            background: transparent;
+            transition: var(--transition);
+        }
+
+        .btn-header:hover {
+            background: var(--brand-primary);
+            color: var(--bg-primary);
+            box-shadow: 0 0 20px rgba(197, 168, 128, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            padding: 180px 5% 100px 5%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+            gap: 4%;
+        }
+
+        .hero-info {
+            flex: 1;
+            max-width: 620px;
+        }
+
+        .tag-istituzionale {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            color: var(--brand-secondary);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tag-istituzionale::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background-color: var(--brand-secondary);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--brand-secondary);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #FFFFFF 30%, #DFCDA6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-weight: 400;
+            max-width: 550px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-primary {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--brand-primary) 0%, #A88F69 100%);
+            color: var(--bg-primary);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(197, 168, 128, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(197, 168, 128, 0.45);
+            background: linear-gradient(135deg, var(--brand-primary-light) 0%, var(--brand-primary) 100%);
+        }
+
+        .btn-secondary {
+            padding: 16px 32px;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* FLOATING 3D BOOK COVER MOCKUPS */
+        .hero-media {
+            flex: 1;
+            position: relative;
+            height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mockup-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .book-wrapper {
+            position: absolute;
+            perspective: 1500px;
+            transition: var(--transition);
+        }
+
+        .book-wrapper.m1 {
+            z-index: 5;
+            transform: rotate(-10deg) translate(-80px, -40px);
+            animation: float-book1 6s ease-in-out infinite alternate;
+        }
+
+        .book-wrapper.m2 {
+            z-index: 10;
+            transform: rotate(5deg) translate(90px, 30px);
+            animation: float-book2 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes float-book1 {
+            0% {
+                transform: rotate(-10deg) translate(-80px, -40px);
+            }
+
+            100% {
+                transform: rotate(-8deg) translate(-80px, -65px);
+            }
+        }
+
+        @keyframes float-book2 {
+            0% {
+                transform: rotate(5deg) translate(90px, 30px);
+            }
+
+            100% {
+                transform: rotate(7deg) translate(90px, 5px);
+            }
+        }
+
+        /* LUXURY CSS-BUILT BOOK COVERS */
+        .book-cover {
+            width: 250px;
+            height: 360px;
+            border-radius: 6px 12px 12px 6px;
+            position: relative;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), inset -5px 0 15px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px 24px;
+            border-left: 5px solid rgba(0, 0, 0, 0.4);
+            transition: var(--transition);
+        }
+
+        .book-wrapper:hover .book-cover {
+            transform: translateY(-10px) rotateY(-5deg);
+            box-shadow: 0 25px 60px rgba(197, 168, 128, 0.15), inset -5px 0 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Cover 1: Manuale Meneesco (Deep Blue/Gold) */
+        .book-cover.meneesco-book {
+            background: linear-gradient(145deg, #0d162a 0%, #050a14 100%);
+            border: 1px solid rgba(197, 168, 128, 0.3);
+        }
+
+        /* Cover 2: Hacking Haters' Mind (Black/Gold/Cyberblue) */
+        .book-cover.haters-book {
+            background: linear-gradient(145deg, #13141f 0%, #08090f 100%);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .book-spine-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 14px;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.12) 30%, rgba(0, 0, 0, 0.3) 80%, rgba(0, 0, 0, 0.6) 100%);
+            pointer-events: none;
+        }
+
+        .book-seal {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px dashed var(--brand-primary);
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.85;
+        }
+
+        .book-seal::before {
+            content: 'PA';
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            color: var(--brand-primary);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .book-cover.haters-book .book-seal {
+            border-color: var(--brand-secondary);
+        }
+
+        .book-cover.haters-book .book-seal::before {
+            content: 'HH';
+            color: var(--brand-secondary);
+        }
+
+        .book-tag {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--brand-secondary);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .book-cover.meneesco-book .book-tag {
+            color: var(--brand-primary);
+        }
+
+        .book-title {
+            font-size: 1.55rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #FFFFFF;
+            margin-top: 15px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .book-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .book-footer {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 500;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 15px;
+        }
+
+        /* SECTION TITLE */
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 70px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-tag {
+            color: var(--brand-primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFFFFF 50%, var(--brand-primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+        }
+
+        /* FRASI CHIAVI / PILLARS OF SALES */
+        .pillars-section {
+            padding: 100px 5%;
+            position: relative;
+            background: linear-gradient(to bottom, #0A0F1D 0%, #0C1224 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .pillar-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px 30px;
+            position: relative;
+            transition: var(--transition);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(197, 168, 128, 0.05) 0%, rgba(56, 189, 248, 0.02) 100%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(197, 168, 128, 0.45);
+            box-shadow: 0 15px 35px rgba(197, 168, 128, 0.08), 0 0 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .pillar-card:hover::before {
+            opacity: 1;
+        }
+
+        .pillar-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: rgba(197, 168, 128, 0.1);
+            font-family: 'Outfit', sans-serif;
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            line-height: 1;
+            transition: var(--transition);
+        }
+
+        .pillar-card:hover .pillar-number {
+            color: rgba(197, 168, 128, 0.25);
+            transform: scale(1.15);
+        }
+
+        .pillar-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: rgba(197, 168, 128, 0.07);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            color: var(--brand-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 24px;
+            transition: var(--transition);
+        }
+
+        .pillar-card:hover .pillar-icon {
+            background: var(--brand-primary);
+            color: var(--bg-primary);
+            box-shadow: 0 0 15px rgba(197, 168, 128, 0.3);
+        }
+
+        /* La frase chiave */
+        .pillar-quote {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: #FFFFFF;
+            margin-bottom: 16px;
+            font-family: 'Outfit', sans-serif;
+            border-left: 3px solid var(--brand-primary);
+            padding-left: 14px;
+        }
+
+        .pillar-explain {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* SEZIONE SIMULATORE INTERATTIVO DI CRISI */
+        .simulator-section {
+            padding: 100px 5%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .simulator-box {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, rgba(19, 26, 48, 0.4) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 50px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .sim-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .sim-nav-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sim-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
+        .sim-nav-btn.active {
+            background: rgba(197, 168, 128, 0.1);
+            border-color: var(--brand-primary);
+            color: var(--brand-primary);
+            box-shadow: 0 0 15px rgba(197, 168, 128, 0.15);
+        }
+
+        .sim-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            min-height: 250px;
+            align-items: stretch;
+        }
+
+        @media (max-width: 900px) {
+            .sim-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                flex-direction: column;
+                padding-top: 140px;
+                text-align: center;
+                gap: 50px;
+            }
+
+            .hero-media {
+                height: 400px;
+                width: 100%;
+            }
+
+            .hero-ctas {
+                justify-content: center;
+            }
+
+            .simulator-box {
+                padding: 30px 20px;
+            }
+        }
+
+        .sim-card {
+            background: rgba(10, 15, 29, 0.5);
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: var(--transition);
+        }
+
+        .sim-card.mistake {
+            border-left: 4px solid #EF4444;
+        }
+
+        .sim-card.protocol {
+            border-left: 4px solid var(--brand-primary);
+            background: rgba(197, 168, 128, 0.02);
+            box-shadow: inset 0 0 20px rgba(197, 168, 128, 0.03);
+        }
+
+        .sim-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sim-badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .sim-card.mistake .sim-badge {
+            background: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .sim-card.protocol .sim-badge {
+            background: rgba(197, 168, 128, 0.1);
+            color: var(--brand-primary);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+        }
+
+        .sim-card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .sim-quote-bubble {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            padding: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #E2E8F0;
+            position: relative;
+        }
+
+        .sim-card.mistake .sim-quote-bubble {
+            border-color: rgba(239, 68, 68, 0.15);
+        }
+
+        .sim-card.protocol .sim-quote-bubble {
+            border-color: rgba(197, 168, 128, 0.15);
+        }
+
+        .sim-quote-label {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #131A30;
+            padding: 0 8px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sim-card.mistake .sim-quote-label {
+            color: #EF4444;
+        }
+
+        .sim-card.protocol .sim-quote-label {
+            color: var(--brand-primary);
+        }
+
+        .sim-feedback {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .sim-result-metric {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .sim-card.mistake .sim-result-metric span {
+            color: #EF4444;
+        }
+
+        .sim-card.protocol .sim-result-metric span {
+            color: var(--brand-secondary);
+        }
+
+        /* SEZIONE DETTAGLI MANUALI */
+        .manuals-detail-section {
+            padding: 100px 5%;
+            background: linear-gradient(to bottom, #0C1224 0%, #0A0F1D 100%);
+        }
+
+        .manuals-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            z-index: 10;
+            position: relative;
+        }
+
+        @media (max-width: 800px) {
+            .manuals-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .manual-detail-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            transition: var(--transition);
+        }
+
+        .manual-detail-card:hover {
+            border-color: rgba(197, 168, 128, 0.35);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+        }
+
+        .manual-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--brand-primary);
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .manual-detail-card.blue-style .manual-badge {
+            color: var(--brand-secondary);
+        }
+
+        .manual-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 25px;
+        }
+
+        .manual-feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .manual-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .manual-feature-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--brand-primary);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .manual-detail-card.blue-style .manual-feature-item svg {
+            color: var(--brand-secondary);
+        }
+
+        .manual-feature-item strong {
+            color: #FFFFFF;
+        }
+
+        /* SEZIONE VANTAGGI PER LE P.A. */
+        .benefits-section {
+            padding: 100px 5%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .benefit-card:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(197, 168, 128, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon-wrapper {
+            width: 44px;
+            height: 44px;
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            color: var(--brand-secondary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .benefit-card:hover .benefit-icon-wrapper {
+            background: var(--brand-secondary);
+            color: var(--bg-primary);
+            box-shadow: 0 0 12px var(--brand-secondary);
+        }
+
+        .benefit-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+        }
+
+        .benefit-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* FORM DI CONTATTO ISTITUZIONALE */
+        .contact-section {
+            padding: 100px 5%;
+            position: relative;
+            background: linear-gradient(to bottom, #0A0F1D 0%, #05070D 100%);
+        }
+
+        .contact-box {
+            max-width: 750px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.5);
+            border-radius: 16px;
+            padding: 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 600px) {
+            .contact-box {
+                padding: 30px 15px;
+            }
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group-full {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 600px) {
+            .form-group-full {
+                grid-column: span 1;
+            }
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--brand-primary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(10, 15, 29, 0.6);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            color: #FFFFFF;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 12px rgba(197, 168, 128, 0.15);
+            background: rgba(10, 15, 29, 0.8);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C5A880' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+        }
+
+        .contact-box .btn-primary {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        /* POPUP SUCCESS */
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 7, 13, 0.9);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .success-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .success-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--brand-primary);
+            border-radius: 16px;
+            padding: 50px;
+            max-width: 550px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(197, 168, 128, 0.15);
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .success-overlay.active .success-card {
+            transform: scale(1);
+        }
+
+        .success-icon-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(197, 168, 128, 0.1);
+            border: 2px solid var(--brand-primary);
+            color: var(--brand-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 0 20px rgba(197, 168, 128, 0.25);
+        }
+
+        .success-title {
+            font-size: 2rem;
+            color: #FFFFFF;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 35px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #05070D;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 60px 5% 30px 5%;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--brand-primary);
+            letter-spacing: 0.05em;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-primary);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.05);
+            max-width: 600px;
+            margin: 0 auto 25px auto;
+        }
+
+        /* PULSANTE TORNA SU (BACK TO TOP) */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(19, 26, 48, 0.85);
+            border: 1px solid var(--brand-primary);
+            color: var(--brand-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 10px rgba(197, 168, 128, 0.2);
+            backdrop-filter: blur(8px);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--brand-primary);
+            color: var(--bg-primary);
+            box-shadow: 0 6px 25px rgba(197, 168, 128, 0.45);
+            transform: translateY(-5px);
+        }
+
+        .back-to-top svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .back-to-top:hover svg {
+            transform: translateY(-2px);
+        }
+
+        /* SEZIONE ACCREDITAMENTO */
+        .accreditation-section {
+            padding: 100px 5%;
+            position: relative;
+            background: linear-gradient(to bottom, #0C1224 0%, #0A0F1D 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            z-index: 10;
+        }
+
+        .accreditation-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 850px) {
+            .accreditation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .accreditation-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            color: #FFFFFF;
+            margin-bottom: 20px;
+            font-weight: 700;
+            border-left: 4px solid var(--brand-primary);
+            padding-left: 15px;
+        }
+
+        .accreditation-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .accreditation-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .accreditation-badge-card {
+            padding: 22px;
+            background: rgba(10, 15, 29, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            transition: var(--transition);
+        }
+
+        .accreditation-badge-card:hover {
+            border-color: rgba(56, 189, 248, 0.2);
+            background: rgba(10, 15, 29, 0.6);
+            transform: translateX(5px);
+        }
+
+        .accreditation-badge-icon {
+            font-size: 1.6rem;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .accreditation-badge-title {
+            font-size: 1.05rem;
+            color: #FFFFFF;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .accreditation-badge-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .accreditation-logos {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .accreditation-logo-item {
+            text-align: center;
+        }
+
+        .accreditation-logo-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--brand-primary);
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        .accreditation-logo-name.blue {
+            color: var(--brand-secondary);
+        }
+
+        .accreditation-logo-name.white {
+            color: #FFFFFF;
+        }
+
+        .accreditation-logo-subtitle {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo-container">
+            <div class="logo-symbol" style="overflow: hidden; background: transparent; display: flex; align-items: center; justify-content: center;">
+                <img src="47120255_padded_logo.png" alt="Logo ME.NE.E.S.CO." style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">
+            </div>
+            <div>
+                <div class="logo-text">ME.NE.E.S.CO.</div>
+                <div class="logo-subtitle">Meta Negoziazione</div>
+            </div>
+        </div>
+        <nav>
+            <a href="#accreditamento">Validazione Scientifica</a>
+            <a href="#pilastri">Le 5 Chiavi</a>
+            <a href="#simulatore">Simulatore</a>
+            <a href="#manuali">I Manuali</a>
+            <a href="#consulenze">Consulenza</a>
+            <a href="#vantaggi">Vantaggi P.A.</a>
+            <a href="#richiesta" class="btn-header">Presentazione Ente</a>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-info">
+            <div class="tag-istituzionale">Validato su Ricerca Accademica</div>
+            <h1 class="hero-title">La Scienza del Dialogo nei Momenti di Crisi.</h1>
+            <p class="hero-description">
+                <strong>ME.NE.E.S.CO. (Meta Negoziazione Esperienziale Strategico Costruttivista)</strong>: il settore formativo d'élite e i manuali operativi progettati per Comuni, Sindaci ed Enti Pubblici per diffondere la cultura negoziale, promuovere l'ecologia dell'interazione umana e de-escalare i conflitti.
+            </p>
+            <div class="hero-ctas">
+                <a href="#richiesta" class="btn-primary">Richiedi Protocollo</a>
+                <a href="#simulatore" class="btn-secondary">Prova il Simulatore</a>
+            </div>
+        </div>
+        <div class="hero-media">
+            <div class="mockup-container">
+                <!-- Manuale Meneesco -->
+                <div class="book-wrapper m1">
+                    <div class="book-cover meneesco-book">
+                        <div class="book-spine-effect"></div>
+                        <div class="book-seal"></div>
+                        <div>
+                            <div class="book-tag">Protocollo Operativo</div>
+                            <div class="book-title">MANUALE<br>MENEESCO</div>
+                            <div class="book-subtitle">Metodo di Negoziazione e Gestione delle Crisi per Enti Pubblici
+                            </div>
+                        </div>
+                        <div class="book-footer">Autorevolezza & Controllo</div>
+                    </div>
+                </div>
+                <!-- Hacking Haters' Mind -->
+                <div class="book-wrapper m2">
+                    <div class="book-cover haters-book">
+                        <div class="book-spine-effect"></div>
+                        <div class="book-seal"></div>
+                        <div>
+                            <div class="book-tag">Analisi Psicologica</div>
+                            <div class="book-title">HACKING<br>HATERS'<br>MIND</div>
+                            <div class="book-subtitle">Disinnescare il Dissenso e l'Odio Digitale sui Canali
+                                Istituzionali</div>
+                        </div>
+                        <div class="book-footer">Difesa Istituzionale</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LE 5 FRASI CHIAVI / PILASTRI DI VENDITA -->
+    <section id="pilastri" class="pillars-section">
+        <div class="section-header">
+            <span class="section-tag">Il Valore del Protocollo</span>
+            <h2 class="section-title">Governare il Conflitto Istituzionale</h2>
+            <p class="section-desc">
+                Cinque principi operativi studiati per tradurre la complessità della comunicazione di crisi in uno
+                strumento di vendita e posizionamento istituzionale insostituibile per Comuni e Regioni.
+            </p>
+        </div>
+
+        <div class="pillars-grid">
+            <!-- Frase 1 -->
+            <div class="pillar-card">
+                <div class="pillar-number">01</div>
+                <div>
+                    <div class="pillar-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <div class="pillar-quote">"Dalla reattività all'autorevolezza: governare il dissenso pubblico con la
+                        certezza di un protocollo."</div>
+                </div>
+                <div class="pillar-explain">
+                    La reazione istintiva o improvvisata di un funzionario pubblico durante una crisi genera caos e
+                    contenziosi legali. Meneesco sostituisce l'emotività con un algoritmo decisionale e
+                    sequenziale, salvaguardando il ruolo dell'ente.
+                </div>
+            </div>
+
+            <!-- Frase 2 -->
+            <div class="pillar-card">
+                <div class="pillar-number">02</div>
+                <div>
+                    <div class="pillar-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <div class="pillar-quote">"La prima difesa contro il panico digitale: disinnescare la crisi prima
+                        che diventi emergenza sistemica."</div>
+                </div>
+                <div class="pillar-explain">
+                    L'odio online si diffonde con una velocità geometrica. "Hacking Haters' Mind" fornisce ai Comuni le
+                    contromisure psicologiche ed algoritmiche per raffreddare i toni in tempo reale, spegnendo la
+                    scintilla prima che la crisi esondi nella realtà.
+                </div>
+            </div>
+
+            <!-- Frase 3 -->
+            <div class="pillar-card">
+                <div class="pillar-number">03</div>
+                <div>
+                    <div class="pillar-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <div class="pillar-quote">"Proteggere la reputazione delle Istituzioni: trasformare l'ostilità del
+                        cittadino in dialogo costruttivo."</div>
+                </div>
+                <div class="pillar-explain">
+                    Un cittadino ostile non è solo un pericolo, ma un'opportunità di trasparenza. Attraverso tecniche di
+                    de-escalation cognitiva derivate dai migliori modelli internazionali, il metodo permette di
+                    riconvertire la rabbia sociale in partecipazione civica e fiducia d'Ente.
+                </div>
+            </div>
+
+            <!-- Frase 4 -->
+            <div class="pillar-card">
+                <div class="pillar-number">04</div>
+                <div>
+                    <div class="pillar-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                    </div>
+                    <div class="pillar-quote">"Nessuna improvvisazione, massimo controllo: formare dirigenti pubblici
+                        con tecniche di negoziazione d'élite."</div>
+                </div>
+                <div class="pillar-explain">
+                    Gli errori di comunicazione costano milioni in reputazione, cause civili e tensioni di piazza.
+                    Trasferire ai vertici amministrativi competenze di negoziazione d'élite significa corazzare l'ente
+                    contro qualsiasi tempesta comunicativa o amministrativa.
+                </div>
+            </div>
+
+            <!-- Frase 5 -->
+            <div class="pillar-card">
+                <div class="pillar-number">05</div>
+                <div>
+                    <div class="pillar-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                    <div class="pillar-quote">"Trasparenza che rassicura: ripristinare la fiducia tra amministrazione e
+                        comunità nei momenti di massima tensione."</div>
+                </div>
+                <div class="pillar-explain">
+                    Nelle situazioni di crisi (emergenze meteorologiche, ritardi nei cantieri, scandali), il silenzio
+                    alimenta il sospetto e la smentita accelera la rabbia. Meneesco codifica il flusso esatto delle
+                    informazioni per mantenere solido il patto sociale con il territorio.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEZIONE ACCREDITAMENTO ACCADEMICO & METODOLOGICO -->
+    <section id="accreditamento" class="accreditation-section">
+        <div class="section-header">
+            <span class="section-tag">Scientific Authority</span>
+            <h2 class="section-title">Ricerca & Cultura Negoziale</h2>
+            <p class="section-desc">
+                ME.NE.E.S.CO. ha strutturato il proprio protocollo scientifico in collaborazione accademica con il <strong>Dipartimento Universitario di Negoziazione</strong> dell'<strong>Università Unipolos</strong>.
+            </p>
+        </div>
+
+        <div class="contact-box" style="max-width: 950px; margin: 0 auto; background: rgba(19, 26, 48, 0.45);">
+            <div class="accreditation-grid">
+                <div>
+                    <h3 class="accreditation-title">Ecologia dell'Interazione Umana</h3>
+                    <p class="accreditation-text">
+                        Lavoriamo attivamente per favorire una maggiore ecologia nelle interazioni umane e nelle comunicazioni interpersonali all'interno di gruppi eterogenei, nelle aziende ed in situazioni di crisi ed emergenza.
+                    </p>
+                    <p class="accreditation-text">
+                        Guidiamo persone, organizzazioni e istituzioni pubbliche al raggiungimento di obiettivi specifici tramite la strutturazione di strategie e tattiche negoziali efficaci ed efficienti, a seguito di complesse analisi di contesto e modelli comunicazionali.
+                    </p>
+                </div>
+                <div class="accreditation-cards">
+                    <!-- Punto 1 -->
+                    <div class="accreditation-badge-card">
+                        <span class="accreditation-badge-icon">🎓</span>
+                        <div>
+                            <h4 class="accreditation-badge-title">Ricerca Accademica</h4>
+                            <p class="accreditation-badge-desc">Contributo didattico e scientifico maturato in cooperazione con il Dipartimento di Negoziazione dell'Università Unipolos.</p>
+                        </div>
+                    </div>
+                    <!-- Punto 2 -->
+                    <div class="accreditation-badge-card">
+                        <span class="accreditation-badge-icon">🧠</span>
+                        <div>
+                            <h4 class="accreditation-badge-title">Comunicazione Non Verbale</h4>
+                            <p class="accreditation-badge-desc">Studio scientifico ed esperti di linguaggio del corpo e comportamento extra-verbale.</p>
+                        </div>
+                    </div>
+                    <!-- Punto 3 -->
+                    <div class="accreditation-badge-card">
+                        <span class="accreditation-badge-icon">🎭</span>
+                        <div>
+                            <h4 class="accreditation-badge-title">Formazione Esperienziale</h4>
+                            <p class="accreditation-badge-desc">Mentoring, counseling e simulazioni sul campo di emergenze relazionali.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accreditation-logos">
+                <div class="accreditation-logo-item">
+                    <div class="accreditation-logo-name">UNIPOLOS</div>
+                    <div class="accreditation-logo-subtitle">Collaborazione di Ricerca</div>
+                </div>
+                <div class="accreditation-logo-item">
+                    <div class="accreditation-logo-name blue">ME.NE.E.S.CO.</div>
+                    <div class="accreditation-logo-subtitle">Meta Negoziazione Esperienziale</div>
+                </div>
+                <div class="accreditation-logo-item">
+                    <div class="accreditation-logo-name white">CNV & LIFE</div>
+                    <div class="accreditation-logo-subtitle">Ecologia dell'Interazione</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEZIONE SIMULATORE INTERATTIVO -->
+    <section id="simulatore" class="simulator-section">
+        <div class="section-header">
+            <span class="section-tag">Scenario Simulator</span>
+            <h2 class="section-title">Metti alla Prova la Comunicazione di Crisi</h2>
+            <p class="section-desc">
+                Seleziona uno degli scenari di crisi più frequenti in un'Amministrazione Comunale ed osserva la
+                differenza drammatica tra la reazione comune spontanea e la soluzione scientifica codificata dai nostri
+                manuali.
+            </p>
+        </div>
+
+        <div class="simulator-box">
+            <div class="sim-navigation">
+                <button class="sim-nav-btn active" onclick="loadScenario(1)">1. Protesta Social Cantiere</button>
+                <button class="sim-nav-btn" onclick="loadScenario(2)">2. Emergenza Allerta Meteo</button>
+                <button class="sim-nav-btn" onclick="loadScenario(3)">3. Fake News Reputazionale</button>
+            </div>
+
+            <div class="sim-content" id="sim-content-area">
+                <!-- Caricato dinamicamente tramite JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- DETTAGLI MANUALI -->
+    <section id="manuali" class="manuals-detail-section">
+        <div class="section-header">
+            <span class="section-tag">Contenuti Scientifici</span>
+            <h2 class="section-title">Struttura dei Manuali Operativi</h2>
+            <p class="section-desc">
+                Un'opera in due volumi complementari per la formazione dei dirigenti e la gestione quotidiana dei flussi
+                comunicativi e delle emergenze.
+            </p>
+        </div>
+
+        <div class="manuals-comparison">
+            <!-- Manuale 1 -->
+            <div class="manual-detail-card">
+                <span class="manual-badge">Volume I — Metodo di Negoziazione</span>
+                <h3 class="manual-title">Manuale Meneesco</h3>
+                <ul class="manual-feature-list">
+                    <li class="manual-feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span><strong>Protocollo delle 7 Fasi</strong>: Il cammino decisionale per la risoluzione dei
+                            conflitti amministrativi e di piazza.</span>
+                    </li>
+                    <li class="manual-feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span><strong>De-escalation Cognitiva</strong>: Tecniche scientifiche per abbassare del 90%
+                            l'aggressività dell'interlocutore nei primi 120 secondi.</span>
+                    </li>
+                    <li class="manual-feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span><strong>Tavoli di Negoziazione Istituzionali</strong>: Gestione dei conflitti
+                            multi-stakeholder (sindacati, comitati cittadini, ditte appaltatrici).</span>
+                    </li>
+                    <li class="manual-feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span><strong>Crisis Spokesperson Guide</strong>: Come preparare il Sindaco o i portavoce
+                            dell'ente ad interviste o conferenze stampa ad alta tensione.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Manuale 2 -->
+            <div class="manual-detail-card blue-style">
+                <span class="manual-badge">Volume II — Psicologia Digitale</span>
+                <h3 class="manual-title">Hacking Haters' Mind</h3>
+                <ul class="manual-feature-list">
+                    <li class="manual-feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span><strong>Anatomia dell'Odio Online</strong>: Analisi psicologica dei pattern di aggressione
+                            e manipolazione della verità sui social network.</span>
+                    </li>
+                    <li class="manual-feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span><strong>Algoritmi di Moderazione Efficace</strong>: Regole sintattiche per rispondere a
+                            commenti aggressivi senza alimentare la polemica.</span>
+                    </li>
+                    <li class="manual-feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span><strong>Triage dei Commenti</strong>: Schema di classificazione per capire all'istante
+                            quando ignorare, moderare o procedere per vie legali.</span>
+                    </li>
+                    <li class="manual-feature-item">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span><strong>Prevenzione del Cyber-Bullying Istituzionale</strong>: Linee guida a tutela della
+                            serenità psicologica dei dipendenti comunali incaricati dei canali social.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEZIONE CONSULENZE STRATEGICHE AVANZATE (NEW) -->
+    <section id="consulenze" class="pillars-section" style="background: linear-gradient(to bottom, #0C1224 0%, #0A0F1D 100%);">
+        <div class="section-header">
+            <span class="section-tag">Consulenza Avanzata</span>
+            <h2 class="section-title">Oltre i Manuali: La Nostra Consulenza</h2>
+            <p class="section-desc">
+                Metodologie d'élite e strumenti scientifici complessi integrati direttamente nelle nostre attività di consulenza strategica e affiancamento per la Pubblica Amministrazione.
+            </p>
+        </div>
+
+        <div class="pillars-grid">
+            <!-- Intelligenza Linguistica -->
+            <div class="pillar-card">
+                <div class="pillar-number">01</div>
+                <div>
+                    <div class="pillar-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                    </div>
+                    <div class="pillar-quote">Intelligenza Linguistica</div>
+                </div>
+                <div class="pillar-explain">
+                    L'uso strategico e conscio del linguaggio per sintonizzarsi con l'interlocutore. Permette di destrutturare i frame cognitivi ostili e condurre il dialogo verso una risoluzione pacifica e cooperativa.
+                </div>
+            </div>
+
+            <!-- Economia Comportamentale -->
+            <div class="pillar-card">
+                <div class="pillar-number">02</div>
+                <div>
+                    <div class="pillar-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                    </div>
+                    <div class="pillar-quote">Economia Comportamentale</div>
+                </div>
+                <div class="pillar-explain">
+                    Analisi delle euristiche e dei bias decisionali che guidano le reazioni e le scelte dei cittadini sotto stress. Consente di prevedere le reazioni della comunità e ottimizzare le risposte pubbliche dell'Ente.
+                </div>
+            </div>
+
+            <!-- Architettura delle Scelte (Nudge) -->
+            <div class="pillar-card">
+                <div class="pillar-number">03</div>
+                <div>
+                    <div class="pillar-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <div class="pillar-quote">Architettura delle Scelte (Nudge)</div>
+                </div>
+                <div class="pillar-explain">
+                    La progettazione di contesti e "spinte gentili" nei flussi comunicativi e procedurali. Orienta naturalmente i comportamenti sociali e i flussi di dialogo verso soluzioni virtuose, senza imposizioni burocratiche.
+                </div>
+            </div>
+
+            <!-- Gestione dei Contesti -->
+            <div class="pillar-card">
+                <div class="pillar-number">04</div>
+                <div>
+                    <div class="pillar-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                        </svg>
+                    </div>
+                    <div class="pillar-quote">Gestione dei Contesti</div>
+                </div>
+                <div class="pillar-explain">
+                    Il controllo e la rimodulazione strategica degli spazi d'interazione diretti e indiretti (fisici e digitali), influenzando e guidando implicitamente le dinamiche relazionali dell'Ente.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEZIONE VANTAGGI P.A. -->
+    <section id="vantaggi" class="benefits-section">
+        <div class="section-header">
+            <span class="section-tag">Ritorno sull'Investimento</span>
+            <h2 class="section-title">Perché un Ente Pubblico adotta Meneesco</h2>
+            <p class="section-desc">
+                Investire nella formazione e nei protocolli di de-escalation significa dotare l'amministrazione di scudi
+                concreti contro le perdite di bilancio e le crisi di consenso.
+            </p>
+        </div>
+
+        <div class="benefits-grid">
+            <!-- Vantaggio 1 -->
+            <div class="benefit-card">
+                <div class="benefit-icon-wrapper">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                </div>
+                <h4 class="benefit-title">Tutela Legale d'Ente</h4>
+                <p class="benefit-desc">Minimizzazione drastica di ricorsi e contenziosi amministrativi grazie a
+                    protocolli di accordo trasparenti e negoziazioni pre-conflittuali strutturate.</p>
+            </div>
+
+            <!-- Vantaggio 2 -->
+            <div class="benefit-card">
+                <div class="benefit-icon-wrapper">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <h4 class="benefit-title">Efficienza Operativa</h4>
+                <p class="benefit-desc">Riduzione dei tempi morti nei cantieri e nelle opere pubbliche dovuti a proteste
+                    locali o incomprensioni con i comitati di quartiere.</p>
+            </div>
+
+            <!-- Vantaggio 3 -->
+            <div class="benefit-card">
+                <div class="benefit-icon-wrapper">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </div>
+                <h4 class="benefit-title">Serenità del Personale</h4>
+                <p class="benefit-desc">Formazione specialistica per gli uffici URP e i Social Media Manager
+                    istituzionali, difendendoli dal sovraccarico emotivo dell'odio digitale.</p>
+            </div>
+
+            <!-- Vantaggio 4 -->
+            <div class="benefit-card">
+                <div class="benefit-icon-wrapper">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                    </svg>
+                </div>
+                <h4 class="benefit-title">Validazione Scientifica</h4>
+                <p class="benefit-desc">Metodologie strutturate su base di ricerca accademica e in collaborazione con il Dipartimento di Negoziazione dell'Università Unipolos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORM DI CONTATTO ISTITUZIONALE -->
+    <section id="richiesta" class="contact-section">
+        <div class="section-header">
+            <span class="section-tag">Modulo Istituzionale</span>
+            <h2 class="section-title">Richiedi una Presentazione Dedicata</h2>
+            <p class="section-desc">
+                Riservato a Sindaci, Assessori, Segretari Comunali e Dirigenti della Pubblica Amministrazione. Compila
+                il modulo per ricevere l'estratto esecutivo del Metodo Meneesco.
+            </p>
+        </div>
+
+        <div class="contact-box">
+            <form class="contact-form" onsubmit="submitIstituzionaleForm(event)">
+                <div>
+                    <label class="form-label" for="nome">Nome e Cognome *</label>
+                    <input type="text" id="nome" class="form-input" placeholder="es. Dott. Matteo Bianchi" required>
+                </div>
+                <div>
+                    <label class="form-label" for="ruolo">Ruolo Istituzionale *</label>
+                    <input type="text" id="ruolo" class="form-input" placeholder="es. Sindaco / Segretario Comunale"
+                        required>
+                </div>
+                <div>
+                    <label class="form-label" for="ente">Nome Ente Pubblico *</label>
+                    <input type="text" id="ente" class="form-input" placeholder="es. Comune di Cagliari" required>
+                </div>
+                <div>
+                    <label class="form-label" for="abitanti">Fascia Demografica Ente *</label>
+                    <select id="abitanti" class="form-input form-select" required>
+                        <option value="" disabled selected>Seleziona popolazione...</option>
+                        <option value="under-15k">Fino a 15.000 abitanti</option>
+                        <option value="15k-50k">Da 15.000 a 50.000 abitanti</option>
+                        <option value="50k-100k">Da 50.000 a 100.000 abitanti</option>
+                        <option value="over-100k">Oltre 100.000 abitanti</option>
+                    </select>
+                </div>
+                <div class="form-group-full">
+                    <label class="form-label" for="email">E-mail Istituzionale (@comune... o pec) *</label>
+                    <input type="email" id="email" class="form-input" placeholder="es. sindaco@comune.cagliari.it"
+                        required>
+                </div>
+                <div class="form-group-full">
+                    <label class="form-label" for="messaggio">Note o Esigenze Specifiche di Gestione Crisi</label>
+                    <textarea id="messaggio" class="form-input" rows="4"
+                        placeholder="Descrivi brevemente se l'ente sta affrontando particolari tensioni territoriali o necessità formative."></textarea>
+                </div>
+                <div class="form-group-full">
+                    <button type="submit" class="btn-primary">Invia Richiesta Istituzionale</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- SUCCESS POPUP -->
+    <div class="success-overlay" id="success-dialog">
+        <div class="success-card">
+            <div class="success-icon-container">✓</div>
+            <h3 class="success-title">Richiesta Ricevuta</h3>
+            <p class="success-message" id="success-dynamic-msg">
+                Grazie per il tuo interesse. Un consulente senior accreditato per la Pubblica Amministrazione contatterà
+                l'ente entro le prossime 24 ore per pianificare un incontro istituzionale riservato.
+            </p>
+            <button class="btn-primary" onclick="closeSuccessDialog()">Chiudi Finestra</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo" style="display: inline-flex; align-items: center; gap: 8px;">
+            <img src="47120255_padded_logo.png" alt="Logo ME.NE.E.S.CO." style="height: 24px; width: 24px; border-radius: 4px; object-fit: contain;">
+            MENEESCO
+        </div>
+        <div class="footer-links">
+            <a href="#pilastri">Le 5 Chiavi</a>
+            <a href="#simulatore">Simulatore</a>
+            <a href="#manuali">I Manuali</a>
+            <a href="#consulenze">Consulenza</a>
+            <a href="#vantaggi">Vantaggi P.A.</a>
+        </div>
+        <div class="footer-divider"></div>
+        <p>© 2026 MENEESCO — Negoziazione e Gestione delle Crisi. Tutti i diritti riservati.<br>Progettato in esclusiva
+            per la Pubblica Amministrazione.</p>
+    </footer>
+
+    <!-- JS LOGICS -->
+    <script>
+        const scenarios = {
+            1: {
+                title: "1. Protesta Social per Cantiere Comunale",
+                mistake: {
+                    quote: "«Il cantiere rispetta tutte le normative vigenti del Codice degli Appalti ed è fondamentale per la modernizzazione della città. I disagi sono temporanei e inevitabili. Preghiamo la cittadinanza di pazientare invece di criticare inutilmente sui canali social.»",
+                    title: "Errore: Autocompiacimento & Arroganza Normativa",
+                    feedback: "L'ente risponde rifugiandosi nel formalismo burocratico e censurando la critica. Questo fa percepire l'amministrazione come distante, insensibile e dittatoriale, innescando una reazione a catena di rabbia e sdegno (effetto boomerang).",
+                    metric: "Rischio Reputazionale: ALTO (Esplosione di commenti d'odio)"
+                },
+                protocol: {
+                    quote: "«Comprendiamo pienamente la frustrazione e i disagi quotidiani causati da questi lavori nel quartiere. Per ridurre l'impatto sul traffico, abbiamo riprogrammato le lavorazioni acustiche più impattanti e istituito percorsi pedonali sicuri. Qui trovate il cronoprogramma settimanale dettagliato. Grazie della pazienza.»",
+                    title: "Metodo Meneesco: Validazione Emotiva & Trasparenza",
+                    feedback: "Il protocollo Meneesco prevede come prima fase la <strong>validazione dell'emozione dell'interlocutore</strong> (disinnescando l'aggressività) seguita da **soluzioni operative immediate** e condivisione di dati oggettivi (cronoprogramma). L'amministrazione viene percepita come attenta ed empatica.",
+                    metric: "Efficacia Risoluzione: 94% (De-escalation e dissenso rientrato)"
+                }
+            },
+            2: {
+                title: "2. Emergenza Allerta Meteo / Chiusura Scuole",
+                mistake: {
+                    quote: "«L'allerta meteo arancione emanata dalla Protezione Civile impone cautela. Non siamo ancora certi se le scuole rimarranno aperte domani. Seguiranno aggiornamenti in serata quando avremo maggiori dettagli sui modelli meteorologici.»",
+                    title: "Errore: Incertezza Operativa & Scarico Responsabilità",
+                    feedback: "Comunicare senza dare una disposizione certa lascia migliaia di famiglie nell'ansia organizzativa. La reazione sarà un attacco di massa al Sindaco sui social per carenza di decisionismo e incapacità organizzativa.",
+                    metric: "Rischio Reputazionale: CRITICO (Panico diffuso tra i genitori)"
+                },
+                protocol: {
+                    quote: "«A tutela della massima sicurezza degli studenti e per consentire alle famiglie di organizzarsi per tempo, il Sindaco ha firmato l'ordinanza di sospensione delle lezioni per la giornata di domani 20 maggio. La situazione meteo è presidiata h24 dalla centrale operativa comunale. Uscite solo se strettamente necessario.»",
+                    title: "Metodo Meneesco: Decisionismo Sicuro & Protezione Primaria",
+                    feedback: "Il protocollo codifica l'uso di formule linguistiche assertive e di **certezza preventiva**. Priorità assoluta alla tutela fisica e all'organizzazione dei cittadini, posizionando l'ente come presidio solido ed organizzato della sicurezza comune.",
+                    metric: "Efficacia Risoluzione: 98% (Fiducia istituzionale e gestione ordinata)"
+                }
+            },
+            3: {
+                title: "3. Fake News Reputazionale contro Funzionario / Ente",
+                mistake: {
+                    quote: "«Smentiamo categoricamente le falsità che circolano online riguardo ai presunti favoritismi nell'assegnazione delle case popolari. Si tratta di calunnie infondate mosse da avversari politici. Procederemo immediatamente a denunciare chiunque condivida tali post.»",
+                    title: "Errore: Difesa Reattiva & Minaccia di Querela",
+                    feedback: "Minacciare denunce in prima battuta fa percepire l'amministrazione come impaurita e intenta a nascondere qualcosa. Le fake news crescono quando l'ente si difende in modo reattivo anziché informare in modo neutro.",
+                    metric: "Rischio Reputazionale: MOLTO ALTO (Effetto Streisand)"
+                },
+                protocol: {
+                    quote: "«Per garantire la massima correttezza e trasparenza nell'assegnazione delle case popolari, ricordiamo che le graduatorie sono gestite tramite un software certificato basato esclusivamente sui requisiti ISEE e composizione familiare stabiliti dalla legge regionale. I dati anonimizzati sono consultabili in allegato per qualsiasi verifica.»",
+                    title: "Metodo Meneesco: Neutralità Strutturata & Evidenza dei Fatti",
+                    feedback: "Meneesco neutralizza la fake news **ignorando l'attacco personale** e riposizionando la comunicazione sulla descrizione oggettiva della procedura formale impermeabile e trasparente. I detrattori rimangono privi di argomenti emotivi.",
+                    metric: "Efficacia Risoluzione: 91% (Sgonfiamento della polemica in 24h)"
+                }
+            }
+        };
+
+        function loadScenario(id) {
+            // Aggiorna bottoni attivi
+            const buttons = document.querySelectorAll('.sim-nav-btn');
+            buttons.forEach((btn, index) => {
+                if (index + 1 === id) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            const data = scenarios[id];
+            const contentArea = document.getElementById('sim-content-area');
+
+            // Transizione fluida del contenuto
+            contentArea.style.opacity = 0;
+            contentArea.style.transform = 'translateY(10px)';
+
+            setTimeout(() => {
+                contentArea.innerHTML = `
+                    <!-- Errore Comune -->
+                    <div class="sim-card mistake">
+                        <div class="sim-card-header">
+                            <span class="sim-badge">L'Errore Comune</span>
+                            <div class="sim-card-title">${data.title}</div>
+                        </div>
+                        <div class="sim-quote-bubble">
+                            <div class="sim-quote-label">La Reazione Spontanea</div>
+                            ${data.mistake.quote}
+                        </div>
+                        <div class="sim-feedback">
+                            <strong>Perché non funziona:</strong> ${data.mistake.feedback}
+                        </div>
+                        <div class="sim-result-metric">
+                            <span>Impressione Politica:</span>
+                            <span>${data.mistake.metric}</span>
+                        </div>
+                    </div>
+
+                    <!-- Protocollo Meneesco -->
+                    <div class="sim-card protocol">
+                        <div class="sim-card-header">
+                            <span class="sim-badge">Il Protocollo Meneesco</span>
+                            <div class="sim-card-title">${data.title}</div>
+                        </div>
+                        <div class="sim-quote-bubble">
+                            <div class="sim-quote-label">L'Approccio Codificato</div>
+                            ${data.protocol.quote}
+                        </div>
+                        <div class="sim-feedback">
+                            <strong>Perché disinnesca il conflitto:</strong> ${data.protocol.feedback}
+                        </div>
+                        <div class="sim-result-metric">
+                            <span>Impatto Sociale:</span>
+                            <span>${data.protocol.metric}</span>
+                        </div>
+                    </div>
+                `;
+
+                contentArea.style.opacity = 1;
+                contentArea.style.transform = 'translateY(0)';
+            }, 300);
+        }
+
+        // Caricamento scenario iniziale
+        window.addEventListener('DOMContentLoaded', () => {
+            loadScenario(1);
+        });
+
+        // Gestione invio form istituzionale
+        async function submitIstituzionaleForm(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const ruolo = document.getElementById('ruolo').value;
+            const ente = document.getElementById('ente').value;
+            const email = document.getElementById('email').value;
+            const abitanti = document.getElementById('abitanti').value;
+            const messaggio = document.getElementById('messaggio').value;
+
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = "Invio in corso...";
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/richiesta', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nome,
+                        ruolo,
+                        ente,
+                        email,
+                        abitanti,
+                        messaggio
+                    })
+                });
+
+                // Personalizza messaggio di successo
+                const dynamicMsg = document.getElementById('success-dynamic-msg');
+                dynamicMsg.innerHTML = `Grazie, <strong>${nome}</strong> (${ruolo}). <br><br>La richiesta per il <strong>${ente}</strong> è stata protocollata con successo nei nostri sistemi di invio riservato.<br><br>Abbiamo trasmesso un'e-mail di conferma all'indirizzo istituzionale <strong>${email}</strong> contenente il link crittografato per scaricare l'estratto operativo di 35 pagine del Metodo Meneesco e delle linee guida di "Hacking Haters' Mind". <br><br>Un nostro consulente di relazioni pubbliche ed istituzionali per gli Enti Locali si metterà in contatto con la segreteria del tuo ente per concordare una video-conferenza illustrativa gratuita.`;
+
+                // Mostra dialog
+                document.getElementById('success-dialog').classList.add('active');
+            } catch (err) {
+                console.error("Errore durante l'invio:", err);
+                // Fallback client-side se aperto come file locale autogestito
+                const dynamicMsg = document.getElementById('success-dynamic-msg');
+                dynamicMsg.innerHTML = `Grazie, <strong>${nome}</strong> (${ruolo}). <br><br>La richiesta per il <strong>${ente}</strong> è stata simulata con successo (Modalità Locale).<br><br>Un estratto digitale del Metodo Meneesco e di "Hacking Haters' Mind" è pronto per essere inviato a <strong>${email}</strong>. Un consulente prenderà in carico la scheda.`;
+                document.getElementById('success-dialog').classList.add('active');
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        function closeSuccessDialog() {
+            document.getElementById('success-dialog').classList.remove('active');
+            // Ripristina form
+            document.querySelector('.contact-form').reset();
+        }
+
+        // Gestione pulsante Torna Su
+        window.addEventListener('DOMContentLoaded', () => {
+            const backToTopBtn = document.getElementById('backToTop');
+            if (backToTopBtn) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 300) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                });
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+    <!-- PULSANTE TORNA SU -->
+    <button id="backToTop" class="back-to-top" aria-label="Torna su" onclick="scrollToTop()">
+        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+        </svg>
+    </button>
+</body>
+
+</html>

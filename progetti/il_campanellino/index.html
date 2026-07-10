@@ -4,47 +4,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il Campanellino — Eventi e Spettacolo d'Élite</title>
-    <meta name="description"
-        content="Produzione spettacoli, musical, laboratori didattico-ludici ed animazione professionale. La magia dell'arte dal vivo in sinergia con accademie nazionali.">
+
+    <!-- SEO: Title & Description -->
+    <title>Il Campanellino — Animazione, Spettacoli ed Eventi a Cagliari e Sardegna</title>
+    <meta name="description" content="Agenzia di animazione professionale e organizzazione eventi a Cagliari e in tutta la Sardegna. Musical, laboratori creativi, matrimoni, eventi aziendali e flash-mob con cast dall'Accademia Internazionale del Musical.">
+    <meta name="keywords" content="animazione eventi Sardegna, organizzazione eventi Cagliari, spettacoli musicali Sardegna, animazione matrimoni Sardegna, laboratori creativi bambini Cagliari, flash mob Sardegna, eventi aziendali Sardegna, musical Sardegna, intrattenimento eventi privati Sardegna, agenzia eventi Cagliari">
+    <meta name="author" content="Il Campanellino — Eventi e Spettacolo">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://il-campanellino.github.io/">
+
+    <!-- Geo targeting Sardegna -->
+    <meta name="geo.region" content="IT-CA">
+    <meta name="geo.placename" content="Cagliari, Sardegna">
+    <meta name="geo.position" content="39.2238;9.1217">
+    <meta name="ICBM" content="39.2238, 9.1217">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://il-campanellino.github.io/">
+    <meta property="og:title" content="Il Campanellino — Animazione ed Eventi in Sardegna">
+    <meta property="og:description" content="Produciamo spettacoli, musical, laboratori e animazione professionale a Cagliari e in tutta la Sardegna. La magia dell'arte dal vivo.">
+    <meta property="og:image" content="https://il-campanellino.github.io/og-image.jpg">
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:site_name" content="Il Campanellino">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Il Campanellino — Animazione ed Eventi in Sardegna">
+    <meta name="twitter:description" content="Produciamo spettacoli, musical, laboratori e animazione professionale a Cagliari e in tutta la Sardegna.">
+    <meta name="twitter:image" content="https://il-campanellino.github.io/og-image.jpg">
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="Logo Campanellino.png">
-    <!-- Google Fonts: Outfit per titoli artistici/musicali e Inter per testi precisi -->
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- JSON-LD Structured Data: LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EntertainmentBusiness",
+      "name": "Il Campanellino — Eventi e Spettacolo",
+      "description": "Agenzia di animazione professionale e organizzazione eventi a Cagliari e in tutta la Sardegna. Musical, laboratori creativi, matrimoni, eventi aziendali e flash-mob.",
+      "url": "https://il-campanellino.github.io",
+      "logo": "https://il-campanellino.github.io/Logo Campanellino.png",
+      "image": "https://il-campanellino.github.io/og-image.jpg",
+      "telephone": "+39-XXX-XXXXXXX",
+      "email": "info@ilcampanellino.it",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cagliari",
+        "addressRegion": "CA",
+        "addressCountry": "IT"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 39.2238,
+        "longitude": 9.1217
+      },
+      "areaServed": [
+        {"@type": "City", "name": "Cagliari"},
+        {"@type": "City", "name": "Sassari"},
+        {"@type": "City", "name": "Nuoro"},
+        {"@type": "City", "name": "Oristano"},
+        {"@type": "City", "name": "Olbia"},
+        {"@type": "AdministrativeArea", "name": "Sardegna"}
+      ],
+      "priceRange": "€€",
+      "openingHours": "Mo-Sa 09:00-19:00",
+      "sameAs": []
+    }
+    </script>
 
     <style>
         :root {
             --bg-primary: #070512;
             --bg-secondary: #130E29;
             --brand-primary: #FFA800;
-            /* Pixie Gold */
             --brand-primary-light: #FFE082;
             --brand-secondary: #EC4899;
-            /* Theatre Magenta */
             --brand-tertiary: #06B6D4;
-            /* Spotlight Cyan */
+            --brand-green: #1A7A28;
             --text-main: #F3F4F6;
             --text-muted: #A1A1AA;
-            --border-color: rgba(255, 168, 0, 0.12);
-            --glass-bg: rgba(19, 14, 41, 0.7);
+            --border-color: rgba(26, 122, 40, 0.20);
+            --glass-bg: rgba(14, 48, 20, 0.42);
             --glow-gold: rgba(255, 168, 0, 0.2);
             --glow-magenta: rgba(236, 72, 153, 0.2);
             --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-primary);
@@ -54,1131 +108,623 @@
             position: relative;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        .brand-font {
+        h1, h2, h3, h4, .brand-font {
             font-family: 'Outfit', sans-serif;
             font-weight: 600;
             letter-spacing: -0.01em;
         }
 
-        /* BACKGROUND MAGIC CANVAS */
+        /* BACKGROUND CANVAS */
         #magic-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.75;
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 1; pointer-events: none; opacity: 0.92;
         }
 
-        /* SPOTLIGHT GRADIENTS */
-        .spotlight-1 {
+
+        /* THEATRICAL SPOTLIGHTS
+           Tecnica: clip-path sul .spotlight-cone definisce la geometria
+           del cono (stretto in cima, largo in basso). I layer interni
+           usano solo radial-gradient per la distribuzione di luminosità.
+           Lampada e pool restano fuori dalla clip → nessun artefatto. */
+
+        .spotlight-wrap {
             position: absolute;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--glow-gold) 0%, rgba(7, 5, 18, 0) 70%);
-            top: -150px;
-            left: -100px;
             z-index: 2;
             pointer-events: none;
-            filter: blur(60px);
-            animation: float-spotlight 18s infinite alternate ease-in-out;
+            transform-origin: top center;
         }
 
-        .spotlight-2 {
+        /* ---- PRIMARIO (oro, sinistra) ---- */
+        .spotlight-wrap {
+            top: -30px;
+            left: 14%;
+            width: 480px;
+            height: 105vh;
+            animation: spotlight-sway 14s ease-in-out infinite alternate;
+        }
+        @keyframes spotlight-sway {
+            0%   { transform: rotate(-1.4deg); }
+            100% { transform: rotate(1.7deg); }
+        }
+
+        /* Sorgente lampada — fuori dalla clip, sempre visibile */
+        .spotlight-lamp {
             position: absolute;
-            width: 500px;
-            height: 500px;
+            top: 30px; left: 50%;
+            transform: translateX(-50%);
+            width: 8px; height: 8px;
             border-radius: 50%;
-            background: radial-gradient(circle, var(--glow-magenta) 0%, rgba(7, 5, 18, 0) 70%);
-            top: 25%;
-            right: -150px;
+            background: #FFFFF8;
             z-index: 2;
-            pointer-events: none;
-            filter: blur(60px);
-            animation: float-spotlight-reverse 22s infinite alternate ease-in-out;
+            box-shadow:
+                0 0 5px  3px  rgba(255, 255, 220, 1.00),
+                0 0 14px 6px  rgba(255, 230, 110, 0.80),
+                0 0 35px 14px rgba(255, 185, 40,  0.45),
+                0 0 70px 26px rgba(255, 168, 0,   0.20);
         }
 
-        @keyframes float-spotlight {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                transform: translate(80px, 60px) scale(1.15);
-            }
+        /* Cono — geometria a trapezio: 10px in cima, piena larghezza in fondo.
+           Il blur dei layer interni sfuma morbidamente i bordi della clip. */
+        .spotlight-cone {
+            position: absolute;
+            top: 30px; left: 0;
+            width: 100%; height: calc(100% - 30px);
+            clip-path: polygon(
+                calc(50% - 5px) 0%,
+                calc(50% + 5px) 0%,
+                100% 100%,
+                0%   100%
+            );
         }
 
-        @keyframes float-spotlight-reverse {
-            0% {
-                transform: translate(0, 0) scale(1.1);
-            }
-            100% {
-                transform: translate(-100px, -40px) scale(0.9);
-            }
+        /* Tutti i layer beam riempiono l'intero cone-container */
+        .spotlight-outer,
+        .spotlight-mid,
+        .spotlight-inner {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
         }
 
-        /* HEADER & NAVIGATION */
+        /* Layer esterno: alone ampio e caldo — blur sfuma i bordi della clip */
+        .spotlight-outer {
+            background: radial-gradient(
+                ellipse 90% 95% at 50% 0%,
+                rgba(255, 220, 80,  0.30) 0%,
+                rgba(255, 195, 55,  0.13) 42%,
+                rgba(255, 168, 0,   0.04) 72%,
+                transparent 100%
+            );
+            filter: blur(22px);
+        }
+
+        /* Layer medio: corpo luminoso principale */
+        .spotlight-mid {
+            background: radial-gradient(
+                ellipse 65% 92% at 50% 0%,
+                rgba(255, 248, 160, 0.44) 0%,
+                rgba(255, 222, 95,  0.20) 38%,
+                rgba(255, 178, 32,  0.05) 66%,
+                transparent 100%
+            );
+            filter: blur(8px);
+        }
+
+        /* Layer interno: nucleo brillante al centro */
+        .spotlight-inner {
+            background: radial-gradient(
+                ellipse 35% 88% at 50% 0%,
+                rgba(255, 255, 240, 0.68) 0%,
+                rgba(255, 242, 150, 0.30) 30%,
+                rgba(255, 200, 55,  0.09) 58%,
+                transparent 100%
+            );
+            filter: blur(3px);
+        }
+
+        /* Pool a terra — fuori dalla clip, si allarga liberamente */
+        .spotlight-pool {
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 140%; height: 120px;
+            background: radial-gradient(
+                ellipse at 50% 82%,
+                rgba(255, 215, 75, 0.26) 0%,
+                rgba(255, 168, 0,  0.09) 48%,
+                transparent 100%
+            );
+            filter: blur(22px);
+        }
+
+
+        /* HEADER */
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(7, 5, 18, 0.75);
-            backdrop-filter: blur(20px);
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(7, 5, 18, 0.75); backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 18px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 18px 6%; display: flex; justify-content: space-between; align-items: center;
         }
-
         .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: inherit;
+            display: flex; align-items: center; gap: 12px;
+            text-decoration: none; color: inherit;
         }
-
         .logo-symbol {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--brand-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            color: var(--brand-primary);
+            width: 40px; height: 40px; border: 2px solid var(--brand-primary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; color: var(--brand-primary);
             box-shadow: 0 0 15px rgba(255, 168, 0, 0.35);
-            font-family: 'Outfit', sans-serif;
-            font-weight: 800;
-            position: relative;
+            font-family: 'Outfit', sans-serif; font-weight: 800; position: relative;
         }
-
         .logo-symbol::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 1px solid var(--brand-secondary);
+            content: ''; position: absolute; width: 100%; height: 100%;
+            border-radius: 50%; border: 1px solid var(--brand-secondary);
             animation: pulse-ring 2.5s infinite;
         }
-
         @keyframes pulse-ring {
-            0% {
-                transform: scale(1);
-                opacity: 0.6;
-            }
-            100% {
-                transform: scale(1.3);
-                opacity: 0;
-            }
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.3); opacity: 0; }
         }
-
         .logo-text {
-            font-size: 1.4rem;
-            font-weight: 800;
-            letter-spacing: 0.02em;
+            font-size: 1.4rem; font-weight: 800; letter-spacing: 0.02em;
             background: linear-gradient(135deg, #FFFFFF 0%, var(--brand-primary-light) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
         .logo-subtitle {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: var(--brand-secondary);
-            font-weight: 700;
-            margin-top: -2px;
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.25em;
+            color: var(--brand-secondary); font-weight: 700; margin-top: -2px;
         }
-
         nav {
-            display: flex;
-            gap: 30px;
-            align-items: center;
+            display: flex; gap: 30px; align-items: center;
         }
-
         nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 500;
-            transition: var(--transition);
-            letter-spacing: 0.02em;
+            color: var(--text-muted); text-decoration: none; font-size: 0.88rem;
+            font-weight: 500; transition: var(--transition); letter-spacing: 0.02em;
         }
-
-        nav a:hover {
-            color: var(--brand-primary);
-            text-shadow: 0 0 8px rgba(255, 168, 0, 0.4);
-        }
+        nav a:hover { color: var(--brand-primary); text-shadow: 0 0 8px rgba(255, 168, 0, 0.4); }
 
         .btn-header {
-            padding: 10px 20px;
-            border: 1px solid var(--brand-primary);
-            color: var(--brand-primary);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 30px;
-            font-size: 0.82rem;
-            background: transparent;
-            transition: var(--transition);
+            padding: 10px 20px; border: 1px solid var(--brand-primary);
+            color: var(--brand-primary); text-decoration: none; font-weight: 600;
+            border-radius: 30px; font-size: 0.82rem; background: transparent; transition: var(--transition);
         }
-
         .btn-header:hover {
             background: linear-gradient(135deg, var(--brand-primary) 0%, #E69500 100%);
-            color: var(--bg-primary);
-            box-shadow: 0 0 25px rgba(255, 168, 0, 0.4);
-            transform: translateY(-2px);
+            color: var(--bg-primary); box-shadow: 0 0 25px rgba(255, 168, 0, 0.4); transform: translateY(-2px);
         }
 
-        /* HERO SECTION */
+        /* HAMBURGER MENU */
+        .hamburger {
+            display: none; flex-direction: column; gap: 5px; cursor: pointer;
+            background: none; border: none; padding: 5px; z-index: 1001;
+        }
+        .hamburger span {
+            display: block; width: 24px; height: 2px;
+            background: var(--brand-primary); border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .mobile-nav {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(7, 5, 18, 0.97); backdrop-filter: blur(20px);
+            z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 35px;
+        }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a {
+            color: var(--text-main); text-decoration: none; font-size: 1.5rem;
+            font-family: 'Outfit', sans-serif; font-weight: 700; transition: var(--transition);
+        }
+        .mobile-nav a:hover { color: var(--brand-primary); }
+        .mobile-nav .btn-header { font-size: 1rem; padding: 14px 32px; }
+
+        /* HERO */
         .hero {
-            position: relative;
-            padding: 160px 6% 100px 6%;
-            min-height: 100vh;
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 40px;
-            align-items: center;
-            z-index: 10;
+            position: relative; padding: 160px 6% 100px 6%; min-height: 100vh;
+            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px;
+            align-items: center; z-index: 10;
         }
-
-        .hero-info {
-            max-width: 650px;
-        }
-
+        .hero-info { max-width: 650px; }
         .tag-istituzionale {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 168, 0, 0.08);
-            border: 1px solid rgba(255, 168, 0, 0.25);
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--brand-primary-light);
-            font-weight: 600;
-            margin-bottom: 25px;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255, 168, 0, 0.08); border: 1px solid rgba(255, 168, 0, 0.25);
+            padding: 6px 14px; border-radius: 30px; font-size: 0.78rem;
+            text-transform: uppercase; letter-spacing: 0.12em;
+            color: var(--brand-primary-light); font-weight: 600; margin-bottom: 25px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-
-        .tag-istituzionale::before {
-            content: '✨';
-        }
-
+        .tag-istituzionale::before { content: '✨'; }
         .hero-title {
-            font-size: 3.5rem;
-            line-height: 1.15;
-            font-weight: 800;
-            margin-bottom: 25px;
+            font-size: 3.5rem; line-height: 1.15; font-weight: 800; margin-bottom: 25px;
             background: linear-gradient(to right, #FFFFFF, #FFE082, #EC4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
         .hero-description {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-bottom: 40px;
+            font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 40px;
         }
-
-        .hero-ctas {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
+        .hero-ctas { display: flex; gap: 20px; flex-wrap: wrap; }
         .btn-primary {
             padding: 14px 32px;
             background: linear-gradient(135deg, var(--brand-primary) 0%, #E69500 100%);
-            color: var(--bg-primary);
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 30px;
-            font-size: 0.95rem;
-            box-shadow: 0 10px 30px rgba(255, 168, 0, 0.35);
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
+            color: var(--bg-primary); text-decoration: none; font-weight: 700; border-radius: 30px;
+            font-size: 0.95rem; box-shadow: 0 10px 30px rgba(255, 168, 0, 0.35);
+            transition: var(--transition); border: none; cursor: pointer;
         }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(255, 168, 0, 0.5);
-        }
-
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255, 168, 0, 0.5); }
         .btn-secondary {
-            padding: 14px 32px;
-            background: rgba(255, 255, 255, 0.03);
-            color: #FFFFFF;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 30px;
-            font-size: 0.95rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
-            cursor: pointer;
+            padding: 14px 32px; background: rgba(255, 255, 255, 0.03);
+            color: #FFFFFF; text-decoration: none; font-weight: 600; border-radius: 30px;
+            font-size: 0.95rem; border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition); cursor: pointer;
         }
-
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--brand-secondary);
-            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.15);
-            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.08); border-color: var(--brand-secondary);
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.15); transform: translateY(-3px);
         }
 
-        /* STAGE CAROUSEL MOCKUP */
+        /* STAGE CAROUSEL */
         .stage-container {
-            position: relative;
-            width: 100%;
-            height: 480px;
+            position: relative; width: 100%; height: 480px;
             background: radial-gradient(ellipse at bottom, #1B153C 0%, #070512 80%);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            overflow: hidden;
+            border: 1px solid var(--border-color); border-radius: 24px; overflow: hidden;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 30px;
+            display: flex; flex-direction: column; justify-content: space-between; padding: 30px;
         }
-
         .stage-beam {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 160px;
-            height: 100%;
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 160px; height: 100%;
             background: linear-gradient(to bottom, rgba(255, 168, 0, 0.25) 0%, rgba(255, 168, 0, 0.03) 70%, rgba(0,0,0,0) 100%);
             clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
-            pointer-events: none;
-            transition: var(--transition);
+            pointer-events: none; transition: var(--transition);
         }
-
-        .stage-beam.magenta {
-            background: linear-gradient(to bottom, rgba(236, 72, 153, 0.25) 0%, rgba(236, 72, 153, 0.03) 70%, rgba(0,0,0,0) 100%);
-        }
-
-        .stage-beam.cyan {
-            background: linear-gradient(to bottom, rgba(6, 182, 212, 0.25) 0%, rgba(6, 182, 212, 0.03) 70%, rgba(0,0,0,0) 100%);
-        }
-
+        .stage-beam.magenta { background: linear-gradient(to bottom, rgba(236, 72, 153, 0.25) 0%, rgba(236, 72, 153, 0.03) 70%, rgba(0,0,0,0) 100%); }
+        .stage-beam.cyan { background: linear-gradient(to bottom, rgba(6, 182, 212, 0.25) 0%, rgba(6, 182, 212, 0.03) 70%, rgba(0,0,0,0) 100%); }
         .stage-badge {
-            align-self: flex-start;
-            background: rgba(255,255,255,0.05);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-main);
-            border: 1px solid rgba(255,255,255,0.05);
+            align-self: flex-start; background: rgba(255,255,255,0.05); padding: 6px 14px;
+            border-radius: 20px; font-size: 0.72rem; text-transform: uppercase;
+            letter-spacing: 0.1em; color: var(--text-main); border: 1px solid rgba(255,255,255,0.05);
         }
-
         .stage-card {
-            background: rgba(19, 14, 41, 0.8);
-            border: 1px solid rgba(255, 168, 0, 0.25);
-            border-radius: 16px;
-            padding: 25px;
-            backdrop-filter: blur(12px);
-            margin-top: auto;
-            transform: translateY(0);
-            transition: var(--transition);
+            background: rgba(14, 48, 20, 0.45); border: 1px solid rgba(26, 122, 40, 0.30);
+            border-radius: 16px; padding: 25px; backdrop-filter: blur(12px);
+            margin-top: auto; transform: translateY(0); transition: var(--transition);
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
+        .stage-card-title { font-size: 1.3rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .stage-card-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+        .stage-selector { display: flex; justify-content: center; gap: 12px; margin-top: 20px; }
+        .stage-dot { width: 32px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.15); cursor: pointer; transition: var(--transition); }
+        .stage-dot.active { background: var(--brand-primary); width: 48px; box-shadow: 0 0 10px rgba(255,168,0,0.5); }
 
-        .stage-card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .stage-card-desc {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .stage-selector {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .stage-dot {
-            width: 32px;
-            height: 6px;
-            border-radius: 3px;
-            background: rgba(255,255,255,0.15);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .stage-dot.active {
-            background: var(--brand-primary);
-            width: 48px;
-            box-shadow: 0 0 10px rgba(255,168,0,0.5);
-        }
-
-        /* VALUE PROPS / LE 5 CHIAVI */
+        /* SEZIONI COMUNI */
         .section-header {
-            text-align: center;
-            max-width: 750px;
-            margin: 0 auto 60px auto;
-            padding: 0 6%;
-            z-index: 10;
-            position: relative;
+            text-align: center; max-width: 750px; margin: 0 auto 60px auto;
+            padding: 0 6%; z-index: 10; position: relative;
         }
-
         .section-tag {
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--brand-primary);
-            font-weight: 700;
-            display: block;
-            margin-bottom: 12px;
+            font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.2em;
+            color: var(--brand-primary); font-weight: 700; display: block; margin-bottom: 12px;
         }
+        .section-title { font-size: 2.5rem; font-weight: 800; color: #FFFFFF; margin-bottom: 20px; }
+        .section-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
 
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #FFFFFF;
-            margin-bottom: 20px;
-        }
-
-        .section-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .pillars-section {
-            padding: 100px 0;
-            position: relative;
-            z-index: 10;
-        }
-
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 0 6%;
-        }
-
+        /* PILLARS */
+        .pillars-section { padding: 100px 0; position: relative; z-index: 10; }
+        .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 0 6%; }
         .pillar-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 40px 30px;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            backdrop-filter: blur(10px);
+            background: var(--glass-bg); border: 1px solid var(--border-color); border-radius: 20px;
+            padding: 40px 30px; transition: var(--transition); display: flex;
+            flex-direction: column; justify-content: space-between; position: relative;
+            overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.25); backdrop-filter: blur(10px);
         }
-
         .pillar-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, var(--brand-primary), var(--brand-secondary));
-            opacity: 0;
-            transition: var(--transition);
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(to right, var(--brand-green), var(--brand-primary));
+            opacity: 0; transition: var(--transition);
         }
-
-        .pillar-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 168, 0, 0.35);
-            box-shadow: 0 20px 45px rgba(255, 168, 0, 0.08);
-        }
-
-        .pillar-card:hover::before {
-            opacity: 1;
-        }
-
+        .pillar-card:hover { transform: translateY(-8px); border-color: rgba(26, 122, 40, 0.55); box-shadow: 0 20px 45px rgba(26, 122, 40, 0.12); }
+        .pillar-card:hover::before { opacity: 1; }
         .pillar-number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.03);
-            line-height: 1;
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-family: 'Outfit', sans-serif;
-            transition: var(--transition);
+            font-size: 3.5rem; font-weight: 900; color: rgba(255, 255, 255, 0.03); line-height: 1;
+            position: absolute; top: 20px; right: 25px; font-family: 'Outfit', sans-serif; transition: var(--transition);
         }
-
-        .pillar-card:hover .pillar-number {
-            color: rgba(255, 168, 0, 0.06);
-            transform: scale(1.1);
-        }
-
+        .pillar-card:hover .pillar-number { color: rgba(255, 168, 0, 0.06); transform: scale(1.1); }
         .pillar-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: rgba(255, 168, 0, 0.06);
-            border: 1px solid rgba(255, 168, 0, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--brand-primary);
-            margin-bottom: 25px;
-            box-shadow: inset 0 0 10px rgba(255,168,0,0.1);
+            width: 50px; height: 50px; border-radius: 12px;
+            background: rgba(255, 168, 0, 0.06); border: 1px solid rgba(255, 168, 0, 0.15);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--brand-primary); margin-bottom: 25px; box-shadow: inset 0 0 10px rgba(255,168,0,0.1);
         }
+        .pillar-card:hover .pillar-icon { background: rgba(255, 168, 0, 0.15); color: #FFFFFF; box-shadow: 0 0 15px rgba(255, 168, 0, 0.3); }
+        .pillar-quote { font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 15px; line-height: 1.4; }
+        .pillar-explain { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
 
-        .pillar-card:hover .pillar-icon {
-            background: rgba(255, 168, 0, 0.15);
-            color: #FFFFFF;
-            box-shadow: 0 0 15px rgba(255, 168, 0, 0.3);
-        }
-
-        .pillar-quote {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-
-        .pillar-explain {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        /* COSA FACCIAMO / SERVICES SHOWCASE */
+        /* SHOWCASE */
         .showcase-section {
-            padding: 100px 0;
-            position: relative;
-            background: linear-gradient(to bottom, #070512 0%, #100C24 50%, #070512 100%);
-            z-index: 10;
+            padding: 100px 0; position: relative;
+            background: transparent; z-index: 10;
         }
-
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-            padding: 0 6%;
-        }
-
+        .showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; padding: 0 6%; }
         .showcase-card {
-            background: var(--glass-bg);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: var(--transition);
-            position: relative;
+            background: var(--glass-bg); border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px; overflow: hidden; transition: var(--transition); position: relative;
         }
-
-        .showcase-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(236, 72, 153, 0.25);
-            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.08);
-        }
-
+        .showcase-card:hover { transform: translateY(-5px); border-color: rgba(236, 72, 153, 0.25); box-shadow: 0 20px 40px rgba(236, 72, 153, 0.08); }
         .showcase-img-container {
-            width: 100%;
-            height: 220px;
-            background: #191438;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%; height: 220px; background: #191438; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
         }
-
-        .showcase-vector-symbol {
-            font-size: 4rem;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
-            transition: var(--transition);
-        }
-
-        .showcase-card:hover .showcase-vector-symbol {
-            transform: scale(1.15) rotate(5deg);
-        }
-
+        .showcase-vector-symbol { font-size: 4rem; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); transition: var(--transition); }
+        .showcase-card:hover .showcase-vector-symbol { transform: scale(1.15) rotate(5deg); }
         .showcase-img-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(7, 5, 18, 0) 40%, rgba(7, 5, 18, 0.9) 100%);
         }
-
         .showcase-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(236, 72, 153, 0.15);
-            border: 1px solid rgba(236, 72, 153, 0.35);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #FFB2D9;
-            font-weight: 700;
+            position: absolute; top: 15px; left: 15px;
+            background: rgba(236, 72, 153, 0.15); border: 1px solid rgba(236, 72, 153, 0.35);
+            padding: 4px 10px; border-radius: 20px; font-size: 0.65rem;
+            text-transform: uppercase; letter-spacing: 0.08em; color: #FFB2D9; font-weight: 700;
         }
+        .showcase-info { padding: 30px; }
+        .showcase-title { font-size: 1.25rem; color: #FFFFFF; margin-bottom: 12px; font-weight: 700; }
+        .showcase-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
 
-        .showcase-info {
-            padding: 30px;
-        }
-
-        .showcase-title {
-            font-size: 1.25rem;
-            color: #FFFFFF;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .showcase-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        /* DUAL MISSION SECTION */
-        .mission-section {
-            padding: 100px 6%;
-            position: relative;
-            z-index: 10;
-        }
-
+        /* MISSION */
+        .mission-section { padding: 100px 6%; position: relative; z-index: 10; }
         .mission-box {
-            background: rgba(19, 14, 41, 0.55);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 60px;
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 50px;
-            align-items: center;
+            background: rgba(14, 48, 20, 0.35); backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color); border-radius: 24px; padding: 60px;
+            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 50px; align-items: center;
             box-shadow: 0 25px 60px rgba(0,0,0,0.4);
         }
-
-        .mission-title {
-            font-size: 2.2rem;
-            color: #FFFFFF;
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
-
-        .mission-text {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-bottom: 25px;
-        }
-
-        .mission-feature {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            align-items: flex-start;
-        }
-
+        .mission-title { font-size: 2.2rem; color: #FFFFFF; margin-bottom: 20px; line-height: 1.3; }
+        .mission-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 25px; }
+        .mission-feature { display: flex; gap: 15px; margin-bottom: 20px; align-items: flex-start; }
         .mission-check {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: rgba(255, 168, 0, 0.1);
-            border: 1px solid rgba(255, 168, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--brand-primary);
-            flex-shrink: 0;
-            margin-top: 2px;
+            width: 24px; height: 24px; border-radius: 50%; background: rgba(255, 168, 0, 0.1);
+            border: 1px solid rgba(255, 168, 0, 0.3); display: flex; align-items: center;
+            justify-content: center; color: var(--brand-primary); flex-shrink: 0; margin-top: 2px;
         }
+        .mission-check-title { font-size: 0.98rem; color: #FFFFFF; font-weight: 600; margin-bottom: 4px; }
+        .mission-check-desc { font-size: 0.85rem; color: var(--text-muted); }
 
-        .mission-check svg {
-            width: 12px;
-            height: 12px;
-        }
-
-        .mission-check-title {
-            font-size: 0.98rem;
-            color: #FFFFFF;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .mission-check-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        /* PARTNERSHIP NETWORK BLOCK */
-        .network-section {
-            padding: 80px 0;
-            position: relative;
-            z-index: 10;
-        }
-
-        .network-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            padding: 0 6%;
-        }
-
+        /* NETWORK */
+        .network-section { padding: 80px 0; position: relative; z-index: 10; }
+        .network-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 0 6%; }
         .network-card {
-            background: var(--glass-bg);
-            border: 1px solid rgba(255,255,255,0.03);
-            border-radius: 20px;
-            padding: 40px;
-            transition: var(--transition);
-            display: flex;
-            gap: 25px;
-            align-items: flex-start;
+            background: var(--glass-bg); border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 20px; padding: 40px; transition: var(--transition);
+            display: flex; gap: 25px; align-items: flex-start;
         }
-
-        .network-card:hover {
-            border-color: var(--brand-primary);
-            box-shadow: 0 15px 35px rgba(255, 168, 0, 0.05);
-            transform: translateY(-3px);
-        }
-
+        .network-card:hover { border-color: rgba(26, 122, 40, 0.55); box-shadow: 0 15px 35px rgba(26, 122, 40, 0.10); transform: translateY(-3px); }
         .network-logo-wrapper {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--brand-primary);
-            font-family: 'Outfit', sans-serif;
-            flex-shrink: 0;
+            width: 60px; height: 60px; border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; font-weight: 800; color: var(--brand-primary);
+            font-family: 'Outfit', sans-serif; flex-shrink: 0;
         }
+        .network-card.meneesco-card .network-logo-wrapper { color: var(--brand-tertiary); }
+        .network-info-title { font-size: 1.3rem; font-weight: 700; color: #FFFFFF; margin-bottom: 5px; }
+        .network-info-sub { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand-secondary); font-weight: 700; margin-bottom: 15px; }
+        .network-info-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
 
-        .network-card.meneesco-card .network-logo-wrapper {
-            color: var(--brand-tertiary);
+        /* DOVE OPERIAMO */
+        .territory-section {
+            padding: 80px 0; position: relative; z-index: 10;
+            background: transparent;
         }
-
-        .network-info-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 5px;
+        .territory-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px; padding: 0 6%; max-width: 860px; margin: 0 auto;
         }
-
-        .network-info-sub {
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--brand-secondary);
-            font-weight: 700;
-            margin-bottom: 15px;
+        .territory-card { grid-column: span 2; }
+        .territory-grid .territory-card:nth-child(4) { grid-column: 2 / span 2; }
+        .territory-grid .territory-card:nth-child(5) { grid-column: 4 / span 2; }
+        @media (max-width: 600px) {
+            .territory-grid { grid-template-columns: repeat(2, 1fr); }
+            .territory-card,
+            .territory-grid .territory-card:nth-child(4),
+            .territory-grid .territory-card:nth-child(5) { grid-column: span 1; }
         }
-
-        .network-info-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.6;
+        .territory-card {
+            background: var(--glass-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 25px 20px; text-align: center;
+            transition: var(--transition); backdrop-filter: blur(8px);
         }
+        .territory-card:hover { transform: translateY(-5px); border-color: rgba(255, 168, 0, 0.35); box-shadow: 0 15px 30px rgba(255, 168, 0, 0.07); }
+        .territory-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+        .territory-city { font-size: 1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 4px; font-family: 'Outfit', sans-serif; }
+        .territory-region { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
 
-        /* BOOKING FORM & INTERACTIVE SIMULATOR */
-        .booking-section {
-            padding: 100px 0;
-            position: relative;
-            z-index: 10;
-        }
-
+        /* BOOKING */
+        .booking-section { padding: 100px 0; position: relative; z-index: 10; }
         .booking-box {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: rgba(19, 14, 41, 0.65);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 50px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 30px 70px rgba(0,0,0,0.6);
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 40px;
+            max-width: 1000px; margin: 0 auto;
+            background: rgba(14, 48, 20, 0.42); border: 1px solid var(--border-color);
+            border-radius: 24px; padding: 50px; backdrop-filter: blur(15px);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.6); display: grid;
+            grid-template-columns: 1.1fr 0.9fr; gap: 40px;
         }
-
-        .booking-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        .booking-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        label { font-size: 0.8rem; font-weight: 600; color: var(--brand-primary-light); text-transform: uppercase; letter-spacing: 0.08em; }
+        input, select, textarea {
+            width: 100%; background: rgba(7, 5, 18, 0.65); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px; padding: 12px 16px; color: #FFFFFF; font-family: inherit;
+            font-size: 0.9rem; transition: var(--transition);
         }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--brand-primary-light);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-            background: rgba(7, 5, 18, 0.65);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            padding: 12px 16px;
-            color: #FFFFFF;
-            font-family: inherit;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        input:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: var(--brand-primary);
-            box-shadow: 0 0 12px rgba(255, 168, 0, 0.25);
+        input:focus, select:focus, textarea:focus {
+            outline: none; border-color: var(--brand-primary); box-shadow: 0 0 12px rgba(255, 168, 0, 0.25);
             background: rgba(7, 5, 18, 0.85);
         }
-
-        textarea {
-            height: 110px;
-            resize: none;
-        }
+        textarea { height: 110px; resize: none; }
+        select option { background: #130E29; color: #fff; }
 
         /* SIMULATOR DASHBOARD */
         .sim-dashboard {
-            background: rgba(7, 5, 18, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            background: rgba(7, 5, 18, 0.45); border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between;
         }
-
         .sim-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #FFFFFF;
+            font-size: 1.15rem; font-weight: 700; color: #FFFFFF;
             border-bottom: 1px solid rgba(255,255,255,0.06);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            padding-bottom: 15px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
         }
-
-        .sim-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            font-size: 0.88rem;
-        }
-
-        .sim-item-label {
-            color: var(--text-muted);
-        }
-
-        .sim-item-val {
-            font-weight: 700;
-            color: #FFFFFF;
-        }
-
-        .sim-item-val.gold {
-            color: var(--brand-primary);
-        }
-
+        .sim-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.88rem; }
+        .sim-item-label { color: var(--text-muted); }
+        .sim-item-val { font-weight: 700; color: #FFFFFF; }
+        .sim-item-val.gold { color: var(--brand-primary); }
         .sim-summary-box {
-            background: rgba(255, 168, 0, 0.05);
-            border: 1px dashed rgba(255, 168, 0, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 15px;
+            background: rgba(255, 168, 0, 0.05); border: 1px dashed rgba(255, 168, 0, 0.2);
+            border-radius: 12px; padding: 20px; margin-top: 15px;
         }
+        .sim-summary-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--brand-primary-light); margin-bottom: 8px; }
+        .sim-summary-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+        .form-error { font-size: 0.78rem; color: #ff6b6b; margin-top: 4px; display: none; }
 
-        .sim-summary-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--brand-primary-light);
-            margin-bottom: 8px;
-        }
-
-        .sim-summary-desc {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        /* SUCCESS MODAL DIALOG */
+        /* SUCCESS MODAL */
         .dialog-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(7, 5, 18, 0.85);
-            backdrop-filter: blur(15px);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(7, 5, 18, 0.85); backdrop-filter: blur(15px);
+            z-index: 2000; display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: var(--transition);
         }
-
-        .dialog-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
+        .dialog-overlay.active { opacity: 1; visibility: visible; }
         .dialog-box {
-            background: #130E29;
-            border: 1px solid var(--brand-primary);
-            max-width: 500px;
-            width: 90%;
-            border-radius: 24px;
-            padding: 40px;
-            text-align: center;
+            background: #130E29; border: 1px solid var(--brand-primary);
+            max-width: 500px; width: 90%; border-radius: 24px; padding: 40px; text-align: center;
             box-shadow: 0 30px 80px rgba(255, 168, 0, 0.15);
-            transform: scale(0.9);
-            transition: var(--transition);
+            transform: scale(0.9); transition: var(--transition);
         }
-
-        .dialog-overlay.active .dialog-box {
-            transform: scale(1);
-        }
-
+        .dialog-overlay.active .dialog-box { transform: scale(1); }
         .dialog-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(255, 168, 0, 0.15);
-            border: 1px solid var(--brand-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--brand-primary);
-            font-size: 1.8rem;
-            margin: 0 auto 20px auto;
+            width: 60px; height: 60px; border-radius: 50%; background: rgba(255, 168, 0, 0.15);
+            border: 1px solid var(--brand-primary); display: flex; align-items: center;
+            justify-content: center; color: var(--brand-primary); font-size: 1.8rem; margin: 0 auto 20px auto;
         }
-
-        .dialog-title {
-            font-size: 1.6rem;
-            color: #FFFFFF;
-            margin-bottom: 15px;
-            font-weight: 800;
-        }
-
-        .dialog-desc {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
+        .dialog-title { font-size: 1.6rem; color: #FFFFFF; margin-bottom: 15px; font-weight: 800; }
+        .dialog-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; }
 
         /* FOOTER */
         footer {
-            background: #04030B;
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
-            padding: 60px 6% 30px 6%;
-            color: var(--text-muted);
-            font-size: 0.82rem;
-            text-align: center;
-            position: relative;
-            z-index: 10;
+            background: transparent; border-top: 1px solid rgba(255, 168, 0, 0.15);
+            padding: 60px 6% 30px 6%; color: var(--text-muted); font-size: 0.82rem;
+            text-align: center; position: relative; z-index: 10;
         }
-
         .footer-logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--brand-primary);
-            letter-spacing: 0.05em;
-            margin-bottom: 20px;
-            display: inline-block;
+            font-size: 1.4rem; font-weight: 700; color: var(--brand-primary);
+            letter-spacing: 0.05em; margin-bottom: 20px; display: inline-block;
         }
+        .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; transition: var(--transition); }
+        .footer-links a:hover { color: var(--brand-primary); }
+        .footer-divider { height: 1px; background: rgba(255, 255, 255, 0.05); max-width: 600px; margin: 0 auto 25px auto; }
+        .footer-legal-links { display: flex; justify-content: center; gap: 20px; margin-top: 12px; flex-wrap: wrap; }
+        .footer-legal-links a { color: rgba(161, 161, 170, 0.6); text-decoration: none; font-size: 0.75rem; transition: var(--transition); }
+        .footer-legal-links a:hover { color: var(--brand-primary); }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: var(--brand-primary);
-        }
-
-        .footer-divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.05);
-            max-width: 600px;
-            margin: 0 auto 25px auto;
-        }
-
-        /* FLOATING BACK TO TOP */
+        /* BACK TO TOP */
         .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(19, 14, 41, 0.85);
-            border: 1px solid var(--brand-primary);
-            color: var(--brand-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 168, 0, 0.2);
+            position: fixed; bottom: 100px; right: 30px; width: 48px; height: 48px;
+            border-radius: 50%; background: rgba(14, 48, 20, 0.85);
+            border: 1px solid var(--brand-primary); color: var(--brand-primary);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 999; opacity: 0; visibility: hidden;
+            transition: var(--transition); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 168, 0, 0.2);
             backdrop-filter: blur(8px);
         }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--brand-primary); color: var(--bg-primary); box-shadow: 0 6px 25px rgba(255, 168, 0, 0.45); transform: translateY(-5px); }
+        .back-to-top svg { width: 20px; height: 20px; transition: transform 0.3s ease; }
+        .back-to-top:hover svg { transform: translateY(-2px); }
 
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
+        /* WHATSAPP BUTTON */
+        .whatsapp-btn {
+            position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px;
+            border-radius: 50%; background: #25D366;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 999; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: var(--transition); text-decoration: none;
         }
+        .whatsapp-btn:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6); }
+        .whatsapp-btn svg { width: 28px; height: 28px; fill: #FFFFFF; }
 
-        .back-to-top:hover {
-            background: var(--brand-primary);
-            color: var(--bg-primary);
-            box-shadow: 0 6px 25px rgba(255, 168, 0, 0.45);
-            transform: translateY(-5px);
+        /* COOKIE BANNER */
+        .cookie-banner {
+            position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1500;
+            background: rgba(10, 38, 14, 0.97); backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 168, 0, 0.2); padding: 20px 6%;
+            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+            flex-wrap: wrap; transform: translateY(100%); transition: transform 0.4s ease;
         }
-
-        .back-to-top svg {
-            width: 20px;
-            height: 20px;
-            transition: transform 0.3s ease;
+        .cookie-banner.visible { transform: translateY(0); }
+        .cookie-text { font-size: 0.82rem; color: var(--text-muted); max-width: 700px; line-height: 1.5; }
+        .cookie-text a { color: var(--brand-primary); text-decoration: none; }
+        .cookie-text a:hover { text-decoration: underline; }
+        .cookie-actions { display: flex; gap: 12px; flex-shrink: 0; }
+        .btn-cookie-accept {
+            padding: 9px 22px; background: var(--brand-primary); color: var(--bg-primary);
+            border: none; border-radius: 20px; font-weight: 700; font-size: 0.82rem;
+            cursor: pointer; transition: var(--transition);
         }
-
-        .back-to-top:hover svg {
-            transform: translateY(-2px);
+        .btn-cookie-accept:hover { background: #E69500; transform: translateY(-1px); }
+        .btn-cookie-reject {
+            padding: 9px 22px; background: transparent; color: var(--text-muted);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+            font-size: 0.82rem; cursor: pointer; transition: var(--transition);
         }
+        .btn-cookie-reject:hover { color: #FFFFFF; border-color: rgba(255,255,255,0.3); }
 
-        /* RESPONSIVE LAYOUTS */
+        /* RESPONSIVE */
         @media (max-width: 990px) {
-            .hero {
-                grid-template-columns: 1fr;
-                padding-top: 130px;
-                text-align: center;
-            }
-
-            .tag-istituzionale {
-                justify-content: center;
-            }
-
-            .hero-info {
-                margin: 0 auto;
-            }
-
-            .hero-ctas {
-                justify-content: center;
-            }
-
-            .stage-container {
-                max-width: 500px;
-                margin: 40px auto 0 auto;
-            }
-
-            .booking-box {
-                grid-template-columns: 1fr;
-                padding: 40px 30px;
-            }
-
-            .mission-box {
-                grid-template-columns: 1fr;
-                padding: 40px;
-            }
-
-            .network-grid {
-                grid-template-columns: 1fr;
-            }
+            .hero { grid-template-columns: 1fr; padding-top: 130px; text-align: center; }
+            .tag-istituzionale { justify-content: center; }
+            .hero-info { margin: 0 auto; }
+            .hero-ctas { justify-content: center; }
+            .stage-container { max-width: 500px; margin: 40px auto 0 auto; }
+            .booking-box { grid-template-columns: 1fr; padding: 40px 30px; }
+            .mission-box { grid-template-columns: 1fr; padding: 40px; }
+            .network-grid { grid-template-columns: 1fr; }
         }
-
         @media (max-width: 768px) {
-            header {
-                padding: 15px 4%;
-            }
-
-            nav {
-                display: none;
-                /* Menu collassato o semplificato per scopi demo */
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
+            header { padding: 15px 4%; }
+            nav { display: none; }
+            .hamburger { display: flex; }
+            .hero-title { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .cookie-banner { padding: 16px 4%; }
+            .back-to-top { bottom: 100px; right: 16px; }
+            .whatsapp-btn { bottom: 30px; right: 16px; }
+        }
+        @media (max-width: 480px) {
+            .booking-box { padding: 25px 20px; }
+            .mission-box { padding: 30px 20px; }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- STARDUST MAGIC BACKGROUND CANVAS -->
     <canvas id="magic-canvas"></canvas>
+    <!-- Spotlight teatrale primario (sinistra, oro) -->
+    <div class="spotlight-wrap">
+        <div class="spotlight-lamp"></div>
+        <div class="spotlight-cone">
+            <div class="spotlight-outer"></div>
+            <div class="spotlight-mid"></div>
+            <div class="spotlight-inner"></div>
+        </div>
+        <div class="spotlight-pool"></div>
+    </div>
 
-    <div class="spotlight-1"></div>
-    <div class="spotlight-2"></div>
-
+    <!-- Spotlight secondario (destra, magenta) -->
     <!-- HEADER -->
     <header>
         <a href="#" class="logo-container">
@@ -1187,26 +733,37 @@
             </div>
             <div>
                 <div class="logo-text">IL CAMPANELLINO</div>
-                <div class="logo-subtitle">Eventi & Spettacolo</div>
+                <div class="logo-subtitle">Animazione & Spettacolo · Sardegna</div>
             </div>
         </a>
-        <nav>
+        <nav aria-label="Navigazione principale">
             <a href="#vision">La Vision</a>
             <a href="#showcase">I Nostri Mondi</a>
-            <a href="#network">Il Nostro Network</a>
+            <a href="#territorio">Dove Operiamo</a>
+            <a href="#network">Il Network</a>
             <a href="#prenota" class="btn-header">Pianifica Evento</a>
         </nav>
+        <button class="hamburger" id="hamburger-btn" aria-label="Apri menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
     </header>
 
-    <!-- HERO SECTION -->
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Menu mobile">
+        <a href="#vision" onclick="closeMobileNav()">La Vision</a>
+        <a href="#showcase" onclick="closeMobileNav()">I Nostri Mondi</a>
+        <a href="#territorio" onclick="closeMobileNav()">Dove Operiamo</a>
+        <a href="#network" onclick="closeMobileNav()">Il Network</a>
+        <a href="#prenota" class="btn-header" onclick="closeMobileNav()">Pianifica Evento</a>
+    </nav>
+
+    <!-- HERO -->
     <section class="hero">
         <div class="hero-info">
-            <div class="tag-istituzionale">Show Production & Entertainment Agency</div>
-            <h1 class="hero-title">L'Arte di Creare Emozioni Spettacolari.</h1>
+            <div class="tag-istituzionale">Agenzia di Animazione ed Eventi in Sardegna</div>
+            <h1 class="hero-title">L'Arte di Creare Emozioni — in Tutta la Sardegna.</h1>
             <p class="hero-description">
-                Produciamo e realizziamo eventi, musical ed esperienze ricreative d'élite. Fondiamo la didattica con gli
-                elementi del gioco, dell'arte e della creatività per dare vita a produzioni di eccezionale valore
-                artistico e risonanza pubblica.
+                Produciamo e realizziamo eventi, musical ed esperienze ricreative d'élite a <strong>Cagliari</strong> e in tutta la <strong>Sardegna</strong>. Fondiamo la didattica con gli elementi del gioco, dell'arte e della creatività per dare vita a produzioni di eccezionale valore artistico e risonanza pubblica.
             </p>
             <div class="hero-ctas">
                 <a href="#prenota" class="btn-primary">Prenota una Consulenza</a>
@@ -1214,41 +771,35 @@
             </div>
         </div>
         <div class="hero-media">
-            <!-- STAGE EMULATOR CAROUSEL -->
             <div class="stage-container">
                 <div class="stage-beam" id="spotlight-beam"></div>
                 <span class="stage-badge">Live Spotlight</span>
-
-                <!-- Contenuto dinamico stage card -->
                 <div class="stage-card" id="stage-card-area">
                     <div class="stage-card-title" id="stage-card-title">🎭 Grandi Spettacoli</div>
                     <div class="stage-card-desc" id="stage-card-desc">
-                        Musical, concerti e produzioni teatrali ad altissimo impatto scenografico per festival ed eventi pubblici o privati di grandi dimensioni.
+                        Musical, concerti e produzioni teatrali ad altissimo impatto scenografico per festival ed eventi pubblici o privati in Sardegna.
                     </div>
                 </div>
-
                 <div class="stage-selector">
-                    <div class="stage-dot active" onclick="switchStage(0)"></div>
-                    <div class="stage-dot" onclick="switchStage(1)"></div>
-                    <div class="stage-dot" onclick="switchStage(2)"></div>
-                    <div class="stage-dot" onclick="switchStage(3)"></div>
+                    <div class="stage-dot active" onclick="switchStage(0)" role="button" aria-label="Slide 1"></div>
+                    <div class="stage-dot" onclick="switchStage(1)" role="button" aria-label="Slide 2"></div>
+                    <div class="stage-dot" onclick="switchStage(2)" role="button" aria-label="Slide 3"></div>
+                    <div class="stage-dot" onclick="switchStage(3)" role="button" aria-label="Slide 4"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- LA VISION / LE 3 CHIAVI DI SUCCESSO -->
+    <!-- LA VISION / PILLARS -->
     <section id="vision" class="pillars-section">
         <div class="section-header">
             <span class="section-tag">Dietro le Quinte</span>
             <h2 class="section-title">Professionalità, Ludus e Talento</h2>
             <p class="section-desc">
-                Il Campanellino nasce con l'obiettivo profondo di garantire servizi professionali unendo l'estro artistico a solide dinamiche di coordinamento tecnico.
+                Il Campanellino nasce con l'obiettivo di garantire servizi professionali unendo l'estro artistico a solide dinamiche di coordinamento tecnico, portando in Sardegna produzioni di livello nazionale.
             </p>
         </div>
-
         <div class="pillars-grid">
-            <!-- Chiave 1 -->
             <div class="pillar-card">
                 <div class="pillar-number">01</div>
                 <div>
@@ -1256,11 +807,9 @@
                     <div class="pillar-quote">La Filosofia del Ludus</div>
                 </div>
                 <div class="pillar-explain">
-                    Integriamo gli elementi ludici e la creatività in percorsi inclusivi e formativi, offrendo esperienze che catturano l'attenzione e lasciano un ricordo indelebile in ogni partecipante.
+                    Integriamo gli elementi ludici e la creatività in percorsi inclusivi e formativi, offrendo esperienze che catturano l'attenzione e lasciano un ricordo indelebile in ogni partecipante, dalle scuole di Cagliari ai comuni della Sardegna.
                 </div>
             </div>
-
-            <!-- Chiave 2 -->
             <div class="pillar-card">
                 <div class="pillar-number">02</div>
                 <div>
@@ -1268,11 +817,9 @@
                     <div class="pillar-quote">Talenti e Professionalità</div>
                 </div>
                 <div class="pillar-explain">
-                    Coinvolgiamo decine di professionisti specializzati nei settori artistici, scenografici e tecnici, coordinando ogni dettaglio produttivo e logistico per assicurare performance impeccabili.
+                    Coinvolgiamo decine di professionisti specializzati nei settori artistici, scenografici e tecnici, coordinando ogni dettaglio produttivo e logistico per assicurare performance impeccabili su ogni palcoscenico sardo.
                 </div>
             </div>
-
-            <!-- Chiave 3 -->
             <div class="pillar-card">
                 <div class="pillar-number">03</div>
                 <div>
@@ -1280,24 +827,22 @@
                     <div class="pillar-quote">Impennata di Risonanza</div>
                 </div>
                 <div class="pillar-explain">
-                    Lavoriamo fianco a fianco con le aziende per potenziarne l'immagine commerciale attraverso spot d'autore, flash-mob a sorpresa e pianificazione di campagne social creative.
+                    Lavoriamo fianco a fianco con le aziende sarde per potenziarne l'immagine commerciale attraverso spot d'autore, flash-mob a sorpresa e pianificazione di campagne social creative.
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- COSA FACCIAMO / SERVICES SHOWCASE -->
+    <!-- COSA FACCIAMO -->
     <section id="showcase" class="showcase-section">
         <div class="section-header">
             <span class="section-tag">I Nostri Servizi</span>
             <h2 class="section-title">Diamo Vita a Qualsiasi Idea</h2>
             <p class="section-desc">
-                Dal piccolo evento privato d'élite fino alla grande parata pubblica ed alla campagna promozionale aziendale: gestiamo la produzione dall'A alla Z.
+                Dal piccolo evento privato d'élite fino alla grande parata pubblica e alla campagna promozionale aziendale: gestiamo la produzione dall'A alla Z, ovunque in Sardegna.
             </p>
         </div>
-
         <div class="showcase-grid">
-            <!-- Servizio 1 -->
             <div class="showcase-card">
                 <div class="showcase-img-container">
                     <span class="showcase-vector-symbol">🎭</span>
@@ -1306,11 +851,9 @@
                 </div>
                 <div class="showcase-info">
                     <h3 class="showcase-title">Grandi Eventi e Musical</h3>
-                    <p class="showcase-desc">Produzione e regia di eventi artistici, opere teatrali, musical d'accademia, rassegne concertistiche e letterarie pubbliche e private.</p>
+                    <p class="showcase-desc">Produzione e regia di eventi artistici, opere teatrali, musical d'accademia, rassegne concertistiche e letterarie pubbliche e private in Sardegna.</p>
                 </div>
             </div>
-
-            <!-- Servizio 2 -->
             <div class="showcase-card">
                 <div class="showcase-img-container">
                     <span class="showcase-vector-symbol">🧩</span>
@@ -1319,11 +862,9 @@
                 </div>
                 <div class="showcase-info">
                     <h3 class="showcase-title">Laboratori Creativi & Ludici</h3>
-                    <p class="showcase-desc">Percorsi inclusivi e formativi a target differenziati che integrano didattica e dinamiche di gioco per scuole, enti e famiglie.</p>
+                    <p class="showcase-desc">Percorsi inclusivi e formativi a target differenziati che integrano didattica e dinamiche di gioco per scuole, enti e famiglie a Cagliari e in tutta la Sardegna.</p>
                 </div>
             </div>
-
-            <!-- Servizio 3 -->
             <div class="showcase-card">
                 <div class="showcase-img-container">
                     <span class="showcase-vector-symbol">💍</span>
@@ -1332,11 +873,9 @@
                 </div>
                 <div class="showcase-info">
                     <h3 class="showcase-title">Compleanni & Matrimoni</h3>
-                    <p class="showcase-desc">Wedding planning e feste private curate maniacalmente, spettacoli ad hoc, allestimenti a tema ed animazione d'élite per adulti e bambini.</p>
+                    <p class="showcase-desc">Wedding planning e feste private curate maniacalmente, spettacoli ad hoc, allestimenti a tema ed animazione d'élite per adulti e bambini in Sardegna.</p>
                 </div>
             </div>
-
-            <!-- Servizio 4 -->
             <div class="showcase-card">
                 <div class="showcase-img-container">
                     <span class="showcase-vector-symbol">📸</span>
@@ -1345,25 +884,24 @@
                 </div>
                 <div class="showcase-info">
                     <h3 class="showcase-title">Spot, Media e Flash-Mob</h3>
-                    <p class="showcase-desc">Organizzazione di flash-mob virali e spot video in collaborazione con registi e fotografi per rafforzare l'immagine commerciale aziendale.</p>
+                    <p class="showcase-desc">Organizzazione di flash-mob virali e spot video in collaborazione con registi e fotografi per rafforzare l'immagine commerciale delle aziende sarde.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- DUAL MISSION SECTION -->
+    <!-- DUAL MISSION -->
     <section class="mission-section">
         <div class="mission-box">
             <div>
                 <span class="section-tag" style="display:inline-block; margin-bottom: 10px;">L'Impegno Sociale ed Artistico</span>
-                <h2 class="mission-title">Promuovere il Talento e Creare Futuro.</h2>
+                <h2 class="mission-title">Promuovere il Talento e Creare Futuro in Sardegna.</h2>
                 <p class="mission-text">
-                    La visione di Il Campanellino è duplice: crediamo nell'impeccabile riuscita scenica ma anche nel valore sociale della nostra opera. Sosteniamo i giovani talenti dell'arte scenica durante i loro studi accademici, offrendo loro canali di occupazione professionali, garantiti e legali.
+                    La visione de Il Campanellino è duplice: crediamo nell'impeccabile riuscita scenica ma anche nel valore sociale della nostra opera. Sosteniamo i giovani talenti dell'arte scenica durante i loro studi accademici, offrendo loro canali di occupazione professionali, garantiti e legali in Sardegna.
                 </p>
                 <a href="#prenota" class="btn-primary">Parla con un Nostro Regista</a>
             </div>
             <div>
-                <!-- Feature 1 -->
                 <div class="mission-feature">
                     <div class="mission-check">✔</div>
                     <div>
@@ -1371,7 +909,6 @@
                         <p class="mission-check-desc">Inserimento contrattualizzato in produzioni reali per agevolare l'ingresso dei migliori talenti nel mondo del lavoro dello spettacolo.</p>
                     </div>
                 </div>
-                <!-- Feature 2 -->
                 <div class="mission-feature">
                     <div class="mission-check">✔</div>
                     <div>
@@ -1379,7 +916,6 @@
                         <p class="mission-check-desc">Ogni evento viene sottoposto a rigorosi protocolli di sicurezza e coordinamento tecnico prima di andare in scena.</p>
                     </div>
                 </div>
-                <!-- Feature 3 -->
                 <div class="mission-feature">
                     <div class="mission-check">✔</div>
                     <div>
@@ -1391,74 +927,108 @@
         </div>
     </section>
 
-    <!-- PARTNERSHIP NETWORK BLOCK -->
+    <!-- DOVE OPERIAMO -->
+    <section id="territorio" class="territory-section">
+        <div class="section-header">
+            <span class="section-tag">Dove Operiamo</span>
+            <h2 class="section-title">In Tutta la Sardegna</h2>
+            <p class="section-desc">
+                Dalla costa alla montagna, da Cagliari a Sassari: il nostro team raggiunge ogni angolo dell'isola per portare la magia dello spettacolo dal vivo ovunque tu ne abbia bisogno.
+            </p>
+        </div>
+        <div class="territory-grid">
+            <div class="territory-card">
+                <span class="territory-icon">🏛️</span>
+                <div class="territory-city">Cagliari</div>
+                <div class="territory-region">Sede Principale</div>
+            </div>
+            <div class="territory-card">
+                <span class="territory-icon">🌊</span>
+                <div class="territory-city">Sassari</div>
+                <div class="territory-region">Sardegna Nord</div>
+            </div>
+            <div class="territory-card">
+                <span class="territory-icon">⛵</span>
+                <div class="territory-city">Olbia</div>
+                <div class="territory-region">Costa Smeralda</div>
+            </div>
+            <div class="territory-card">
+                <span class="territory-icon">🏔️</span>
+                <div class="territory-city">Nuoro</div>
+                <div class="territory-region">Sardegna Centrale</div>
+            </div>
+            <div class="territory-card">
+                <span class="territory-icon">🌾</span>
+                <div class="territory-city">Oristano</div>
+                <div class="territory-region">Sardegna Ovest</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NETWORK -->
     <section id="network" class="network-section">
         <div class="section-header">
             <span class="section-tag">Il Nostro Prestigioso Ecosistema</span>
             <h2 class="section-title">Un Network di Eccellenza</h2>
             <p class="section-desc">
-                Il Campanellino opera in sinergia esclusiva e stretta con due importanti pilastri dell'arte accademica e della comunicazione strategica istituzionale.
+                Il Campanellino opera in sinergia esclusiva con due importanti pilastri dell'arte accademica e della comunicazione strategica istituzionale.
             </p>
         </div>
-
         <div class="network-grid">
-            <!-- Partner 1 -->
             <div class="network-card">
                 <div class="network-logo-wrapper">🎭</div>
                 <div>
                     <h3 class="network-info-title">Accademia Internazionale del Musical</h3>
                     <div class="network-info-sub">Sorgente Artistica D'Élite</div>
-                    <p class="network-info-desc">
-                        Collaboriamo direttamente con l'Accademia per reclutare i migliori performer di canto, recitazione e danza, assicurando ai nostri spettacoli un cast dal livello tecnico ed espressivo straordinario.
-                    </p>
+                    <p class="network-info-desc">Collaboriamo direttamente con l'Accademia per reclutare i migliori performer di canto, recitazione e danza, assicurando ai nostri spettacoli un cast dal livello tecnico ed espressivo straordinario.</p>
                 </div>
             </div>
-
-            <!-- Partner 2 -->
             <div class="network-card meneesco-card">
                 <div class="network-logo-wrapper">⚖</div>
                 <div>
                     <h3 class="network-info-title">ME.NE.E.S.CO.</h3>
                     <div class="network-info-sub">Negoziazione & Crisis Management</div>
-                    <p class="network-info-desc">
-                        Le nostre relazioni con enti pubblici ed aziende beneficiano del rigore metodologico del protocollo di negoziazione e gestione delle crisi strategiche di Meneesco, garantendo ecologia relazionale e sicurezza in ogni intesa.
-                    </p>
+                    <p class="network-info-desc">Le nostre relazioni con enti pubblici ed aziende beneficiano del rigore metodologico del protocollo di negoziazione e gestione delle crisi strategiche di Meneesco, garantendo ecologia relazionale e sicurezza in ogni intesa.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- INTERACTIVE BOOKING SIMULATOR -->
+    <!-- BOOKING SIMULATOR -->
     <section id="prenota" class="booking-section">
         <div class="section-header">
             <span class="section-tag">Budget & Formula Simulator</span>
             <h2 class="section-title">Pianifica la Tua Formula Scenica</h2>
             <p class="section-desc">
-                Utilizza il simulatore per selezionare la scala e il tipo di evento che desideri realizzare. Il nostro algoritmo calcolerà la formula di allestimento consigliata in tempo reale prima di inviare i dati.
+                Seleziona la scala e il tipo di evento. Il nostro simulatore calcolerà la formula di allestimento consigliata prima di inviarci la tua richiesta.
             </p>
         </div>
 
         <div class="booking-box">
-            <!-- Form contatti -->
-            <form class="booking-form" id="contact-form" onsubmit="handleFormSubmit(event)">
+            <form class="booking-form" id="contact-form" onsubmit="handleFormSubmit(event)" novalidate>
+                <!-- Web3Forms hidden fields -->
+                <input type="hidden" name="access_key" value="e4f13f35-6186-40ae-9ed9-e45cad7ddbcd">
+                <input type="hidden" name="subject" id="form-subject" value="Nuova richiesta evento — Il Campanellino">
+                <input type="hidden" name="from_name" value="Il Campanellino Sito Web">
+                <input type="checkbox" name="botcheck" style="display:none">
+
                 <div class="form-group">
                     <label for="nome">Nome e Cognome / Referente Azienda *</label>
-                    <input type="text" id="nome" required placeholder="Es. Dott. Marco Rossi">
+                    <input type="text" id="nome" name="nome" required placeholder="Es. Mario Rossi">
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="tipo_cliente">Tipo di Committente *</label>
-                        <select id="tipo_cliente" required onchange="calculateFormula()">
+                        <select id="tipo_cliente" name="tipo_cliente" required onchange="calculateFormula()">
                             <option value="Privato">Soggetto Privato</option>
                             <option value="Azienda">Realtà Aziendale</option>
                             <option value="Ente Pubblico">Ente Pubblico / Comune</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label for="tipo_evento">Tipo di Evento *</label>
-                        <select id="tipo_evento" required onchange="calculateFormula()">
+                        <select id="tipo_evento" name="tipo_evento" required onchange="calculateFormula()">
                             <option value="Musical">Musical / Grande Spettacolo</option>
                             <option value="Laboratorio">Laboratorio Inclusivo</option>
                             <option value="Matrimonio">Matrimonio / Compleanno Élite</option>
@@ -1469,18 +1039,31 @@
 
                 <div class="form-group">
                     <label for="email">E-mail di Contatto *</label>
-                    <input type="email" id="email" required placeholder="es. rossi@comune.it o email@azienda.com">
+                    <input type="email" id="email" name="email" required placeholder="es. mario@email.it">
                 </div>
 
                 <div class="form-group">
-                    <label for="dettagli">Note particolari sull'evento (Esigenze, location...)</label>
-                    <textarea id="dettagli" placeholder="Descrivi qui la visione del tuo spettacolo o evento..."></textarea>
+                    <label for="telefono">Telefono / WhatsApp</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Es. 347 123 4567">
                 </div>
 
-                <button type="submit" class="btn-primary" style="width: 100%;">Invia Richiesta di Produzione</button>
+                <div class="form-group">
+                    <label for="dettagli">Note sull'evento (esigenze, location, data...)</label>
+                    <textarea id="dettagli" name="dettagli" placeholder="Descrivi qui la visione del tuo spettacolo o evento..."></textarea>
+                </div>
+
+                <!-- Privacy consent -->
+                <div class="form-group" style="flex-direction: row; align-items: flex-start; gap: 10px;">
+                    <input type="checkbox" id="privacy" name="privacy_consent" required style="width:auto; margin-top:3px; flex-shrink:0; accent-color: var(--brand-primary);">
+                    <label for="privacy" style="font-size:0.78rem; text-transform:none; letter-spacing:0; line-height:1.5; color:var(--text-muted); font-weight:400; cursor:pointer;">
+                        Ho letto e accetto la <a href="privacy-policy.html" target="_blank" style="color:var(--brand-primary);">Privacy Policy</a>. Acconsento al trattamento dei miei dati personali per ricevere informazioni sui servizi richiesti.*
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-primary" id="submit-btn" style="width: 100%;">Invia Richiesta di Produzione</button>
             </form>
 
-            <!-- Dashboard Simulator -->
+            <!-- Simulator Dashboard -->
             <div class="sim-dashboard">
                 <div>
                     <div class="sim-title">📊 Formula Scenotecnica Calcolata</div>
@@ -1501,24 +1084,23 @@
                         <span class="sim-item-val" id="dash-rider">Service Audio/Luci + Scenografie Base</span>
                     </div>
                 </div>
-
                 <div class="sim-summary-box">
                     <div class="sim-summary-title" id="dash-formula-title">Formula Standard</div>
                     <div class="sim-summary-desc" id="dash-formula-desc">
-                        Perfetta per eventi di risonanza intermedia, che uniscono una solida scenografia a un cast energetico e coinvolgente. Ideale per festival locali e piazze cittadine.
+                        Perfetta per eventi di risonanza intermedia, che uniscono una solida scenografia a un cast energetico e coinvolgente. Ideale per festival locali e piazze cittadine sarde.
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- DIALOG SUCCESS MODAL -->
-    <div class="dialog-overlay" id="success-dialog">
+    <!-- SUCCESS MODAL -->
+    <div class="dialog-overlay" id="success-dialog" role="dialog" aria-modal="true">
         <div class="dialog-box">
             <div class="dialog-icon">✔</div>
             <h3 class="dialog-title">Richiesta Ricevuta!</h3>
             <p class="dialog-desc" id="success-message">
-                La tua richiesta è stata registrata nei nostri sistemi di pianificazione. Un nostro produttore artistico analizzerà le note inserite ed elaborerà il piano di lavoro personalizzato entro 24 ore.
+                La tua richiesta è stata inviata con successo. Un nostro produttore artistico la analizzerà ed elaborerà il piano di lavoro personalizzato entro 24 ore.
             </p>
             <button class="btn-primary" onclick="closeSuccessDialog()">Ottimo, Grazie</button>
         </div>
@@ -1533,306 +1115,250 @@
         <div class="footer-links">
             <a href="#vision">La Vision</a>
             <a href="#showcase">I Mondi</a>
+            <a href="#territorio">Dove Operiamo</a>
             <a href="#network">Ecosistema</a>
-            <a href="#prenota">Simulator</a>
+            <a href="#prenota">Pianifica Evento</a>
         </div>
         <div class="footer-divider"></div>
-        <div>© 2026 Il Campanellino — Eventi e Spettacolo. Tutti i diritti riservati. In collaborazione con Accademia Internazionale del Musical e ME.NE.E.S.CO.</div>
+        <div>© 2026 Il Campanellino — Animazione, Spettacoli ed Eventi · Cagliari, Sardegna</div>
+        <div style="margin-top: 6px; font-size: 0.78rem; color: rgba(161,161,170,0.6);">
+            In collaborazione con Accademia Internazionale del Musical e ME.NE.E.S.CO.
+        </div>
+        <div class="footer-legal-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="privacy-policy.html#cookie">Cookie Policy</a>
+            <a href="mailto:info@ilcampanellino.it">info@ilcampanellino.it</a>
+        </div>
+        <div style="margin-top: 16px; font-size: 0.72rem; color: rgba(161,161,170,0.4);">
+            Sito sviluppato da <a href="https://www.aijo-consulenteai.it" target="_blank" rel="noopener" style="color: rgba(161,161,170,0.55); text-decoration: none;">AIjò — Consulente AI</a>
+        </div>
     </footer>
 
-    <!-- PULSANTE TORNA SU -->
-    <button id="backToTop" class="back-to-top" aria-label="Torna su" onclick="scrollToTop()">
+    <!-- BACK TO TOP -->
+    <button id="backToTop" class="back-to-top" aria-label="Torna in cima" onclick="scrollToTop()">
         <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
         </svg>
     </button>
 
-    <!-- JAVASCRIPT: PARTICLES, CAROUSEL, FORM SIMULATOR, BACK TO TOP & AJAX -->
+    <!-- WHATSAPP BUTTON -->
+    <a href="https://wa.me/39XXXXXXXXXX?text=Ciao%20Il%20Campanellino%2C%20vorrei%20informazioni%20sui%20vostri%20eventi." class="whatsapp-btn" target="_blank" rel="noopener noreferrer" aria-label="Contattaci su WhatsApp">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+
+    <!-- COOKIE BANNER -->
+    <div class="cookie-banner" id="cookie-banner" role="alert">
+        <p class="cookie-text">
+            🍪 Questo sito utilizza cookie tecnici essenziali. Per maggiori informazioni consulta la nostra
+            <a href="privacy-policy.html#cookie">Cookie Policy</a>.
+        </p>
+        <div class="cookie-actions">
+            <button class="btn-cookie-reject" onclick="rejectCookies()">Solo necessari</button>
+            <button class="btn-cookie-accept" onclick="acceptCookies()">Accetta</button>
+        </div>
+    </div>
+
     <script>
-        // BACKGROUND STARDUST CANVAS PARTICLES ENGINE
+        // BACKGROUND CANVAS PARTICLES
         const canvas = document.getElementById('magic-canvas');
         const ctx = canvas.getContext('2d');
-        
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
-        
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
+        window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
 
         const particles = [];
-        const maxParticles = 80;
-        
+        const maxParticles = 200;
         class Particle {
-            constructor() {
-                this.reset();
-            }
-            
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height + height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedY = -(Math.random() * 0.7 + 0.2);
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.alpha = Math.random() * 0.5 + 0.3;
-                this.fadeSpeed = Math.random() * 0.005 + 0.002;
-                this.color = Math.random() > 0.4 ? '#FFA800' : '#EC4899'; // Oro o Magenta
+                this.size = Math.random() * 2.2 + 0.4;
+                this.speedY = -(Math.random() * 1.1 + 0.35);
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.alpha = Math.random() * 0.6 + 0.35;
+                this.fadeSpeed = Math.random() * 0.0022 + 0.0008;
+                const r = Math.random();
+                this.color = r > 0.55 ? '#FFA800' : (r > 0.2 ? '#FFE082' : '#1A7A28');
             }
-            
             update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
-                this.alpha -= this.fadeSpeed;
-                
-                if (this.y < -10 || this.alpha <= 0) {
-                    this.reset();
-                    this.y = height + 10;
-                }
+                this.y += this.speedY; this.x += this.speedX; this.alpha -= this.fadeSpeed;
+                if (this.y < -10 || this.alpha <= 0) { this.reset(); this.y = height + 10; }
             }
-            
             draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.beginPath();
+                ctx.save(); ctx.globalAlpha = this.alpha; ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.shadowColor = this.color;
-                ctx.shadowBlur = 8;
-                ctx.fill();
-                ctx.restore();
+                ctx.fillStyle = this.color; ctx.shadowColor = this.color; ctx.shadowBlur = 8;
+                ctx.fill(); ctx.restore();
             }
         }
-
-        for (let i = 0; i < maxParticles; i++) {
-            particles.push(new Particle());
-            // Pre-riempi lo schermo in altezza casuale
-            particles[i].y = Math.random() * height;
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            for (let i = 0; i < maxParticles; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
-            requestAnimationFrame(animate);
-        }
+        for (let i = 0; i < maxParticles; i++) { particles.push(new Particle()); particles[i].y = Math.random() * height; }
+        function animate() { ctx.clearRect(0, 0, width, height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
         animate();
 
-        // HERO STAGE SELECTOR (CAROUSEL)
+        // STAGE CAROUSEL
         const stageData = [
-            {
-                title: "🎭 Grandi Spettacoli & Musical",
-                desc: "Regia e produzione completa di opere teatrali e musical d'accademia, concerti e spettacoli live con allestimento scenografico e impianto luci d'effetto.",
-                beamClass: "gold"
-            },
-            {
-                title: "🧩 Laboratori Inclusivi & Ludici",
-                desc: "Esperienze didattiche ed inclusive dedicate a scuole, comuni e famiglie. Integriamo l'apprendimento relazionale attraverso la creatività, l'arte ed il gioco guidato.",
-                beamClass: "magenta"
-            },
-            {
-                title: "💍 Eventi Privati & Compleanni Élite",
-                desc: "Allestimenti sartoriali a tema, feste private da favola ed animazione professionale adatta sia ad adulti che bambini per compleanni e matrimoni indimenticabili.",
-                beamClass: "gold"
-            },
-            {
-                title: "📸 Spot e Spettacoli Commerciali",
-                desc: "Produzioni commerciali ad hoc, flash-mob a sorpresa coordinati e produzione di spot pubblicitari, riprese video e contenuti fotografici per il rilancio social delle aziende.",
-                beamClass: "cyan"
-            }
+            { title: "🎭 Grandi Spettacoli & Musical", desc: "Regia e produzione completa di opere teatrali e musical d'accademia, concerti e spettacoli live con allestimento scenografico e impianto luci d'effetto in tutta la Sardegna.", beamClass: "" },
+            { title: "🧩 Laboratori Inclusivi & Ludici", desc: "Esperienze didattiche ed inclusive dedicate a scuole, comuni e famiglie di Cagliari e della Sardegna. Integriamo l'apprendimento relazionale attraverso la creatività, l'arte ed il gioco guidato.", beamClass: "magenta" },
+            { title: "💍 Eventi Privati & Compleanni Élite", desc: "Allestimenti sartoriali a tema, feste private da favola ed animazione professionale sia per adulti che bambini. Matrimoni e compleanni indimenticabili in Sardegna.", beamClass: "" },
+            { title: "📸 Spot e Spettacoli Commerciali", desc: "Flash-mob a sorpresa coordinati e produzione di spot pubblicitari per aziende sarde. Video e contenuti fotografici professionali per il rilancio del brand sui social.", beamClass: "cyan" }
         ];
-
         let currentStageIndex = 0;
-        
         function switchStage(index) {
             currentStageIndex = index;
-            const cardTitle = document.getElementById('stage-card-title');
-            const cardDesc = document.getElementById('stage-card-desc');
-            const beam = document.getElementById('spotlight-beam');
-            const dots = document.querySelectorAll('.stage-dot');
-
-            // Cambio contenuto con animazione
             const card = document.getElementById('stage-card-area');
-            card.style.transform = 'translateY(15px)';
-            card.style.opacity = '0';
-
+            card.style.transform = 'translateY(15px)'; card.style.opacity = '0';
             setTimeout(() => {
-                cardTitle.textContent = stageData[index].title;
-                cardDesc.textContent = stageData[index].desc;
-                
-                // Aggiorna Spotlight Beam
-                beam.className = "stage-beam " + stageData[index].beamClass;
-
-                // Mostra card
-                card.style.transform = 'translateY(0)';
-                card.style.opacity = '1';
+                document.getElementById('stage-card-title').textContent = stageData[index].title;
+                document.getElementById('stage-card-desc').textContent = stageData[index].desc;
+                document.getElementById('spotlight-beam').className = "stage-beam " + stageData[index].beamClass;
+                card.style.transform = 'translateY(0)'; card.style.opacity = '1';
             }, 300);
-
-            // Aggiorna indicatori
-            dots.forEach((dot, idx) => {
-                if (idx === index) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
+            document.querySelectorAll('.stage-dot').forEach((dot, idx) => dot.classList.toggle('active', idx === index));
         }
+        setInterval(() => switchStage((currentStageIndex + 1) % stageData.length), 6000);
 
-        // Auto play stage carousel
-        setInterval(() => {
-            let next = (currentStageIndex + 1) % stageData.length;
-            switchStage(next);
-        }, 6000);
-
-        // FORM SIMULATOR LOGIC
+        // FORM SIMULATOR
         function calculateFormula() {
             const clientType = document.getElementById('tipo_cliente').value;
             const eventType = document.getElementById('tipo_evento').value;
-
-            const dashScala = document.getElementById('dash-scala');
-            const dashTipo = document.getElementById('dash-tipo');
-            const dashCast = document.getElementById('dash-cast');
-            const dashRider = document.getElementById('dash-rider');
-            const dashTitle = document.getElementById('dash-formula-title');
-            const dashDesc = document.getElementById('dash-formula-desc');
-
+            const s = { scala: '', tipo: '', cast: '', rider: '', title: '', desc: '' };
             if (clientType === "Privato") {
-                dashScala.textContent = "Evento Privato Élite";
-                if (eventType === "Matrimonio") {
-                    dashTipo.textContent = "Wedding & Allestimento Gold";
-                    dashCast.textContent = "Musicisti Classici / Performer AIM";
-                    dashRider.textContent = "Scenografia sartoriale + Audio soft";
-                    dashTitle.textContent = "Formula Incanto";
-                    dashDesc.textContent = "Studiata per cerimonie e ricevimenti esclusivi. Comprende cast di performer professionisti per l'intrattenimento ed allestimenti eleganti.";
-                } else if (eventType === "Laboratorio") {
-                    dashTipo.textContent = "Baby & Family Experience";
-                    dashCast.textContent = "Animatori & Educatori d'Élite";
-                    dashRider.textContent = "Tech Kit Ludico + Area Gioco";
-                    dashTitle.textContent = "Formula Ludus";
-                    dashDesc.textContent = "Ideale per compleanni e giornate a tema. Unisce l'educazione attiva all'intrattenimento creativo di alta qualità.";
-                } else {
-                    dashTipo.textContent = "Festa dal Vivo Custom";
-                    dashCast.textContent = "Live Band & Animatori";
-                    dashRider.textContent = "Audio Rider Standard + Luci RGB";
-                    dashTitle.textContent = "Formula Celebrazione";
-                    dashDesc.textContent = "Una festa dinamica con dj set o live band d'impatto. Ottimo per anniversari, feste di laurea e ritrovi esclusivi.";
-                }
+                s.scala = "Evento Privato Élite";
+                if (eventType === "Matrimonio") { s.tipo = "Wedding & Allestimento Gold"; s.cast = "Musicisti Classici / Performer AIM"; s.rider = "Scenografia sartoriale + Audio soft"; s.title = "Formula Incanto"; s.desc = "Studiata per cerimonie e ricevimenti esclusivi. Comprende cast di performer professionisti per l'intrattenimento ed allestimenti eleganti."; }
+                else if (eventType === "Laboratorio") { s.tipo = "Baby & Family Experience"; s.cast = "Animatori & Educatori d'Élite"; s.rider = "Tech Kit Ludico + Area Gioco"; s.title = "Formula Ludus"; s.desc = "Ideale per compleanni e giornate a tema. Unisce l'educazione attiva all'intrattenimento creativo di alta qualità."; }
+                else { s.tipo = "Festa dal Vivo Custom"; s.cast = "Live Band & Animatori"; s.rider = "Audio Rider Standard + Luci RGB"; s.title = "Formula Celebrazione"; s.desc = "Una festa dinamica con dj set o live band d'impatto. Ottimo per anniversari, feste di laurea e ritrovi esclusivi."; }
             } else if (clientType === "Azienda") {
-                dashScala.textContent = "Produzione Corporate";
-                if (eventType === "Flash-mob") {
-                    dashTipo.textContent = "Spot & Guerrilla Marketing";
-                    dashCast.textContent = "Coro/Danzatori Professionisti AIM";
-                    dashRider.textContent = "Audio Mobile + Video Maker 4K";
-                    dashTitle.textContent = "Formula Impulso Virale";
-                    dashDesc.textContent = "Un flash-mob a sorpresa programmato in luoghi pubblici in collaborazione con registi ed operatori video per massimizzare la portata social del brand.";
-                } else {
-                    dashTipo.textContent = "Brand Promotion Event";
-                    dashCast.textContent = "Speaker, Performer & Hostess";
-                    dashRider.textContent = "Schermi LED + Service Pro + Luci";
-                    dashTitle.textContent = "Formula Identità";
-                    dashDesc.textContent = "Allestimento per lanci di prodotto, fiere o cene aziendali. Combina spettacoli live raffinati a un rider audio/video per presentazioni aziendali.";
-                }
-            } else { // Ente Pubblico
-                dashScala.textContent = "Grandi Eventi Istituzionali";
-                if (eventType === "Musical") {
-                    dashTipo.textContent = "Teatro & Musical in Piazza";
-                    dashCast.textContent = "Cast AIM Completo (Recitazione, Canto, Danza)";
-                    dashRider.textContent = "Palcoscenico mobile + Service d'Élite";
-                    dashTitle.textContent = "Formula Gran Spettacolo";
-                    dashDesc.textContent = "Adatta per parate cittadine, notti bianche ed eventi istituzionali estivi. Coinvolge fino a 25 elementi di cast AIM e un service audio/luci monumentale.";
-                } else {
-                    dashTipo.textContent = "Laboratorio per la Cittadinanza";
-                    dashCast.textContent = "Formatori, Negoziatori & Attori";
-                    dashRider.textContent = "Materiale didattico + Audio Standard";
-                    dashTitle.textContent = "Formula Integrazione & Didattica";
-                    dashDesc.textContent = "Creato in sinergia metodologica con Meneesco. Percorsi e laboratori teatrali inclusivi dedicati ai giovani e alla cittadinanza per favorire coesione e risoluzione attiva dei conflitti.";
-                }
+                s.scala = "Produzione Corporate";
+                if (eventType === "Flash-mob") { s.tipo = "Spot & Guerrilla Marketing"; s.cast = "Coro/Danzatori Professionisti AIM"; s.rider = "Audio Mobile + Video Maker 4K"; s.title = "Formula Impulso Virale"; s.desc = "Un flash-mob a sorpresa programmato in luoghi pubblici della Sardegna per massimizzare la portata social del brand."; }
+                else { s.tipo = "Brand Promotion Event"; s.cast = "Speaker, Performer & Hostess"; s.rider = "Schermi LED + Service Pro + Luci"; s.title = "Formula Identità"; s.desc = "Allestimento per lanci di prodotto, fiere o cene aziendali. Combina spettacoli live raffinati a un rider audio/video."; }
+            } else {
+                s.scala = "Grandi Eventi Istituzionali";
+                if (eventType === "Musical") { s.tipo = "Teatro & Musical in Piazza"; s.cast = "Cast AIM Completo (Recitazione, Canto, Danza)"; s.rider = "Palcoscenico mobile + Service d'Élite"; s.title = "Formula Gran Spettacolo"; s.desc = "Adatta per parate cittadine, notti bianche ed eventi istituzionali estivi in Sardegna. Fino a 25 elementi di cast AIM."; }
+                else { s.tipo = "Laboratorio per la Cittadinanza"; s.cast = "Formatori, Negoziatori & Attori"; s.rider = "Materiale didattico + Audio Standard"; s.title = "Formula Integrazione & Didattica"; s.desc = "Creato in sinergia con Meneesco. Percorsi teatrali inclusivi per i giovani e la cittadinanza sarda."; }
             }
+            document.getElementById('dash-scala').textContent = s.scala;
+            document.getElementById('dash-tipo').textContent = s.tipo;
+            document.getElementById('dash-cast').textContent = s.cast;
+            document.getElementById('dash-rider').textContent = s.rider;
+            document.getElementById('dash-formula-title').textContent = s.title;
+            document.getElementById('dash-formula-desc').textContent = s.desc;
+            const nome = document.getElementById('nome').value || '';
+            const tipo = document.getElementById('tipo_evento').value;
+            document.getElementById('form-subject').value = `Nuova richiesta evento: ${tipo}${nome ? ' — ' + nome : ''} — Il Campanellino`;
         }
-
-        // Inizializza formula iniziale
         calculateFormula();
 
-        // GESTIONE PULSANTE TORNA SU
-        window.addEventListener('DOMContentLoaded', () => {
-            const backToTopBtn = document.getElementById('backToTop');
-            if (backToTopBtn) {
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 300) {
-                        backToTopBtn.classList.add('visible');
-                    } else {
-                        backToTopBtn.classList.remove('visible');
-                    }
-                });
-            }
-        });
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // SUBMIT FORM TRAMITE API FASTAPI (AJAX)
+        // FORM SUBMIT — Web3Forms
         async function handleFormSubmit(event) {
             event.preventDefault();
-
+            const form = event.target;
+            const submitBtn = document.getElementById('submit-btn');
             const nome = document.getElementById('nome').value;
-            const tipo_cliente = document.getElementById('tipo_cliente').value;
-            const tipo_evento = document.getElementById('tipo_evento').value;
             const email = document.getElementById('email').value;
-            const dettagli = document.getElementById('dettagli').value;
-
-            const submitBtn = event.target.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = "Registrazione in corso...";
+            const tipo_evento = document.getElementById('tipo_evento').value;
+            document.getElementById('form-subject').value = `Nuova richiesta evento: ${tipo_evento} — ${nome} — Il Campanellino`;
+            submitBtn.textContent = "Invio in corso...";
             submitBtn.disabled = true;
-
             try {
-                const response = await fetch('/api/contatto', {
+                const formData = new FormData(form);
+                const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        nome,
-                        tipo_cliente,
-                        email,
-                        tipo_evento,
-                        dettagli
-                    })
+                    body: formData
                 });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    document.getElementById('success-message').innerHTML = `Grazie, <strong>${nome}</strong>! La tua richiesta per un evento di tipo <strong>${tipo_evento}</strong> è stata protocollata con successo nei nostri archivi produttivi.<br><br>Il nostro direttore artistico prenderà in carico la tua formula ed elaborerà il progetto relazionandosi direttamente con l'indirizzo <strong>${email}</strong>.<br><br>Un consulente si metterà in contatto telefonico o tramite video-call gratuita entro 24 ore.`;
+                const data = await response.json();
+                if (data.success) {
+                    document.getElementById('success-message').innerHTML = `Grazie, <strong>${nome}</strong>! La tua richiesta per un evento di tipo <strong>${tipo_evento}</strong> è stata inviata con successo.<br><br>Il nostro team artistico elaborerà una proposta personalizzata e ti contatterà entro 24 ore all'indirizzo <strong>${email}</strong>.`;
                 } else {
-                    throw new Error("Risposta API non valida.");
+                    throw new Error(data.message || "Errore invio");
                 }
-
-                // Mostra modal successo
                 document.getElementById('success-dialog').classList.add('active');
             } catch (err) {
-                console.error("Errore durante l'invio:", err);
-                // Fallback client-side (se lanciato senza server)
-                document.getElementById('success-message').innerHTML = `Grazie, <strong>${nome}</strong>!<br><br>La tua richiesta per un evento di tipo <strong>${tipo_evento}</strong> è stata simulata in modalità locale con successo.<br><br>Il nostro team artistico è pronto a pianificare la tua formula personalizzata non appena il server di rete sarà attivo. Ti contatteremo presto all'indirizzo <strong>${email}</strong>.`;
+                document.getElementById('success-message').innerHTML = `Grazie, <strong>${nome}</strong>! A causa di un problema tecnico temporaneo, ti chiediamo di contattarci direttamente via email o WhatsApp. Ci scusiamo per il disagio.`;
                 document.getElementById('success-dialog').classList.add('active');
             } finally {
-                submitBtn.textContent = originalText;
+                submitBtn.textContent = "Invia Richiesta di Produzione";
                 submitBtn.disabled = false;
             }
         }
-
         function closeSuccessDialog() {
             document.getElementById('success-dialog').classList.remove('active');
-            // Resetta form
             document.getElementById('contact-form').reset();
             calculateFormula();
         }
+
+        // BACK TO TOP
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (btn) btn.classList.toggle('visible', window.scrollY > 300);
+        });
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+        // HAMBURGER MENU
+        const hamburger = document.getElementById('hamburger-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        hamburger.addEventListener('click', () => {
+            const isOpen = mobileNav.classList.toggle('open');
+            hamburger.classList.toggle('open', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+        function closeMobileNav() {
+            mobileNav.classList.remove('open');
+            hamburger.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', false);
+            document.body.style.overflow = '';
+        }
+
+        // COOKIE BANNER
+        function initCookieBanner() {
+            const consent = localStorage.getItem('campanellino_cookie_consent');
+            if (!consent) {
+                setTimeout(() => document.getElementById('cookie-banner').classList.add('visible'), 800);
+            }
+        }
+        function acceptCookies() {
+            localStorage.setItem('campanellino_cookie_consent', 'accepted');
+            document.getElementById('cookie-banner').classList.remove('visible');
+        }
+        function rejectCookies() {
+            localStorage.setItem('campanellino_cookie_consent', 'rejected');
+            document.getElementById('cookie-banner').classList.remove('visible');
+        }
+        initCookieBanner();
+
+        // LUCE DEL FARETTO — il background si illumina dal giallo del logo man mano che si scende
+        (function() {
+            // Dal nero →  giallo profondo del faretto (versione scura del brand #FFA800)
+            const from = { r: 7,   g: 5,   b: 18 }; // #070512
+            const to   = { r: 122, g: 88,  b: 0  }; // #7A5800 — giallo scuro del logo
+
+            // La luce parte dalla "pozza" del faretto: quando l'utente ha scrollato
+            // circa 80% di un viewport (la base del cono esce dalla vista)
+            const START_PX = Math.round(window.innerHeight * 0.80);
+
+            function lerp(a, b, t) { return Math.round(a + (b - a) * t); }
+            function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+
+            function updateLight() {
+                const maxScroll = document.body.scrollHeight - window.innerHeight;
+                if (maxScroll <= 0) return;
+
+                const scrollPastPool = Math.max(0, window.scrollY - START_PX);
+                const range = maxScroll - START_PX;
+                const raw   = range > 0 ? Math.min(1, scrollPastPool / range) : 0;
+                const eased = easeOutQuart(raw);
+
+                document.body.style.backgroundColor =
+                    `rgb(${lerp(from.r, to.r, eased)},${lerp(from.g, to.g, eased)},${lerp(from.b, to.b, eased)})`;
+            }
+
+            window.addEventListener('scroll', updateLight, { passive: true });
+            window.addEventListener('resize', () => { updateLight(); });
+            updateLight();
+        })();
     </script>
 </body>
-
 </html>

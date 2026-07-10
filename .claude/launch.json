@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "social-pesca",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-p", "4500", "progetti/social_pesca"],
+      "port": 4500
+    }
+  ]
+}

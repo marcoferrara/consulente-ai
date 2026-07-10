@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy & Cookie Policy — Il Campanellino</title>
+    <meta name="description" content="Privacy Policy e Cookie Policy del sito Il Campanellino — Animazione ed Eventi in Sardegna. Informativa sul trattamento dei dati personali ai sensi del GDPR.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://il-campanellino.github.io/privacy-policy.html">
+    <link rel="icon" type="image/png" href="Logo Campanellino.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #070512;
+            --bg-secondary: #130E29;
+            --brand-primary: #FFA800;
+            --brand-primary-light: #FFE082;
+            --brand-secondary: #EC4899;
+            --text-main: #F3F4F6;
+            --text-muted: #A1A1AA;
+            --border-color: rgba(255, 168, 0, 0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+        header {
+            background: rgba(7, 5, 18, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo-link {
+            display: flex; align-items: center; gap: 10px;
+            text-decoration: none; color: inherit;
+        }
+        .logo-link img { width: 36px; height: 36px; border-radius: 50%; object-fit: contain; }
+        .logo-name {
+            font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.2rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--brand-primary-light) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .back-link {
+            color: var(--brand-primary); text-decoration: none; font-size: 0.85rem;
+            font-weight: 600; display: flex; align-items: center; gap: 6px;
+            transition: opacity 0.2s;
+        }
+        .back-link:hover { opacity: 0.75; }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 60px 6% 80px 6%;
+        }
+        .page-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem; font-weight: 800;
+            background: linear-gradient(to right, #FFFFFF, var(--brand-primary-light));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+        .page-subtitle {
+            font-size: 0.88rem; color: var(--text-muted); margin-bottom: 40px;
+        }
+        .toc {
+            background: rgba(19, 14, 41, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 25px 30px; margin-bottom: 50px;
+        }
+        .toc-title {
+            font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.15em;
+            color: var(--brand-primary); margin-bottom: 14px;
+        }
+        .toc ol { list-style: none; counter-reset: toc-counter; padding: 0; }
+        .toc ol li {
+            counter-increment: toc-counter; font-size: 0.88rem;
+            color: var(--text-muted); padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .toc ol li:last-child { border-bottom: none; }
+        .toc ol li::before { content: counter(toc-counter) ". "; color: var(--brand-primary); font-weight: 600; }
+        .toc ol li a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+        .toc ol li a:hover { color: var(--brand-primary); }
+
+        .section { margin-bottom: 45px; scroll-margin-top: 80px; }
+        h2 {
+            font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 700;
+            color: #FFFFFF; margin-bottom: 16px; padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 168, 0, 0.15);
+            display: flex; align-items: center; gap: 10px;
+        }
+        h2 .section-num {
+            background: rgba(255, 168, 0, 0.1); border: 1px solid rgba(255, 168, 0, 0.2);
+            border-radius: 6px; padding: 2px 8px; font-size: 0.75rem;
+            color: var(--brand-primary); font-weight: 700;
+        }
+        h3 {
+            font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700;
+            color: #FFFFFF; margin: 22px 0 10px 0;
+        }
+        p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px; }
+        ul, ol { padding-left: 20px; margin-bottom: 14px; }
+        li { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 6px; }
+        strong { color: var(--text-main); font-weight: 600; }
+        a { color: var(--brand-primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .highlight-box {
+            background: rgba(255, 168, 0, 0.04);
+            border: 1px solid rgba(255, 168, 0, 0.15);
+            border-radius: 12px; padding: 18px 20px; margin: 18px 0;
+        }
+        .highlight-box p { margin-bottom: 0; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.85rem; }
+        .data-table th {
+            background: rgba(255, 168, 0, 0.08); color: var(--brand-primary-light);
+            padding: 10px 14px; text-align: left; font-weight: 600;
+            border-bottom: 1px solid rgba(255, 168, 0, 0.2); font-size: 0.78rem;
+            text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .data-table td {
+            padding: 10px 14px; color: var(--text-muted);
+            border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top;
+        }
+        .data-table tr:last-child td { border-bottom: none; }
+        .update-date {
+            font-size: 0.78rem; color: rgba(161,161,170,0.5); text-align: center;
+            margin-top: 50px; padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo-link">
+        <img src="Logo Campanellino.png" alt="Logo Il Campanellino">
+        <span class="logo-name">IL CAMPANELLINO</span>
+    </a>
+    <a href="index.html" class="back-link">← Torna al sito</a>
+</header>
+
+<main class="container">
+    <h1 class="page-title">Privacy Policy</h1>
+    <p class="page-subtitle">Informativa sul trattamento dei dati personali ai sensi del Regolamento UE 2016/679 (GDPR) — Ultimo aggiornamento: 22 giugno 2026</p>
+
+    <nav class="toc" aria-label="Indice">
+        <div class="toc-title">Indice</div>
+        <ol>
+            <li><a href="#titolare">Titolare del trattamento</a></li>
+            <li><a href="#dati-raccolti">Dati raccolti e finalità</a></li>
+            <li><a href="#base-giuridica">Base giuridica del trattamento</a></li>
+            <li><a href="#conservazione">Conservazione dei dati</a></li>
+            <li><a href="#destinatari">Destinatari e trasferimenti</a></li>
+            <li><a href="#diritti">I tuoi diritti</a></li>
+            <li><a href="#cookie">Cookie Policy</a></li>
+            <li><a href="#contatti">Contatti</a></li>
+        </ol>
+    </nav>
+
+    <section id="titolare" class="section">
+        <h2><span class="section-num">1</span> Titolare del Trattamento</h2>
+        <div class="highlight-box">
+            <p>
+                <strong>La Sorgente — Associazione culturale non profit</strong><br>
+                📍 Via Luxemburg, 12 — Settimo San Pietro — 09060 (CA) — Italia<br>
+                📧 <a href="mailto:lasorgente.gestionale@gmail.com">lasorgente.gestionale@gmail.com</a>
+            </p>
+        </div>
+        <p>Il Titolare del trattamento è la persona fisica o giuridica che determina le finalità e i mezzi del trattamento dei dati personali. Per qualsiasi questione relativa alla privacy, puoi contattarci ai recapiti indicati sopra.</p>
+    </section>
+
+    <section id="dati-raccolti" class="section">
+        <h2><span class="section-num">2</span> Dati Raccolti e Finalità</h2>
+        <p>Il sito raccoglie dati personali esclusivamente su base volontaria, tramite il modulo di contatto presente nella sezione "Pianifica il Tuo Evento".</p>
+
+        <h3>2.1 Dati forniti volontariamente</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Dato</th>
+                    <th>Finalità</th>
+                    <th>Obbligatorio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Nome e cognome</strong></td>
+                    <td>Identificare il richiedente e personalizzare la risposta</td>
+                    <td>Sì</td>
+                </tr>
+                <tr>
+                    <td><strong>Indirizzo e-mail</strong></td>
+                    <td>Inviare la risposta alla richiesta di informazioni</td>
+                    <td>Sì</td>
+                </tr>
+                <tr>
+                    <td><strong>Numero di telefono</strong></td>
+                    <td>Contatto telefonico o via WhatsApp per approfondire la richiesta</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><strong>Tipo committente / evento</strong></td>
+                    <td>Personalizzare l'offerta e il preventivo</td>
+                    <td>Sì</td>
+                </tr>
+                <tr>
+                    <td><strong>Note sull'evento</strong></td>
+                    <td>Comprendere le esigenze specifiche dell'evento richiesto</td>
+                    <td>No</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>2.2 Dati di navigazione</h3>
+        <p>I sistemi informatici e le procedure software preposte al funzionamento del sito acquisiscono, nel corso del loro normale esercizio, alcuni dati personali la cui trasmissione è implicita nell'uso dei protocolli di comunicazione internet. Questi dati (indirizzi IP, tipo di browser, sistema operativo, pagine visitate) vengono utilizzati esclusivamente per finalità statistiche anonime e di sicurezza.</p>
+    </section>
+
+    <section id="base-giuridica" class="section">
+        <h2><span class="section-num">3</span> Base Giuridica del Trattamento</h2>
+        <ul>
+            <li><strong>Consenso esplicito</strong> (art. 6, par. 1, lett. a GDPR): per il trattamento dei dati forniti tramite il modulo di contatto, prestato mediante la spunta della casella di consenso prima dell'invio.</li>
+            <li><strong>Esecuzione di misure precontrattuali</strong> (art. 6, par. 1, lett. b GDPR): per elaborare la risposta alla richiesta di preventivo o informazioni.</li>
+            <li><strong>Legittimo interesse</strong> (art. 6, par. 1, lett. f GDPR): per finalità di sicurezza informatica e antifrode.</li>
+        </ul>
+    </section>
+
+    <section id="conservazione" class="section">
+        <h2><span class="section-num">4</span> Conservazione dei Dati</h2>
+        <p>I dati personali forniti tramite il modulo di contatto saranno conservati per il tempo strettamente necessario a evadere la richiesta e, in caso di instaurazione di un rapporto contrattuale, per il periodo previsto dalla normativa fiscale e civilistica applicabile (generalmente <strong>10 anni</strong>).</p>
+        <p>In assenza di rapporto contrattuale, i dati saranno cancellati entro <strong>12 mesi</strong> dalla ricezione della richiesta, salvo diversa indicazione dell'interessato.</p>
+    </section>
+
+    <section id="destinatari" class="section">
+        <h2><span class="section-num">5</span> Destinatari e Trasferimenti</h2>
+        <p>I tuoi dati non vengono venduti né ceduti a terzi a fini commerciali. Possono essere condivisi con:</p>
+        <ul>
+            <li><strong>Web3Forms</strong> (web3forms.com) — servizio di ricezione moduli, con sede nell'Unione Europea o con adeguate garanzie di trasferimento. Consulta la loro <a href="https://web3forms.com/privacy" target="_blank" rel="noopener">privacy policy</a>.</li>
+            <li><strong>Provider di hosting</strong> (GitHub Pages) per l'erogazione del servizio web.</li>
+            <li><strong>Collaboratori interni</strong> (staff artistico e organizzativo de Il Campanellino) nei limiti strettamente necessari all'evasione della richiesta.</li>
+        </ul>
+        <p>I dati non vengono trasferiti in Paesi al di fuori dello Spazio Economico Europeo, se non con le garanzie previste dal GDPR (decisioni di adeguatezza, clausole contrattuali standard).</p>
+    </section>
+
+    <section id="diritti" class="section">
+        <h2><span class="section-num">6</span> I Tuoi Diritti</h2>
+        <p>Ai sensi degli artt. 15–22 GDPR, hai il diritto di:</p>
+        <ul>
+            <li><strong>Accesso</strong>: ottenere conferma che siano trattati dati che ti riguardano e una copia degli stessi.</li>
+            <li><strong>Rettifica</strong>: far correggere dati inesatti o incompleti.</li>
+            <li><strong>Cancellazione</strong> ("diritto all'oblio"): ottenere la cancellazione dei dati nelle ipotesi previste dalla legge.</li>
+            <li><strong>Limitazione del trattamento</strong>: nei casi previsti dall'art. 18 GDPR.</li>
+            <li><strong>Portabilità</strong>: ricevere i dati in formato strutturato e leggibile da dispositivo automatico.</li>
+            <li><strong>Opposizione</strong>: opporti al trattamento in qualsiasi momento per motivi connessi alla tua situazione particolare.</li>
+            <li><strong>Revoca del consenso</strong>: revocare il consenso prestato in qualsiasi momento, senza pregiudizio per la liceità del trattamento basato sul consenso prima della revoca.</li>
+        </ul>
+        <p>Per esercitare i tuoi diritti, invia una richiesta a <a href="mailto:lasorgente.gestionale@gmail.com">lasorgente.gestionale@gmail.com</a>. Hai inoltre il diritto di proporre reclamo al <strong>Garante per la Protezione dei Dati Personali</strong> (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">garanteprivacy.it</a>).</p>
+    </section>
+
+    <section id="cookie" class="section">
+        <h2><span class="section-num">7</span> Cookie Policy</h2>
+        <p>Questa sezione descrive come il sito utilizza i cookie e tecnologie simili, in conformità al D.Lgs. 196/2003 e s.m.i. e al Provvedimento del Garante dell'8 gennaio 2015.</p>
+
+        <h3>7.1 Cosa sono i cookie</h3>
+        <p>I cookie sono piccoli file di testo che i siti web visitati inviano al browser dell'utente, dove vengono memorizzati prima di essere ritrasmessi agli stessi siti alla visita successiva. Permettono al sito di ricordare le preferenze e migliorare l'esperienza di navigazione.</p>
+
+        <h3>7.2 Cookie utilizzati da questo sito</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Nome cookie</th>
+                    <th>Tipo</th>
+                    <th>Durata</th>
+                    <th>Finalità</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>campanellino_cookie_consent</code></td>
+                    <td>Tecnico (localStorage)</td>
+                    <td>Persistente</td>
+                    <td>Memorizza la scelta dell'utente sul banner cookie per non riproporre il consenso ad ogni visita.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Questo sito <strong>non utilizza cookie di profilazione, cookie di terze parti a fini pubblicitari, né strumenti di tracciamento analitico</strong> (es. Google Analytics) nella configurazione attuale.</p>
+
+        <h3>7.3 Come gestire i cookie</h3>
+        <p>Puoi gestire le preferenze sui cookie direttamente dal banner che compare alla prima visita del sito, oppure tramite le impostazioni del tuo browser. Ogni browser ha procedure differenti; consulta la guida del tuo browser:</p>
+        <ul>
+            <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+            <li><a href="https://support.mozilla.org/it/kb/Gestione%20dei%20cookie" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+            <li><a href="https://support.apple.com/it-it/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Apple Safari</a></li>
+            <li><a href="https://support.microsoft.com/it-it/microsoft-edge/eliminare-i-cookie-in-microsoft-edge" target="_blank" rel="noopener">Microsoft Edge</a></li>
+        </ul>
+        <p>La disabilitazione dei cookie tecnici potrebbe pregiudicare alcune funzionalità del sito.</p>
+    </section>
+
+    <section id="contatti" class="section">
+        <h2><span class="section-num">8</span> Contatti per la Privacy</h2>
+        <div class="highlight-box">
+            <p>Per qualsiasi questione relativa al trattamento dei tuoi dati personali o per esercitare i tuoi diritti, contattaci:<br><br>
+            📧 <a href="mailto:lasorgente.gestionale@gmail.com">lasorgente.gestionale@gmail.com</a><br>
+            📍 La Sorgente — Via Luxemburg, 12 — Settimo San Pietro — 09060 (CA)
+            </p>
+        </div>
+        <p>Ci impegniamo a rispondere entro 30 giorni dalla ricezione della tua richiesta, come previsto dal GDPR.</p>
+    </section>
+
+    <p class="update-date">
+        Documento redatto ai sensi del Regolamento UE 2016/679 (GDPR) e del D.Lgs. 196/2003.<br>
+        Ultimo aggiornamento: 22 giugno 2026. Il Campanellino si riserva il diritto di aggiornare questa informativa.
+    </p>
+</main>
+
+<footer style="text-align: center; padding: 24px 6%; border-top: 1px solid rgba(255,255,255,0.04); font-size: 0.75rem; color: rgba(161,161,170,0.45);">
+    Sito sviluppato da <a href="https://www.aijo-consulenteai.it" target="_blank" rel="noopener" style="color: rgba(161,161,170,0.6); text-decoration: none;">AIjò — Consulente AI</a>
+</footer>
+
+</body>
+</html>

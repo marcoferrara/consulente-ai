@@ -36,6 +36,19 @@
         content="Consulenza in intelligenza artificiale per le imprese sarde. Strategie, implementazioni e formazione AI su misura per il territorio." />
     <meta name="twitter:image" content="https://www.aijo-consulenteai.it/assets/rebranding/logo_aijo_ai_text.png" />
 
+    <!-- Google tag (gtag.js) - il tracciamento resta "denied" finché l'utente non accetta i cookie analitici -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KRBFC0QFZQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('consent', 'default', {
+            'analytics_storage': 'denied',
+            'ad_storage': 'denied'
+        });
+        gtag('config', 'G-KRBFC0QFZQ');
+    </script>
+
     <!-- Local Business Structured Data (Schema.org) -->
     <script type="application/ld+json">
     {
@@ -3564,6 +3577,11 @@
 
         function applyConsent(consent) {
             window.cookiePreferences = consent;
+            // Aggiorna il Consent Mode di Google in base alle scelte dell'utente
+            gtag('consent', 'update', {
+                'analytics_storage': consent.analytics ? 'granted' : 'denied',
+                'ad_storage': consent.marketing ? 'granted' : 'denied'
+            });
             if (consent.analytics) {
                 console.log("Cookie Analitici abilitati per AIjò.");
                 loadGA4();

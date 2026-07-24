@@ -8,5 +8,17 @@
         "tipo_evento": "Musical",
         "dettagli": "Progetto Musical in Piazza per Natale.",
         "stato": "Nuova Richiesta"
+    },
+    {
+        "id": "20260720174612",
+        "data_registrazione": "20/07/2026 alle ore 17:46:12",
+        "nome": "Marco Ferrara",
+        "tipo_cliente": "Azienda",
+        "email": "ahahahaha@ghghg.com",
+        "tipo_evento": "Laboratorio",
+        "telefono": "2314i2i333",
+        "dettagli": "Prova",
+        "variante_ab": "A",
+        "stato": "Nuova Richiesta"
     }
 ]

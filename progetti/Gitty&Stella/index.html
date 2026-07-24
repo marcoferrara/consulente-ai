@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gitty&amp;Stella — Appartamento vacanze a Oristano</title>
+    <meta name="description" content="Appartamento per affitti brevi in Via Sardegna, Oristano. Prenota diretto su WhatsApp, senza commissioni.">
+    <link rel="alternate" hreflang="it" href="./index.html">
+    <link rel="alternate" hreflang="en" href="./index.html">
+    <link rel="alternate" hreflang="de" href="./index.html">
+    <link rel="alternate" hreflang="fr" href="./index.html">
+    <link rel="alternate" hreflang="x-default" href="./index.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Gitty&Stella",
+      "description": "Appartamento per affitti brevi in Via Sardegna, Oristano, Sardegna.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Via Sardegna",
+        "addressLocality": "Oristano",
+        "addressRegion": "OR",
+        "addressCountry": "IT"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 39.9033,
+        "longitude": 8.5897
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "C'è il parcheggio?", "acceptedAnswer": {"@type": "Answer", "text": "Sì, è disponibile un parcheggio gratuito nelle vicinanze (dettagli da confermare)."}},
+        {"@type": "Question", "name": "Come funziona il check-in?", "acceptedAnswer": {"@type": "Answer", "text": "Check-in autonomo con orario flessibile, istruzioni inviate via WhatsApp prima dell'arrivo."}},
+        {"@type": "Question", "name": "Sono ammessi animali domestici?", "acceptedAnswer": {"@type": "Answer", "text": "Su richiesta, da verificare prima di prenotare."}},
+        {"@type": "Question", "name": "Qual è la politica di cancellazione?", "acceptedAnswer": {"@type": "Answer", "text": "Cancellazione flessibile fino a pochi giorni prima dell'arrivo."}},
+        {"@type": "Question", "name": "Quanto distano le spiagge?", "acceptedAnswer": {"@type": "Answer", "text": "Marina di Torregrande è a circa 15 minuti in auto, il Sinis a circa 30 minuti."}},
+        {"@type": "Question", "name": "C'è una tassa di soggiorno?", "acceptedAnswer": {"@type": "Answer", "text": "Sì, si paga in loco per persona a notte, importo da confermare con il Comune di Oristano."}},
+        {"@type": "Question", "name": "Devo fornire un documento d'identità?", "acceptedAnswer": {"@type": "Answer", "text": "Sì, per legge registriamo i dati di tutti gli ospiti maggiorenni entro 24 ore dall'arrivo (Alloggiati Web)."}}
+      ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --sand: #f5ecd8;
+            --sand-deep: #e8d8b8;
+            --ink: #241c15;
+            --ink-soft: #6b5c49;
+            --rust: #bf4a28;
+            --rust-deep: #94331a;
+            --rust-tint: #f0d9c8;
+            --teal: #1f5c54;
+            --teal-deep: #12332f;
+            --cream: #fffaf0;
+            --line: rgba(36, 28, 21, 0.14);
+            --wa-green: #25d366;
+            --wa-dark: #0b3b36;
+            --wa-bubble-in: #ffffff;
+            --wa-bubble-out: #d7ecc9;
+            --font-display: 'Fraunces', serif;
+            --font-body: 'Work Sans', sans-serif;
+            --radius: 22px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--sand);
+            color: var(--ink);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3, .brand, .kicker-num { font-family: var(--font-display); }
+
+        a { color: inherit; text-decoration: none; }
+
+        img { max-width: 100%; display: block; }
+
+        .ph img, .ph { filter: sepia(0.12) saturate(1.22) contrast(1.04) brightness(0.99); }
+
+        .container { max-width: 1180px; margin: 0 auto; padding: 0 1.6rem; }
+
+        .kicker {
+            display: inline-flex; align-items: baseline; gap: 0.6rem;
+            font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+            color: var(--rust); font-weight: 600; margin-bottom: 0.9rem;
+        }
+        .kicker::before { content: ""; width: 22px; height: 1.5px; background: var(--rust); display: inline-block; }
+
+        /* HEADER */
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(245, 236, 216, 0.88);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+        .nav-wrap {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.1rem 1.6rem; max-width: 1180px; margin: 0 auto; gap: 1rem;
+        }
+        .brand {
+            font-size: 1.5rem; font-weight: 600; color: var(--ink); display: flex; align-items: center; gap: 0.5rem;
+            font-style: italic;
+        }
+        .brand span { color: var(--rust); }
+        nav.links { display: none; gap: 1.8rem; align-items: center; }
+        nav.links a {
+            font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+            color: var(--ink-soft); transition: color 0.2s; position: relative;
+        }
+        nav.links a:hover { color: var(--rust); }
+        .lang-switch { display: flex; gap: 0.2rem; border: 1px solid var(--line); border-radius: 999px; padding: 0.2rem; }
+        .lang-switch button {
+            border: none; background: none; border-radius: 999px; padding: 0.32rem 0.6rem;
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.03em; cursor: pointer; color: var(--ink-soft);
+        }
+        .lang-switch button.active { background: var(--teal); color: #fff; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.55rem;
+            padding: 0.8rem 1.5rem; border-radius: 999px; font-weight: 600; font-size: 0.92rem;
+            cursor: pointer; border: none; transition: transform 0.18s, box-shadow 0.18s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-wa { background: var(--wa-green); color: #06331f; box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
+        .btn-rust { background: var(--rust); color: #fff9f2; box-shadow: 0 8px 20px rgba(191,74,40,0.28); }
+        .btn-outline { background: transparent; border: 1.5px solid var(--teal); color: var(--teal); }
+        .btn-ghost-light { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.35); color: #fff; }
+
+        @media (min-width: 920px) { nav.links { display: flex; } }
+
+        /* WAVE DIVIDER */
+        .wave { display: block; width: 100%; height: 46px; margin-top: -2px; }
+
+        /* HERO */
+        .hero { padding: 3.2rem 0 0; position: relative; }
+        .hero-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center; padding-bottom: 3rem; }
+        @media (min-width: 960px) { .hero-grid { grid-template-columns: 1.05fr 0.95fr; } }
+        .hero h1 {
+            font-size: clamp(2.4rem, 5.4vw, 3.8rem); font-weight: 600; line-height: 1.05; margin-bottom: 1.1rem; letter-spacing: -0.01em;
+        }
+        .hero h1 em { color: var(--rust); font-style: italic; font-weight: 500; }
+        .hero p.subtitle { color: var(--ink-soft); font-size: 1.08rem; max-width: 480px; }
+        .trust-strip { display: flex; flex-wrap: wrap; gap: 1.4rem; margin-top: 1.6rem; font-size: 0.85rem; color: var(--ink-soft); }
+        .trust-strip span { display: flex; align-items: center; gap: 0.4rem; }
+        .trust-strip i { color: var(--rust); }
+        .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.8rem; }
+
+        .hero-visual { position: relative; }
+        .hero-image {
+            border-radius: 32px 32px 32px 6px; overflow: hidden; aspect-ratio: 4/3.1;
+            box-shadow: 0 30px 60px rgba(36,28,21,0.28);
+        }
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+        .float-card {
+            position: absolute; bottom: -1.6rem; left: -1.6rem;
+            background: var(--cream); border-radius: 16px; padding: 1rem 1.3rem;
+            box-shadow: 0 16px 30px rgba(36,28,21,0.22); display: flex; align-items: center; gap: 0.8rem;
+        }
+        .float-card .price { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--rust); }
+        .float-card .label { font-size: 0.72rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em; }
+        @media (max-width: 600px) { .float-card { left: 0.8rem; bottom: -1.2rem; padding: 0.8rem 1rem; } }
+
+        /* SECTION GENERIC */
+        section { padding: 5rem 0; position: relative; }
+        .section-title { font-size: clamp(1.8rem, 3.4vw, 2.5rem); font-weight: 600; margin-bottom: 0.6rem; letter-spacing: -0.01em; }
+        .section-sub { color: var(--ink-soft); margin-bottom: 2.6rem; max-width: 620px; font-size: 1.03rem; }
+        .placeholder-note {
+            font-size: 0.78rem; color: var(--ink-soft); font-style: italic;
+            background: var(--sand-deep); display: inline-block; padding: 0.35rem 0.8rem; border-radius: 8px; margin-top: 0.9rem;
+        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+        .fade-in { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+        .fade-in:nth-child(1) { animation-delay: 0.05s; }
+        .fade-in:nth-child(2) { animation-delay: 0.15s; }
+        .fade-in:nth-child(3) { animation-delay: 0.25s; }
+        .fade-in:nth-child(4) { animation-delay: 0.35s; }
+        .fade-in:nth-child(5) { animation-delay: 0.45s; }
+
+        .band-sand { background: var(--sand-deep); }
+
+        /* VALUE PROP */
+        .value-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        @media (min-width: 700px) { .value-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1000px) { .value-grid { grid-template-columns: repeat(4, 1fr); } }
+        .value-card {
+            background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius);
+            padding: 1.8rem 1.6rem; text-align: left; transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .value-card:hover { transform: translateY(-4px); box-shadow: 0 18px 34px rgba(36,28,21,0.12); }
+        .value-card i { font-size: 1.5rem; color: var(--teal); margin-bottom: 1rem; display: block; }
+        .value-card h3 { font-size: 1.08rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .value-card p { font-size: 0.92rem; color: var(--ink-soft); }
+
+        /* GALLERY */
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+        @media (min-width: 800px) { .gallery-grid { grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 1fr 1fr; } }
+        .gallery-grid figure { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 1/1; background: var(--sand-deep); }
+        @media (min-width: 800px) {
+            .gallery-grid figure:first-child { grid-row: 1 / 3; aspect-ratio: auto; }
+        }
+        .gallery-grid img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-badge {
+            position: absolute; bottom: 0.6rem; left: 0.6rem;
+            background: rgba(18,51,47,0.75); color: #fff; font-size: 0.65rem; padding: 0.25rem 0.6rem; border-radius: 6px;
+            letter-spacing: 0.03em; text-transform: uppercase;
+        }
+
+        /* DESCRIPTION */
+        .desc-wrap { display: grid; grid-template-columns: 1fr; gap: 2.4rem; }
+        @media (min-width: 900px) { .desc-wrap { grid-template-columns: 1fr 1fr; } }
+        .stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.6rem; }
+        .stat { background: var(--cream); border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.3rem; text-align: center; min-width: 96px; }
+        .stat .num { font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; color: var(--rust); display: block; }
+        .stat .label { font-size: 0.75rem; color: var(--ink-soft); }
+
+        /* AMENITIES */
+        .amenities-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+        @media (min-width: 640px) { .amenities-grid { grid-template-columns: repeat(4, 1fr); } }
+        .amenity { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; background: var(--cream); border: 1px solid var(--line); border-radius: 14px; padding: 1.3rem 0.7rem; text-align: center; }
+        .amenity i { font-size: 1.35rem; color: var(--teal); }
+        .amenity span { font-size: 0.83rem; font-weight: 500; }
+
+        /* AREA */
+        .area-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        @media (min-width: 900px) { .area-grid { grid-template-columns: repeat(3, 1fr); } }
+        .area-card { background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.8rem; }
+        .area-card i { font-size: 1.5rem; color: var(--rust); margin-bottom: 0.8rem; display: block; }
+        .area-card h3 { margin-bottom: 0.5rem; font-size: 1.12rem; font-weight: 600; }
+        .area-card p { color: var(--ink-soft); font-size: 0.92rem; }
+        .map-embed { border-radius: var(--radius); overflow: hidden; margin-bottom: 1.8rem; border: 1px solid var(--line); filter: sepia(0.15) saturate(0.85); }
+        .map-embed iframe { width: 100%; height: 320px; border: 0; display: block; }
+
+        /* CHAT WIDGET */
+        .chat-section {
+            background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.06), transparent 60%), linear-gradient(160deg, var(--teal-deep), #0a2422);
+            border-radius: 32px; padding: 3rem 2.2rem; color: #fff; overflow: hidden; position: relative;
+        }
+        .chat-section .section-title, .chat-section .section-sub { color: #fff; }
+        .chat-section .section-sub { color: rgba(255,255,255,0.72); }
+        .chat-section .kicker { color: #f2b48c; }
+        .chat-section .kicker::before { background: #f2b48c; }
+        .chat-box {
+            background: #e9e0d3; border-radius: 20px; max-width: 460px; margin: 0 auto; overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+        .chat-header { background: var(--wa-dark); color: #fff; padding: 1rem 1.2rem; display: flex; align-items: center; gap: 0.7rem; font-weight: 600; }
+        .chat-header .status { font-size: 0.72rem; font-weight: 400; opacity: 0.8; display: block; }
+        .chat-messages { height: 380px; overflow-y: auto; padding: 1.1rem; display: flex; flex-direction: column; gap: 0.55rem; }
+        .msg { max-width: 84%; padding: 0.6rem 0.85rem; border-radius: 12px; font-size: 0.88rem; line-height: 1.45; word-wrap: break-word; }
+        .msg.in { background: var(--wa-bubble-in); align-self: flex-start; border-top-left-radius: 3px; color: #1a1a1a; }
+        .msg.out { background: var(--wa-bubble-out); align-self: flex-end; border-top-right-radius: 3px; color: #1a1a1a; }
+        .msg img { border-radius: 10px; margin-top: 0.5rem; max-width: 100%; }
+        .msg.system { align-self: center; background: #fdecc8; color: #6b4a1a; font-size: 0.78rem; text-align: center; }
+        .chat-input-row { display: flex; gap: 0.5rem; padding: 0.8rem; background: #f2ede2; }
+        .chat-input-row input { flex: 1; border: none; border-radius: 999px; padding: 0.65rem 1.1rem; font-size: 0.88rem; font-family: var(--font-body); }
+        .chat-input-row button {
+            background: var(--wa-green); color: #06331f; border: none; border-radius: 50%;
+            width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
+        }
+        .chat-reset { text-align: center; margin-top: 1.4rem; }
+        .chat-reset button { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 999px; padding: 0.45rem 1.1rem; font-size: 0.78rem; cursor: pointer; }
+
+        /* SOCIAL PROOF */
+        .social-grid { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+        .trust-pill {
+            display: inline-flex; align-items: center; gap: 0.5rem; background: var(--cream);
+            border: 1px solid var(--line); padding: 0.55rem 1rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; color: var(--ink-soft);
+        }
+        .trust-pill i { color: var(--rust); }
+        .launch-box { background: var(--teal); color: #fff; border-radius: var(--radius); padding: 1.8rem 2rem; }
+        .launch-box h3 { margin-bottom: 0.5rem; font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; }
+        .launch-box p { color: rgba(255,255,255,0.85); font-size: 0.94rem; }
+
+        /* FAQ */
+        .faq-item { border-bottom: 1px solid var(--line); }
+        .faq-question {
+            width: 100%; text-align: left; background: none; border: none; padding: 1.25rem 0;
+            font-weight: 600; font-size: 1.05rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: var(--ink); font-family: var(--font-display);
+        }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.25s ease; color: var(--ink-soft); font-size: 0.92rem; }
+        .faq-item.open .faq-answer { max-height: 220px; padding-bottom: 1.1rem; }
+        .faq-item.open .faq-question i { transform: rotate(180deg); }
+        .faq-question i { transition: transform 0.2s; color: var(--rust); }
+
+        /* FINAL CTA */
+        .final-cta {
+            background: var(--rust); background: linear-gradient(135deg, var(--rust), var(--rust-deep));
+            border-radius: 32px; padding: 3.5rem 2rem; text-align: center; color: #fff9f2; position: relative; overflow: hidden;
+        }
+        .final-cta h2 { margin-bottom: 0.7rem; font-weight: 600; }
+        .final-cta p { opacity: 0.94; margin-bottom: 1.8rem; }
+        .final-cta .btn-wa { background: #fff9f2; color: var(--rust-deep); }
+
+        /* FOOTER */
+        footer { background: var(--teal-deep); color: rgba(255,255,255,0.75); padding: 3rem 0 2rem; margin-top: 2rem; }
+        .footer-grid { display: grid; grid-template-columns: 1fr; gap: 1.6rem; font-size: 0.85rem; }
+        @media (min-width: 700px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
+        .footer-grid h4 { color: #fff; margin-bottom: 0.6rem; font-size: 0.85rem; font-family: var(--font-display); font-weight: 600; }
+        .footer-grid a:hover { color: #fff; }
+        .cin-note { font-size: 0.76rem; color: rgba(255,255,255,0.55); }
+        .demo-note { text-align: center; margin-top: 2rem; font-size: 0.74rem; color: rgba(255,255,255,0.45); border-top: 1px solid rgba(255,255,255,0.12); padding-top: 1.4rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="nav-wrap">
+        <div class="brand"><span>&amp;</span>Gitty&amp;Stella</div>
+        <nav class="links">
+            <a href="#apartment" data-i18n="nav.apartment">L'Appartamento</a>
+            <a href="#area" data-i18n="nav.area">La Zona</a>
+            <a href="#chat-section" data-i18n="nav.chat">Chiedi ora</a>
+            <a href="#faq" data-i18n="nav.faq">FAQ</a>
+            <a href="#contact" data-i18n="nav.contact">Contatti</a>
+        </nav>
+        <div style="display:flex; align-items:center; gap:0.9rem;">
+            <div class="lang-switch">
+                <button data-lang-switch="it">IT</button>
+                <button data-lang-switch="en">EN</button>
+                <button data-lang-switch="de">DE</button>
+                <button data-lang-switch="fr">FR</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="fade-in">
+            <span class="kicker" data-i18n="hero.kicker">Via Sardegna · Oristano, Sardegna</span>
+            <h1 data-i18n="hero.title">Gitty&amp;Stella, casa tua a Oristano</h1>
+            <p class="subtitle" data-i18n="hero.subtitle">Appartamento accogliente in Via Sardegna, nel cuore di Oristano.</p>
+            <div class="trust-strip">
+                <span><i class="fa-solid fa-tag"></i> <span data-i18n="hero.badge_fees">Zero commissioni</span></span>
+                <span><i class="fa-brands fa-whatsapp"></i> <span data-i18n="hero.badge_fast">Risposta rapida su WhatsApp</span></span>
+                <span><i class="fa-solid fa-location-dot"></i> <span data-i18n="hero.badge_central">Centro di Oristano</span></span>
+            </div>
+            <div class="hero-ctas">
+                <button class="btn btn-rust" onclick="document.getElementById('chat-section').scrollIntoView({behavior:'smooth'})">
+                    <i class="fa-solid fa-calendar-check"></i> <span data-i18n="hero.cta_primary">Verifica disponibilità</span>
+                </button>
+                <a class="btn btn-outline" href="https://wa.me/390000000000" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-whatsapp"></i> <span data-i18n="hero.cta_secondary">Scrivici su WhatsApp</span>
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual fade-in">
+            <div class="hero-image ph">
+                <img src="/static/images/hero.jpg" alt="Gitty&amp;Stella" data-placeholder="true">
+            </div>
+            <div class="float-card">
+                <div class="price">85€</div>
+                <div class="label" data-i18n="hero.price_label">a notte</div>
+            </div>
+        </div>
+    </div>
+    <svg class="wave" viewBox="0 0 1440 46" preserveAspectRatio="none"><path d="M0,32 C240,4 480,52 720,28 C960,4 1200,44 1440,20 L1440,46 L0,46 Z" fill="#f5ecd8"></path></svg>
+</section>
+
+<section id="apartment" class="band-sand">
+    <div class="container">
+        <span class="kicker">01</span>
+        <h2 class="section-title" data-i18n="value.title">Perché scegliere Gitty&amp;Stella</h2>
+        <div class="value-grid">
+            <div class="value-card">
+                <i class="fa-solid fa-location-dot"></i>
+                <h3 data-i18n="value.card1_title">Posizione strategica</h3>
+                <p data-i18n="value.card1_text">In centro a Oristano, comodo per mare e archeologia.</p>
+            </div>
+            <div class="value-card">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+                <h3 data-i18n="value.card2_title">Prezzo diretto, senza sorprese</h3>
+                <p data-i18n="value.card2_text">Nessuna commissione di intermediazione.</p>
+            </div>
+            <div class="value-card">
+                <i class="fa-brands fa-whatsapp"></i>
+                <h3 data-i18n="value.card3_title">Risposta rapida, anche fuori orario</h3>
+                <p data-i18n="value.card3_text">Scrivici su WhatsApp in qualsiasi lingua.</p>
+            </div>
+            <div class="value-card">
+                <i class="fa-solid fa-sliders"></i>
+                <h3 data-i18n="value.card4_title">Flessibilità</h3>
+                <p data-i18n="value.card4_text">Check-in autonomo, sconto per soggiorni lunghi.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <span class="kicker">02</span>
+        <h2 class="section-title" data-i18n="gallery.title">L'appartamento in foto</h2>
+        <div class="gallery-grid">
+            <figure class="ph"><img src="/static/images/soggiorno_1.jpg" alt="Soggiorno" data-placeholder="true"><span class="gallery-badge">placeholder</span></figure>
+            <figure class="ph"><img src="/static/images/camera_1.jpg" alt="Camera" data-placeholder="true"><span class="gallery-badge">placeholder</span></figure>
+            <figure class="ph"><img src="/static/images/cucina_1.jpg" alt="Cucina" data-placeholder="true"><span class="gallery-badge">placeholder</span></figure>
+            <figure class="ph"><img src="/static/images/bagno_1.jpg" alt="Bagno" data-placeholder="true"><span class="gallery-badge">placeholder</span></figure>
+        </div>
+        <p class="placeholder-note" data-i18n="gallery.note">Foto rappresentative — le foto reali saranno pubblicate a breve.</p>
+    </div>
+</section>
+
+<section class="band-sand">
+    <div class="container desc-wrap">
+        <div>
+            <span class="kicker">03</span>
+            <h2 class="section-title" data-i18n="description.title">Descrizione</h2>
+            <p class="section-sub" data-i18n="description.intro">Un appartamento luminoso e accogliente nel cuore di Oristano.</p>
+            <div class="stat-row">
+                <div class="stat"><span class="num">65</span><span class="label" data-i18n="description.size">mq</span></div>
+                <div class="stat"><span class="num">2</span><span class="label" data-i18n="description.bedrooms">camere da letto</span></div>
+                <div class="stat"><span class="num">1</span><span class="label" data-i18n="description.bathrooms">bagno</span></div>
+                <div class="stat"><span class="num">4</span><span class="label" data-i18n="description.guests">ospiti max</span></div>
+            </div>
+            <p class="placeholder-note" data-i18n="description.note">Dati indicativi in fase di conferma con il proprietario.</p>
+        </div>
+        <div>
+            <h2 class="section-title" data-i18n="amenities.title">Servizi e dotazioni</h2>
+            <div class="amenities-grid">
+                <div class="amenity"><i class="fa-solid fa-wifi"></i><span data-i18n="amenities.wifi">WiFi</span></div>
+                <div class="amenity"><i class="fa-solid fa-snowflake"></i><span data-i18n="amenities.ac">Aria condizionata</span></div>
+                <div class="amenity"><i class="fa-solid fa-kitchen-set"></i><span data-i18n="amenities.kitchen">Cucina completa</span></div>
+                <div class="amenity"><i class="fa-solid fa-shirt"></i><span data-i18n="amenities.washer">Lavatrice</span></div>
+                <div class="amenity"><i class="fa-solid fa-square-parking"></i><span data-i18n="amenities.parking">Parcheggio gratuito</span></div>
+                <div class="amenity"><i class="fa-solid fa-key"></i><span data-i18n="amenities.checkin">Check-in autonomo</span></div>
+                <div class="amenity"><i class="fa-solid fa-tv"></i><span data-i18n="amenities.tv">TV</span></div>
+                <div class="amenity"><i class="fa-solid fa-baby-carriage"></i><span data-i18n="amenities.crib">Culla su richiesta</span></div>
+            </div>
+            <p class="placeholder-note" data-i18n="amenities.note">Elenco indicativo, da confermare.</p>
+        </div>
+    </div>
+</section>
+
+<section id="area">
+    <div class="container">
+        <span class="kicker">04</span>
+        <h2 class="section-title" data-i18n="area.title">La zona</h2>
+        <div class="map-embed">
+            <iframe loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=8.5797%2C38.6083%2C8.5997%2C39.9083&layer=mapnik&marker=39.9033%2C8.5897"></iframe>
+        </div>
+        <div class="area-grid">
+            <div class="area-card">
+                <i class="fa-solid fa-umbrella-beach"></i>
+                <h3 data-i18n="area.sea_title">Mare</h3>
+                <p data-i18n="area.sea_text">Marina di Torregrande a circa 15 minuti in auto, il Sinis a 30 minuti.</p>
+            </div>
+            <div class="area-card">
+                <i class="fa-solid fa-landmark"></i>
+                <h3 data-i18n="area.culture_title">Cultura e archeologia</h3>
+                <p data-i18n="area.culture_text">L'area archeologica di Tharros e il centro storico di Oristano.</p>
+            </div>
+            <div class="area-card">
+                <i class="fa-solid fa-city"></i>
+                <h3 data-i18n="area.city_title">Città e comodità</h3>
+                <p data-i18n="area.city_text">Negozi, ristoranti e stazione a portata di mano.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="chat-section">
+    <div class="container">
+        <div class="chat-section">
+            <span class="kicker">05</span>
+            <h2 class="section-title" data-i18n="chat.title">Chiedi subito disponibilità e prezzi</h2>
+            <p class="section-sub" data-i18n="chat.subtitle">Prova il nostro assistente: chiedi disponibilità, prezzi o parla con il proprietario.</p>
+            <div class="chat-box">
+                <div class="chat-header">
+                    <i class="fa-brands fa-whatsapp" style="font-size:1.5rem;"></i>
+                    <div>
+                        <div data-i18n="chat.assistant_label">Gitty&amp;Stella</div>
+                        <span class="status" id="chat-status">online</span>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chat-messages"></div>
+                <div class="chat-input-row">
+                    <input type="text" id="chat-input" data-i18n-placeholder="chat.input_placeholder" placeholder="Scrivi un messaggio...">
+                    <button id="chat-send"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+            <div class="chat-reset">
+                <button id="chat-reset-btn" data-i18n="chat.reset_button">Ricomincia demo</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <span class="kicker">06</span>
+        <h2 class="section-title" data-i18n="social.title">Perché fidarsi</h2>
+        <div class="social-grid">
+            <span class="trust-pill"><i class="fa-solid fa-bolt"></i> <span data-i18n="social.badge1">Risposta rapida garantita</span></span>
+            <span class="trust-pill"><i class="fa-solid fa-rotate-left"></i> <span data-i18n="social.badge2">Cancellazione flessibile</span></span>
+            <span class="trust-pill"><i class="fa-solid fa-key"></i> <span data-i18n="social.badge3">Check-in autonomo</span></span>
+        </div>
+        <div class="launch-box">
+            <h3 data-i18n="social.launch_title">Le prime recensioni arriveranno presto</h3>
+            <p data-i18n="social.launch_text">Prenota tra i nostri primi ospiti e goditi le condizioni di lancio.</p>
+        </div>
+    </div>
+</section>
+
+<section id="faq" class="band-sand">
+    <div class="container">
+        <span class="kicker">07</span>
+        <h2 class="section-title" data-i18n="faq.title">Domande frequenti</h2>
+        <div id="faq-list">
+            <div class="faq-item">
+                <button class="faq-question"><span data-i18n="faq.q1">C'è il parcheggio?</span><i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer"><p data-i18n="faq.a1">Sì, parcheggio gratuito nelle vicinanze.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question"><span data-i18n="faq.q2">Come funziona il check-in?</span><i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer"><p data-i18n="faq.a2">Check-in autonomo con orario flessibile.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question"><span data-i18n="faq.q3">Sono ammessi animali domestici?</span><i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer"><p data-i18n="faq.a3">Su richiesta, scrivici prima di prenotare.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question"><span data-i18n="faq.q4">Qual è la politica di cancellazione?</span><i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer"><p data-i18n="faq.a4">Cancellazione flessibile fino a pochi giorni prima.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question"><span data-i18n="faq.q5">Quanto distano le spiagge?</span><i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer"><p data-i18n="faq.a5">Torregrande a 15 minuti, il Sinis a 30 minuti.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question"><span data-i18n="faq.q6">C'è una tassa di soggiorno?</span><i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer"><p data-i18n="faq.a6">Sì, si paga in loco per persona a notte (importo da confermare).</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question"><span data-i18n="faq.q7">Devo fornire un documento d'identità?</span><i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer"><p data-i18n="faq.a7">Sì, per legge registriamo i dati degli ospiti maggiorenni (Alloggiati Web).</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="final-cta">
+            <h2 data-i18n="final.title">Pronto a prenotare Gitty&amp;Stella?</h2>
+            <p data-i18n="final.text">Scrivici su WhatsApp: ti rispondiamo subito, senza commissioni.</p>
+            <a class="btn btn-wa" href="https://wa.me/390000000000" target="_blank" rel="noopener">
+                <i class="fa-brands fa-whatsapp"></i> <span data-i18n="final.button">Scrivici su WhatsApp</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer id="contact">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <h4 data-i18n="footer.address_label">Indirizzo</h4>
+                <p>Via Sardegna, Oristano (OR), Sardegna</p>
+            </div>
+            <div>
+                <h4 data-i18n="footer.contact_label">Contatti</h4>
+                <p>WhatsApp: +39 000 0000000<br>Email: info@example.com</p>
+            </div>
+            <div>
+                <h4>Legal</h4>
+                <p><a href="#" data-i18n="footer.privacy">Privacy Policy</a></p>
+                <p>&copy; 2026 Gitty&amp;Stella. <span data-i18n="footer.rights">Tutti i diritti riservati.</span></p>
+            </div>
+            <div>
+                <h4 data-i18n="footer.cin_label">CIN (Codice Identificativo Nazionale)</h4>
+                <p class="cin-note" data-i18n="footer.cin_note">in fase di attribuzione</p>
+            </div>
+        </div>
+        <p class="demo-note" data-i18n="footer.demo_note">Pagina in fase di prototipo — contenuti e foto placeholder in attesa di conferma.</p>
+    </div>
+</footer>
+
+<script src="i18n.js"></script>
+<script>
+    // --- FAQ accordion ---
+    document.querySelectorAll(".faq-question").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            btn.parentElement.classList.toggle("open");
+        });
+    });
+
+    // --- Chat widget ---
+    const API_BASE = "";
+    const CHAT_USER_KEY = "gitty-stella-chat-user";
+    let chatUserId = localStorage.getItem(CHAT_USER_KEY);
+    if (!chatUserId) {
+        chatUserId = "web-" + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem(CHAT_USER_KEY, chatUserId);
+    }
+
+    const chatMessages = document.getElementById("chat-messages");
+    const chatInput = document.getElementById("chat-input");
+    const chatSend = document.getElementById("chat-send");
+    const chatStatus = document.getElementById("chat-status");
+    const chatResetBtn = document.getElementById("chat-reset-btn");
+
+    function renderMarkdownImages(text) {
+        const escaped = text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        return escaped.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (m, alt, src) => {
+            const safeSrc = src.replace(/"/g, "%22");
+            return `<img src="${safeSrc}" alt="${alt}">`;
+        }).replace(/\n/g, "<br>");
+    }
+
+    function appendMessage(text, cls) {
+        const div = document.createElement("div");
+        div.className = "msg " + cls;
+        div.innerHTML = renderMarkdownImages(text);
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function appendSystem(text) {
+        appendMessage(text, "system");
+    }
+
+    async function sendChatMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+        appendMessage(message, "out");
+        chatInput.value = "";
+
+        try {
+            const res = await fetch(API_BASE + "/webhook/whatsapp", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_id: chatUserId, message: message, user_name: "Ospite" })
+            });
+            const data = await res.json();
+            appendMessage(data.reply || "...", "in");
+            if (data.handover_triggered) {
+                const dict = translations[document.documentElement.lang] || translations.it;
+                appendSystem(dict["chat.handover_banner"]);
+                chatStatus.textContent = "handover";
+            }
+        } catch (e) {
+            appendSystem("Errore di connessione al backend. Assicurati che il server FastAPI sia in esecuzione.");
+        }
+    }
+
+    chatSend.addEventListener("click", sendChatMessage);
+    chatInput.addEventListener("keydown", (e) => { if (e.key === "Enter") sendChatMessage(); });
+
+    chatResetBtn.addEventListener("click", async () => {
+        try {
+            await fetch(API_BASE + "/api/reset", { method: "POST" });
+        } catch (e) { /* ignora errori di rete sul reset */ }
+        chatMessages.innerHTML = "";
+        localStorage.removeItem(CHAT_USER_KEY);
+        chatUserId = "web-" + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem(CHAT_USER_KEY, chatUserId);
+        chatStatus.textContent = "online";
+    });
+</script>
+</body>
+</html>

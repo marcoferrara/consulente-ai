@@ -1011,6 +1011,7 @@
                 <input type="hidden" name="subject" id="form-subject" value="Nuova richiesta evento — Il Campanellino">
                 <input type="hidden" name="from_name" value="Il Campanellino Sito Web">
                 <input type="checkbox" name="botcheck" style="display:none">
+                <input type="hidden" name="variante_ab" id="variante_ab" value="A">
 
                 <div class="form-group">
                     <label for="nome">Nome e Cognome / Referente Azienda *</label>
@@ -1161,6 +1162,53 @@
     </div>
 
     <script>
+        // A/B TESTING ROUTER
+        (function() {
+            // Controlla se c'è un parametro in URL (es. ?variante=A o ?variante=B) per forzare il test
+            const urlParams = new URLSearchParams(window.location.search);
+            let variant = urlParams.get('variante');
+            
+            if (variant && (variant === 'A' || variant === 'B')) {
+                localStorage.setItem('variante_ab', variant);
+            } else {
+                variant = localStorage.getItem('variante_ab');
+                if (!variant || (variant !== 'A' && variant !== 'B')) {
+                    variant = Math.random() < 0.5 ? 'A' : 'B';
+                    localStorage.setItem('variante_ab', variant);
+                }
+            }
+
+            // Applica la variante all'atterraggio sulla pagina (DOMReady)
+            document.addEventListener("DOMContentLoaded", () => {
+                const hiddenInput = document.getElementById('variante_ab');
+                if (hiddenInput) hiddenInput.value = variant;
+
+                if (variant === 'B') {
+                    // Modifiche grafiche per la Variante B
+                    const heroTitle = document.querySelector('.hero-title');
+                    const heroDesc = document.querySelector('.hero-description');
+                    const heroCtaPrimary = document.querySelector('.hero-ctas .btn-primary');
+
+                    if (heroTitle) {
+                        heroTitle.textContent = "Le Tue Idee in Scena, Senza Rischi Tecnici ed Organizzativi.";
+                    }
+                    if (heroDesc) {
+                        heroDesc.innerHTML = "Performers dell'<strong>Accademia Internazionale del Musical</strong> e protocolli di sicurezza <strong>Meneesco</strong> per grandi spettacoli ed eventi premium in Sardegna. Massima tutela legale ed allestimenti scenotecnici chiavi in mano.";
+                    }
+                    if (heroCtaPrimary) {
+                        heroCtaPrimary.textContent = "Simula la Tua Formula";
+                    }
+                }
+
+                // Invia la notifica di visita (Pageview per A/B test) al server locale
+                fetch('/api/visita', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ variante: variant, data: new Date().toISOString() })
+                }).catch(err => console.log('Errore tracciamento visita locale:', err));
+            });
+        })();
+
         // BACKGROUND CANVAS PARTICLES
         const canvas = document.getElementById('magic-canvas');
         const ctx = canvas.getContext('2d');
@@ -1258,18 +1306,33 @@
             const submitBtn = document.getElementById('submit-btn');
             const nome = document.getElementById('nome').value;
             const email = document.getElementById('email').value;
+            const tipo_cliente = document.getElementById('tipo_cliente').value;
             const tipo_evento = document.getElementById('tipo_evento').value;
-            document.getElementById('form-subject').value = `Nuova richiesta evento: ${tipo_evento} — ${nome} — Il Campanellino`;
+            const telefono = document.getElementById('telefono').value;
+            const dettagli = document.getElementById('dettagli').value;
+            const variante_ab = document.getElementById('variante_ab').value || 'A';
+
             submitBtn.textContent = "Invio in corso...";
             submitBtn.disabled = true;
             try {
-                const formData = new FormData(form);
-                const response = await fetch('https://api.web3forms.com/submit', {
+                const payload = {
+                    nome,
+                    tipo_cliente,
+                    email,
+                    tipo_evento,
+                    telefono,
+                    dettagli,
+                    variante_ab
+                };
+                const response = await fetch('/api/contatto', {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
                 });
                 const data = await response.json();
-                if (data.success) {
+                if (response.ok && data.success) {
                     document.getElementById('success-message').innerHTML = `Grazie, <strong>${nome}</strong>! La tua richiesta per un evento di tipo <strong>${tipo_evento}</strong> è stata inviata con successo.<br><br>Il nostro team artistico elaborerà una proposta personalizzata e ti contatterà entro 24 ore all'indirizzo <strong>${email}</strong>.`;
                 } else {
                     throw new Error(data.message || "Errore invio");

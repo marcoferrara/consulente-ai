@@ -2033,6 +2033,46 @@
             stroke-width: 2;
         }
 
+        /* Pulsante Flottante WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: #25D366;
+            border: 1px solid var(--gold-border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9998;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 18px rgba(37,211,102,0.45);
+        }
+
+        .whatsapp-float svg {
+            width: 26px;
+            height: 26px;
+            fill: #fff;
+        }
+
+        @media (max-width: 900px) {
+            .whatsapp-float {
+                bottom: 18px;
+                right: 18px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+
         .hidden {
             display: none !important;
         }
@@ -2179,15 +2219,15 @@
         </div>
 
         <div style="margin-top: 6rem; text-align: center;">
-            <div class="section-label reveal" style="justify-content: center; margin-bottom: 2rem;">Simulatore</div>
+            <div class="section-label reveal" style="justify-content: center; margin-bottom: 2rem;">Prototipi interattivi</div>
             <h2 class="reveal"
                 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,5.5vw,4.5rem); font-weight:300; line-height:1.05;">
-                Casi <em>Risolti</em>
+                Cosa può fare l'AI <em>per te</em>
             </h2>
             <p class="reveal"
                 style="color:var(--muted); font-size:1rem; max-width:600px; margin:1.5rem auto 0; line-height:1.85;">
-                Seleziona uno scenario reale del tessuto economico sardo per simulare l'impatto di una consulenza
-                strategica e dell'integrazione AI nei tuoi processi.
+                Seleziona un settore del tessuto economico sardo per esplorare, in un prototipo interattivo, come
+                l'AI potrebbe intervenire nei tuoi processi.
             </p>
         </div>
 
@@ -2606,6 +2646,9 @@
             <span>Oppure scrivi a</span>
             <a href="mailto:info@aijo-consulenteai.it">info@aijo-consulenteai.it</a>
             <span class="sep">&middot;</span>
+            <a href="https://wa.me/393471645716?text=Ciao%2C%20ho%20visto%20il%20sito%20Aij%C3%B2%20e%20vorrei%20parlare%20di%20AI%20per%20la%20mia%20azienda"
+                target="_blank" rel="noopener" onclick="trackConversion('whatsapp_click', {location: 'contact_section'})">WhatsApp</a>
+            <span class="sep">&middot;</span>
             <span>Rispondo entro 24h</span>
         </div>
     </section>
@@ -2976,6 +3019,7 @@
                 });
 
                 if (response.ok) {
+                    trackConversion('lead_form_submit', { sector: object.sector || 'n/d' });
                     btn.textContent = 'Messaggio inviato ✓';
                     btn.style.background = 'var(--gold)';
                     btn.style.color = 'var(--bg)';
@@ -3460,6 +3504,48 @@
             addChatMessage('Sistema', '💡 Nota: Stai vedendo la risposta del Mock del browser perché il server Python non è attivo su <strong>' + getBackendUrl() + '</strong>.<br>Clicca sul badge <strong>"Server: Offline (Mock)"</strong> in alto per inserire un URL sicuro personalizzato (es. ngrok HTTPS) o avvia il server locale su uvicorn.', 'system');
         }
 
+        /* ── TRACKING (GA4 + Meta Pixel) ──
+           GA4: incolla il Measurement ID (formato G-XXXXXXXXXX). Lo trovi su
+           analytics.google.com → icona ingranaggio "Amministrazione" (in basso a sinistra) →
+           colonna Proprietà → "Flussi di dati" → clicca sul flusso Web del sito →
+           l'ID misurazione è in alto a destra.
+           Meta Pixel: incolla il Pixel ID dopo averlo creato su
+           business.facebook.com/events_manager → "Collega origini dati" → Web → Meta Pixel.
+           Finché i valori sotto restano ai default, i relativi script NON vengono caricati. */
+        const GA4_MEASUREMENT_ID = 'G-XXXXXXXXXX'; // TODO: sostituisci con il tuo Measurement ID
+        const META_PIXEL_ID = ''; // TODO: incolla il Pixel ID quando lo crei
+
+        function loadGA4() {
+            if (window.gaLoaded || !GA4_MEASUREMENT_ID || GA4_MEASUREMENT_ID.includes('XXXX')) return;
+            const s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_MEASUREMENT_ID;
+            document.head.appendChild(s);
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = function () { dataLayer.push(arguments); };
+            gtag('js', new Date());
+            gtag('config', GA4_MEASUREMENT_ID, { anonymize_ip: true });
+            window.gaLoaded = true;
+        }
+
+        function loadMetaPixel() {
+            if (window.fbPixelLoaded || !META_PIXEL_ID) return;
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) };
+                if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
+                t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+            }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', META_PIXEL_ID);
+            fbq('track', 'PageView');
+            window.fbPixelLoaded = true;
+        }
+
+        // Invia un evento a GA4 e/o Meta Pixel solo se il relativo consenso è stato dato e lo script è caricato
+        function trackConversion(eventName, params) {
+            if (window.gaLoaded && window.gtag) gtag('event', eventName, params || {});
+            if (window.fbPixelLoaded && window.fbq) fbq('trackCustom', eventName, params || {});
+        }
+
         /* ── LOGICA CONSENSO COOKIE (GDPR) ── */
         const COOKIE_LS_KEY = 'aijo_cookie_consent';
 
@@ -3480,11 +3566,11 @@
             window.cookiePreferences = consent;
             if (consent.analytics) {
                 console.log("Cookie Analitici abilitati per AIjò.");
-                // Inserire qui eventuali script analitici (es. GA4)
+                loadGA4();
             }
             if (consent.marketing) {
                 console.log("Cookie di Profilazione abilitati per AIjò.");
-                // Inserire qui eventuali script marketing (es. FB Pixel)
+                loadMetaPixel();
             }
         }
 
@@ -3617,6 +3703,13 @@
     <button id="cookie-trigger" class="cookie-trigger hidden" title="Impostazioni Privacy" onclick="openCookieBanner()">
         <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
     </button>
+
+    <!-- PULSANTE FLOTTANTE WHATSAPP -->
+    <a href="https://wa.me/393471645716?text=Ciao%2C%20ho%20visto%20il%20sito%20Aij%C3%B2%20e%20vorrei%20parlare%20di%20AI%20per%20la%20mia%20azienda"
+        class="whatsapp-float" target="_blank" rel="noopener" title="Scrivimi su WhatsApp"
+        onclick="trackConversion('whatsapp_click', {location: 'floating_button'})">
+        <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.85 9.85 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.09c-.24.68-1.4 1.32-1.93 1.4-.51.08-1.07.11-1.72-.11-.4-.13-.9-.29-1.55-.57-2.73-1.18-4.51-3.92-4.65-4.1-.14-.18-1.11-1.48-1.11-2.83 0-1.35.7-2.01.96-2.28.24-.27.53-.34.71-.34.18 0 .35.002.51.01.16.007.38-.06.6.46.24.56.8 1.93.87 2.07.07.14.11.31.02.5-.09.18-.14.29-.27.45-.14.16-.29.35-.41.47-.14.14-.28.29-.12.56.16.27.71 1.17 1.53 1.89 1.05.94 1.94 1.23 2.21 1.37.27.14.43.11.58-.07.16-.18.68-.79.86-1.07.18-.27.36-.22.6-.13.25.09 1.58.75 1.85.89.27.13.45.2.52.31.07.11.07.63-.17 1.3z"/></svg>
+    </a>
 </body>
 
 </html>

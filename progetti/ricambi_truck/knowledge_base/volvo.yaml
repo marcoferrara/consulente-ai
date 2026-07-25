@@ -1,0 +1,375 @@
+# knowledge_base/volvo.yaml
+# Guida di navigazione per VOLVO IMPACT (Information Management Parts And Accessories Catalogue Tool)
+# Software EPC desktop utilizzato dal cliente per la ricerca ricambi Volvo Trucks
+# DA VERIFICARE e integrare con l'esperienza diretta del cliente
+
+marchio: VOLVO
+software_tipo: desktop
+software_nome: "Volvo IMPACT"
+software_icona_desktop: "IMPACT"
+software_exe: ""  # es. C:\Program Files\Volvo\IMPACT\impact.exe — da verificare
+
+# --- AVVIO VOLVO IMPACT ---
+avvio:
+  - tipo: doppio_click
+    target: "icona IMPACT sul desktop"
+    note: >
+      L'icona IMPACT ha sfondo bianco/grigio con il logo Volvo (ferro diagonale) e la scritta IMPACT.
+      In alcune installazioni potrebbe chiamarsi 'Volvo IMPACT' o semplicemente 'IMPACT Trucks'.
+  - tipo: attendi
+    secondi: 12
+    note: >
+      IMPACT carica il database locale all'avvio. Il primo avvio del giorno è più lento
+      (15-25 secondi). Attendere la comparsa della schermata principale prima di interagire.
+  - tipo: note_contestuale
+    testo: >
+      La schermata iniziale di IMPACT mostra una toolbar in alto con le icone principali
+      e un'area centrale vuota (o con l'ultimo veicolo aperto se la sessione precedente
+      è stata chiusa senza uscire dal programma).
+  - tipo: note_contestuale
+    testo: >
+      Se appare una schermata di login o aggiornamento: inserire le credenziali dealer Volvo
+      se richiesto. IMPACT può richiedere connessione internet per verificare la licenza.
+  - tipo: note_contestuale
+    testo: >
+      Se all'avvio compare un popup 'Database update available' (Aggiornamento database disponibile):
+      scegliere se aggiornare ora o rimandare. L'aggiornamento può richiedere diversi minuti
+      — in caso di urgenza, scegliere 'Later' / 'Rimanda'.
+
+# --- INSERIMENTO TELAIO IN IMPACT ---
+inserimento_telaio:
+  - tipo: note_contestuale
+    testo: >
+      IMPACT accetta due tipi di identificazione veicolo Volvo:
+      (A) VIN completo 17 caratteri (prefisso YV2, YV1, YV3)
+          Esempio: YV2A4C1A8JB123456
+      (B) PIN Volvo (Product Identification Number): formato interno Volvo, solitamente
+          una stringa alfanumerica di 7-8 caratteri visibile sulla targhetta sul telaio.
+          Es. sul montante del parabrezza lato guida o sul longherone destro del telaio.
+      Il VIN completo è il metodo preferito e più preciso.
+  - tipo: click
+    target: "icona 'Identify vehicle' o 'Find vehicle' nella toolbar in alto"
+    note: >
+      In IMPACT l'icona di ricerca veicolo è di solito la prima a sinistra nella toolbar
+      oppure si accede dal menu in alto: Vehicle > Find / Identify.
+      Appare una finestra di dialogo con campo VIN/PIN.
+  - tipo: input_testo
+    campo: "VIN / PIN"
+    valore: "{{TELAIO}}"
+    note: >
+      Digitare o incollare il VIN completo nel campo. IMPACT inizia a decodificare
+      il VIN mentre si digita, mostrando un'anteprima del modello rilevato.
+  - tipo: click
+    target: "pulsante OK o Search / Find"
+    note: "Confermare la ricerca. IMPACT carica la configurazione specifica del veicolo."
+  - tipo: attendi
+    secondi: 5
+    note: "IMPACT recupera dal database la configurazione esatta: modello, motore, allestimento."
+  - tipo: note_contestuale
+    testo: >
+      IMPACT mostra una schermata di conferma con:
+      - Famiglia veicolo (es. FH, FM, FMX, FL, FE)
+      - Numero modello (es. FH 460, FM 370)
+      - Anno di produzione (Production year)
+      - Tipo motore (es. D13K, D13C, D16G)
+      - Tipo di cabina (Globetrotter XL, Globetrotter, Day cab, ecc.)
+      - Configurazione assi (es. 4x2, 6x2, 6x4)
+      VERIFICARE sempre che tutti questi dati corrispondano al veicolo fisico prima di cercare ricambi.
+  - tipo: note_contestuale
+    testo: >
+      Se IMPACT non trova il veicolo dal VIN: provare con solo le ultime 8 cifre del VIN
+      (chassis number breve). In alternativa usare la ricerca manuale per modello:
+      Vehicle > Select manually > scegliere famiglia/anno/variante dall'elenco a tendina.
+
+# --- NAVIGAZIONE CATALOGO IMPACT ---
+navigazione_catalogo:
+  - tipo: note_contestuale
+    testo: >
+      Dopo aver caricato il veicolo, IMPACT mostra il pannello di navigazione sulla SINISTRA
+      con la struttura ad albero dei 'Product Groups' (Gruppi prodotto).
+      I gruppi sono numerati e si espandono con clic singolo sulla freccia/triangolino.
+  - tipo: note_contestuale
+    testo: >
+      Struttura Product Groups IMPACT per Volvo Trucks:
+      ├─ PG 2  Engine (Motore)
+      │    ├─ Cylinder block (Blocco cilindri)
+      │    ├─ Cylinder head (Testata)
+      │    ├─ Timing (Distribuzione)
+      │    ├─ Lubrication (Lubrificazione) ← filtro olio qui
+      │    └─ Pistons/Connecting rods (Pistoni/Bielle)
+      ├─ PG 3  Cooling system (Raffreddamento)
+      │    ├─ Radiator (Radiatore)
+      │    ├─ Water pump (Pompa acqua)
+      │    ├─ Thermostat (Termostato)
+      │    └─ Fan (Ventola)
+      ├─ PG 4  Fuel system (Alimentazione)
+      │    ├─ Fuel pump (Pompa carburante)
+      │    ├─ Fuel filter (Filtro gasolio)
+      │    ├─ Injectors (Iniettori)
+      │    └─ Fuel tank (Serbatoio)
+      ├─ PG 5  Intake and exhaust (Aspirazione/Scarico)
+      │    ├─ Air cleaner (Filtro aria)
+      │    ├─ Turbocharger (Turbocompressore)
+      │    ├─ Intercooler
+      │    ├─ EGR system (Sistema EGR)
+      │    └─ Aftertreatment (SCR/DPF) ← AdBlue qui
+      ├─ PG 6  Electrical system (Impianto elettrico)
+      │    ├─ Alternator (Alternatore)
+      │    ├─ Starter motor (Motorino avviamento)
+      │    └─ Wiring/Sensors (Cablaggi/Sensori)
+      ├─ PG 7  Clutch (Frizione)
+      ├─ PG 8  Gearbox (Cambio)
+      │    ├─ Manual gearbox (Cambio manuale)
+      │    └─ I-Shift (Cambio automatizzato Volvo)
+      ├─ PG 9  Propeller shaft (Albero di trasmissione)
+      ├─ PG 10 Rear axle (Assale posteriore)
+      │    ├─ Differential (Differenziale)
+      │    └─ Hubs/Bearings (Mozzi/Cuscinetti)
+      ├─ PG 11 Front axle (Assale anteriore)
+      ├─ PG 12 Brakes (Freni)
+      │    ├─ Disc brake (Freni a disco) ← pastiglie e dischi qui
+      │    ├─ Drum brake (Freni a tamburo)
+      │    └─ Air system/EBS (Sistema pneumatico)
+      ├─ PG 13 Steering (Sterzo)
+      ├─ PG 14 Suspension (Sospensioni)
+      │    ├─ Air suspension (Sospensione pneumatica) ← soffioni qui
+      │    ├─ Leaf spring (Balestra)
+      │    └─ Shock absorber (Ammortizzatori)
+      ├─ PG 15 Frame (Telaio/Longheroni)
+      ├─ PG 16 Cab (Cabina)
+      │    ├─ Exterior (Esterno)
+      │    ├─ Interior (Interno)
+      │    ├─ Heating/AC (Riscaldamento/Clima)
+      │    └─ Seats (Sedili)
+      └─ PG 17 Body/Equipment (Allestimento)
+  - tipo: note_contestuale
+    testo: >
+      Come navigare: clic sulla freccia del Product Group → si espandono i sottogruppi →
+      clic sul sottogruppo → IMPACT carica la tavola esplosa nel PANNELLO CENTRALE/DESTRO.
+      La tavola è il disegno tecnico con numeri di posizione (1, 2, 3...) su ogni componente.
+  - tipo: note_contestuale
+    testo: >
+      Nel PANNELLO IN BASSO (o a destra, dipende dalla configurazione dello schermo) si trova
+      la lista delle parti (Part list) con colonne:
+      Pos. | Part number | Description | Quantity | Validity (from/to) | Superseded by
+      Clic su una riga nella lista → il numero corrispondente si evidenzia nella tavola.
+      Clic su un numero nella tavola → la riga corrispondente si evidenzia nella lista.
+  - tipo: note_contestuale
+    testo: >
+      FUNZIONE SEARCH (Ricerca per parola chiave): in IMPACT c'è un campo di ricerca
+      testuale accessibile da Search o dalla lente d'ingrandimento nella toolbar.
+      Usare termini in INGLESE per migliori risultati (es. 'brake pad', 'air spring', 'oil filter').
+      La ricerca restituisce una lista di sottogruppi → cliccare sul risultato per aprire la tavola.
+
+# --- PARTICOLARITÀ VOLVO IN IMPACT ---
+particolarita:
+  - modelli: ["FH — generazioni e varianti"]
+    note: >
+      Il FH è il modello di punta Volvo (lungo raggio). IMPACT gestisce tutte le generazioni:
+      FH I (1993-2002): motori D12C/D12D, cabine globetrotter prima serie
+      FH II (2002-2008): restyling cabina, motori D12D aggiornati e prime versioni D13
+      FH III (2008-2012): cambio estetico e tecnico, motori D13A/B/C
+      FH IV (2012-2020): nuova cabina, motori D13K, I-Shift 12+2 marce
+      FH V (2020-oggi): cabina inedita, maggior focus sull'aerodinamica
+      ATTENZIONE: le parti cambiano significativamente tra generazioni — IMPACT le separa
+      automaticamente dal VIN, ma in caso di dubbio verificare l'anno di produzione sulla scheda.
+  - modelli: ["FH16"]
+    note: >
+      Il FH16 è la variante con motore D16G (16L, 550-750 CV). In IMPACT si naviga come un FH
+      normale ma le tavole del motore sono completamente diverse dal D13.
+      Molte parti di cabina e sospensioni sono condivise con il FH standard.
+  - modelli: ["FM", "FMX"]
+    note: >
+      FM (versatile, trasporto su strada medio-pesante) e FMX (off-road, cantiere).
+      In IMPACT si selezionano come famiglie separate ma la struttura dei Product Groups è identica.
+      FMX ha sospensioni e assali specifici (reinforced) non presenti nel FM.
+      Alcune parti FM/FMX sono condivise con FH (es. motore D13, cambio I-Shift).
+  - modelli: ["FL", "FE"]
+    note: >
+      FL (leggero, distribuzione, 7.5-19t) e FE (medio, 18-26t). In IMPACT hanno la propria
+      sezione nella selezione modello. I motori sono D8 e D11 — completamente diversi dal D13/D16.
+      Meno frequenti nelle officine di truck pesanti ma presenti nel database.
+  - modelli: ["tutti — attenzione alla validità temporale delle parti"]
+    note: >
+      IMPACT mostra nella lista parti le colonne 'Valid from' e 'Valid to' (anno di produzione).
+      IMPORTANTISSIMO: alcune parti sono valide solo per certi anni di produzione dello stesso modello.
+      Esempio: lo stesso FH13 prodotto nel 2010 e nel 2015 può avere la pompa acqua diversa.
+      Verificare SEMPRE che l'anno del veicolo rientri nell'intervallo di validità della parte.
+  - modelli: ["tutti con motore D13"]
+    note: >
+      Il D13 ha avuto molte evoluzioni: D13A → D13B → D13C → D13K (ciascuna con parti diverse).
+      La variante si ricava dal VIN (posizioni 4-8) o dalla scheda veicolo in IMPACT.
+      Non confondere le parti tra varianti D13 diverse: filtri, iniettori e kit distribuzione
+      in particolare non sono intercambiabili tra tutte le versioni.
+  - modelli: ["tutti Euro 6 (dal 2013/2014)"]
+    note: >
+      I veicoli Euro 6 hanno in PG 5 una sottosezione 'Aftertreatment' con:
+      SCR catalyst, AdBlue pump, AdBlue tank, NOx sensor, DPF, EGR valve.
+      Parti molto richieste: pompa dosatrice AdBlue (Dosing unit), sensore NOx, valvola EGR.
+      Cercare in PG 5 Intake and exhaust > Exhaust aftertreatment system > SCR/EGR.
+  - modelli: ["tutti con cambio I-Shift"]
+    note: >
+      I-Shift è il cambio automatizzato Volvo (molto diffuso su FH e FM dal 2002).
+      In IMPACT si trova in PG 8 Gearbox > I-Shift. Attenzione: esistono generazioni di I-Shift
+      diverse (I-Shift 1, I-Shift 2 con crawler/reverse). Le parti non sono sempre intercambiabili.
+      I-Shift Dual Clutch (dal 2017) è una variante completamente diversa — verificare nel VIN.
+
+# --- CODICI DI SOSTITUZIONE IN IMPACT ---
+codici_sostituzione:
+  - testo: >
+      In IMPACT la colonna 'Superseded by' nella part list mostra il codice sostitutivo.
+      Se la cella è vuota, il codice è ancora attivo e non ha sostituti.
+      Se contiene un codice, quel codice è il ricambio attualmente ordinabile.
+  - testo: >
+      Per vedere la CATENA COMPLETA di sostituzioni: cliccare sul codice sostitutivo nella
+      colonna 'Superseded by' — IMPACT apre la scheda della nuova parte, che può a sua volta
+      avere un ulteriore sostitutivo. Ripetere finché la colonna è vuota (codice finale attivo).
+      Annotare TUTTI i codici della catena, non solo l'ultimo.
+  - testo: >
+      I codici Volvo sono tipicamente numerici a 8 cifre (es. 20366795, 21997391, 3198382).
+      I codici più vecchi possono avere 7 cifre. I nuovi codici generalmente iniziano con '2'.
+      Il codice va annotato ESATTAMENTE come appare in IMPACT, senza modifiche.
+  - testo: >
+      IMPACT distingue visivamente le parti:
+      - Testo normale = parte attiva e ordinabile
+      - Testo in grigio o barrato = parte obsoleta (superseded o discontinued)
+      - Icona 'R' o label 'Reman' = ricambio Volvo rigenerato (codice diverso dal nuovo)
+      Annotare preferibilmente i codici attivi (testo normale) e tutti i superseded della catena.
+  - testo: >
+      Alcune parti mostrano 'Kit' nella descrizione — il kit ha un codice unico e include
+      più componenti. Annotare il codice kit se presente, poi verificare se esistono anche
+      i componenti singoli (spesso li stessa tavola li mostra come parti separate con codici propri).
+
+# --- SCREENSHOT IN IMPACT ---
+screenshot:
+  - testo: >
+      Per fare uno screenshot ottimale in IMPACT:
+      1. Selezionare la parte nella part list (riga evidenziata in blu)
+      2. Il numero corrispondente nella tavola esplosa si evidenzia automaticamente
+         (di solito con un riquadro rosso o un punto colorato)
+      3. Assicurarsi che TANTO la tavola QUANTO la part list siano visibili contemporaneamente
+      4. Catturare lo screenshot dell'intera finestra IMPACT
+  - testo: >
+      Se la tavola è troppo grande e il particolare è piccolo: usare la rotella del mouse
+      per fare zoom nella tavola (in alcuni versioni IMPACT) oppure i tasti +/- nella toolbar.
+      Fare zoom fino a quando il numero di posizione è chiaramente leggibile.
+  - testo: >
+      IMPACT ha una funzione di stampa della tavola: File > Print o icona stampante.
+      L'anteprima di stampa mostra la tavola in formato pulito — utile per screenshot professionali
+      senza toolbar e pannelli laterali che distraggono.
+  - testo: >
+      Se nella tavola ci sono più componenti ravvicinati e l'evidenziazione non è chiara,
+      annotare nella nota del risultato il numero di posizione della parte (es. "posizione 14
+      nella tavola del filtro olio") per permettere all'operatore di identificarla manualmente.
+
+# --- CATEGORIE E PERCORSI IMPACT VOLVO ---
+categorie:
+  filtro_olio:
+    percorso: "PG 2 Engine > Lubrication > Oil filter"
+    sinonimi: ["filtro olio", "oil filter", "filtro lubrificante"]
+    note_impact: "In IMPACT cercare sotto Lubrication — di solito al secondo livello sotto Engine. Il filtro principale è distinto dal filtro a derivazione (bypass filter)."
+  filtro_gasolio:
+    percorso: "PG 4 Fuel system > Fuel filter"
+    sinonimi: ["filtro gasolio", "fuel filter", "prefilter", "filtro carburante"]
+    note_impact: "Possono esserci due filtri: primario (main fuel filter) e prefiltro/separatore acqua (pre-filter/water separator). Annotare entrambi i codici se presenti."
+  filtro_aria:
+    percorso: "PG 5 Intake and exhaust > Air cleaner > Air filter element"
+    sinonimi: ["filtro aria", "air filter", "air cleaner", "filtro aspirazione"]
+    note_impact: "In IMPACT cercato sotto Intake. L'elemento filtrante (filter element/cartridge) ha un codice diverso dalla carcassa (air cleaner housing)."
+  filtro_abitacolo:
+    percorso: "PG 16 Cab > Heating and AC > Cabin air filter / Pollen filter"
+    sinonimi: ["filtro abitacolo", "cabin filter", "pollen filter", "filtro polline"]
+    note_impact: "Non tutti i modelli FH/FM hanno il filtro abitacolo — dipende dall'optional clima installato."
+  alternatore:
+    percorso: "PG 6 Electrical system > Charging system > Alternator"
+    sinonimi: ["alternatore", "alternator", "generatore"]
+    note_impact: "Verificare la tensione (24V) e l'amperaggio — lo stesso modello FH può avere alternatori da 80A, 100A o 140A a seconda dell'allestimento elettrico."
+  motorino_avviamento:
+    percorso: "PG 6 Electrical system > Starting system > Starter motor"
+    sinonimi: ["motorino avviamento", "starter motor", "starter", "motorino"]
+    note_impact: "Anche qui verificare le specifiche: alcuni FH hanno starter da 4kW, altri da 6kW."
+  pastiglia_freno:
+    percorso: "PG 12 Brakes > Disc brake > Brake pad / Brake lining"
+    sinonimi: ["pastiglie freno", "brake pad", "brake lining", "guarnizioni freno disco"]
+    note_impact: "Specificare se le pastiglie sono per asse anteriore (front axle) o posteriore (rear axle) — i codici sono diversi. In IMPACT si trovano sotto i rispettivi sottogruppi freni."
+  disco_freno:
+    percorso: "PG 12 Brakes > Disc brake > Brake disc"
+    sinonimi: ["disco freno", "brake disc", "disco"]
+    note_impact: "Come per le pastiglie, distinguere anteriore e posteriore. Alcuni FH hanno dischi ventilati (vented) con codice diverso dai pieni."
+  tamburo_freno:
+    percorso: "PG 12 Brakes > Drum brake > Brake drum"
+    sinonimi: ["tamburo freno", "brake drum", "tamburo"]
+    note_impact: "I tamburi si trovano principalmente sull'asse posteriore dei modelli più vecchi o sull'asse di rimbalzo. Meno comune sui truck pesanti recenti."
+  ganasce_freno:
+    percorso: "PG 12 Brakes > Drum brake > Brake shoe / Lining kit"
+    sinonimi: ["ganasce freno", "brake shoe", "lining kit", "ganasce"]
+  soffione_sospensione:
+    percorso: "PG 14 Suspension > Air suspension > Air spring / Air bellows"
+    sinonimi: ["soffione", "soffietto", "air spring", "air bellows", "cuscino aria", "air bag sospensione"]
+    note_impact: >
+      IMPORTANTE: in IMPACT i soffietti si trovano separati per asse:
+      - Front air spring = soffietto sospensione anteriore
+      - Rear air spring = soffietto sospensione posteriore
+      Verificare quale asse è richiesto prima di cercare. Il soffietto posteriore su un 6x2
+      può essere diverso tra asse motore e asse sterzante posteriore.
+  ammortizzatore:
+    percorso: "PG 14 Suspension > Shock absorber"
+    sinonimi: ["ammortizzatore", "shock absorber", "ammortizzatori"]
+    note_impact: "Come per i soffietti: specificare anteriore o posteriore. Su alcuni FH l'ammortizzatore anteriore e posteriore hanno lo stesso codice, su altri no."
+  molla_sospensione:
+    percorso: "PG 14 Suspension > Leaf spring"
+    sinonimi: ["molla", "balestra", "leaf spring", "molla a balestra"]
+    note_impact: "Presente soprattutto sui modelli con sospensione a balestra (più comune sull'asse anteriore di FM/FMX). I FH full-air non hanno balestre."
+  kit_frizione:
+    percorso: "PG 7 Clutch > Clutch kit / Clutch disc / Pressure plate"
+    sinonimi: ["frizione", "kit frizione", "clutch kit", "disco frizione", "spingidisco"]
+    note_impact: >
+      In IMPACT la frizione si trova in PG 7 (Product Group autonomo).
+      Distinguere: clutch disc (disco), pressure plate (spingidisco), release bearing (cuscinetto).
+      Molti veicoli FH/FM hanno il kit completo (clutch kit) con codice unico che include tutti e tre.
+  pompa_acqua:
+    percorso: "PG 3 Cooling system > Water pump"
+    sinonimi: ["pompa acqua", "water pump", "pompa refrigerante"]
+    note_impact: "La pompa acqua nel D13 ha avuto varianti diverse tra le versioni motore (D13A, B, C, K) — verifica validità dalla colonna 'Valid from/to' in IMPACT."
+  termostato:
+    percorso: "PG 3 Cooling system > Thermostat"
+    sinonimi: ["termostato", "thermostat"]
+    note_impact: "Annotare la temperatura di apertura (solitamente 83°C o 86°C) visibile nella descrizione — è parte del codice tecnico."
+  iniettore:
+    percorso: "PG 4 Fuel system > Common rail / Unit injector > Injector"
+    sinonimi: ["iniettore", "injector", "unit injector", "polverizzatore"]
+    note_impact: >
+      Volvo D12 usa unit injector (pompa-iniettore), Volvo D13/D16 usa common rail injector.
+      I due sistemi hanno codici completamente diversi. IMPACT seleziona automaticamente
+      il tipo corretto dal VIN, ma verificare dalla descrizione nel nome della parte.
+  turbocompressore:
+    percorso: "PG 5 Intake and exhaust > Turbocharger"
+    sinonimi: ["turbo", "turbocompressore", "turbocharger"]
+    note_impact: "I turbo Volvo D13 hanno spesso più varianti per la stessa versione motore (diversa pressione di sovralimentazione). Annotare il codice esatto mostrato da IMPACT per quel VIN specifico."
+  valvola_egr:
+    percorso: "PG 5 Intake and exhaust > EGR system > EGR valve"
+    sinonimi: ["valvola egr", "egr valve", "ricircolo gas scarico"]
+    note_impact: "Presente sui veicoli Euro 5 e Euro 6. In IMPACT cercare in PG 5 > EGR system. Il modulo EGR completo ha un codice diverso dalla sola valvola."
+  dpf:
+    percorso: "PG 5 Intake and exhaust > Exhaust aftertreatment > Particulate filter / DPF"
+    sinonimi: ["dpf", "filtro antiparticolato", "particulate filter", "FAP"]
+    note_impact: "Solo veicoli Euro 5 (con DPF attivo) e Euro 6. Su Euro 4 non presente."
+  scr_adblue:
+    percorso: "PG 5 Intake and exhaust > Exhaust aftertreatment > SCR system > SCR catalyst / AdBlue pump"
+    sinonimi: ["scr", "adblue", "urea", "dosing unit", "pompa adblue", "catalizzatore scr"]
+    note_impact: "Parti più richieste del sistema SCR: Dosing unit (pompa dosatrice AdBlue), NOx sensor (sensore NOx), SCR catalyst. Cercare tutte e tre se la richiesta riguarda malfunzionamento AdBlue."
+  cinghia_distribuzione:
+    percorso: "PG 2 Engine > Timing > Timing belt / Timing kit / Timing chain"
+    sinonimi: ["cinghia distribuzione", "timing belt", "catena distribuzione", "kit distribuzione", "kit timing"]
+    note_impact: >
+      Il D12 usa cinghia dentata (timing belt), il D13 e D16 usano catena (timing chain).
+      Il kit distribuzione (timing kit) include catena + tenditore + ruote dentate — ha un codice kit unico.
+      Verificare sempre cosa include il kit dalla descrizione in IMPACT prima di quotare il prezzo.
+  testata:
+    percorso: "PG 2 Engine > Cylinder head"
+    sinonimi: ["testata", "cylinder head", "testa motore", "culasse"]
+    note_impact: "La testata Volvo viene venduta solitamente senza valvole (bare head). Il kit valvole ha un codice separato. Annotare entrambi se la richiesta è per testata completa."
+  guarnizione_testata:
+    percorso: "PG 2 Engine > Cylinder head > Head gasket / Gasket kit"
+    sinonimi: ["guarnizione testata", "head gasket", "kit guarnizioni testata", "guarnizione"]
+    note_impact: "Il kit guarnizioni (gasket set) include la guarnizione testata + guarnizioni laterali + paraolio — ha un codice kit unico. La sola guarnizione testata ha codice separato."

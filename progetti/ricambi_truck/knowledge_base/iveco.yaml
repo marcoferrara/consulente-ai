@@ -1,0 +1,115 @@
+# knowledge_base/iveco.yaml
+# Guida di navigazione per il software EPC IVECO
+# Da compilare con il cliente/operatore durante le sessioni di training
+
+marchio: IVECO
+software_tipo: desktop  # "desktop" o "web"
+software_nome: "IVECO Parts (TruckParts EPC)"
+software_exe: ""  # percorso .exe se noto, es. "C:\\Program Files\\IVECO Parts\\IvecoParts.exe"
+software_icona_desktop: "IVECO Parts"  # testo sull'icona del desktop
+
+# --- AVVIO APPLICAZIONE ---
+avvio:
+  - tipo: doppio_click
+    target: "icona IVECO Parts sul desktop"
+    note: "Icona rossa con logo IVECO. Se non visibile, cercare nella barra delle applicazioni."
+  - tipo: attendi
+    secondi: 5
+    note: "Attendere il caricamento dell'applicazione (può richiedere fino a 15 secondi su connessioni lente)"
+
+# --- INSERIMENTO TELAIO ---
+inserimento_telaio:
+  - tipo: note_contestuale
+    testo: "La schermata iniziale mostra in genere un campo di ricerca veicolo"
+  - tipo: click
+    target: "campo Telaio / VIN / Numero seriale"
+    note: "Può trovarsi nel menu File > Nuovo Veicolo oppure direttamente sulla schermata principale"
+  - tipo: input_testo
+    campo: "Telaio"
+    valore: "{{TELAIO}}"
+    note: "Inserire il telaio completo senza spazi. Non usare solo gli ultimi 8 caratteri."
+  - tipo: invio
+    note: "Premere INVIO o cliccare il pulsante Cerca/Conferma"
+  - tipo: attendi
+    secondi: 3
+
+# --- NAVIGAZIONE CATALOGO ---
+navigazione_catalogo:
+  - tipo: note_contestuale
+    testo: "Dopo l'inserimento del telaio, il programma mostra la struttura del veicolo a albero (tree view)"
+  - tipo: note_contestuale
+    testo: "I gruppi principali sono di solito: Motore, Trasmissione, Assale, Sterzo, Freni, Sospensioni, Carrozzeria, Impianto Elettrico, Cabina"
+
+# --- PARTICOLARITÀ PER MODELLO ---
+particolarita:
+  - modelli: ["Stralis", "X-WAY", "S-WAY"]
+    note: >
+      I motori Euro VI usano una sezione separata 'Motore Euro VI / Cursor' nel menu.
+      Non usare la sezione 'Motore' generica che fa riferimento ai vecchi motori Euro IV/V.
+  - modelli: ["Daily"]
+    note: >
+      Il Daily è un veicolo leggero: il programma potrebbe indirizzare verso un catalogo
+      separato rispetto ai truck pesanti. Verificare se compare un popup di selezione catalogo.
+  - modelli: ["Trakker", "PowerStar"]
+    note: >
+      I modelli off-road hanno una sezione 'Sospensioni rinforzate' separata da 'Sospensioni standard'.
+      Se il veicolo ha assale posteriore tandem, verificare la sezione 'Doppio assale'.
+  - modelli: ["EuroCargo"]
+    note: >
+      L'EuroCargo ha due serie: la prima serie (fino al 2003) e la Tector (dal 2003 in poi).
+      Il programma dovrebbe auto-selezionare la serie corretta dal telaio, ma verificare.
+
+# --- CODICI DI SOSTITUZIONE ---
+codici_sostituzione:
+  - testo: >
+      Nella scheda di ogni ricambio, la colonna 'Sostituito da' (o 'Superseded by') mostra
+      il codice più aggiornato. Annotare TUTTA la catena di sostituzioni, non solo l'ultimo codice.
+  - testo: >
+      Il codice evidenziato in verde è il codice attualmente ordinabile.
+      I codici grigi o barrati sono obsoleti ma vanno comunque annotati per compatibilità.
+  - testo: >
+      Alcuni codici hanno un prefisso '500' o '504' aggiunto in epoca recente.
+      Esempio: vecchio 93192222 → nuovo 504093192. Annotare entrambe le versioni.
+
+# --- SCREENSHOT ---
+screenshot:
+  - testo: >
+      Lo screenshot deve includere la tavola esplosa (vista grafica) con il particolare evidenziato
+      E la lista codici nella parte destra o inferiore dello schermo.
+  - testo: >
+      Se la tavola e la lista codici non sono visibili contemporaneamente, fare due screenshot:
+      uno della tavola e uno della lista codici, specificando che appartengono allo stesso articolo.
+
+# --- CATEGORIE COMUNI E PERCORSI ---
+# Mappatura articolo → percorso nel catalogo (da completare con il cliente)
+categorie:
+  filtro_olio:
+    percorso: "Motore > Lubrificazione > Filtri"
+    sinonimi: ["filtro olio motore", "filtro olio", "oil filter"]
+  filtro_gasolio:
+    percorso: "Motore > Alimentazione > Filtri carburante"
+    sinonimi: ["filtro carburante", "filtro gasolio", "fuel filter"]
+  filtro_aria:
+    percorso: "Motore > Alimentazione > Filtro aria"
+    sinonimi: ["filtro aria", "air filter", "filtro aspirazione"]
+  alternatore:
+    percorso: "Impianto Elettrico > Alternatore"
+    sinonimi: ["alternatore", "alternator", "dynamo"]
+  pastiglia_freno:
+    percorso: "Freni > Freni anteriori > Guarnizioni"
+    sinonimi: ["pastiglie freno", "pastiglia", "brake pad", "guarnizioni freno"]
+  disco_freno:
+    percorso: "Freni > Freni anteriori > Disco"
+    sinonimi: ["disco freno", "brake disc", "disco"]
+  soffione_sospensione:
+    percorso: "Sospensioni > Sospensione pneumatica > Soffietti"
+    sinonimi: ["soffione", "soffietto", "air spring", "air bag sospensione", "cuscino aria"]
+  kit_frizione:
+    percorso: "Trasmissione > Frizione > Kit frizione"
+    sinonimi: ["frizione", "kit frizione", "clutch kit", "disco frizione", "spingidisco"]
+  cinghia_distribuzione:
+    percorso: "Motore > Distribuzione > Cinghia"
+    sinonimi: ["cinghia distribuzione", "timing belt", "kit distribuzione"]
+  pompa_acqua:
+    percorso: "Motore > Raffreddamento > Pompa acqua"
+    sinonimi: ["pompa acqua", "water pump", "pompa refrigerante"]

@@ -1,0 +1,199 @@
+# knowledge_base/daf.yaml
+# Guida di navigazione per il software EPC DAF
+# Basata su conoscenza di DAF DAVIE, Microcat DAF e DAF Parts Online
+# DA VERIFICARE e integrare con l'esperienza diretta del cliente
+
+marchio: DAF
+software_tipo: mix  # Microcat = desktop; DAF Parts Online = web
+software_nome: "Microcat DAF / DAF Parts Online"
+software_icona_desktop: "Microcat DAF"
+software_url: ""  # DAF Parts Online: accesso tramite portale dealer DAF
+
+# --- AVVIO MICROCAT DAF ---
+avvio:
+  - tipo: doppio_click
+    target: "icona Microcat DAF sul desktop"
+    note: >
+      L'icona Microcat ha sfondo blu scuro con il logo DAF (triangolo/diamante giallo).
+      In alcune installazioni il software si chiama 'DAF EPC' o 'PACCAR Parts'.
+  - tipo: attendi
+    secondi: 8
+    note: "Microcat carica il database locale. Più lento se il database è su rete condivisa."
+  - tipo: note_contestuale
+    testo: "Microcat è sviluppato da Infomedia ed è usato anche da altri marchi (Ford Trucks, ecc.). L'interfaccia è identica ma il database è specifico DAF."
+  - tipo: note_contestuale
+    testo: "Se viene chiesta la selezione del database: scegliere 'DAF' o 'DAF Trucks' tra le opzioni disponibili."
+
+# --- INSERIMENTO TELAIO DAF ---
+inserimento_telaio:
+  - tipo: note_contestuale
+    testo: >
+      DAF accetta tre tipi di identificazione:
+      (A) VIN completo 17 caratteri (prefisso XLR, XLD, XLB)
+      (B) Numero di telaio DAF: formato tipico XLFXXXXXXXXXXXXX (chassis number sul documento di circolazione)
+      (C) Numero di ordine DAF (Order number): 6-8 cifre, visibile sulla targa dati del veicolo
+      Il VIN completo è il metodo più affidabile.
+  - tipo: click
+    target: "icona 'Ricerca veicolo' o pulsante 'VIN' nella toolbar"
+    note: "In Microcat la ricerca VIN è di solito il pulsante con lente d'ingrandimento o l'icona del camion in alto a sinistra."
+  - tipo: input_testo
+    campo: "VIN / Chassis Number"
+    valore: "{{TELAIO}}"
+    note: "Inserire il VIN senza spazi. Microcat evidenzia in tempo reale i caratteri riconosciuti."
+  - tipo: invio
+  - tipo: attendi
+    secondi: 4
+  - tipo: note_contestuale
+    testo: >
+      Microcat mostra una schermata di conferma con: modello DAF (XF, XG, CF, LF),
+      anno, tipo cabina, motore, trasmissione. Verificare correttezza prima di procedere.
+      Se il veicolo non viene trovato, provare con solo gli ultimi 8 caratteri del VIN.
+
+# --- NAVIGAZIONE CATALOGO MICROCAT DAF ---
+navigazione_catalogo:
+  - tipo: note_contestuale
+    testo: >
+      Microcat DAF organizza il catalogo in 'Sezioni' (Sections) accessibili dal menu a sinistra
+      o dai tab nella parte superiore. Le sezioni principali sono visibili come icone o nodi ad albero.
+  - tipo: note_contestuale
+    testo: >
+      Struttura sezioni DAF (Microcat):
+      ENGINE — Motore (completo: testata, blocco, lubrificazione, distribuzione)
+      COOLING — Raffreddamento (radiatore, ventola, pompa acqua, termostato)
+      FUEL SYSTEM — Impianto carburante (pompa, iniettori, filtri, serbatoio)
+      AIR SYSTEM — Aspirazione e scarico (filtro, turbo, intercooler, DPF/SCR)
+      GEARBOX — Cambio (manuale e automatico ZF/AS Tronic)
+      AXLE — Assali (anteriore e posteriore, differenziale)
+      BRAKES — Freni (EBS, disco, tamburo, ABS, rimorchio)
+      STEERING — Sterzo (scatola, piantone, tiranteria)
+      SUSPENSION — Sospensioni (pneumatica e balestra)
+      FRAME — Telaio (longheroni, traversine, supporti)
+      ELECTRICAL — Impianto elettrico (alternatore, avviamento, cablaggi)
+      CAB — Cabina (esterno, interno, sedili, parabrezza)
+      FIFTH WHEEL — Piano di attacco (ralla, piastra)
+  - tipo: note_contestuale
+    testo: >
+      Navigazione: clic sulla sezione → lista sottosezioni a sinistra → clic sulla sottosezione
+      → tavola esplosa al centro con lista parti a destra (part number + descrizione + quantità).
+  - tipo: note_contestuale
+    testo: >
+      FUNZIONE UTILE: pulsante 'Find part' o 'Cerca ricambio' permette di cercare per
+      parola chiave in inglese (es. 'oil filter', 'brake disc') senza navigare l'albero.
+
+# --- PARTICOLARITÀ DAF ---
+particolarita:
+  - modelli: ["XF (105, 106, XG, XG+)"]
+    note: >
+      XF è il modello di punta DAF (lungo raggio). Dal 2012 la generazione 106 sostituisce la 105.
+      Dal 2021 il nuovo XG/XG+ è la versione attuale. Le parti cambiano significativamente tra generazioni.
+      La targa dati indica chiaramente la generazione (Gen 1, Gen 2, ecc.).
+  - modelli: ["CF (75, 85, CF Euro 6)"]
+    note: >
+      CF è il modello medio-pesante. Versione Euro 5 (fino al 2012) e Euro 6 (dal 2013).
+      Motori PACCAR MX (11L e 13L). Il cambio ZF AS Tronic è molto comune.
+  - modelli: ["LF (45, 55, LF Euro 6)"]
+    note: >
+      LF è il modello leggero/medio. Usa motori PACCAR PF (4 e 6 cilindri).
+      Meno frequente nelle officine truck specializzate ma presente.
+  - modelli: ["tutti con motore PACCAR MX"]
+    note: >
+      DAF usa motori proprietari PACCAR MX-11 e MX-13.
+      I codici DAF per i motori PACCAR sono diversi dai codici PACCAR 'naked'.
+      Nel catalogo cercare sempre tramite il database DAF, non PACCAR generico.
+  - modelli: ["tutti Euro 6 (dal 2013)"]
+    note: >
+      Componenti SCR (AdBlue) e EGR sono frequentemente richiesti.
+      Il sensore di pressione differenziale DPF e la valvola EGR sono parti molto sostituite.
+      Trovabili in AIR SYSTEM > Exhaust aftertreatment.
+  - modelli: ["tutti"]
+    note: >
+      DAF è parte del gruppo PACCAR (come Kenworth e Peterbilt USA ma queste non riguardano il mercato IT).
+      Alcune parti DAF hanno doppio codice: codice DAF (catalogo ufficiale) e codice PACCAR (acquisto diretto).
+      Annotare sempre il codice DAF.
+
+# --- CODICI DI SOSTITUZIONE DAF ---
+codici_sostituzione:
+  - testo: >
+      In Microcat, la colonna 'Superseded by' (Sostituito da) indica il nuovo codice.
+      Cliccare sul codice vecchio per vedere tutta la catena di sostituzioni nel pannello destro.
+  - testo: >
+      I codici DAF hanno formato variabile: possono essere numerici puri (es. 1834728)
+      o alfanumerici (es. 0694971). I codici più nuovi spesso iniziano con '2' o '4'.
+  - testo: >
+      DAF Genuine Parts (OE) vs DAF Preferred (aftermarket approvato): il catalogo mostra
+      entrambi con diverse icone. Per i codici originali annotare solo quelli con logo DAF pieno.
+  - testo: >
+      Attenzione ai 'Kit' DAF: molti ricambi vengono venduti solo come kit (es. kit guarnizioni,
+      kit revisione frizione). Il kit ha un codice unico diverso dai componenti singoli.
+      Annotare il codice kit E i componenti se visibili.
+
+# --- SCREENSHOT ---
+screenshot:
+  - testo: >
+      Microcat mostra la tavola esplosa al centro schermo. Il pezzo selezionato viene evidenziato
+      in giallo/arancio. La lista parti (part number, descrizione, qtà) è nel pannello destro.
+      Per screenshot ottimale: selezionare il pezzo nella lista destra → evidenziazione automatica
+      nella tavola → catturare schermata completa.
+  - testo: >
+      Se la tavola è grande e il pezzo è piccolo, usare lo zoom di Microcat (rotella mouse
+      o pulsanti +/- nella toolbar) per ingrandire la zona del particolare.
+
+# --- CATEGORIE E PERCORSI DAF ---
+categorie:
+  filtro_olio:
+    percorso: "ENGINE > Lubrication > Oil filter"
+    sinonimi: ["filtro olio", "oil filter"]
+  filtro_gasolio:
+    percorso: "FUEL SYSTEM > Fuel filter / Pre-filter"
+    sinonimi: ["filtro gasolio", "fuel filter", "pre-filter", "separatore acqua"]
+  filtro_aria:
+    percorso: "AIR SYSTEM > Air intake > Air filter / Air cleaner"
+    sinonimi: ["filtro aria", "air filter", "air cleaner"]
+  filtro_abitacolo:
+    percorso: "CAB > Heating/Ventilation > Cabin air filter / Pollen filter"
+    sinonimi: ["filtro abitacolo", "filtro polline", "cabin filter", "pollen filter"]
+  alternatore:
+    percorso: "ELECTRICAL > Charging > Alternator"
+    sinonimi: ["alternatore", "alternator"]
+  motorino_avviamento:
+    percorso: "ELECTRICAL > Starting > Starter motor"
+    sinonimi: ["motorino avviamento", "starter", "starter motor"]
+  pastiglia_freno:
+    percorso: "BRAKES > Disc brake > Brake pad set"
+    sinonimi: ["pastiglie freno", "brake pad", "brake pad set"]
+  disco_freno:
+    percorso: "BRAKES > Disc brake > Brake disc"
+    sinonimi: ["disco freno", "brake disc"]
+  tamburo_freno:
+    percorso: "BRAKES > Drum brake > Brake drum"
+    sinonimi: ["tamburo freno", "brake drum"]
+  ganasce_freno:
+    percorso: "BRAKES > Drum brake > Brake shoe"
+    sinonimi: ["ganasce freno", "brake shoe", "ganasce"]
+  soffione_sospensione:
+    percorso: "SUSPENSION > Air suspension > Air spring / Air bag"
+    sinonimi: ["soffione", "soffietto", "air spring", "air bag sospensione"]
+  ammortizzatore:
+    percorso: "SUSPENSION > Shock absorber"
+    sinonimi: ["ammortizzatore", "shock absorber"]
+  kit_frizione:
+    percorso: "GEARBOX > Clutch > Clutch kit"
+    sinonimi: ["frizione", "kit frizione", "clutch kit"]
+  pompa_acqua:
+    percorso: "COOLING > Water pump"
+    sinonimi: ["pompa acqua", "water pump"]
+  termostato:
+    percorso: "COOLING > Thermostat"
+    sinonimi: ["termostato", "thermostat"]
+  iniettore:
+    percorso: "FUEL SYSTEM > Common rail > Injector"
+    sinonimi: ["iniettore", "injector"]
+  turbocompressore:
+    percorso: "AIR SYSTEM > Turbocharger"
+    sinonimi: ["turbo", "turbocompressore", "turbocharger"]
+  valvola_egr:
+    percorso: "AIR SYSTEM > EGR system > EGR valve"
+    sinonimi: ["valvola egr", "egr valve", "ricircolo gas scarico"]
+  dpf:
+    percorso: "AIR SYSTEM > Exhaust aftertreatment > DPF / Particulate filter"
+    sinonimi: ["dpf", "filtro antiparticolato", "particulate filter", "FAP"]

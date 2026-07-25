@@ -1,0 +1,224 @@
+# knowledge_base/renault.yaml
+# Guida di navigazione per il software EPC RENAULT TRUCKS
+# Basata su conoscenza di Dialogys Renault Trucks e Renault Parts Web
+# DA VERIFICARE e integrare con l'esperienza diretta del cliente
+
+marchio: RENAULT
+software_tipo: mix  # Dialogys = desktop; Renault Parts Web = web
+software_nome: "Dialogys Renault Trucks / Renault Trucks Parts Web"
+software_icona_desktop: "Dialogys"
+software_url: ""  # Renault Trucks Parts: accesso dealer tramite portale RenaultTrucks.com
+
+# --- NOTA IMPORTANTE ---
+# Renault Trucks è parte del gruppo AB Volvo (dal 2001) e condivide piattaforme con Volvo Trucks.
+# I software EPC sono però SEPARATI: Dialogys per Renault, Prosis per Volvo.
+# NON usare codici Volvo su Renault Trucks anche se i veicoli sembrano simili.
+
+# --- AVVIO DIALOGYS ---
+avvio:
+  - tipo: doppio_click
+    target: "icona Dialogys sul desktop"
+    note: >
+      L'icona Dialogys ha tipicamente sfondo bianco/grigio con il logo Renault Trucks (rombo).
+      In alcune installazioni il nome completo è 'Dialogys Renault Trucks'.
+  - tipo: attendi
+    secondi: 8
+    note: "Dialogys carica il database. La versione più recente si chiama 'Dialogys Next'."
+  - tipo: note_contestuale
+    testo: "Dialogys può richiedere autenticazione al primo avvio del giorno (inserire credenziali dealer Renault Trucks)."
+  - tipo: note_contestuale
+    testo: >
+      Versioni di Dialogys:
+      Dialogys 3.x: versione classica, interfaccia Windows tradizionale (più comune nelle officine)
+      Dialogys Next: versione web-based più moderna, stessa struttura dati
+      L'interfaccia cambia ma i percorsi del catalogo sono sostanzialmente identici.
+
+# --- INSERIMENTO TELAIO RENAULT TRUCKS ---
+inserimento_telaio:
+  - tipo: note_contestuale
+    testo: >
+      Renault Trucks accetta:
+      (A) VIN completo 17 caratteri (prefisso VF6 o VF3)
+      (B) Numero di telaio Renault Trucks (Numéro de châssis): formato VF6XXXXXXXXX, visibile
+          sulla targhetta di identificazione sul telaio lato destro
+      (C) Codice tipo omologazione (Type approval): visibile sul documento di circolazione francese
+          ma non sempre accettato dal programma
+  - tipo: click
+    target: "campo 'Référence VIN' o 'Numéro de châssis' o pulsante 'Recherche par VIN'"
+    note: "In Dialogys la ricerca VIN è nel menu principale 'Véhicule' o nella barra di ricerca in alto."
+  - tipo: input_testo
+    campo: "VIN / Numéro de châssis"
+    valore: "{{TELAIO}}"
+    note: "Inserire il VIN completo. Dialogys mostra la configurazione veicolo decodificata."
+  - tipo: invio
+  - tipo: attendi
+    secondi: 4
+  - tipo: note_contestuale
+    testo: >
+      Dialogys mostra: famiglia (T, C, K, D, Master, Kerax, Magnum, Premium, Midlum, Maxity),
+      tipo motore (DCI, MIDR), anno, variante.
+      IMPORTANTE: verificare che il modello mostrato corrisponda al veicolo reale.
+  - tipo: note_contestuale
+    testo: >
+      Se il veicolo non viene trovato nel database, potrebbe essere un modello molto vecchio
+      (pre-1995) o un Renault Midliner (generazione precedente). Cercare nella sezione
+      'Véhicules anciens' o 'Historique' se disponibile.
+
+# --- NAVIGAZIONE CATALOGO DIALOGYS ---
+navigazione_catalogo:
+  - tipo: note_contestuale
+    testo: >
+      Dialogys organizza il catalogo per 'Familles' (Famiglie) e 'Sous-familles' (Sottofamiglie)
+      con una struttura ad albero. I nomi sono in francese nelle versioni originali ma
+      le versioni italiane/inglesi hanno la traduzione.
+  - tipo: note_contestuale
+    testo: >
+      Struttura principale famiglie Dialogys:
+      MOTEUR (Motore) — completo: testata, distribuzione, lubrificazione
+      REFROIDISSEMENT (Raffreddamento) — radiatore, termostato, pompa acqua
+      ALIMENTATION (Alimentazione) — pompa, iniettori, filtri, serbatoio
+      ADMISSION/ECHAPPEMENT (Aspirazione/Scarico) — turbo, intercooler, DPF, SCR
+      TRANSMISSION (Trasmissione) — frizione, cambio, albero, riduttore
+      PONT AVANT (Assale anteriore) — sterzo, fusello, mozzi
+      PONT ARRIERE (Assale posteriore) — differenziale, semiassi, riduttori
+      FREINAGE (Freni) — EBS, disco, tamburo, ABS
+      DIRECTION (Sterzo) — scatola guida, piantone, tiranteria
+      SUSPENSION (Sospensioni) — pneumatica e balestra
+      CHASSIS (Telaio) — longheroni, traversine
+      EQUIPEMENT ELECTRIQUE (Elettrico) — alternatore, avviamento, cablaggi
+      CABINE (Cabina) — esterno, interno, sedili, climatizzazione
+      ACCESSOIRES (Accessori) — specchi, paraurti, luci
+  - tipo: note_contestuale
+    testo: >
+      Navigazione: espandere famiglia → scegliere sottofamiglia → tavola esplosa appare
+      nel pannello centrale con numerazione. Cliccare sul numero o sulla parte nella tavola
+      per vedere il codice nel pannello lista a destra/sotto.
+
+# --- PARTICOLARITÀ RENAULT TRUCKS ---
+particolarita:
+  - modelli: ["T (Range T)", "dal 2014"]
+    note: >
+      Range T è il modello attuale di punta (lungo raggio). Ha sostituito il Premium nel 2014.
+      Motori DTI 11 (11L) e DTI 13 (13L). Molte parti condivise con Volvo FM ma codici diversi.
+  - modelli: ["Premium (1996-2014)"]
+    note: >
+      Premium (1996-2014) e Premium Route (versione aggiornata 2006-2014).
+      Motore DCI 11 (11L). Molto comune nelle officine per la lunga produzione.
+      Attenzione: il Premium dopo il 2006 ha alcune modifiche significative al motore.
+  - modelli: ["Magnum (1990-2013)"]
+    note: >
+      Magnum è il modello iconico con motore MIDR/DXi 12 (12L). Piano di carico basso.
+      Due fasi: Magnum 1 (1990-2000) con motore MIDR, Magnum 2 (2000-2013) con motore DXi 12.
+      Le parti delle due fasi NON sono intercambiabili. Verificare l'anno nel VIN.
+  - modelli: ["Kerax", "C", "K"]
+    note: >
+      Kerax (1997-2013) è il modello off-road/cantiere. Sostituito dalla gamma C/K dal 2013.
+      Sospensioni rinforzate e assali specifici. Frequente nelle cave e nei cantieri italiani.
+  - modelli: ["Midlum (2000-2013)", "D (attuale)"]
+    note: >
+      Midlum è il medio (7.5-26t). Sostituito dalla gamma D nel 2013.
+      Motori DCI 5 e DCI 7 (5L e 7L 4 cilindri). Parti più semplici rispetto ai pesanti.
+  - modelli: ["tutti con motore DTI"]
+    note: >
+      I motori DTI (DCI Truck Injection, ex-Mack) sono motori Renault Trucks propriamente detti.
+      I vecchi motori MIDR erano derivati da Berliet/Saviem. Non intercambiabili.
+  - modelli: ["tutti Euro 6 (dal 2014)"]
+    note: >
+      Sistema SCR AdBlue e EGR. Parti frequentemente richieste: pompa AdBlue, valvola EGR,
+      sensore pressione differenziale DPF. In Dialogys: Famille ADMISSION/ECHAPPEMENT > SCR/EGR.
+  - modelli: ["tutti"]
+    note: >
+      Renault Trucks è diverso da Renault auto/VUL: i programmi EPC sono SEPARATI.
+      'Dialogys' è per i camion; 'Renault Parts' è per auto e furgoni Renault (diverso software).
+      Non confondere mai le due linee.
+
+# --- CODICI DI SOSTITUZIONE RENAULT TRUCKS ---
+codici_sostituzione:
+  - testo: >
+      In Dialogys la sostituzione è indicata dalla freccia → o dalla voce 'Remplacé par'
+      (Sostituito da) nel pannello dettaglio del ricambio.
+  - testo: >
+      I codici Renault Trucks hanno formato: XXXXXXXXX (7-9 cifre numeriche, es. 7400960048)
+      oppure alfanumerici con prefisso (es. 5010477002). I codici più recenti tendono a
+      iniziare con '74' o '50' o '77'.
+  - testo: >
+      'Renault Trucks Origine' = ricambio OE (originale di primo equipaggiamento).
+      'Renault Trucks Parts' (logo blu) = aftermarket approvato Renault Trucks.
+      Per i codici originali annotare solo quelli 'Origine'.
+  - testo: >
+      Alcuni ricambi Renault Trucks condividono il codice con Volvo (stessa parte fisica
+      con doppia numerazione). Il catalogo Dialogys mostra solo i codici Renault.
+
+# --- SCREENSHOT ---
+screenshot:
+  - testo: >
+      In Dialogys la tavola esplosa è nel pannello principale. Il pezzo selezionato viene
+      evidenziato in rosso nella tavola e nella lista parti (numero di posizione + codice).
+      Catturare schermata con tavola e lista parti entrambi visibili.
+  - testo: >
+      Dialogys ha una funzione di stampa/esportazione della tavola in PDF.
+      Per uno screenshot pulito: usare 'Aperçu avant impression' (Anteprima di stampa)
+      che rimuove la toolbar e mostra solo il disegno tecnico.
+
+# --- CATEGORIE E PERCORSI RENAULT TRUCKS ---
+categorie:
+  filtro_olio:
+    percorso: "MOTEUR > Lubrification > Filtre à huile / Oil filter"
+    sinonimi: ["filtro olio", "oil filter", "filtre huile"]
+  filtro_gasolio:
+    percorso: "ALIMENTATION > Filtre carburant / Fuel filter"
+    sinonimi: ["filtro gasolio", "fuel filter", "filtre carburant", "préfiltre"]
+  filtro_aria:
+    percorso: "ADMISSION > Filtre à air / Air filter"
+    sinonimi: ["filtro aria", "air filter", "filtre air", "filtre aspirazione"]
+  separatore_acqua:
+    percorso: "ALIMENTATION > Séparateur eau / Water separator"
+    sinonimi: ["separatore acqua", "water separator", "separateur eau"]
+  alternatore:
+    percorso: "EQUIPEMENT ELECTRIQUE > Alternateur / Alternator"
+    sinonimi: ["alternatore", "alternator", "alternateur"]
+  motorino_avviamento:
+    percorso: "EQUIPEMENT ELECTRIQUE > Démarreur / Starter motor"
+    sinonimi: ["motorino avviamento", "starter", "démarreur"]
+  pastiglia_freno:
+    percorso: "FREINAGE > Freins à disque > Plaquettes / Brake pad"
+    sinonimi: ["pastiglie freno", "brake pad", "plaquettes de frein"]
+  disco_freno:
+    percorso: "FREINAGE > Freins à disque > Disque de frein / Brake disc"
+    sinonimi: ["disco freno", "brake disc", "disque frein"]
+  tamburo_freno:
+    percorso: "FREINAGE > Freins à tambour > Tambour / Brake drum"
+    sinonimi: ["tamburo freno", "brake drum", "tambour de frein"]
+  ganasce_freno:
+    percorso: "FREINAGE > Freins à tambour > Mâchoires / Brake shoe"
+    sinonimi: ["ganasce freno", "brake shoe", "mâchoires de frein"]
+  soffione_sospensione:
+    percorso: "SUSPENSION > Suspension pneumatique > Soufflet / Air spring"
+    sinonimi: ["soffione", "soffietto", "air spring", "soufflet pneumatique"]
+  ammortizzatore:
+    percorso: "SUSPENSION > Amortisseur / Shock absorber"
+    sinonimi: ["ammortizzatore", "shock absorber", "amortisseur"]
+  kit_frizione:
+    percorso: "TRANSMISSION > Embrayage > Kit embrayage / Clutch kit"
+    sinonimi: ["frizione", "kit frizione", "clutch kit", "embrayage"]
+  pompa_acqua:
+    percorso: "REFROIDISSEMENT > Pompe à eau / Water pump"
+    sinonimi: ["pompa acqua", "water pump", "pompe eau"]
+  termostato:
+    percorso: "REFROIDISSEMENT > Thermostat"
+    sinonimi: ["termostato", "thermostat"]
+  iniettore:
+    percorso: "ALIMENTATION > Injection > Injecteur / Injector"
+    sinonimi: ["iniettore", "injector", "injecteur"]
+  turbocompressore:
+    percorso: "ADMISSION > Turbocompresseur / Turbocharger"
+    sinonimi: ["turbo", "turbocompressore", "turbocharger", "turbocompresseur"]
+  valvola_egr:
+    percorso: "ADMISSION/ECHAPPEMENT > EGR > Vanne EGR / EGR valve"
+    sinonimi: ["valvola egr", "egr valve", "vanne egr"]
+  dpf:
+    percorso: "ECHAPPEMENT > Post-traitement > FAP / DPF"
+    sinonimi: ["dpf", "fap", "filtro antiparticolato", "filtre à particules"]
+  cinghia_distribuzione:
+    percorso: "MOTEUR > Distribution > Courroie de distribution / Timing belt"
+    sinonimi: ["cinghia distribuzione", "timing belt", "courroie distribution", "kit distribution"]

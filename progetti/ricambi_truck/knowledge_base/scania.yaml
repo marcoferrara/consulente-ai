@@ -1,0 +1,145 @@
+# knowledge_base/scania.yaml
+# Guida di navigazione per i software EPC SCANIA
+# Basata su conoscenza generale di Scania Multi e Scania Parts Online (SPOS)
+# DA VERIFICARE e integrare con l'esperienza diretta del cliente
+
+marchio: SCANIA
+software_tipo: mix  # Scania Multi = desktop; SPOS = web
+software_nome: "Scania Multi (desktop) / Scania Parts Online SPOS (web)"
+software_icona_desktop: "Scania Multi"
+software_url: ""  # SPOS: URL fornito dal concessionario Scania autorizzato
+
+# --- AVVIO SCANIA MULTI (versione desktop) ---
+avvio:
+  - tipo: doppio_click
+    target: "icona Scania Multi sul desktop"
+    note: "Icona blu/gialla con logo Scania (grifo). Se non presente, cercare in Start > Programmi > Scania."
+  - tipo: attendi
+    secondi: 10
+    note: "Scania Multi è lento al primo avvio: carica database locale che può richiedere 15-30 secondi."
+  - tipo: note_contestuale
+    testo: "All'avvio potrebbe chiedere selezione mercato/lingua. Selezionare 'Italia' o 'Europe' + Italiano."
+  - tipo: note_contestuale
+    testo: "Se appare un aggiornamento disponibile, scegliere se aggiornare o rimandare (aggiornamento può richiedere minuti)."
+
+# --- INSERIMENTO TELAIO IN SCANIA MULTI ---
+inserimento_telaio:
+  - tipo: note_contestuale
+    testo: >
+      IMPORTANTE: Scania usa due sistemi di identificazione veicolo:
+      (A) Numero di telaio VIN completo (17 caratteri, inizia con YS2)
+      (B) Numero seriale interno Scania (chassis number, es. 3456789) — più corto, visibile sulla targhetta del veicolo
+      Il programma accetta entrambi, ma preferisce il numero seriale Scania.
+  - tipo: click
+    target: "campo 'Vehicle identification' o 'Identificazione veicolo'"
+    note: "Di solito è la prima schermata. Può essere un campo di testo con etichetta 'Chassis number' o 'VIN'."
+  - tipo: input_testo
+    campo: "Chassis number / VIN"
+    valore: "{{TELAIO}}"
+    note: "Inserire il VIN completo. Il programma potrebbe chiedere conferma del modello trovato."
+  - tipo: invio
+  - tipo: attendi
+    secondi: 3
+    note: "Il programma carica la configurazione specifica del veicolo (motore, cambio, allestimento)."
+  - tipo: note_contestuale
+    testo: "Dopo la ricerca, appare una schermata di conferma con modello, anno, motore. Verificare che corrispondano prima di procedere."
+
+# --- NAVIGAZIONE CATALOGO SCANIA MULTI ---
+navigazione_catalogo:
+  - tipo: note_contestuale
+    testo: >
+      Scania Multi organizza il catalogo in 'Gruppi' (Group) e 'Sottogruppi' (Subgroup).
+      La struttura principale è ad albero sulla sinistra con espansione cliccando sulle frecce.
+  - tipo: note_contestuale
+    testo: >
+      I gruppi principali sono numerati (es. Group 01 Engine, Group 02 Cooling, Group 03 Fuel system,
+      Group 04 Air intake, Group 05 Exhaust, Group 06 Electrical, Group 07 Transmission,
+      Group 08 Propeller shaft, Group 09 Axle, Group 10 Brakes, Group 11 Steering,
+      Group 12 Suspension, Group 13 Frame, Group 14 Cab, Group 16 Fifth wheel).
+  - tipo: note_contestuale
+    testo: "Fare clic sul gruppo → si espande la lista dei sottogruppi → clic sul sottogruppo → appare la tavola esplosa."
+
+# --- PARTICOLARITÀ SCANIA ---
+particolarita:
+  - modelli: ["Serie R", "Serie S", "Serie G", "Serie P/G/R/T"]
+    note: >
+      Le serie R e S sono le più recenti (dal 2016). Usano motori DC13, DC09, DC16.
+      La serie P/G/R/T precedente (2003-2016) ha parti diverse nonostante la somiglianza visiva.
+      Scania Multi distingue automaticamente la serie dal VIN, ma verificare sempre l'anno del modello.
+  - modelli: ["Serie 4 (anni '90-2004)"]
+    note: >
+      I veicoli della serie 4 (telaio inizia con YS2... anni 1995-2004) sono presenti nel database
+      ma alcune tavole potrebbero mancare. In caso di tavola non trovata, provare la sezione
+      'Older vehicles' o 'Historical parts'.
+  - modelli: ["tutti"]
+    note: >
+      Scania ha una politica di numerazione propria: i codici Scania sono tipicamente numerici
+      a 7-8 cifre (es. 1446636, 2150700). Non confondere con i codici OEM di fornitori.
+  - modelli: ["tutti"]
+    note: >
+      La funzione 'Where used' (dove usato) permette di vedere in quali veicoli è montato
+      un determinato ricambio — utile per trovare codici compatibili di serie diverse.
+  - modelli: ["Euro 6 (dal 2014)"]
+    note: >
+      I motori Euro 6 hanno componenti SCR (AdBlue) e EGR aggiuntivi rispetto ai precedenti.
+      Cercare in Group 05 Exhaust le parti del sistema SCR.
+
+# --- CODICI DI SOSTITUZIONE SCANIA ---
+codici_sostituzione:
+  - testo: >
+      Nella scheda ricambio, la riga 'Replaced by' mostra il codice sostitutivo.
+      Scania aggiorna frequentemente i codici: annotare SEMPRE la catena completa.
+  - testo: >
+      Alcuni ricambi mostrano 'Kit' invece del singolo pezzo — il kit include più componenti
+      e ha un codice diverso. Annotare sia il codice kit che i componenti singoli se visibili.
+  - testo: >
+      I codici Scania OEM hanno spesso un equivalente con prefisso 'R' (es. R1446636) per
+      i ricambi 'Scania Reman' (ricondizionati ufficiali) — prezzo inferiore al nuovo.
+  - testo: >
+      Verificare sempre la colonna 'Valid from / Valid to' (validità del codice per anno di produzione).
+
+# --- SCREENSHOT ---
+screenshot:
+  - testo: >
+      La tavola esplosa appare a destra o in basso. Il particolare selezionato viene evidenziato
+      automaticamente in giallo/rosso. Catturare lo screenshot con la tavola visibile e il numero
+      del particolare nel bordo destro (lista codici + descrizioni).
+
+# --- CATEGORIE E PERCORSI SCANIA ---
+categorie:
+  filtro_olio:
+    percorso: "Group 01 Engine > Lubrication > Oil filter"
+    sinonimi: ["filtro olio", "oil filter", "filtro lubrificante"]
+  filtro_gasolio:
+    percorso: "Group 03 Fuel system > Fuel filter"
+    sinonimi: ["filtro gasolio", "fuel filter", "filtro carburante"]
+  filtro_aria:
+    percorso: "Group 04 Air intake > Air filter / Air cleaner"
+    sinonimi: ["filtro aria", "air filter", "air cleaner"]
+  alternatore:
+    percorso: "Group 06 Electrical > Alternator"
+    sinonimi: ["alternatore", "alternator", "dynamo"]
+  pastiglia_freno:
+    percorso: "Group 10 Brakes > Disc brakes > Brake pad"
+    sinonimi: ["pastiglie freno", "brake pad", "guarnizioni freno disco"]
+  disco_freno:
+    percorso: "Group 10 Brakes > Disc brakes > Brake disc"
+    sinonimi: ["disco freno", "brake disc"]
+  soffione_sospensione:
+    percorso: "Group 12 Suspension > Air suspension > Air spring / Air bellows"
+    sinonimi: ["soffione", "soffietto", "air spring", "air bellows", "cuscino aria"]
+  kit_frizione:
+    percorso: "Group 07 Transmission > Clutch > Clutch kit"
+    sinonimi: ["frizione", "kit frizione", "clutch kit", "disco frizione"]
+  pompa_acqua:
+    percorso: "Group 02 Cooling > Water pump"
+    sinonimi: ["pompa acqua", "water pump"]
+  cinghia_distribuzione:
+    percorso: "Group 01 Engine > Timing > Timing belt / Timing kit"
+    sinonimi: ["cinghia distribuzione", "timing belt", "kit distribuzione"]
+  iniettore:
+    percorso: "Group 03 Fuel system > Injection > Injector"
+    sinonimi: ["iniettore", "injector", "polverizzatore"]
+  turbocompressore:
+    percorso: "Group 04 Air intake > Turbocharger"
+    sinonimi: ["turbo", "turbocompressore", "turbocharger"]

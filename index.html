@@ -3520,29 +3520,14 @@
             addChatMessage('Sistema', '💡 Nota: Stai vedendo la risposta del Mock del browser perché il server Python non è attivo su <strong>' + getBackendUrl() + '</strong>.<br>Clicca sul badge <strong>"Server: Offline (Mock)"</strong> in alto per inserire un URL sicuro personalizzato (es. ngrok HTTPS) o avvia il server locale su uvicorn.', 'system');
         }
 
-        /* ── TRACKING (GA4 + Meta Pixel) ──
-           GA4: incolla il Measurement ID (formato G-XXXXXXXXXX). Lo trovi su
-           analytics.google.com → icona ingranaggio "Amministrazione" (in basso a sinistra) →
-           colonna Proprietà → "Flussi di dati" → clicca sul flusso Web del sito →
-           l'ID misurazione è in alto a destra.
+        /* ── TRACKING (Meta Pixel) ──
+           GA4 è già attivo in <head> con Google Consent Mode v2 (ID G-KRBFC0QFZQ): lo script
+           carica sempre, ma i dati restano "denied" finché l'utente non accetta i cookie
+           (vedi gtag('consent', 'update', ...) qui sotto).
            Meta Pixel: incolla il Pixel ID dopo averlo creato su
            business.facebook.com/events_manager → "Collega origini dati" → Web → Meta Pixel.
-           Finché i valori sotto restano ai default, i relativi script NON vengono caricati. */
-        const GA4_MEASUREMENT_ID = 'G-XXXXXXXXXX'; // TODO: sostituisci con il tuo Measurement ID
+           Finché resta vuoto, lo script non viene caricato. */
         const META_PIXEL_ID = ''; // TODO: incolla il Pixel ID quando lo crei
-
-        function loadGA4() {
-            if (window.gaLoaded || !GA4_MEASUREMENT_ID || GA4_MEASUREMENT_ID.includes('XXXX')) return;
-            const s = document.createElement('script');
-            s.async = true;
-            s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_MEASUREMENT_ID;
-            document.head.appendChild(s);
-            window.dataLayer = window.dataLayer || [];
-            window.gtag = function () { dataLayer.push(arguments); };
-            gtag('js', new Date());
-            gtag('config', GA4_MEASUREMENT_ID, { anonymize_ip: true });
-            window.gaLoaded = true;
-        }
 
         function loadMetaPixel() {
             if (window.fbPixelLoaded || !META_PIXEL_ID) return;
@@ -3556,9 +3541,9 @@
             window.fbPixelLoaded = true;
         }
 
-        // Invia un evento a GA4 e/o Meta Pixel solo se il relativo consenso è stato dato e lo script è caricato
+        // Invia un evento a GA4 (sempre disponibile, rispetta il Consent Mode) e a Meta Pixel se attivo
         function trackConversion(eventName, params) {
-            if (window.gaLoaded && window.gtag) gtag('event', eventName, params || {});
+            if (window.gtag) gtag('event', eventName, params || {});
             if (window.fbPixelLoaded && window.fbq) fbq('trackCustom', eventName, params || {});
         }
 
@@ -3587,7 +3572,6 @@
             });
             if (consent.analytics) {
                 console.log("Cookie Analitici abilitati per AIjò.");
-                loadGA4();
             }
             if (consent.marketing) {
                 console.log("Cookie di Profilazione abilitati per AIjò.");

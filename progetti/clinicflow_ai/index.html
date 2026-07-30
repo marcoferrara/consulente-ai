@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ClinicFlow AI: Prototipo di triage intelligente e consultazione preparazione esami clinici per poliambulatori e studi medici moderni.">
+    <title>ClinicFlow AI — Triage Intelligente & Preparazione Esami</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons (per icone moderne caricate via CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --bg-card: rgba(17, 24, 39, 0.7);
+            --bg-card-hover: rgba(23, 37, 60, 0.85);
+            --primary: #0ea5e9;
+            --primary-glow: rgba(14, 165, 233, 0.2);
+            --secondary: #10b981;
+            --secondary-glow: rgba(16, 185, 129, 0.2);
+            --accent: #6366f1;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(14, 165, 233, 0.3);
+            --red-glow: rgba(239, 68, 68, 0.2);
+            --yellow-glow: rgba(245, 158, 11, 0.2);
+            --green-glow: rgba(16, 185, 129, 0.2);
+            
+            --red-text: #ef4444;
+            --yellow-text: #f59e0b;
+            --green-text: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.04) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        /* HEADER */
+        header {
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-logo {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0b0f19;
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.35);
+        }
+
+        .brand-info h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #ffffff, #e0f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            padding: 0.3rem;
+            border-radius: 12px;
+            gap: 0.25rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem 1.25rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--text-main);
+            background: rgba(14, 165, 233, 0.15);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.08);
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--yellow-text);
+            box-shadow: 0 0 8px var(--yellow-text);
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        .status-dot.online {
+            background: var(--green-text);
+            box-shadow: 0 0 8px var(--green-text);
+        }
+
+        /* CONTAINER GENERAL */
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .tab-content.active {
+            display: grid;
+        }
+
+        /* GRID PER PORTALE PAZIENTE */
+        #paziente-view {
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            #paziente-view {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* CARTE DI DESIGN */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.75rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.75rem;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(14, 165, 233, 0.08);
+            border: 1px solid rgba(14, 165, 233, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        .card-title h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .card-title p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.1rem;
+        }
+
+        /* CHATBOT TRIAGE */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 450px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 14px;
+            line-height: 1.45;
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom-left-radius: 2px;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--primary);
+            color: #0b0f19;
+            font-weight: 500;
+            border-bottom-right-radius: 2px;
+        }
+
+        .message-title {
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .triage-result-card {
+            background: rgba(11, 15, 25, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 0.8rem;
+            margin-top: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .triage-badge-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .badge-urgency {
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-urgency.rosso {
+            background: var(--red-glow);
+            color: var(--red-text);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            box-shadow: 0 0 10px var(--red-glow);
+        }
+
+        .badge-urgency.giallo {
+            background: var(--yellow-glow);
+            color: var(--yellow-text);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .badge-urgency.verde {
+            background: var(--green-glow);
+            color: var(--green-text);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .triage-specialty {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .triage-advice {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: var(--text-main);
+            border-top: 1px dashed rgba(255, 255, 255, 0.05);
+            padding-top: 0.5rem;
+        }
+
+        .chat-input-row {
+            display: flex;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            gap: 0.5rem;
+        }
+
+        /* Form di input pazienti */
+        .patient-meta-row {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            font-size: 0.8rem;
+        }
+
+        .meta-input {
+            background: #111827;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.3rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        .meta-input:focus {
+            border-color: var(--primary);
+        }
+
+        .input-text {
+            flex: 1;
+            background: #111827;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .input-text:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-send {
+            background: var(--primary);
+            color: #0b0f19;
+            border: none;
+            padding: 0 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .btn-send:hover {
+            transform: scale(1.03);
+        }
+
+        .btn-send:active {
+            transform: scale(0.97);
+        }
+
+        /* SEARCH EXAMS */
+        .search-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .search-icon-wrapper {
+            position: relative;
+        }
+
+        .search-icon-wrapper i {
+            position: absolute;
+            left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .input-search {
+            width: 100%;
+            background: #111827;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.75rem 0.8rem 0.75rem 2.5rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .input-search:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        /* Suggerimenti Autocomplete */
+        .autocomplete-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #111827;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-top: 0.35rem;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 50;
+            display: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .dropdown-item {
+            padding: 0.65rem 1rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--primary);
+        }
+
+        .dropdown-item-category {
+            font-size: 0.7rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            color: var(--text-muted);
+        }
+
+        /* Risultato Prep Esami */
+        .exam-info-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 1.25rem;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .exam-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            padding-bottom: 0.5rem;
+        }
+
+        .exam-title-row h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .exam-desc-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        .instruction-step {
+            display: flex;
+            gap: 0.75rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 0.75rem;
+            align-items: flex-start;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .instruction-step-num {
+            background: rgba(14, 165, 233, 0.08);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            color: var(--primary);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .instruction-step-text {
+            color: var(--text-main);
+        }
+
+        .instruction-step-text strong {
+            color: var(--primary);
+        }
+
+        /* GRID PER PORTALE CLINICA (DASHBOARD) */
+        #clinica-view {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .metric-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(14, 165, 233, 0.2);
+        }
+
+        .metric-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .metric-icon.blue { background: rgba(14, 165, 233, 0.1); color: var(--primary); border: 1px solid rgba(14, 165, 233, 0.2); }
+        .metric-icon.red { background: rgba(239, 68, 68, 0.1); color: var(--red-text); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .metric-icon.yellow { background: rgba(245, 158, 11, 0.1); color: var(--yellow-text); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .metric-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--secondary); border: 1px solid rgba(16, 185, 129, 0.2); }
+
+        .metric-info h4 {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-info p {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 0.15rem;
+        }
+
+        /* CODA Pazienti in attesa */
+        .queue-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(0,0,0,0.15);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 0.9rem 1.25rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 0.9rem 1.25rem;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .patient-meta-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .patient-name-lbl {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .patient-age-lbl {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .symptoms-cell {
+            max-width: 350px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-muted);
+        }
+
+        .symptoms-cell:hover {
+            white-space: normal;
+            word-break: break-word;
+        }
+
+        .btn-resolve {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--secondary);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-resolve:hover {
+            background: var(--secondary);
+            color: #0b0f19;
+        }
+
+        .empty-queue-msg {
+            padding: 2.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ANIMAZIONI */
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.75; }
+            100% { transform: scale(1.05); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER & NAV -->
+    <header>
+        <div class="brand">
+            <div class="brand-logo"><i data-lucide="activity"></i></div>
+            <div class="brand-info">
+                <h1>ClinicFlow AI</h1>
+                <p>Poliambulatorio & Studio Medico</p>
+            </div>
+        </div>
+        
+        <nav class="nav-tabs">
+            <button class="tab-btn active" id="btn-paziente" onclick="switchTab('paziente')">
+                <i data-lucide="user"></i> Portale Paziente
+            </button>
+            <button class="tab-btn" id="btn-clinica" onclick="switchTab('clinica')">
+                <i data-lucide="layout-dashboard"></i> Portale Clinica
+            </button>
+        </nav>
+
+        <div class="connection-status">
+            <div class="status-dot" id="status-dot"></div>
+            <span id="status-text">In attesa del server...</span>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="container">
+        
+        <!-- SEZIONE 1: PORTALE PAZIENTE -->
+        <section id="paziente-view" class="tab-content active">
+            
+            <!-- CHAT TRIAGE -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="message-square"></i></div>
+                    <div class="card-title">
+                        <h2>Triage Virtuale Predittivo</h2>
+                        <p>Descrivi i tuoi sintomi all'assistente AI per capire a quale specialista rivolgerti</p>
+                    </div>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message bot">
+                            <span class="message-title"><i data-lucide="bot"></i> Assistente ClinicFlow</span>
+                            Salve! Sono l'assistente virtuale di ClinicFlow. Per aiutarla a capire di quale visita ha bisogno e valutare l'urgenza, mi descriva brevemente i sintomi che avverte (ad esempio: "forte mal di schiena dopo una caduta", "dolore al petto e affanno", ecc.).
+                        </div>
+                    </div>
+                    
+                    <div class="patient-meta-row">
+                        <label style="display:flex; align-items:center; gap:0.25rem;">Nome: 
+                            <input type="text" class="meta-input" id="pat-name-input" value="Giuseppe" placeholder="Nome" style="width: 100px;">
+                        </label>
+                        <label style="display:flex; align-items:center; gap:0.25rem; margin-left: 10px;">Età: 
+                            <input type="number" class="meta-input" id="pat-age-input" value="54" placeholder="Età" style="width: 60px;">
+                        </label>
+                    </div>
+
+                    <div class="chat-input-row">
+                        <input type="text" id="chat-input" class="input-text" placeholder="Scrivi qui i tuoi sintomi..." onkeydown="if(event.key === 'Enter') sendTriage()">
+                        <button class="btn-send" onclick="sendTriage()" id="btn-chat-send"><i data-lucide="send"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PREPARAZIONE ESAMI -->
+            <div class="card" style="align-self: flex-start;">
+                <div class="card-header">
+                    <div class="card-icon"><i data-lucide="file-text"></i></div>
+                    <div class="card-title">
+                        <h2>Preparazione Esami Diagnostici</h2>
+                        <p>Cerca un esame clinico per leggere le istruzioni obbligatorie pre-esame</p>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <div class="search-icon-wrapper">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="exam-search" class="input-search" placeholder="Es. Ecografia addome, Risonanza, Sangue..." oninput="handleSearchInput()">
+                    </div>
+                    
+                    <!-- Dropdown Autocomplete -->
+                    <div class="autocomplete-dropdown" id="search-dropdown"></div>
+                </div>
+
+                <!-- Scheda risultati preparazione esame -->
+                <div class="exam-info-card" id="exam-result-card">
+                    <div class="exam-title-row">
+                        <h3 id="exam-res-name">Nome Esame</h3>
+                        <span class="dropdown-item-category" id="exam-res-cat">Categoria</span>
+                    </div>
+                    <p class="exam-desc-text" id="exam-res-desc">Descrizione dell'esame clinico.</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 0.65rem;" id="exam-res-steps">
+                        <!-- Step generati via JS -->
+                    </div>
+                </div>
+
+                <div id="exam-help-msg" style="text-align: center; padding: 2rem 0; color: var(--text-muted); font-size: 0.85rem;">
+                    <i data-lucide="info" style="margin: 0 auto 0.5rem; display: block; color: var(--primary);"></i>
+                    Digita il nome dell'esame o selezionalo per visualizzare le indicazioni cliniche.
+                </div>
+            </div>
+
+        </section>
+
+        <!-- SEZIONE 2: PORTALE CLINICA -->
+        <section id="clinica-view" class="tab-content">
+            
+            <!-- METRICS -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon blue"><i data-lucide="users"></i></div>
+                    <div class="metric-info">
+                        <h4>Triage Totali (Storico)</h4>
+                        <p id="metric-total">0</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon red"><i data-lucide="alert-triangle"></i></div>
+                    <div class="metric-info">
+                        <h4>Codici Rossi Attivi</h4>
+                        <p id="metric-red">0</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon yellow"><i data-lucide="alert-circle"></i></div>
+                    <div class="metric-info">
+                        <h4>Codici Gialli Attivi</h4>
+                        <p id="metric-yellow">0</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon green"><i data-lucide="check-circle-2"></i></div>
+                    <div class="metric-info">
+                        <h4>Codici Verdi Attivi</h4>
+                        <p id="metric-green">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CODA DI TRIAGE -->
+            <div class="card queue-section">
+                <div class="card-header" style="justify-content: space-between;">
+                    <div style="display:flex; align-items:center; gap:0.75rem;">
+                        <div class="card-icon"><i data-lucide="list"></i></div>
+                        <div class="card-title">
+                            <h2>Coda di Richiesta Contatto Triage</h2>
+                            <p>Pazienti in attesa di essere contattati telefonicamente o presi in carico</p>
+                        </div>
+                    </div>
+                    <button class="btn-resolve" onclick="loadAnalytics()" style="background: rgba(255,255,255,0.03); border-color: var(--border); color: var(--text-main);">
+                        <i data-lucide="refresh-cw"></i> Aggiorna Coda
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table id="queue-table">
+                        <thead>
+                            <tr>
+                                <th>Ora</th>
+                                <th>Paziente</th>
+                                <th>Codice</th>
+                                <th>Sintomi</th>
+                                <th>Specialità Consigliata</th>
+                                <th>Azione</th>
+                            </tr>
+                        </thead>
+                        <tbody id="queue-tbody">
+                            <!-- Popolato dinamicamente da JS -->
+                        </tbody>
+                    </table>
+                    
+                    <div class="empty-queue-msg" id="empty-queue-msg" style="display: none;">
+                        <i data-lucide="check" style="width:36px; height:36px; color: var(--secondary);"></i>
+                        <p>Nessun paziente in coda. Ottimo lavoro!</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- SCRIPT JS -->
+    <script>
+        const API_URL = "http://127.0.0.1:8087";
+        let examsList = [];
+        let isConnected = false;
+
+        // Inizializzazione al caricamento
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            checkServerConnection();
+            loadAllExams();
+            loadAnalytics();
+
+            // Ricarica le statistiche e la coda ogni 5 secondi
+            setInterval(() => {
+                if (isConnected) {
+                    loadAnalytics();
+                }
+            }, 5000);
+        });
+
+        // Controlla connessione con il backend FastAPI
+        async function checkServerConnection() {
+            const statusDot = document.getElementById('status-dot');
+            const statusText = document.getElementById('status-text');
+            
+            try {
+                const response = await fetch(`${API_URL}/`);
+                if (response.ok) {
+                    isConnected = true;
+                    statusDot.classList.add('online');
+                    statusText.textContent = "Connesso all'API";
+                } else {
+                    throw new Error("Server offline");
+                }
+            } catch (err) {
+                isConnected = false;
+                statusDot.classList.remove('online');
+                statusText.textContent = "Server Offline (Usando simulatore locale)";
+                console.warn("Utilizzo fallback lato client per simulare le API.");
+            }
+        }
+
+        // Cambia tab attivo
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            if (tab === 'paziente') {
+                document.getElementById('btn-paziente').classList.add('active');
+                document.getElementById('paziente-view').classList.add('active');
+            } else if (tab === 'clinica') {
+                document.getElementById('btn-clinica').classList.add('active');
+                document.getElementById('clinica-view').classList.add('active');
+                loadAnalytics();
+            }
+        }
+
+        // CARICA ELENCO ESAMI DA BACKEND
+        async function loadAllExams() {
+            if (isConnected) {
+                try {
+                    const res = await fetch(`${API_URL}/api/exams`);
+                    const data = await res.json();
+                    if (data.success) {
+                        examsList = data.exams;
+                        return;
+                    }
+                } catch (e) {
+                    console.error("Errore recupero esami:", e);
+                }
+            }
+
+            // Fallback locale in caso di server offline
+            examsList = [
+                { id: "ecografia_addome", name: "Ecografia Addome Completo", category: "Ecografia" },
+                { id: "risonanza_contrasto", name: "Risonanza Magnetica con Contrasto", category: "Risonanza Magnetica" },
+                { id: "esami_sangue", name: "Esami del Sangue Ordinari", category: "Laboratorio Analisi" },
+                { id: "holter_cardiaco", name: "Elettrocardiogramma Dinamico secondo Holter", category: "Cardiologia" },
+                { id: "gastroscopia", name: "Gastroscopia (EGDS)", category: "Endoscopia" }
+            ];
+        }
+
+        // CARICA ANALYTICS E CODA DA BACKEND
+        async function loadAnalytics() {
+            let metrics = {};
+            let queue = [];
+
+            if (isConnected) {
+                try {
+                    const res = await fetch(`${API_URL}/api/analytics`);
+                    const data = await res.json();
+                    if (data.success) {
+                        metrics = data.metrics;
+                        queue = data.queue;
+                    }
+                } catch (e) {
+                    console.error("Errore analytics:", e);
+                }
+            }
+
+            // Fallback locale in caso di server offline
+            if (!queue.length && !isConnected) {
+                metrics = {
+                    total_triage: 124,
+                    active_queue: 4,
+                    urgency_red: 1,
+                    urgency_yellow: 2,
+                    urgency_green: 1,
+                };
+                queue = [
+                    { id: "pat_1", name: "Giuseppe Rossi", age: 62, symptoms: "Forte dolore toracico opprimente che si irradia al braccio sinistro, difficoltà a respirare da circa 20 minuti.", specialty: "Cardiologia", urgency: "ROSSO", time: "11:32" },
+                    { id: "pat_2", name: "Maria Bianchi", age: 45, symptoms: "Dolore acuto al ginocchio destro dopo una caduta accidentale. Forte gonfiore e impossibilità di appoggiare il piede.", specialty: "Ortopedia", urgency: "GIALLO", time: "11:15" },
+                    { id: "pat_3", name: "Luca Neri", age: 28, symptoms: "Prurito intenso e comparsa di macchie rosse in rilievo sul tronco e sulle braccia dopo assunzione di un farmaco.", specialty: "Dermatologia", urgency: "GIALLO", time: "10:54" },
+                    { id: "pat_4", name: "Francesca Verdi", age: 37, symptoms: "Bruciore persistente allo stomaco da alcune settimane, accentuato dopo i pasti. Nausea occasionale.", specialty: "Gastroenterologia", urgency: "VERDE", time: "10:12" }
+                ];
+            }
+
+            // Aggiorna contatori in pagina
+            document.getElementById('metric-total').textContent = metrics.total_triage || 0;
+            document.getElementById('metric-red').textContent = metrics.urgency_red || 0;
+            document.getElementById('metric-yellow').textContent = metrics.urgency_yellow || 0;
+            document.getElementById('metric-green').textContent = metrics.urgency_green || 0;
+
+            // Aggiorna tabella coda
+            const tbody = document.getElementById('queue-tbody');
+            const emptyMsg = document.getElementById('empty-queue-msg');
+            
+            tbody.innerHTML = '';
+            
+            if (queue.length === 0) {
+                emptyMsg.style.display = 'flex';
+                document.getElementById('queue-table').style.display = 'none';
+            } else {
+                emptyMsg.style.display = 'none';
+                document.getElementById('queue-table').style.display = 'table';
+                
+                queue.forEach(pat => {
+                    const tr = document.createElement('tr');
+                    
+                    const urgencyClass = pat.urgency.toLowerCase();
+                    
+                    tr.innerHTML = `
+                        <td style="font-family:'Outfit', sans-serif; font-weight: 500; color: var(--text-muted);">${pat.time}</td>
+                        <td>
+                            <div class="patient-meta-cell">
+                                <span class="patient-name-lbl">${pat.name}</span>
+                                <span class="patient-age-lbl">${pat.age} anni</span>
+                            </div>
+                        </td>
+                        <td><span class="badge-urgency ${urgencyClass}">${pat.urgency}</span></td>
+                        <td class="symptoms-cell" title="${pat.symptoms}">${pat.symptoms}</td>
+                        <td style="font-weight: 600; color: var(--primary);">${pat.specialty}</td>
+                        <td>
+                            <button class="btn-resolve" onclick="resolvePatient('${pat.id}')">
+                                <i data-lucide="check"></i> Chiama
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                lucide.createIcons();
+            }
+        }
+
+        // PRENDE IN CARICO / RISOLVE UN PAZIENTE DALLA CODA
+        async function resolvePatient(patientId) {
+            if (isConnected) {
+                try {
+                    const res = await fetch(`${API_URL}/api/queue/${patientId}`, {
+                        method: 'DELETE'
+                    });
+                    if (res.ok) {
+                        loadAnalytics();
+                        return;
+                    }
+                } catch (e) {
+                    console.error("Errore cancellazione paziente:", e);
+                }
+            }
+
+            // Fallback locale
+            alert(`Paziente preso in carico con successo. Avvio telefonata di triage.`);
+            loadAnalytics();
+        }
+
+        // GESTISCE AUTOCOMPLETE SEARCH
+        function handleSearchInput() {
+            const query = document.getElementById('exam-search').value.toLowerCase().trim();
+            const dropdown = document.getElementById('search-dropdown');
+            
+            dropdown.innerHTML = '';
+            
+            if (!query) {
+                dropdown.style.display = 'none';
+                return;
+            }
+
+            const filtered = examsList.filter(e => e.name.toLowerCase().includes(query) || e.category.toLowerCase().includes(query));
+            
+            if (filtered.length === 0) {
+                dropdown.style.display = 'block';
+                dropdown.innerHTML = `<div style="padding:0.75rem 1rem; font-size:0.85rem; color:var(--text-muted);">Nessun esame corrispondente trovato</div>`;
+                return;
+            }
+
+            dropdown.style.display = 'block';
+            filtered.forEach(exam => {
+                const item = document.createElement('div');
+                item.className = 'dropdown-item';
+                item.innerHTML = `
+                    <span>${exam.name}</span>
+                    <span class="dropdown-item-category">${exam.category}</span>
+                `;
+                item.onclick = () => selectExam(exam.id, exam.name);
+                dropdown.appendChild(item);
+            });
+        }
+
+        // SELEZIONA ESAME E RECUPERA PREPARAZIONE
+        async function selectExam(examId, examName) {
+            document.getElementById('exam-search').value = examName;
+            document.getElementById('search-dropdown').style.display = 'none';
+            
+            let examData = null;
+
+            if (isConnected) {
+                try {
+                    const res = await fetch(`${API_URL}/api/exams/${examId}`);
+                    const data = await res.json();
+                    if (data.success) {
+                        examData = data.exam;
+                    }
+                } catch (e) {
+                    console.error("Errore recupero info esame:", e);
+                }
+            }
+
+            // Fallback locale
+            if (!examData) {
+                const fallbackDB = {
+                    "ecografia_addome": {
+                        name: "Ecografia Addome Completo",
+                        category: "Ecografia",
+                        description: "Esame ecografico degli organi addominali.",
+                        instructions: [
+                            "**Digiuno**: Digiuno assoluto nelle 6 ore precedenti.",
+                            "**Liquidi**: Bere 1 litro d'acqua non gassata 2 ore prima dell'esame.",
+                            "**Urinare**: Non urinare nelle 2 ore precedenti.",
+                            "**Dieta**: Nei 2 giorni precedenti evitare cibi fermentati."
+                        ]
+                    },
+                    "risonanza_contrasto": {
+                        name: "Risonanza Magnetica con Contrasto",
+                        category: "Risonanza Magnetica",
+                        description: "Indagine diagnostica ad alta risoluzione.",
+                        instructions: [
+                            "**Digiuno**: Digiuno assoluto da almeno 6 ore.",
+                            "**Creatininemia**: Esame recente obbligatorio da portare all'esame.",
+                            "**Metalli**: Rimuovere qualsiasi oggetto metallico."
+                        ]
+                    },
+                    "esami_sangue": {
+                        name: "Esami del Sangue Ordinari",
+                        category: "Laboratorio Analisi",
+                        description: "Prelievo ematico standard.",
+                        instructions: [
+                            "**Digiuno**: Digiuno di almeno 8-12 ore.",
+                            "**Acqua**: Ammesso bere poca acqua naturale.",
+                            "**Riposo**: Evitare sforzi intensi."
+                        ]
+                    },
+                    "holter_cardiaco": {
+                        name: "Elettrocardiogramma Dinamico secondo Holter",
+                        category: "Cardiologia",
+                        description: "Registrazione continua dell'attività cardiaca.",
+                        instructions: [
+                            "**Igiene**: Fare la doccia subito prima, non bagnare il registratore.",
+                            "**Abiti**: Indossare camicie o abiti comodi.",
+                            "**Diario**: Annotare i sintomi sul foglio di diario."
+                        ]
+                    },
+                    "gastroscopia": {
+                        name: "Gastroscopia (EGDS)",
+                        category: "Endoscopia",
+                        description: "Esame endoscopico delle prime vie digestive.",
+                        instructions: [
+                            "**Digiuno**: Digiuno assoluto da solidi e liquidi da almeno 8 ore.",
+                            "**Farmaci**: Sospendere antiacidi da 5 giorni prima.",
+                            "**Accompagnatore**: Obbligatorio venire accompagnati, vietato guidare dopo l'esame."
+                        ]
+                    }
+                };
+                examData = fallbackDB[examId];
+            }
+
+            if (!examData) return;
+
+            // Mostra scheda e popola
+            document.getElementById('exam-help-msg').style.display = 'none';
+            const card = document.getElementById('exam-result-card');
+            card.style.display = 'flex';
+            
+            document.getElementById('exam-res-name').textContent = examData.name;
+            document.getElementById('exam-res-cat').textContent = examData.category;
+            document.getElementById('exam-res-desc').textContent = examData.description;
+
+            const stepsContainer = document.getElementById('exam-res-steps');
+            stepsContainer.innerHTML = '';
+
+            examData.instructions.forEach((inst, index) => {
+                const step = document.createElement('div');
+                step.className = 'instruction-step';
+                
+                // Formatta il testo in markdown corsivo/grassetto semplice
+                let formattedText = inst.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                step.innerHTML = `
+                    <div class="instruction-step-num">${index + 1}</div>
+                    <div class="instruction-step-text">${formattedText}</div>
+                `;
+                stepsContainer.appendChild(step);
+            });
+        }
+
+        // CHIUDE IL DROPDOWN SE CLICCHI FUORI
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                document.getElementById('search-dropdown').style.display = 'none';
+            }
+        });
+
+        // INVIA MESSAGGIO DI TRIAGE
+        async function sendTriage() {
+            const input = document.getElementById('chat-input');
+            const query = input.value.trim();
+            const patName = document.getElementById('pat-name-input').value.trim() || "Paziente";
+            const patAge = parseInt(document.getElementById('pat-age-input').value.trim()) || 45;
+            
+            if (!query) return;
+
+            // Disattiva input
+            input.value = '';
+            input.disabled = true;
+            document.getElementById('btn-chat-send').disabled = true;
+
+            const chatMessages = document.getElementById('chat-messages');
+            
+            // Messaggio utente in chat
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.innerHTML = `
+                <span class="message-title"><i data-lucide="user" style="width: 12px; height: 12px;"></i> ${patName} (${patAge} anni)</span>
+                ${query}
+            `;
+            chatMessages.appendChild(userMsg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            lucide.createIcons();
+
+            // Mostra indicatore caricamento (dot-pulse)
+            const loaderMsg = document.createElement('div');
+            loaderMsg.className = 'message bot';
+            loaderMsg.id = 'chat-loader';
+            loaderMsg.innerHTML = `
+                <span class="message-title"><i data-lucide="bot"></i> Elaborazione Triage...</span>
+                <div class="chat-loader">
+                    <div class="dot-pulse"></div>
+                    <div class="dot-pulse"></div>
+                    <div class="dot-pulse"></div>
+                </div>
+            `;
+            chatMessages.appendChild(loaderMsg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            lucide.createIcons();
+
+            let result = null;
+
+            if (isConnected) {
+                try {
+                    const response = await fetch(`${API_URL}/api/triage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            patient_name: patName,
+                            patient_age: patAge,
+                            symptoms: query
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        result = await response.json();
+                    }
+                } catch (e) {
+                    console.error("Errore invio triage:", e);
+                }
+            }
+
+            // Fallback locale se offline
+            if (!result) {
+                // Semplice simulazione regex locale per visualizzazione offline
+                const symptoms_lower = query.toLowerCase();
+                let specialty = "Medicina Generale";
+                let urgency = "VERDE";
+                let advice = "Consigliamo di programmare una visita ordinaria col medico di base.";
+
+                if (symptoms_lower.match(/petto|toracico|affanno|palpitazioni|cardiaco/)) {
+                    specialty = "Cardiologia";
+                    if (symptoms_lower.match(/forte|opprimente|fiato corto|svenimento/)) {
+                        urgency = "ROSSO";
+                        advice = "ATTENZIONE: I sintomi descritti potrebbero indicare una situazione di emergenza cardiaca. CHIAMARE IMMEDIATAMENTE IL 112.";
+                    } else {
+                        urgency = "GIALLO";
+                        advice = "Si consiglia una valutazione specialistica cardiologica con urgenza (entro 24-48 ore).";
+                    }
+                } else if (symptoms_lower.match(/ginocchio|schiena|trauma|caduta|spalla/)) {
+                    specialty = "Ortopedia";
+                    urgency = "GIALLO";
+                    advice = "Si consiglia una visita ortopedica. In caso di traumi acuti gravi, recarsi in Pronto Soccorso.";
+                } else if (symptoms_lower.match(/pelle|sfogo|prurito|macchia/)) {
+                    specialty = "Dermatologia";
+                    urgency = "VERDE";
+                    advice = "Consigliata visita dermatologica programmabile di controllo.";
+                }
+
+                result = {
+                    success: true,
+                    patient: {
+                        name: patName,
+                        age: patAge,
+                        urgency: urgency,
+                        specialty: specialty,
+                        time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+                    },
+                    advice: advice
+                };
+            }
+
+            // Rimuovi loader
+            loaderMsg.remove();
+
+            // Mostra risposta bot con il risultato del triage
+            const botMsg = document.createElement('div');
+            botMsg.className = 'message bot';
+            
+            const urgencyClass = result.patient.urgency.toLowerCase();
+            
+            botMsg.innerHTML = `
+                <span class="message-title"><i data-lucide="bot"></i> Valutazione ClinicFlow</span>
+                Grazie per le informazioni. Il nostro sistema di intelligenza artificiale ha completato la valutazione del triage preliminare:
+                
+                <div class="triage-result-card">
+                    <div class="triage-badge-row">
+                        <span class="triage-specialty">${result.patient.specialty}</span>
+                        <span class="badge-urgency ${urgencyClass}">CODICE ${result.patient.urgency}</span>
+                    </div>
+                    <div class="triage-advice">
+                        ${result.advice}
+                    </div>
+                </div>
+                
+                <p style="font-size:0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
+                    *Nota: Questa è una valutazione automatica basata sulla descrizione fornita e non sostituisce un consulto medico. I dati sono stati inviati alla cabina di regia per la presa in carico.
+                </p>
+            `;
+            
+            chatMessages.appendChild(botMsg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            lucide.createIcons();
+
+            // Riattiva controlli
+            input.disabled = false;
+            document.getElementById('btn-chat-send').disabled = false;
+            input.focus();
+
+            // Aggiorna dashboard coda
+            loadAnalytics();
+        }
+    </script>
+</body>
+</html>

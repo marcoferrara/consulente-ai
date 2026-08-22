@@ -334,6 +334,7 @@ def execute_tool_call(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
 # --- ENDPOINTS ---
 
 @app.get("/")
+@app.get("/index.html")
 def read_root():
     try:
         with open(os.path.join(BASE_DIR, "index.html"), encoding="utf-8") as f:
@@ -345,7 +346,45 @@ def read_root():
 
 @app.get("/i18n.js")
 def get_i18n_js():
-    return FileResponse(os.path.join(BASE_DIR, "i18n.js"), media_type="application/javascript")
+    return FileResponse(
+        os.path.join(BASE_DIR, "i18n.js"), media_type="application/javascript",
+        headers={"Cache-Control": "no-cache"}
+    )
+
+
+@app.get("/styles.css")
+def get_styles_css():
+    return FileResponse(
+        os.path.join(BASE_DIR, "styles.css"), media_type="text/css",
+        headers={"Cache-Control": "no-cache"}
+    )
+
+
+def _serve_page(filename: str) -> HTMLResponse:
+    try:
+        with open(os.path.join(BASE_DIR, filename), encoding="utf-8") as f:
+            return HTMLResponse(content=f.read(), status_code=200)
+    except Exception as e:
+        logger.error(f"Errore caricamento {filename}: {e}")
+        return HTMLResponse(content=f"<h1>Pagina non trovata</h1>", status_code=404)
+
+
+@app.get("/mare")
+@app.get("/mare.html")
+def get_mare_page():
+    return _serve_page("mare.html")
+
+
+@app.get("/cultura")
+@app.get("/cultura.html")
+def get_cultura_page():
+    return _serve_page("cultura.html")
+
+
+@app.get("/citta")
+@app.get("/citta.html")
+def get_citta_page():
+    return _serve_page("citta.html")
 
 
 @app.get("/api/apartment")

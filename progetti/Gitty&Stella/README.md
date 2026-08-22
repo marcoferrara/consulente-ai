@@ -8,24 +8,30 @@ Il sistema implementa:
 3. **Assistente AI via webhook WhatsApp** (`app.py`): risponde a domande su disponibilità/prezzo, raccoglie richieste di prenotazione e **notifica il proprietario** (mock). Nessuna prenotazione è mai confermata automaticamente: resta sempre una richiesta in attesa di conferma del proprietario.
 4. **Fallback senza chiave API**: se non è configurata una chiave OpenAI/Gemini valida, il bot risponde comunque con un motore mock multilingua (`process_mock_response`), utile per demo senza credenziali.
 
+## ⚠️ Nota importante su questo repository
+
+Questo repo è pubblicato anche su **GitHub Pages** per condividere rapidamente la landing page con il cliente. GitHub Pages serve però **solo file statici**: `index.html`, `mare.html`, `cultura.html`, `citta.html`, `styles.css`, `i18n.js` e le immagini funzionano perfettamente online, ma **il backend Python (`app.py`) non viene eseguito** — il widget di chat "Chiedi ora" sulla pagina pubblicata online non risponderà. Per mostrare il bot funzionante, avvia il server in locale seguendo le istruzioni sotto e naviga su `http://localhost:8010/`.
+
 ## Struttura progetto
 
 ```
-app.py            # Server FastAPI + orchestratore AI (function calling)
+app.py            # Server FastAPI + orchestratore AI (function calling) — solo per uso locale
 config.py         # Dati appartamento, date mock già occupate, chiavi API
 requirements.txt  # Dipendenze
 index.html        # Landing page + widget chat demo stile WhatsApp
+mare.html         # Pagina dedicata: mare (Torregrande, Sinis)
+cultura.html      # Pagina dedicata: cultura e archeologia (Tharros, Mont'e Prama)
+citta.html        # Pagina dedicata: città e comodità (Oristano)
+styles.css        # Stile condiviso da tutte le pagine
 i18n.js           # Traduzioni IT/EN/DE/FR + logica di switch lingua
 test_client.py    # Script di test conversazionale da riga di comando
 static/images/    # Foto stock PLACEHOLDER — vedi checklist sotto
 ```
 
-## Come avviarlo
-
-> Nota: la cartella del progetto si chiama `Gitty&Stella` (con l'e commerciale). Ricorda di quotare il percorso nei comandi da terminale.
+## Come avviarlo in locale (per il bot)
 
 ```bash
-cd "progetti/Gitty&Stella"
+cd gitty-stella
 pip install -r requirements.txt
 ```
 

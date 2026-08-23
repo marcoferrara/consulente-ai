@@ -1,7 +1,7 @@
 # Aijò — Consulente AI Sardegna — CLAUDE.md
 
 ## Progetto
-Landing page e sito istituzionale di Marco Ferrara come consulente AI per le imprese sarde. Dominio: `aijo.ai`.
+Landing page e sito istituzionale di Marco Ferrara come consulente AI per le imprese sarde. Dominio: `aijo-consulenteai.it` (nessun dominio `aijo.ai` posseduto).
 
 ## Stack
 - **Frontend:** HTML5 + CSS3 + JavaScript vanilla (no framework)

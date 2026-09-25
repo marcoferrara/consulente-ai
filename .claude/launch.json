@@ -4,13 +4,13 @@
     {
       "name": "social-pesca",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "-p", "4500", "progetti/social_pesca"],
+      "runtimeArgs": ["serve", "-p", "4500", "../social_pesca"],
       "port": 4500
     },
     {
       "name": "gitty-stella",
       "runtimeExecutable": "uvicorn",
-      "runtimeArgs": ["app:app", "--reload", "--port", "8010", "--app-dir", "progetti/Gitty&Stella"],
+      "runtimeArgs": ["app:app", "--reload", "--port", "8010", "--app-dir", "../Gitty&Stella"],
       "port": 8010
     }
   ]

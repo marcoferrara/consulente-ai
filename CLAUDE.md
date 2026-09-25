@@ -16,14 +16,15 @@ index.html              # Pagina principale (landing)
 index_maintenance.html  # Pagina di manutenzione
 favicon.svg
 assets/                 # Immagini e risorse statiche
-progetti/               # Sotto-progetti clienti (vedi sotto)
+demo/                   # Demo statiche aperte dalla landing (studio_associato, cantina_vinicola, laboratorio_artistico, logistica)
 ```
 
-## Sotto-progetti clienti
-Ogni cartella in `progetti/` è un sito/app per un cliente specifico:
-- `ricerca_commercialista/` — **LexDocs** (Next.js 15, vedi suo CLAUDE.md)
+## Progetti clienti (fuori da questa cartella)
+Tutti i progetti clienti vivono come cartelle sorelle in `C:\Users\marco\Claude Code\` (non più in `progetti/`), ognuno col suo CLAUDE.md dove presente:
+- `ricerca_commercialista/` — **LexDocs** (Next.js 15)
 - `antiga_armonia/` — Python/Flask + Docker
-- `boutique_hotel/`, `cantina_vinicola/`, `il_campanellino/`, `la_sorgente/`, `laboratorio_artistico/`, `logistica/`, `meneesco/`, `ricambi_truck/`, `social_pesca/`, `studio_associato/` — siti/app clienti vari
+- `accademia_internazionale_musical/`, `ail/`, `boutique_hotel/`, `bw-charter/` (ha un proprio repo git), `il_campanellino/`, `la_sorgente/`, `meneesco/`, `social_pesca/`, `vendite-dashboard/` — siti/app clienti vari
+- Le demo in `demo/` restano qui perché la landing le apre con link relativi (`demo/<nome>/index.html`); `laboratorio_artistico` e `logistica` tornano alla home con `../../index.html`
 
 ## Deploy landing page
 Il sito è deployato su **GitHub Pages**: il workflow `.github/workflows/deploy.yml` pubblica l'intera root del repo a ogni push su `main`. Dominio `www.aijo-consulenteai.it` (Aruba) collegato tramite file `CNAME`. I contatti passano da **Web3Forms** (`action="https://api.web3forms.com/submit"`).

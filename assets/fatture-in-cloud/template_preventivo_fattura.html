@@ -1,0 +1,269 @@
+<!--
+  Template HTML personalizzato AIjò - Consulente AI per Fatture in Cloud
+  Valido per: Fatture, Preventivi, Ordini, Ricevute, Note di credito (template "standard")
+  Sintassi: Template Development Kit v1.1 di Fatture in Cloud (motore mPDF)
+
+  PRIMA DI USARLO:
+  1) In Impostazioni > Logo, carica come logo dell'account il file
+     "logo_aijo_ai_pulito_hd.png" (l'anello ripulito, senza la scritta sotto:
+     qui la scritta viene generata come testo vero, non immagine).
+  2) In Impostazioni > Dati aggiuntivi, verifica che "Sottotitolo 1" contenga
+     "AIjò - Consulente AI" (compare sotto la ragione sociale nel blocco mittente).
+  3) Imposta il "Colore principale" su #C8A76B (oro brand) nella pagina di
+     personalizzazione: il template lo riprende automaticamente ovunque
+     tramite {{ documento.colore }}, quindi basta cambiarlo lì in futuro.
+-->
+
+<style>
+  /* Font di base: rispetta la scelta fatta in Impostazioni > Font utilizzato.
+     Il motore PDF accetta solo un set fisso di font (lato, opensans, roboto...):
+     scegli lì quello che preferisci, qui viene solo ereditato. */
+  body {
+    font-family: {{ documento.font_family }}, sans-serif;
+    font-size: 11px;
+    color: #2b2b2b;
+    line-height: 1.4;
+  }
+
+  /* La scritta "AIjò" del logotipo usa un serif dedicato solo per questa parola,
+     per richiamare il carattere elegante del marchio senza dipendere da un
+     font esterno non garantito dal motore PDF. */
+  .logotipo-nome {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: bold;
+    font-size: 22px;
+    color: #{{ documento.colore|brightness(-25) }};
+    letter-spacing: 0.5px;
+  }
+  .logotipo-sottotitolo {
+    font-family: {{ documento.font_family }}, sans-serif;
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #555555;
+    margin-top: 2px;
+  }
+
+  /* Intestazione: logo a sinistra, dati documento (numero/data) a destra */
+  .header-table { width: 100%; border-collapse: collapse; margin-bottom: 14px; }
+  .header-table td { vertical-align: top; padding: 0; }
+  .logo-img { height: 58px; width: auto; }
+  .titolo-documento {
+    font-size: 26px;
+    font-weight: bold;
+    color: #2b2b2b;
+    text-align: right;
+    letter-spacing: 1px;
+  }
+  .riga-dati-documento {
+    text-align: right;
+    font-size: 11px;
+    margin-top: 4px;
+  }
+  .riga-dati-documento b { color: #2b2b2b; }
+
+  /* Linea separatrice color brand sotto l'intestazione */
+  .separatore-brand {
+    border-bottom: 2px solid #{{ documento.colore }};
+    margin: 10px 0 16px 0;
+  }
+
+  /* Blocchi mittente / destinatario affiancati */
+  .blocchi-anagrafica { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+  .blocchi-anagrafica td { vertical-align: top; width: 50%; padding-right: 20px; }
+  .nome-soggetto { font-size: 13px; font-weight: bold; margin-bottom: 4px; }
+  .etichetta-blocco { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #888888; margin-bottom: 3px; }
+
+  /* Tabella articoli */
+  table.articoli { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+  table.articoli thead td {
+    background-color: #{{ documento.colore }};
+    color: #2b2b2b;
+    font-weight: bold;
+    font-size: 10px;
+    text-transform: uppercase;
+    padding: 7px 8px;
+    letter-spacing: 0.3px;
+  }
+  table.articoli tbody td {
+    padding: 7px 8px;
+    border-bottom: 1px solid #ececec;
+    font-size: 11px;
+  }
+  .nome-articolo { font-weight: bold; }
+  .descrizione-articolo { font-size: 9.5px; color: #7a7a7a; margin-top: 1px; }
+  .colonna-numerica { text-align: right; white-space: nowrap; }
+
+  /* Totali */
+  table.totali { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  table.totali td { padding: 6px 8px; font-size: 11px; text-align: right; }
+  .riga-totale-finale td {
+    background-color: #{{ documento.colore }};
+    font-weight: bold;
+    font-size: 13px;
+    color: #2b2b2b;
+  }
+
+  /* Riquadro pagamento */
+  .riquadro-pagamento {
+    border: 1px solid #{{ documento.colore }};
+    margin-top: 18px;
+  }
+  .riquadro-pagamento .titolo {
+    background-color: #{{ documento.colore }};
+    font-weight: bold;
+    font-size: 11px;
+    padding: 6px 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .riquadro-pagamento .contenuto { padding: 10px; font-size: 11px; }
+  .riquadro-pagamento .contenuto b { display: inline-block; min-width: 90px; }
+
+  .note-finali { margin-top: 18px; font-size: 10px; color: #555555; }
+</style>
+
+<!-- ===================== INTESTAZIONE ===================== -->
+<table class="header-table">
+  <tr>
+    <td style="width:55%;">
+      <img class="logo-img" src="{{ documento.logo_1 }}">
+      <div class="logotipo-nome">AIj&ograve;</div>
+      <div class="logotipo-sottotitolo">Consulente AI</div>
+    </td>
+    <td style="width:45%;">
+      <div class="titolo-documento">{{ documento.nome|uppercase }}</div>
+      {% if documento.oggetto %}
+        <div class="riga-dati-documento"><b>{{ documento.oggetto }}</b></div>
+      {% endif %}
+      <div class="riga-dati-documento">{{ documento.nome|capitalize }} {{ lang.nr }} {{ documento.numero }}{{ documento.serie }}</div>
+      <div class="riga-dati-documento">{{ lang.data }}: {{ documento.data }}</div>
+    </td>
+  </tr>
+</table>
+<div class="separatore-brand"></div>
+
+<!-- ===================== MITTENTE / DESTINATARIO ===================== -->
+<table class="blocchi-anagrafica">
+  <tr>
+    <td>
+      <div class="nome-soggetto">{{ soggetto.ragione_sociale }}</div>
+      {% if soggetto.sottotitolo_1 %}<div>{{ soggetto.sottotitolo_1 }}</div>{% endif %}
+      {% if soggetto.sottotitolo_2 %}<div>{{ soggetto.sottotitolo_2 }}</div>{% endif %}
+      <div>{{ soggetto.indirizzo }}</div>
+      <div>{{ soggetto.paese }}</div>
+      <br>
+      {% if soggetto.piva %}<div>{{ lang.piva }}: {{ soggetto.piva }}</div>{% endif %}
+      {% if soggetto.codfisc %}<div>{{ lang.codfisc }}: {{ soggetto.codfisc }}</div>{% endif %}
+      <br>
+      {% if soggetto.cell %}<div>{{ lang.cell }}: {{ soggetto.cell }}</div>{% endif %}
+      {% if soggetto.mail %}<div>MAIL: {{ soggetto.mail }}</div>{% endif %}
+      {% if soggetto.sito %}<div>{{ soggetto.sito }}</div>{% endif %}
+    </td>
+    <td>
+      <div class="etichetta-blocco">{{ lang.attenzione_di }}</div>
+      <div class="nome-soggetto">{{ cliente.ragione_sociale }}</div>
+      <div>{{ cliente.indirizzo }}</div>
+      <div>{{ cliente.paese }}</div>
+      {% if cliente.piva %}<br><div>{{ lang.piva }}: {{ cliente.piva }}</div>{% endif %}
+      {% if cliente.codfisc %}<div>{{ lang.codfisc }}: {{ cliente.codfisc }}</div>{% endif %}
+    </td>
+  </tr>
+</table>
+
+<!-- ===================== TABELLA ARTICOLI ===================== -->
+<table class="articoli">
+  <thead>
+    <tr>
+      <td style="width:40%;">{{ lang.descrizione }}</td>
+      {% if documento.mostra_colonna_codici %}<td>{{ lang.codice }}</td>{% endif %}
+      <td class="colonna-numerica">{{ lang.prezzo }}</td>
+      {% if documento.mostra_colonna_quantita %}<td class="colonna-numerica">{{ lang.quantita }}</td>{% endif %}
+      <td class="colonna-numerica">{{ lang.importo_netto }}</td>
+      <td class="colonna-numerica">{{ lang.iva }}</td>
+      <td class="colonna-numerica">{{ lang.importo_totale }}</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for articolo in articoli %}
+    <tr>
+      <td>
+        <div class="nome-articolo">{{ articolo.nome }}</div>
+        {% if articolo.descrizione %}<div class="descrizione-articolo">{{ articolo.descrizione }}</div>{% endif %}
+      </td>
+      {% if documento.mostra_colonna_codici %}<td>{{ articolo.codice }}</td>{% endif %}
+      <td class="colonna-numerica">{{ cifra(articolo.prezzo) }}</td>
+      {% if documento.mostra_colonna_quantita %}<td class="colonna-numerica">{{ articolo.quantita }} {{ articolo.udm }}</td>{% endif %}
+      <td class="colonna-numerica">{{ cifra(articolo.netto) }}</td>
+      <td class="colonna-numerica">{{ articolo.aliquota_iva }}%</td>
+      <td class="colonna-numerica">{{ cifra(articolo.lordo) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- ===================== TOTALI ===================== -->
+{% if totali.nascondi != 2 %}
+<table class="totali">
+  <tr>
+    <td>{{ lang.imponibile }}</td>
+    <td style="width:140px;">{{ cifra(totali.imponibile) }}</td>
+  </tr>
+  {% if totali.iva %}
+  <tr>
+    <td>{{ lang.totale_iva }}</td>
+    <td>{{ cifra(totali.iva) }}</td>
+  </tr>
+  {% endif %}
+  {% if totali.ritenuta_acconto %}
+  <tr>
+    <td>{{ lang.ritenuta_acconto }} ({{ totali.ritenuta_acconto.percentuale }}%)</td>
+    <td>- {{ cifra(totali.ritenuta_acconto.totale) }}</td>
+  </tr>
+  {% endif %}
+  {% if totali.nascondi != 1 %}
+  <tr class="riga-totale-finale">
+    <td>{{ lang.totale_dovuto }}</td>
+    <td>{{ cifra(totali.netto_a_pagare) }}</td>
+  </tr>
+  {% endif %}
+</table>
+{% endif %}
+
+<!-- ===================== MODALITA' DI PAGAMENTO ===================== -->
+{% if pagamento.mostra_metodo %}
+<div class="riquadro-pagamento">
+  <div class="titolo">{{ lang.modalita_pagamento }}{% if pagamento.metodo.nome %}: {{ pagamento.metodo.nome }}{% endif %}</div>
+  <div class="contenuto">
+    {% for coppia in pagamento.metodo.valori %}
+      <div><b>{{ coppia.chiave }}:</b> {{ coppia.valore }}</div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- ===================== NOTE / ESENZIONI IVA ===================== -->
+{% if documento.note %}
+<div class="note-finali">{{ documento.note }}</div>
+{% endif %}
+
+
+<!--PDF-->
+
+<htmlpagefooter name="pdf_footer">
+  <table width="100%" style="font-size: 9px; color: #666666; border-top: 1px solid #dddddd; padding-top: 4px;">
+    <tr>
+      <td width="40%">
+        {{ soggetto.ragione_sociale }}<br>
+        {{ lang.piva }} {{ soggetto.piva }}{% if soggetto.codfisc %} - {{ lang.codfisc }} {{ soggetto.codfisc }}{% endif %}
+      </td>
+      <td width="20%" align="center">
+        {{ lang.pagina }} {{ num_pagina }}/{{ totale_pagine }}
+      </td>
+      <td width="40%" style="text-align: right;">
+        {{ documento.nome|capitalize }} {{ lang.nr }} {{ documento.numero }}{{ documento.serie }} {{ lang.del }} {{ documento.data }}<br>
+        {{ cliente.ragione_sociale }}
+      </td>
+    </tr>
+  </table>
+</htmlpagefooter>

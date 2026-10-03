@@ -147,8 +147,8 @@
             --terra: #9a4f2e;
             --sea: #1d6d94;
             --text: #ede8df;
-            --muted: #7a7265;
-            --dim: #3e3a34;
+            --muted: #b8b0a4;
+            --dim: #968d80;
         }
 
         html {
@@ -159,7 +159,7 @@
             background: var(--bg);
             color: var(--text);
             font-family: 'Jost', sans-serif;
-            font-weight: 300;
+            font-weight: 400;
             line-height: 1.6;
             cursor: none;
             overflow-x: hidden;
@@ -2091,6 +2091,109 @@
                 right: 18px;
                 width: 50px;
                 height: 50px;
+            }
+        }
+
+        /* Leggibilità dei testi e degli elementi interattivi */
+        .nav-links a,
+        .hero-eyebrow,
+        .section-label,
+        .services-count,
+        .tag,
+        .sim-tab-tag,
+        .console-title,
+        .console-badge,
+        .sol-block h4,
+        .sol-tech span,
+        .impact-lbl,
+        .territory-cities .cl-label,
+        .territory-cities a,
+        .form-field label {
+            font-size: .875rem;
+            line-height: 1.5;
+        }
+
+        .stat-label,
+        .hero-scroll,
+        .btn-back-sim,
+        .chat-system {
+            font-size: .8125rem;
+            line-height: 1.5;
+        }
+
+        .hero-sub,
+        .manifesto-text p,
+        .service-card p,
+        .territorio-content p,
+        .territory-point p,
+        .step p,
+        #contatto>p {
+            font-size: 1.0625rem;
+            font-weight: 400;
+            line-height: 1.75;
+        }
+
+        .btn-primary,
+        .btn-ghost,
+        .btn-solve,
+        .form-submit,
+        .contact-alt,
+        .cookie-buttons button {
+            font-size: .9375rem;
+            font-weight: 500;
+        }
+
+        .sim-tab-num,
+        .sol-block p,
+        .sim-tab-btn,
+        .chat-bubble,
+        .cookie-text,
+        .pref-title,
+        .pref-desc,
+        footer p {
+            font-size: .9375rem;
+        }
+
+        .form-field input,
+        .form-field textarea,
+        .form-field select {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .form-field input::placeholder,
+        .form-field textarea::placeholder {
+            color: var(--muted);
+        }
+
+        .slider {
+            background-color: #3e3a34;
+        }
+
+        @media (max-width: 600px) {
+            .hero-content {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-sub {
+                max-width: 100%;
+            }
+
+            .hero-eyebrow,
+            .section-label,
+            .services-count,
+            .tag,
+            .sim-tab-tag,
+            .territory-cities .cl-label,
+            .territory-cities a,
+            .form-field label {
+                letter-spacing: .1em;
             }
         }
 

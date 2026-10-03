@@ -376,3 +376,40 @@ footer .footer-cities {
   margin-top: .6rem;
   letter-spacing: .1em;
 }
+
+/* Leggibilità delle cinque pagine dedicate alle città */
+body.city-page {
+  --muted: #b8b0a4;
+  --dim: #968d80;
+  font-weight: 400;
+}
+
+.city-page .nav-links a,
+.city-page .section-label,
+.city-page .breadcrumb,
+.city-page .card .num {
+  font-size: .875rem;
+  line-height: 1.5;
+}
+
+.city-page .page-hero .lead,
+.city-page section.block p,
+.city-page .cta-band p {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.city-page .btn-primary,
+.city-page .related a,
+.city-page footer,
+.city-page .cookie-banner .cookie-text,
+.city-page .cookie-banner button {
+  font-size: .9375rem;
+}
+
+@media (max-width: 600px) {
+  .city-page .section-label,
+  .city-page .nav-links a {
+    letter-spacing: .1em;
+  }
+}

@@ -2185,12 +2185,59 @@
             fill: #fff;
         }
 
+        /* Pulsante "torna su": compare dopo 500px di scroll, sopra il pulsante WhatsApp */
+        .back-to-top {
+            position: fixed;
+            right: 29px;
+            bottom: 158px;
+            z-index: 9997;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--gold-border);
+            border-radius: 50%;
+            background: var(--bg2);
+            color: var(--gold);
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(8px);
+            transition: opacity .2s, transform .2s, visibility .2s;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            border-color: var(--gold);
+            background: var(--gold-dim);
+        }
+
+        .back-to-top:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+        }
+
         @media (max-width: 900px) {
             .whatsapp-float {
                 bottom: 190px;
                 right: 18px;
                 width: 50px;
                 height: 50px;
+            }
+
+            .back-to-top {
+                right: 21px;
+                bottom: 258px;
             }
         }
 
@@ -2294,6 +2341,12 @@
             .territory-cities a,
             .form-field label {
                 letter-spacing: .1em;
+            }
+
+            /* Il testo del footer non finisce sotto i pulsanti flottanti */
+            footer {
+                padding-left: 4.5rem;
+                padding-right: 4.5rem;
             }
         }
 
@@ -2894,6 +2947,8 @@
         <p>P.IVA 04242750927</p>
     </footer>
 
+    <button type="button" id="back-to-top" class="back-to-top" aria-label="Torna su" title="Torna su">↑</button>
+
     <script>
         /* ── CURSOR ── */
         const cur = document.getElementById('cur');
@@ -3224,8 +3279,22 @@
 
         /* ── NAV SCROLL ── */
         const nav = document.getElementById('nav');
-        window.addEventListener('scroll', () => {
+        const backToTop = document.getElementById('back-to-top');
+
+        // Aggiorna la barra di navigazione e mostra "torna su" dopo 500px di scroll
+        function updateScrollUI() {
             nav.classList.toggle('scrolled', window.scrollY > 60);
+            backToTop.classList.toggle('visible', window.scrollY > 500);
+        }
+        window.addEventListener('scroll', updateScrollUI, { passive: true });
+        updateScrollUI();
+
+        // Torna in cima (senza animazione se l'utente la disattiva nel sistema)
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+            });
         });
 
         /* ── FORM ── */

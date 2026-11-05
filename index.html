@@ -1628,6 +1628,39 @@
             color: var(--bg);
         }
 
+        /* Riquadro illustrato accanto al pulsante: due fumetti di conversazione */
+        .form-visual {
+            background: var(--surface);
+            border-top: 1px solid var(--gold-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: .6rem 1rem;
+        }
+
+        .form-visual svg {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+        }
+
+        /* I tre puntini del fumetto "stai scrivendo" pulsano in sequenza */
+        .form-visual .dot {
+            animation: dot-pulse 1.4s ease-in-out infinite;
+        }
+
+        .form-visual .dot:nth-child(2) { animation-delay: .2s; }
+        .form-visual .dot:nth-child(3) { animation-delay: .4s; }
+
+        @keyframes dot-pulse {
+            0%, 100% { opacity: .3; }
+            50% { opacity: 1; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .form-visual .dot { animation: none; }
+        }
+
         .contact-alt {
             margin-top: 2.5rem;
             display: flex;
@@ -2764,6 +2797,15 @@
                     placeholder="Cosa vorresti migliorare o automatizzare nella tua azienda?"></textarea>
             </div>
             <button type="submit" class="form-submit full" id="submit-btn">Invia messaggio &rarr;</button>
+            <!-- Illustrazione: conversazione tra cliente e consulente -->
+            <div class="form-visual" aria-hidden="true">
+                <svg viewBox="0 0 380 66">
+                    <path d="M40 8 H150 a8 8 0 0 1 8 8 V34 a8 8 0 0 1 -8 8 H62 L50 54 L52 42 H48 a8 8 0 0 1 -8 -8 V16 a8 8 0 0 1 8 -8 Z" fill="none" stroke="#c8a76b" stroke-opacity="0.7" stroke-width="1"/>
+                    <g fill="#c8a76b"><circle class="dot" cx="82" cy="25" r="3"/><circle class="dot" cx="99" cy="25" r="3"/><circle class="dot" cx="116" cy="25" r="3"/></g>
+                    <path d="M232 18 H330 a8 8 0 0 1 8 8 V38 a8 8 0 0 1 -8 8 H318 L322 56 L308 46 H232 a8 8 0 0 1 -8 -8 V26 a8 8 0 0 1 8 -8 Z" fill="#c8a76b" fill-opacity="0.15" stroke="#c8a76b" stroke-opacity="0.7" stroke-width="1"/>
+                    <g stroke="#c8a76b" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round"><line x1="238" y1="29" x2="316" y2="29"/><line x1="238" y1="37" x2="290" y2="37"/></g>
+                </svg>
+            </div>
         </form>
 
         <div class="contact-alt reveal">

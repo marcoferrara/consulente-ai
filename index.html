@@ -653,6 +653,60 @@
             background: var(--gold-border);
         }
 
+        /* Colonne laterali della griglia servizi: rete neurale che scorre lentamente */
+        .services-grid {
+            position: relative;
+        }
+
+        .services-grid::before,
+        .services-grid::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3rem;
+            background-color: var(--bg2);
+            background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='240' viewBox='0 0 48 240'><g stroke='%23c8a76b' stroke-opacity='.35' stroke-width='.8'><line x1='8' y1='-222' x2='24' y2='-200'/><line x1='8' y1='-174' x2='24' y2='-200'/><line x1='8' y1='-174' x2='24' y2='-148'/><line x1='8' y1='-122' x2='24' y2='-148'/><line x1='8' y1='-122' x2='24' y2='-96'/><line x1='8' y1='-70' x2='24' y2='-96'/><line x1='8' y1='-70' x2='24' y2='-44'/><line x1='8' y1='-70' x2='24' y2='-8'/><line x1='8' y1='-28' x2='24' y2='-44'/><line x1='8' y1='-28' x2='24' y2='-8'/><line x1='8' y1='18' x2='24' y2='-44'/><line x1='8' y1='18' x2='24' y2='-8'/><line x1='8' y1='18' x2='24' y2='40'/><line x1='8' y1='66' x2='24' y2='40'/><line x1='8' y1='66' x2='24' y2='92'/><line x1='8' y1='118' x2='24' y2='92'/><line x1='8' y1='118' x2='24' y2='144'/><line x1='8' y1='170' x2='24' y2='144'/><line x1='8' y1='170' x2='24' y2='196'/><line x1='8' y1='170' x2='24' y2='232'/><line x1='8' y1='212' x2='24' y2='196'/><line x1='8' y1='212' x2='24' y2='232'/><line x1='8' y1='258' x2='24' y2='196'/><line x1='8' y1='258' x2='24' y2='232'/><line x1='8' y1='258' x2='24' y2='280'/><line x1='8' y1='306' x2='24' y2='280'/><line x1='8' y1='306' x2='24' y2='332'/><line x1='8' y1='358' x2='24' y2='332'/><line x1='8' y1='358' x2='24' y2='384'/><line x1='8' y1='410' x2='24' y2='384'/><line x1='8' y1='410' x2='24' y2='436'/><line x1='8' y1='410' x2='24' y2='472'/><line x1='8' y1='452' x2='24' y2='436'/><line x1='8' y1='452' x2='24' y2='472'/><line x1='24' y1='-200' x2='40' y2='-216'/><line x1='24' y1='-200' x2='40' y2='-162'/><line x1='24' y1='-148' x2='40' y2='-162'/><line x1='24' y1='-148' x2='40' y2='-110'/><line x1='24' y1='-96' x2='40' y2='-110'/><line x1='24' y1='-96' x2='40' y2='-58'/><line x1='24' y1='-44' x2='40' y2='-58'/><line x1='24' y1='-44' x2='40' y2='-18'/><line x1='24' y1='-8' x2='40' y2='-58'/><line x1='24' y1='-8' x2='40' y2='-18'/><line x1='24' y1='-8' x2='40' y2='24'/><line x1='24' y1='40' x2='40' y2='-18'/><line x1='24' y1='40' x2='40' y2='24'/><line x1='24' y1='40' x2='40' y2='78'/><line x1='24' y1='92' x2='40' y2='78'/><line x1='24' y1='92' x2='40' y2='130'/><line x1='24' y1='144' x2='40' y2='130'/><line x1='24' y1='144' x2='40' y2='182'/><line x1='24' y1='196' x2='40' y2='182'/><line x1='24' y1='196' x2='40' y2='222'/><line x1='24' y1='232' x2='40' y2='182'/><line x1='24' y1='232' x2='40' y2='222'/><line x1='24' y1='232' x2='40' y2='264'/><line x1='24' y1='280' x2='40' y2='222'/><line x1='24' y1='280' x2='40' y2='264'/><line x1='24' y1='280' x2='40' y2='318'/><line x1='24' y1='332' x2='40' y2='318'/><line x1='24' y1='332' x2='40' y2='370'/><line x1='24' y1='384' x2='40' y2='370'/><line x1='24' y1='384' x2='40' y2='422'/><line x1='24' y1='436' x2='40' y2='422'/><line x1='24' y1='436' x2='40' y2='462'/><line x1='24' y1='472' x2='40' y2='422'/><line x1='24' y1='472' x2='40' y2='462'/></g><g fill='%23c8a76b'><circle cx='8' cy='18' r='2' fill-opacity='0.7'/><circle cx='8' cy='66' r='2' fill-opacity='0.7'/><circle cx='8' cy='118' r='2' fill-opacity='0.7'/><circle cx='8' cy='170' r='3' fill-opacity='1'/><circle cx='8' cy='212' r='2' fill-opacity='0.7'/><circle cx='24' cy='40' r='2' fill-opacity='0.7'/><circle cx='24' cy='92' r='2' fill-opacity='0.7'/><circle cx='24' cy='144' r='3' fill-opacity='1'/><circle cx='24' cy='196' r='2' fill-opacity='0.7'/><circle cx='24' cy='232' r='2' fill-opacity='0.7'/><circle cx='40' cy='24' r='2' fill-opacity='0.7'/><circle cx='40' cy='78' r='3' fill-opacity='1'/><circle cx='40' cy='130' r='2' fill-opacity='0.7'/><circle cx='40' cy='182' r='2' fill-opacity='0.7'/><circle cx='40' cy='222' r='2' fill-opacity='0.7'/></g></svg>");
+            background-repeat: repeat-y;
+            background-size: 48px 240px;
+            animation: neural-drift 70s linear infinite;
+            pointer-events: none;
+        }
+
+        .services-grid::before {
+            left: 0;
+        }
+
+        /* La colonna destra e' speculare: i livelli si "aprono" verso le card */
+        .services-grid::after {
+            right: 0;
+            transform: scaleX(-1);
+        }
+
+        @keyframes neural-drift {
+            from { background-position: 0 0; }
+            to { background-position: 0 240px; }
+        }
+
+        @media (max-width: 900px) {
+            .services-grid::before,
+            .services-grid::after {
+                width: 1.5rem;
+                background-size: 24px 120px;
+                animation-name: neural-drift-mobile;
+            }
+
+            @keyframes neural-drift-mobile {
+                from { background-position: 0 0; }
+                to { background-position: 0 120px; }
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .services-grid::before,
+            .services-grid::after { animation: none; }
+        }
+
         .service-card {
             background: var(--bg2);
             padding: 3.5rem;

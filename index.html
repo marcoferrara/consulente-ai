@@ -1738,6 +1738,19 @@
             color: var(--dim);
         }
 
+        /* Contatti alternativi: su mobile una voce per riga, senza separatori */
+        @media (max-width: 600px) {
+            .contact-alt {
+                flex-direction: column;
+                gap: .5rem;
+                text-align: center;
+            }
+
+            .contact-alt span.sep {
+                display: none;
+            }
+        }
+
         /* ─── FOOTER ─── */
         footer {
             padding: 2rem 3rem;

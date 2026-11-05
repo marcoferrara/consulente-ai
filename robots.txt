@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# Endpoint del chatbot (non sono pagine): evita che Google li scansioni e generi errori 404
+Disallow: /webhook/
 
 Sitemap: https://www.aijo-consulenteai.it/sitemap.xml

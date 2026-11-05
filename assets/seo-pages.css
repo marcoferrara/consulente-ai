@@ -58,7 +58,7 @@ nav {
 
 .nav-logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
+  font-size: 1.32rem;
   font-weight: 600;
   letter-spacing: .06em;
   color: var(--text);
@@ -89,7 +89,7 @@ nav {
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
-  font-size: .72rem;
+  font-size: 0.828rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   transition: color .2s;
@@ -125,7 +125,7 @@ nav {
 }
 
 .section-label {
-  font-size: .66rem;
+  font-size: 0.825rem;
   letter-spacing: .26em;
   text-transform: uppercase;
   color: var(--gold);
@@ -144,7 +144,7 @@ nav {
 
 /* ─── BREADCRUMB ─── */
 .breadcrumb {
-  font-size: .7rem;
+  font-size: 0.805rem;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--dim);
@@ -193,7 +193,7 @@ nav {
 }
 
 .page-hero .lead {
-  font-size: 1.05rem;
+  font-size: 1.155rem;
   color: var(--muted);
   max-width: 640px;
   line-height: 1.9;
@@ -205,7 +205,7 @@ nav {
   color: var(--bg);
   padding: .9rem 2rem;
   text-decoration: none;
-  font-size: .78rem;
+  font-size: 0.897rem;
   font-weight: 500;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -240,13 +240,13 @@ section.block h2 em {
 section.block h3 {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.575rem;
   margin: 0 0 .7rem;
 }
 
 section.block p {
   color: var(--muted);
-  font-size: .98rem;
+  font-size: 1.127rem;
   line-height: 1.9;
   margin-bottom: 1.2rem;
   max-width: 760px;
@@ -319,14 +319,14 @@ section.block p strong {
 
 .card .num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: .8rem;
+  font-size: 0.92rem;
   color: var(--gold);
   letter-spacing: .12em;
   margin-bottom: 1.2rem;
 }
 
 .card p {
-  font-size: .9rem;
+  font-size: 1.035rem;
   margin: 0;
 }
 
@@ -341,7 +341,7 @@ section.block p strong {
 }
 
 .faq-item h3 {
-  font-size: 1.25rem;
+  font-size: 1.375rem;
   margin-bottom: .6rem;
   color: var(--text);
 }
@@ -386,7 +386,7 @@ section.block p strong {
 }
 
 .related a {
-  font-size: .8rem;
+  font-size: 0.92rem;
   letter-spacing: .04em;
   text-decoration: none;
   color: var(--text);
@@ -406,7 +406,7 @@ footer {
   padding: 3rem 2rem;
   border-top: 1px solid var(--gold-border);
   color: var(--dim);
-  font-size: .8rem;
+  font-size: 0.92rem;
 }
 
 footer a {
@@ -434,14 +434,14 @@ body.city-page {
 .city-page .section-label,
 .city-page .breadcrumb,
 .city-page .card .num {
-  font-size: .875rem;
+  font-size: 1.006rem;
   line-height: 1.5;
 }
 
 .city-page .page-hero .lead,
 .city-page section.block p,
 .city-page .cta-band p {
-  font-size: 1.0625rem;
+  font-size: 1.169rem;
   line-height: 1.75;
 }
 
@@ -450,7 +450,7 @@ body.city-page {
 .city-page footer,
 .city-page .cookie-banner .cookie-text,
 .city-page .cookie-banner button {
-  font-size: .9375rem;
+  font-size: 1.078rem;
 }
 
 @media (max-width: 600px) {

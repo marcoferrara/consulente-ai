@@ -33,7 +33,7 @@ jobs:
           cp index.html privacy.html favicon.svg CNAME robots.txt sitemap.xml _site/
           cp assets/cookie-consent.css assets/cookie-consent.js assets/seo-pages.css _site/assets/
           cp assets/rebranding/logo_aijo_ai.png assets/rebranding/logo_aijo_ai_cutout.png _site/assets/rebranding/
-          cp assets/rebranding/logo_aijo_ai_nav.webp assets/rebranding/logo_aijo_ai_hero.webp _site/assets/rebranding/
+          cp assets/rebranding/logo_aijo_ai_nav.webp _site/assets/rebranding/
           cp assets/portfolio.css assets/portfolio.js _site/assets/
           mkdir -p _site/portfolio && cp portfolio/index.html _site/portfolio/
 

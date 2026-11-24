@@ -42,8 +42,8 @@ Cosa faccio nel concreto per le aziende e i professionisti in Sardegna:
 Parlo la lingua dei numeri e dei risultati, non quella del gergo tecnico. Se hai un'azienda in Sardegna e vuoi capire, senza giri di parole, come l'AI può aiutarti a crescere, facciamo due chiacchiere.
 
 📩 Scrivimi in privato qui su LinkedIn oppure contattami:
-📍 Sito Web: www.aijo-consulenze.it
-📧 Email: info@aijo-consulenze.it
+📍 Sito Web: www.aijo-consulenteai.it
+📧 Email: info@aijo-consulenteai.it
 ```
 
 ---

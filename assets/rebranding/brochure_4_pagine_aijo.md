@@ -110,8 +110,8 @@ Come tuo studio grafico di fiducia, ti consigliamo le seguenti finiture di lusso
 ------------------------------------------------------------------------
 
                   📞 Telefono:     347 1645716
-                  ✉️ Email:        info@aijo-consulenze.it
-                  🌐 Web:          www.aijo-consulenze.it
+                  ✉️ Email:        info@aijo-consulenteai.it
+                  🌐 Web:          www.aijo-consulenteai.it
 
 ------------------------------------------------------------------------
                  Sassari  ·  Cagliari  ·  Sardegna

@@ -27,11 +27,36 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Prepara i soli file pubblici
+        run: |
+          mkdir -p _site/assets/rebranding
+          cp index.html privacy.html favicon.svg CNAME robots.txt sitemap.xml _site/
+          cp assets/cookie-consent.css assets/cookie-consent.js assets/seo-pages.css _site/assets/
+          cp assets/rebranding/logo_aijo_ai.png assets/rebranding/logo_aijo_ai_cutout.png _site/assets/rebranding/
+          cp assets/rebranding/logo_aijo_ai_nav.webp assets/rebranding/logo_aijo_ai_hero.webp _site/assets/rebranding/
+          cp assets/portfolio.css assets/portfolio.js _site/assets/
+          mkdir -p _site/portfolio && cp portfolio/index.html _site/portfolio/
+
+          for page in \
+            integrare-intelligenza-artificiale-azienda \
+            intelligenza-artificiale-cagliari \
+            intelligenza-artificiale-sassari \
+            intelligenza-artificiale-olbia \
+            intelligenza-artificiale-oristano \
+            intelligenza-artificiale-nuoro; do
+            mkdir -p "_site/$page"
+            cp "$page/index.html" "_site/$page/"
+          done
+
+          for demo in studio_associato cantina_vinicola laboratorio_artistico logistica; do
+            mkdir -p "_site/demo/$demo"
+            cp "demo/$demo/index.html" "_site/demo/$demo/"
+          done
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Carica l'intera repository tranne .git
-          path: '.'
+          path: './_site'
 
       - name: Deploy to GitHub Pages
         id: deployment

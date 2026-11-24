@@ -26,7 +26,7 @@ L'immagine del profilo generata è salvata in:
 📉 Meno lavoro ripetitivo, più tempo e margini.
 📍 Sardegna (Consulenza fisica e online)
 👇 Prenota una chiamata gratuita
-[Link in Bio: aijo-consulenze.it]
+[Link in Bio: aijo-consulenteai.it]
 ```
 
 ---

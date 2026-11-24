@@ -60,8 +60,8 @@ Una monografia pieghevole in formato A5 a elevatissimo impatto estetico per la p
   * **Pagina 3 (Soluzioni Reali):** Griglia con le soluzioni tratte dai prototipi della landing page (Boutique Hotel, Cantina Vinicola, Studio Associato, Artigianato Artistico, PMI Logistica).
   * **Pagina 4 (Contatti):** Invito all'azione ("La prima consulenza è gratuita") e recapiti ufficiali:
     * **Telefono:** `347 1645716`
-    * **Email:** `info@aijo-consulenze.it`
-    * **Web:** `www.aijo-consulenze.it`
+    * **Email:** `info@aijo-consulenteai.it`
+    * **Web:** `www.aijo-consulenteai.it`
 
 ---
 
@@ -73,5 +73,5 @@ Una monografia pieghevole in formato A5 a elevatissimo impatto estetico per la p
 - [x] **Progettazione Brochure:** Creazione del copy e schema layout per la brochure 4 Pagine A5 (`assets/rebranding/brochure_4_pagine_aijo.md`).
 - [x] **Mockup Brochure:** Generazione del render 3D della brochure cartacea su ardesia (`assets/rebranding/brochure_mockup.png`).
 - [x] **Push & Sincronizzazione:** Upload completo di tutti i file e risorse nel repository GitHub.
-- [ ] **Configurazione Email (Su Netlify):** Impostare il modulo contatti per inviare le email a `info@aijo-consulenze.it`.
+- [ ] **Configurazione Email (Su Netlify):** Impostare il modulo contatti per inviare le email a `info@aijo-consulenteai.it`.
 - [ ] **Preparazione Stampa:** Inviare la specifica della brochure presente nella cartella `assets/rebranding/` alla tipografia per una campionatura fisica con intaglio laser e lamina d'oro.

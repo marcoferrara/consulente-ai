@@ -20,10 +20,10 @@ demo/                   # Demo statiche aperte dalla landing (studio_associato, 
 ```
 
 ## Progetti clienti (fuori da questa cartella)
-Tutti i progetti clienti vivono come cartelle sorelle in `C:\Users\marco\Claude Code\` (non più in `progetti/`), ognuno col suo CLAUDE.md dove presente:
+Tutti i progetti clienti vivono in `C:\Users\marco\Claude Code\clienti\` (cartelle sorelle di questa, non più in `progetti/`; riorganizzazione del 2026-10-29), ognuno col suo CLAUDE.md dove presente:
 - `ricerca_commercialista/` — **LexDocs** (Next.js 15)
-- `antiga_armonia/` — Python/Flask + Docker
-- `accademia_internazionale_musical/`, `ail/`, `boutique_hotel/`, `bw-charter/` (ha un proprio repo git), `il_campanellino/`, `la_sorgente/`, `meneesco/`, `social_pesca/`, `vendite-dashboard/` — siti/app clienti vari
+- `../antiga-armonia/` — Python/Flask + Docker
+- `../accademia-musical/`, `../ail/`, `../boutique-hotel/`, `../bw-charter/` (ha un proprio repo git), `../il-campanellino/`, `../la-sorgente/{sito,gestionale,demo}`, `../meneesco/{app,sito}`, `../social-pesca/`, `../../app-personali/vendite-dashboard/` — siti/app clienti vari
 - Le demo in `demo/` restano qui perché la landing le apre con link relativi (`demo/<nome>/index.html`); `laboratorio_artistico` e `logistica` tornano alla home con `../../index.html`
 
 ## Deploy landing page

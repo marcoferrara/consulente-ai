@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="a">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulente AI in Sardegna per PMI | Aijò, Marco Ferrara</title>
+  <meta name="description" content="Aiuto hotel, cantine, studi e artigiani sardi a usare l'AI dove fa risparmiare tempo davvero. Prima chiacchierata gratuita, di persona o in video.">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Font: Bricolage Grotesque (titoli), Geist (testo), Geist Mono (etichette) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Geist:wght@400..600&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Analytics + banner cookie condivisi (consenso negato finché non accettato) -->
+  <link rel="stylesheet" href="../assets/cookie-consent.css">
+  <script src="../assets/cookie-consent.js" defer></script>
+</head>
+<body>
+
+  <!-- Sagoma della Sardegna (riusata dalla versione precedente) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <path id="sard" d="M62,68 C76,80 81,84 86,88 C104,83 115,78 126,77 C152,66 170,40 187,23 C208,30 225,46 242,63 C250,72 254,77 256,82 C258,110 257,130 255,136 C253,152 250,162 247,178 C248,200 251,225 251,240 C253,241 255,241 256,241 C254,266 248,298 235,326 C231,345 229,364 227,378 C218,385 205,392 193,393 C186,392 180,378 178,358 C175,344 169,371 162,401 C146,413 131,418 115,420 C105,418 95,406 91,382 C87,372 84,366 82,358 C80,342 77,314 76,288 C75,268 82,252 97,248 C93,240 89,232 90,229 C93,220 96,210 97,205 C99,193 99,184 98,177 C94,161 84,148 76,135 C68,135 58,135 57,135 C54,126 52,110 52,97 C52,84 56,75 62,68 Z"/>
+    </defs>
+  </svg>
+
+  <nav class="topnav" aria-label="Principale">
+    <a href="#servizi">Servizi</a>
+    <a href="#esempi">Esempi</a>
+    <a href="#metodo">Metodo</a>
+    <a href="#domande">Domande</a>
+    <a href="#contatto">Contatto</a>
+  </nav>
+
+  <a class="cta-fix" href="#contatto"><span aria-hidden="true">&rarr;</span><span>Prenota una chiacchierata gratuita</span></a>
+
+  <div class="shell">
+
+    <!-- Colonna fissa: logo, isola in 3D a linee, indice -->
+    <aside class="rail">
+      <a href="#top" class="logo" aria-label="Aijò, torna in alto"><img class="logo-mark" src="assets/logo-aijo.webp" width="44" height="44" alt=""><span>Aij<i>ò</i></span></a>
+      <div class="isle"><svg class="isle-svg" viewBox="-90 -90 360 440" role="img" aria-label="Sagoma della Sardegna in prospettiva"></svg></div>
+      <div>
+        <ol class="index" id="index">
+          <li><a href="#visione"><span>01</span>Come la vedo</a></li>
+          <li><a href="#servizi"><span>02</span>Servizi</a></li>
+          <li><a href="#esempi"><span>03</span>Esempi</a></li>
+          <li><a href="#sardegna"><span>04</span>Sardegna</a></li>
+          <li><a href="#metodo"><span>05</span>Come lavoro</a></li>
+          <li><a href="#domande"><span>06</span>Domande</a></li>
+          <li><a href="#contatto"><span>07</span>Contatto</a></li>
+        </ol>
+        <div class="themes" role="group" aria-label="Palette colori"><span>Palette</span>
+          <button data-t="a" aria-pressed="true">A</button><button data-t="b" aria-pressed="false">B</button><button data-t="c" aria-pressed="false">C</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main" id="top">
+
+      <!-- Hero -->
+      <section class="sec sec--hero">
+        <svg class="isle-svg hero-isle" viewBox="-90 -90 360 440" aria-hidden="true"></svg>
+        <div class="label">Consulente AI · Sardegna</div>
+        <h1>Riprenditi le ore che l'ufficio ti ruba.</h1>
+        <p class="lead">Sono Marco Ferrara. Faccio lavorare l'AI al posto tuo su quello che ti mangia le giornate: messaggi dei clienti, preventivi, carte da ricopiare. E se a te non serve, sono il primo a dirtelo.</p>
+        <div class="chips">
+          <a class="chip chip--fill" href="#contatto">Prenota una chiacchierata gratuita</a>
+          <span class="wire" aria-hidden="true"></span>
+          <a class="chip" href="#esempi">Guarda cosa potrei fare per te &rarr;</a>
+        </div>
+        <div class="stats">
+          <div><strong>20+</strong><span>progetti messi in piedi per imprese come la tua</span></div>
+          <div><strong>24h</strong><span>al massimo, e hai la mia risposta</span></div>
+          <div><strong>1</strong><span>solo interlocutore: parli sempre con me</span></div>
+        </div>
+      </section>
+
+      <!-- 01 Come la vedo -->
+      <section class="sec" id="visione">
+        <div class="label rv">01 · Come la vedo</div>
+        <h2 class="rv">Un'AI vale quanto le ore che ti restituisce.</h2>
+        <div class="two rv">
+          <p>Le giornate di una piccola impresa sono piene di lavori identici: la stessa risposta data per la decima volta, lo stesso dato ricopiato da un foglio all'altro, il documento che non si trova mai.</p>
+          <p>Parto da lì. Passo del tempo con te, scelgo uno o due punti dove una macchina ti toglie lavoro davvero e li sistemiamo uno alla volta, senza stravolgere come lavori.</p>
+        </div>
+        <p class="big-quote rv">&ldquo;Se dopo qualche mese hai ancora bisogno di me per forza, ho lavorato male.&rdquo;</p>
+      </section>
+
+      <!-- 02 Servizi -->
+      <section class="sec" id="servizi">
+        <div class="label rv">02 · Servizi</div>
+        <h2 class="rv">Quattro modi per liberarti le giornate</h2>
+        <div class="rows">
+          <article class="row rv">
+            <span class="n">01</span><h3>Capire da dove cominciare</h3>
+            <div><p>Una o due giornate nella tua azienda per vedere dove si perde il tempo. Ti lascio un piano scritto: cosa fare per primo, quanto costa e cosa conviene lasciar perdere.</p>
+            <div class="tags"><span class="tag">Analisi dei processi</span><span class="tag">Priorità</span><span class="tag">Piano scritto</span></div></div>
+          </article>
+          <article class="row rv">
+            <span class="n">02</span><h3>Costruire lo strumento</h3>
+            <div><p>Un assistente che risponde ai clienti su WhatsApp anche di notte. Un'automazione che prepara il preventivo mentre sei in cantiere. Una ricerca che trova il contratto in tre secondi. Li costruisco e li provo con te prima di lasciarteli.</p>
+            <div class="tags"><span class="tag">Automazioni</span><span class="tag">Assistenti AI</span><span class="tag">Collegamento al gestionale</span></div></div>
+          </article>
+          <article class="row rv">
+            <span class="n">03</span><h3>Insegnarlo al tuo team</h3>
+            <div><p>Workshop sul lavoro vero, non slide. Dopo mezza giornata i tuoi collaboratori usano gli strumenti da soli, e hai una guida scritta per quando qualcuno si blocca.</p>
+            <div class="tags"><span class="tag">Workshop in azienda</span><span class="tag">Esercizi pratici</span><span class="tag">Guida scritta</span></div></div>
+          </article>
+          <article class="row rv">
+            <span class="n">04</span><h3>Farti trovare, capire i numeri</h3>
+            <div><p>Schede prodotto, newsletter e traduzioni pronte in minuti, con la tua voce. E recensioni e vendite che si leggono in un colpo d'occhio, senza passarci le serate.</p>
+            <div class="tags"><span class="tag">Contenuti</span><span class="tag">Traduzioni</span><span class="tag">Analisi recensioni</span></div></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 03 Esempi -->
+      <section class="sec" id="esempi">
+        <div class="label rv">03 · Esempi</div>
+        <h2 class="rv">Così potrebbe andare da te</h2>
+        <p class="lead rv">Cinque mestieri sardi, cinque problemi che riconosco al volo. Sono scenari, non casi di clienti: le stime le verifichiamo insieme sui tuoi numeri.</p>
+
+        <div class="tabs" role="tablist" aria-label="Settori">
+          <button class="tab" role="tab" id="t1" aria-controls="c1" aria-selected="true">Boutique hotel</button>
+          <button class="tab" role="tab" id="t2" aria-controls="c2" aria-selected="false">Cantina</button>
+          <button class="tab" role="tab" id="t3" aria-controls="c3" aria-selected="false">Studio associato</button>
+          <button class="tab" role="tab" id="t4" aria-controls="c4" aria-selected="false">Laboratorio artistico</button>
+          <button class="tab" role="tab" id="t5" aria-controls="c5" aria-selected="false">PMI logistica</button>
+        </div>
+
+        <article class="case" id="c1" role="tabpanel" aria-labelledby="t1">
+          <h3>Boutique hotel: la reception che non dorme mai</h3>
+          <div><h4>Il problema</h4><p>Giugno, ore 23. Un ospite chiede del transfer, un altro dell'intolleranza al glutine, un terzo se la cena è inclusa. La reception risponde il giorno dopo, e intanto qualcuno ha già prenotato su Booking.</p></div>
+          <div><h4>Cosa farei</h4><p>Un assistente su WhatsApp e sul sito, in più lingue, che conosce i tuoi listini e la zona. Risponde subito, controlla le camere sul gestionale e ti passa le richieste pronte da confermare.</p></div>
+          <div class="tags"><span class="tag">WhatsApp Business</span><span class="tag">Collegamento al gestionale</span><span class="tag">Più lingue</span></div>
+          <p class="case__note">Stima di scenario: +25% prenotazioni dirette · circa 4 ore al giorno risparmiate in reception.</p>
+        </article>
+        <article class="case" id="c2" role="tabpanel" aria-labelledby="t2" hidden>
+          <h3>Cantina: vendere a Monaco senza aprire un ufficio estero</h3>
+          <div><h4>Il problema</h4><p>I vini sono buoni, ma schede tecniche, mail agli importatori e risposte alle recensioni su Vivino restano in fondo alla lista, tra una vendemmia e l'altra.</p></div>
+          <div><h4>Cosa farei</h4><p>Uno strumento che parte dai tuoi testi e prepara schede e mail in inglese e tedesco, col tono giusto per ogni mercato. Ogni mese ti arriva un riassunto di cosa dicono di te i clienti stranieri.</p></div>
+          <div class="tags"><span class="tag">Traduzione e adattamento</span><span class="tag">Mail agli importatori</span><span class="tag">Recensioni</span></div>
+          <p class="case__note">Stima di scenario: da definire dopo aver visto quanti testi produci oggi.</p>
+        </article>
+        <article class="case" id="c3" role="tabpanel" aria-labelledby="t3" hidden>
+          <h3>Studio associato: mai più un bando scoperto il giorno dopo</h3>
+          <div><h4>Il problema</h4><p>Ogni settimana qualcuno dello studio passa ore a leggere i bandi regionali per capire a quale cliente servono. Con trecento clienti, qualche scadenza scappa.</p></div>
+          <div><h4>Cosa farei</h4><p>Un archivio privato dello studio dove carichi bandi e delibere e fai domande in italiano normale. Incrociato con le schede dei clienti, ti avvisa chi può partecipare e entro quando.</p></div>
+          <div class="tags"><span class="tag">Archivio documenti privato</span><span class="tag">Ricerca nei bandi</span><span class="tag">Avvisi scadenze</span></div>
+          <p class="case__note">Stima di scenario: circa 80% di tempo in meno per la ricerca.</p>
+        </article>
+        <article class="case" id="c4" role="tabpanel" aria-labelledby="t4" hidden>
+          <h3>Laboratorio artistico: dalla foto alla scheda in due minuti</h3>
+          <div><h4>Il problema</h4><p>Fai pezzi unici a mano, ma ogni scheda online, curata e tradotta, ti costa mezz'ora. E ogni giorno qualcuno dall'estero ti scrive per chiedere come spedire.</p></div>
+          <div><h4>Cosa farei</h4><p>Scatti la foto, l'AI scrive una bozza in italiano e inglese, tu correggi e pubblichi. Un assistente risponde alle domande sulle spedizioni al posto tuo.</p></div>
+          <div class="tags"><span class="tag">Descrizioni da foto</span><span class="tag">Negozio online</span><span class="tag">Domande sulle spedizioni</span></div>
+          <p class="case__note">Stima di scenario: da circa 30 a circa 2 minuti per scheda prodotto.</p>
+        </article>
+        <article class="case" id="c5" role="tabpanel" aria-labelledby="t5" hidden>
+          <h3>PMI logistica: giri più corti, meno gasolio</h3>
+          <div><h4>Il problema</h4><p>Consegni in tutta l'isola, fino ai paesi della Barbagia e dell'Ogliastra. Strade lente, negozi chiusi all'ora sbagliata, gasolio che sale: il margine se ne va così.</p></div>
+          <div><h4>Cosa farei</h4><p>Con lo storico degli ordini, le feste locali e il meteo prevedo cosa ordineranno i tuoi clienti e preparo carichi e giri più sensati, con meno viaggi a vuoto.</p></div>
+          <div class="tags"><span class="tag">Previsione ordini</span><span class="tag">Giri di consegna</span><span class="tag">Storico vendite</span></div>
+          <p class="case__note">Stima di scenario: circa 15% di gasolio in meno.</p>
+        </article>
+      </section>
+
+      <!-- 04 Sardegna -->
+      <section class="sec" id="sardegna">
+        <div class="label rv">04 · Sardegna</div>
+        <h2 class="rv">Vengo io da te.</h2>
+        <div class="two rv">
+          <div>
+            <p>Lavoro con aziende sarde, spesso familiari, spesso piccole. So che ad agosto in hotel nessuno ha tempo per un corso e che in vendemmia la cantina non risponde al telefono. Il lavoro lo organizzo sui tuoi ritmi, non sui miei.</p>
+            <p><strong>Consulenza AI nella tua città</strong></p>
+            <div class="cities">
+              <a class="chip" href="../intelligenza-artificiale-cagliari/">Cagliari</a>
+              <a class="chip" href="../intelligenza-artificiale-sassari/">Sassari</a>
+              <a class="chip" href="../intelligenza-artificiale-olbia/">Olbia</a>
+              <a class="chip" href="../intelligenza-artificiale-oristano/">Oristano</a>
+              <a class="chip" href="../intelligenza-artificiale-nuoro/">Nuoro</a>
+            </div>
+          </div>
+          <ul class="facts">
+            <li><strong>Di persona</strong><span>Ci vediamo in azienda, da Cagliari a Olbia. Le videochiamate le usiamo per il resto.</span></li>
+            <li><strong>I ritmi dell'isola</strong><span>Stagione turistica, vendemmia, bandi regionali: li metto in calendario fin dall'inizio.</span></li>
+            <li><strong>I settori che conosco</strong><span>Turismo, agroalimentare, studi professionali, artigianato, trasporti.</span></li>
+            <li><strong>Un solo referente</strong><span>Parli sempre con me, dalla prima chiacchierata alla consegna.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 05 Come lavoro -->
+      <section class="sec" id="metodo">
+        <div class="label rv">05 · Come lavoro</div>
+        <h2 class="rv">Quattro passi, nessuna sorpresa</h2>
+        <ol class="steps">
+          <li class="rv"><h3>Ascolto</h3><p>Una chiacchierata gratuita, di persona o in video. Mi racconti la tua giornata, io ti dico con onestà se l'AI può aiutarti. A volte la risposta è no.</p></li>
+          <li class="rv"><h3>Mappa</h3><p>Guardo da vicino come lavorate e ti scrivo una proposta chiara: cosa faccio, in quanto tempo e a che prezzo.</p></li>
+          <li class="rv"><h3>Realizzo</h3><p>Una cosa alla volta, provata sul lavoro vero. Se qualcosa non funziona la sistemo prima di passare alla successiva.</p></li>
+          <li class="rv"><h3>Ti lascio libero</h3><p>Formo chi lo userà e ti lascio le istruzioni scritte. Dopo qualche mese deve camminare da solo, senza di me.</p></li>
+        </ol>
+      </section>
+
+      <!-- 06 Domande -->
+      <section class="sec" id="domande">
+        <div class="label rv">06 · Domande</div>
+        <h2 class="rv">Le domande che mi fanno sempre</h2>
+        <div class="faq rv">
+          <details open><summary>Quando l'AI non serve?</summary><p>Più spesso di quanto si pensi. Se un lavoro capita due volte al mese, se i tuoi dati sono sparsi su carta o se il problema è organizzativo, l'AI non lo risolve. In quel caso te lo dico e, se posso, ti indico una soluzione più semplice.</p></details>
+          <details><summary>Quanto costa?</summary><p>Dipende da cosa serve: una giornata di formazione costa molto meno di un assistente collegato al gestionale. La prima chiacchierata è gratuita e finisce con una proposta scritta, con un prezzo chiaro. Decidi tu se andare avanti.</p></details>
+          <details><summary>Chi ci lavora?</summary><p>Io, Marco Ferrara. Sono l'unico referente dall'inizio alla fine. Se per un progetto serve una competenza che non ho, te lo dico prima e la trovi scritta nella proposta.</p></details>
+          <details><summary>Cosa succede ai miei dati?</summary><p>Prima di usarli ti spiego dove finiscono, quale servizio li tratta e con quali impostazioni. Scelgo strumenti adatti a dati aziendali e lavoro con il minimo indispensabile. Per gli aspetti legali, come informative e nomine, ci coordiniamo con il tuo consulente privacy.</p></details>
+          <details><summary>Devo cambiare gestionale?</summary><p>Di solito no. Parto da quello che usi già e ci collego gli strumenti nuovi. Se il tuo gestionale non permette collegamenti, ne parliamo prima e valutiamo insieme le alternative.</p></details>
+          <details><summary>Il mio personale riuscirà a usarlo?</summary><p>Se ho fatto bene il mio lavoro, sì. Gli strumenti li scelgo semplici, la formazione la facciamo sui vostri casi e lascio una guida scritta da tenere a portata di mano.</p></details>
+        </div>
+      </section>
+
+      <!-- 07 Contatto -->
+      <section class="sec sec--dark" id="contatto">
+        <div class="label rv">07 · Contatto</div>
+        <h2 class="rv">Raccontami la tua giornata.</h2>
+        <div class="contact">
+          <div class="rv">
+            <p class="lead">Bastano dieci righe: cosa fai e dove ti si perde il tempo. La prima chiacchierata è gratuita e non ti vendo niente che non ti serva.</p>
+            <div class="alt">
+              <span>Preferisci scrivere direttamente?</span>
+              <a href="mailto:info@aijo-consulenteai.it">info@aijo-consulenteai.it</a>
+              <a href="https://wa.me/393471645716?text=Ciao%2C%20ho%20visto%20il%20sito%20Aij%C3%B2%20e%20vorrei%20parlare%20di%20AI%20per%20la%20mia%20azienda" target="_blank" rel="noopener">WhatsApp</a>
+              <span>Rispondo entro 24 ore.</span>
+            </div>
+          </div>
+          <!-- Form: stesso endpoint Web3Forms del sito attuale -->
+          <form id="contact-form" class="rv" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="96395c7b-00a5-4fd9-8d2e-16de2fbe7b16">
+            <input type="hidden" name="subject" value="Nuovo Contatto dal Sito - AIjò">
+            <input type="hidden" name="from_name" value="AIjò Landing Page">
+            <div class="fr">
+              <label>Nome e cognome<input type="text" name="name" placeholder="Mario Rossi" autocomplete="name" required></label>
+              <label>Email<input type="email" name="email" placeholder="mario@azienda.it" autocomplete="email" required></label>
+            </div>
+            <div class="fr">
+              <label>Azienda<input type="text" name="company" placeholder="Nome dell'azienda" autocomplete="organization"></label>
+              <label>Settore
+                <select name="sector">
+                  <option value="">Scegli…</option>
+                  <option>Turismo e ospitalità</option>
+                  <option>Agroalimentare e vino</option>
+                  <option>Commercio</option>
+                  <option>Studi professionali</option>
+                  <option>Artigianato e manifattura</option>
+                  <option>Pesca e acquacoltura</option>
+                  <option>Trasporti e logistica</option>
+                  <option>Enti pubblici</option>
+                  <option>Startup</option>
+                  <option>Altro</option>
+                </select>
+              </label>
+            </div>
+            <label>Dove perdi più tempo?<textarea name="message" placeholder="Es. rispondo ogni giorno alle stesse domande dei clienti su WhatsApp" required></textarea></label>
+            <label class="consent"><input type="checkbox" name="privacy" required><span>Ho letto l'<a href="../privacy.html">informativa privacy</a>.</span></label>
+            <button type="submit" class="send" id="form-btn">Invia il messaggio &rarr;</button>
+            <p id="form-msg" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <span>© 2026 Aijò · Marco Ferrara · P.IVA 04242750927</span>
+        <span>Cagliari · Sassari · Olbia · Oristano · Nuoro</span>
+        <a href="../privacy.html">Privacy e cookie</a>
+        <div class="themes" role="group" aria-label="Palette colori"><span>Palette</span>
+          <button data-t="a" aria-pressed="true">A</button><button data-t="b" aria-pressed="false">B</button><button data-t="c" aria-pressed="false">C</button>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Isola in prospettiva isometrica: la sagoma viene piegata sul piano e impilata in strati a linea
+    const LAYERS = 16;
+    const isleSvgs = document.querySelectorAll('.isle-svg');
+    function buildIsle(svg) {
+      const iso = 'matrix(0.95 0.18 -0.25 0.62 0 0)';
+      let html = '<g class="layers" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round">';
+      for (let i = LAYERS; i >= 1; i--) {
+        html += '<use href="#sard" transform="translate(0 ' + (-i * 4) + ') ' + iso + '" opacity="' + (0.25 + 0.04 * (LAYERS - i)).toFixed(2) + '"/>';
+      }
+      // Strato superiore pieno con il colore d'accento
+      html += '<use href="#sard" transform="translate(0 ' + (-LAYERS * 4 - 4) + ') ' + iso + '" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.6"/>';
+      svg.innerHTML = html + '</g>';
+      svg.style.color = 'var(--ink)';
+    }
+    isleSvgs.forEach(buildIsle);
+
+    // Altezza dell'estrusione legata allo scroll: l'isola "si alza" mentre scorri
+    const layersEls = document.querySelectorAll('.layers use');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const p = Math.min(1, scrollY / Math.max(1, document.body.scrollHeight - innerHeight));
+        const gap = 4 + p * 3;
+        document.querySelectorAll('.isle-svg').forEach((svg) => {
+          const uses = svg.querySelectorAll('use');
+          uses.forEach((u, idx) => {
+            const i = LAYERS - idx;
+            const y = idx === uses.length - 1 ? -(LAYERS * gap + gap) : -(i * gap);
+            u.setAttribute('transform', 'translate(0 ' + y.toFixed(2) + ') matrix(0.95 0.18 -0.25 0.62 0 0)');
+          });
+        });
+        ticking = false;
+      });
+    }, { passive: true });
+
+    // Indice: evidenzia la sezione visibile
+    const idxLinks = [...document.querySelectorAll('#index a')];
+    const secObs = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        idxLinks.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id));
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    idxLinks.forEach((a) => { const s = document.querySelector(a.getAttribute('href')); if (s) secObs.observe(s); });
+
+    // Palette: A, B o C, ricordata sul browser
+    const root = document.documentElement;
+    function setTheme(t) {
+      root.dataset.theme = t;
+      document.querySelectorAll('.themes button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.t === t));
+      try { localStorage.setItem('aijo_theme', t); } catch (e) { /* localStorage non disponibile */ }
+    }
+    document.querySelectorAll('.themes button').forEach((b) => b.addEventListener('click', () => setTheme(b.dataset.t)));
+    try { const saved = localStorage.getItem('aijo_theme'); if (saved) setTheme(saved); } catch (e) { /* ignora */ }
+
+    // Esempi: schede navigabili anche con le frecce
+    const tabs = [...document.querySelectorAll('.tab')];
+    function selectTab(tab) {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', on);
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+    }
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => selectTab(t));
+      t.addEventListener('keydown', (e) => {
+        const next = { ArrowRight: i + 1, ArrowLeft: i - 1 }[e.key];
+        if (next === undefined) return;
+        const target = tabs[(next + tabs.length) % tabs.length];
+        selectTab(target);
+        target.focus();
+      });
+    });
+    selectTab(tabs[0]);
+
+    // Comparsa morbida allo scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.rv').forEach((el) => io.observe(el));
+
+    // Invio del form a Web3Forms
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('form-btn');
+      const msg = document.getElementById('form-msg');
+      btn.disabled = true;
+      msg.textContent = '';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        });
+        if (!res.ok) throw new Error('risposta non valida');
+        if (window.gtag) gtag('event', 'lead_form_submit', { sector: form.sector.value || 'n/d' });
+        msg.textContent = 'Grazie, messaggio arrivato. Ti rispondo entro 24 ore.';
+        form.reset();
+      } catch (err) {
+        msg.textContent = 'Qualcosa non è andato. Riprova o scrivimi a info@aijo-consulenteai.it.';
+      }
+      btn.disabled = false;
+    });
+  </script>
+</body>
+</html>

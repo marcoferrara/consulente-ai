@@ -248,13 +248,19 @@
         }
 
         .nav-logo-img {
-            height: 42px;
+            height: 32px;
             width: auto;
-            transition: transform .3s ease;
+            border-radius: 6px;
+            border: 1px solid rgba(200, 167, 107, 0.25);
+            background: linear-gradient(135deg, rgba(200, 167, 107, 0.12) 0%, rgba(200, 167, 107, 0.02) 100%);
+            box-shadow: 0 0 10px rgba(200, 167, 107, 0.15);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .nav-logo:hover .nav-logo-img {
-            transform: scale(1.08);
+            transform: scale(1.08) translateY(-1px);
+            border-color: rgba(200, 167, 107, 0.55);
+            box-shadow: 0 0 15px rgba(200, 167, 107, 0.3);
         }
 
         .nav-links {
@@ -277,39 +283,6 @@
             color: var(--gold);
         }
 
-        .nav-toggle {
-            display: none;
-            width: 44px;
-            height: 44px;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 4px;
-            border: 1px solid var(--gold-border);
-            background: rgba(7, 9, 14, .85);
-            color: var(--gold);
-            cursor: pointer;
-        }
-
-        .nav-toggle span {
-            width: 20px;
-            height: 2px;
-            background: currentColor;
-            transition: transform .2s, opacity .2s;
-        }
-
-        .nav-toggle[aria-expanded="true"] span:first-child {
-            transform: translateY(6px) rotate(45deg);
-        }
-
-        .nav-toggle[aria-expanded="true"] span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .nav-toggle[aria-expanded="true"] span:last-child {
-            transform: translateY(-6px) rotate(-45deg);
-        }
-
         .nav-cta {
             color: var(--gold) !important;
             border: 1px solid var(--gold-border) !important;
@@ -326,20 +299,10 @@
         #hero {
             position: relative;
             min-height: 100vh;
-            display: grid;
-            grid-template-columns: minmax(0, 1fr);
+            display: flex;
             align-items: center;
-            gap: 2rem;
-            padding: 8rem 3rem 9rem;
+            padding-top: 6rem;
             overflow: hidden;
-        }
-
-        #hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse 42% 54% at 68% 50%, rgba(191, 146, 76, .09), rgba(191, 146, 76, .035) 48%, transparent 100%);
-            pointer-events: none;
         }
 
         #hero-canvas {
@@ -359,7 +322,8 @@
         .hero-content {
             position: relative;
             z-index: 10;
-            max-width: 720px;
+            padding: 0 3rem;
+            max-width: 950px;
         }
 
         .hero-eyebrow {
@@ -385,7 +349,7 @@
         h1 {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 300;
-            font-size: clamp(3.2rem, 6.4vw, 6.1rem);
+            font-size: clamp(3.2rem, 7.5vw, 7rem);
             line-height: 1.02;
             letter-spacing: -.025em;
             margin-bottom: 2rem;
@@ -455,21 +419,22 @@
         .hero-stats {
             position: absolute;
             right: 3rem;
-            bottom: 2.5rem;
+            bottom: 6rem;
             display: flex;
-            gap: 2.5rem;
+            flex-direction: column;
+            gap: 2rem;
             z-index: 10;
             opacity: 0;
             animation: fadeLeft 1s ease forwards 1.1s;
         }
 
         .stat {
-            text-align: center;
+            text-align: right;
         }
 
         .stat-num {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.995rem;
+            font-size: 2.31rem;
             font-weight: 600;
             color: var(--gold);
             display: block;
@@ -1376,10 +1341,6 @@
                 padding: 1.2rem 1.5rem;
             }
 
-            nav.menu-open {
-                background: rgba(7, 9, 14, .98);
-            }
-
             nav::after {
                 left: 1.5rem;
                 right: 1.5rem;
@@ -1387,41 +1348,6 @@
 
             .nav-links {
                 display: none;
-            }
-
-            .nav-toggle {
-                display: flex;
-            }
-
-            .nav-links.open {
-                position: absolute;
-                top: 100%;
-                left: 1.5rem;
-                right: 1.5rem;
-                display: flex;
-                flex-direction: column;
-                gap: 0;
-                max-height: calc(100dvh - 5.5rem);
-                overflow-y: auto;
-                padding: .5rem 1rem;
-                background: rgba(7, 9, 14, .98);
-                border: 1px solid var(--gold-border);
-                box-shadow: 0 18px 35px rgba(0, 0, 0, .45);
-            }
-
-            .nav-links.open li + li {
-                border-top: 1px solid var(--gold-border);
-            }
-
-            .nav-links.open a {
-                display: block;
-                padding: .85rem .25rem;
-            }
-
-            .nav-links.open .nav-cta {
-                margin: .6rem 0;
-                padding: .85rem 1rem;
-                text-align: center;
             }
 
             #manifesto {
@@ -1758,6 +1684,7 @@
             fill: #fff;
         }
 
+        /* Pulsante "torna su": compare dopo 500px di scroll, sopra il pulsante WhatsApp */
         .back-to-top {
             position: fixed;
             right: 29px;
@@ -1794,7 +1721,6 @@
             background: var(--gold-dim);
         }
 
-        .nav-toggle:focus-visible,
         .back-to-top:focus-visible {
             outline: 2px solid var(--gold);
             outline-offset: 3px;
@@ -1890,86 +1816,19 @@
             background-color: #3e3a34;
         }
 
-        @media (max-width: 1100px) {
-            #hero {
-                grid-template-columns: 1fr;
-                justify-items: center;
-                gap: 0;
-                padding: 9rem 1.5rem 5rem;
-            }
-
-            #hero-canvas {
-                display: none;
-            }
-
+        @media (max-width: 600px) {
             .hero-content {
                 width: 100%;
-                max-width: 720px;
-                padding: 0;
-            }
-
-            .hero-stats,
-            .hero-scroll {
-                display: none;
-            }
-        }
-
-        @media (max-width: 600px) {
-            #hero {
-                padding: 6rem 1.5rem 3rem;
-            }
-
-            .hero-eyebrow {
-                margin-bottom: 1.25rem;
-            }
-
-            h1 {
-                font-size: clamp(2.8rem, 11.5vw, 3.2rem);
-                margin-bottom: 1.25rem;
-            }
-
-            .hero-sub {
-                margin-bottom: 2rem;
+                min-width: 0;
             }
 
             .hero-actions {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 1rem;
             }
 
             .hero-sub {
                 max-width: 100%;
-            }
-
-            .whatsapp-float {
-                bottom: 18px;
-                right: 18px;
-            }
-
-            .back-to-top {
-                right: 21px;
-                bottom: 90px;
-            }
-
-            /* Spazio in fondo al footer: i link non restano coperti dai pulsanti flottanti */
-            footer {
-                padding-bottom: 9rem;
-            }
-
-            .processo-steps {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
-
-            .step {
-                padding-right: 0;
-            }
-
-            .contact-alt {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: .5rem .75rem;
             }
 
             .hero-eyebrow,
@@ -1981,6 +1840,12 @@
             .territory-cities a,
             .form-field label {
                 letter-spacing: .1em;
+            }
+
+            /* Il testo del footer non finisce sotto i pulsanti flottanti */
+            footer {
+                padding-left: 4.5rem;
+                padding-right: 4.5rem;
             }
         }
 
@@ -2001,10 +1866,7 @@
             <img src="assets/rebranding/logo_aijo_ai_nav.webp" alt="AIjò Logo" class="nav-logo-img" width="42" height="42">
             AI<span>JÒ</span>
         </a>
-        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Apri il menu" aria-controls="nav-links" aria-expanded="false">
-            <span></span><span></span><span></span>
-        </button>
-        <ul class="nav-links" id="nav-links">
+        <ul class="nav-links">
             <li><a href="#manifesto">Approccio</a></li>
             <li><a href="#servizi">Servizi</a></li>
             <li><a href="/portfolio/">Portfolio</a></li>
@@ -2288,7 +2150,6 @@
                     <a href="/intelligenza-artificiale-olbia/">Olbia</a>
                     <a href="/intelligenza-artificiale-oristano/">Oristano</a>
                     <a href="/intelligenza-artificiale-nuoro/">Nuoro</a>
-                    <a href="/integrare-intelligenza-artificiale-azienda/">Come integrare l'AI in azienda</a>
                 </div>
             </div>
         </div>
@@ -2530,10 +2391,10 @@
             let sardW, sardH, sardX, sardY;
 
             if (W > 900) {
-                // Desktop: spazio libero tra il titolo e l'anello
-                sardW = Math.min(Math.max(W * 0.25, 220), 400);
+                // Desktop: right half empty space next to hero text
+                sardW = Math.min(Math.max(W * 0.28, 220), 400);
                 sardH = sardW * (440 / 320);
-                sardX = W * 0.38;
+                sardX = W * 0.65;
                 sardY = H * 0.5 - sardH * 0.5;
             } else {
                 // Mobile: centered background behind text with low opacity styling
@@ -2609,11 +2470,6 @@
         });
 
         function draw() {
-            if (!W || !H) {
-                requestAnimationFrame(draw);
-                return;
-            }
-
             ctx.clearRect(0, 0, W, H);
             const now = Date.now();
 
@@ -2672,7 +2528,7 @@
 
                         // Increase line opacity in shape state to emphasize structure cohesion
                         const baseOpacity = 0.13;
-                        const shapeBonus = 0.16 * t;
+                        const shapeBonus = 0.08 * t;
                         const opacity = (1 - d / MAX_D) * (baseOpacity + shapeBonus);
 
                         ctx.strokeStyle = `rgba(200, 167, 107, ${opacity})`;
@@ -2746,40 +2602,9 @@
 
         /* ── NAV SCROLL ── */
         const nav = document.getElementById('nav');
-        const navToggle = document.getElementById('nav-toggle');
-        const navLinks = document.getElementById('nav-links');
         const backToTop = document.getElementById('back-to-top');
 
-        function closeMobileMenu() {
-            navLinks.classList.remove('open');
-            nav.classList.remove('menu-open');
-            navToggle.setAttribute('aria-expanded', 'false');
-            navToggle.setAttribute('aria-label', 'Apri il menu');
-        }
-
-        navToggle.addEventListener('click', () => {
-            const open = navToggle.getAttribute('aria-expanded') !== 'true';
-            navLinks.classList.toggle('open', open);
-            nav.classList.toggle('menu-open', open);
-            navToggle.setAttribute('aria-expanded', String(open));
-            navToggle.setAttribute('aria-label', open ? 'Chiudi il menu' : 'Apri il menu');
-        });
-
-        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobileMenu));
-        nav.querySelector('.nav-logo').addEventListener('click', closeMobileMenu);
-        document.addEventListener('click', event => {
-            if (!nav.contains(event.target)) closeMobileMenu();
-        });
-        document.addEventListener('keydown', event => {
-            if (event.key === 'Escape' && navLinks.classList.contains('open')) {
-                closeMobileMenu();
-                navToggle.focus();
-            }
-        });
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 900) closeMobileMenu();
-        });
-
+        // Aggiorna la barra di navigazione e mostra "torna su" dopo 500px di scroll
         function updateScrollUI() {
             nav.classList.toggle('scrolled', window.scrollY > 60);
             backToTop.classList.toggle('visible', window.scrollY > 500);
@@ -2787,6 +2612,7 @@
         window.addEventListener('scroll', updateScrollUI, { passive: true });
         updateScrollUI();
 
+        // Torna in cima (senza animazione se l'utente la disattiva nel sistema)
         backToTop.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,

@@ -107,23 +107,26 @@
 <body class="city-page">
 
   <!-- NAV -->
-  <nav>
+  <nav id="nav">
     <a href="/" class="nav-logo">
-      <img src="/assets/rebranding/logo_aijo_ai.png" alt="Aijò logo" class="nav-logo-img">
+      <img src="/assets/rebranding/logo_aijo_ai_nav.webp" alt="AIjò Logo" class="nav-logo-img" width="42" height="42">
       AI<span>JÒ</span>
     </a>
     <ul class="nav-links">
-      <li class="nav-hide-mobile"><a href="/">Home</a></li>
-      <li class="nav-hide-mobile"><a href="/#servizi">Servizi</a></li>
+      <li><a href="/#manifesto">Approccio</a></li>
+      <li><a href="/#servizi">Servizi</a></li>
+      <li><a href="/portfolio/">Portfolio</a></li>
+      <li><a href="/#territorio">Territorio</a></li>
+      <li><a href="/#processo">Metodo</a></li>
       <li><a href="/#contatto" class="nav-cta">Contattami</a></li>
     </ul>
   </nav>
 
   <div class="wrap">
     <!-- Breadcrumb -->
-    <nav class="breadcrumb" aria-label="Percorso">
+    <div class="breadcrumb" role="navigation" aria-label="Percorso">
       <a href="/">Home</a> &nbsp;/&nbsp; Intelligenza Artificiale a Cagliari
-    </nav>
+    </div>
 
     <!-- HERO -->
     <header class="page-hero">
@@ -132,6 +135,14 @@
       <p class="lead">Aiuto imprese, studi professionali e realtà del terziario del capoluogo a portare l'AI dentro i
         processi reali — non come moda, ma come leva concreta di efficienza. Analisi, implementazione e formazione, con
         presenza diretta sul territorio.</p>
+      <div class="city-switch" role="navigation" aria-label="Scegli la tua città">
+        <span class="cs-label">La tua città</span>
+        <a href="/intelligenza-artificiale-cagliari/" aria-current="page">Cagliari</a>
+        <a href="/intelligenza-artificiale-sassari/">Sassari</a>
+        <a href="/intelligenza-artificiale-olbia/">Olbia</a>
+        <a href="/intelligenza-artificiale-oristano/">Oristano</a>
+        <a href="/intelligenza-artificiale-nuoro/">Nuoro</a>
+        </div>
       <a href="/#contatto" class="btn-primary">Prima consulenza gratuita</a>
     </header>
   </div>
@@ -245,6 +256,72 @@
     </div>
   </section>
 
+  <!-- DOVE LAVORO: mappa cliccabile -->
+  <section class="block">
+    <div class="wrap">
+      <div class="section-label">Dove lavoro</div>
+      <div class="city-map-grid">
+        <div class="city-map-text">
+          <h2>Un'isola, <em>cinque</em> città</h2>
+          <p>Incontro le aziende in presenza in tutta la Sardegna, oltre alle sessioni da remoto. Sei a Cagliari: scopri come lavoro anche negli altri territori.</p>
+          <div class="related">
+            <a href="/intelligenza-artificiale-sassari/">Consulente AI a Sassari &rarr;</a>
+            <a href="/intelligenza-artificiale-olbia/">Consulente AI a Olbia &rarr;</a>
+            <a href="/intelligenza-artificiale-oristano/">Consulente AI a Oristano &rarr;</a>
+            <a href="/intelligenza-artificiale-nuoro/">Consulente AI a Nuoro &rarr;</a>
+            </div>
+        </div>
+        <div class="city-map">
+          <svg viewBox="0 0 320 440" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Mappa della Sardegna con le cinque città">
+            <defs>
+              <radialGradient id="cmGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#c8a76b" stop-opacity=".18"/>
+                <stop offset="100%" stop-color="#c8a76b" stop-opacity="0"/>
+              </radialGradient>
+              <pattern id="cmGrid" width="18" height="18" patternUnits="userSpaceOnUse">
+                <path d="M9 0 L18 9 L9 18 L0 9 Z" fill="none" stroke="#c8a76b" stroke-width=".5" opacity=".28"/>
+              </pattern>
+              <clipPath id="cmClip"><path d="M62,68 C76,80 81,84 86,88 C104,83 115,78 126,77 C152,66 170,40 187,23 C208,30 225,46 242,63 C250,72 254,77 256,82 C258,110 257,130 255,136 C253,152 250,162 247,178 C248,200 251,225 251,240 C253,241 255,241 256,241 C254,266 248,298 235,326 C231,345 229,364 227,378 C218,385 205,392 193,393 C186,392 180,378 178,358 C175,344 169,371 162,401 C146,413 131,418 115,420 C105,418 95,406 91,382 C87,372 84,366 82,358 C80,342 77,314 76,288 C75,268 82,252 97,248 C93,240 89,232 90,229 C93,220 96,210 97,205 C99,193 99,184 98,177 C94,161 84,148 76,135 C68,135 58,135 57,135 C54,126 52,110 52,97 C52,84 56,75 62,68 Z"/></clipPath>
+            </defs>
+            <path d="M62,68 C76,80 81,84 86,88 C104,83 115,78 126,77 C152,66 170,40 187,23 C208,30 225,46 242,63 C250,72 254,77 256,82 C258,110 257,130 255,136 C253,152 250,162 247,178 C248,200 251,225 251,240 C253,241 255,241 256,241 C254,266 248,298 235,326 C231,345 229,364 227,378 C218,385 205,392 193,393 C186,392 180,378 178,358 C175,344 169,371 162,401 C146,413 131,418 115,420 C105,418 95,406 91,382 C87,372 84,366 82,358 C80,342 77,314 76,288 C75,268 82,252 97,248 C93,240 89,232 90,229 C93,220 96,210 97,205 C99,193 99,184 98,177 C94,161 84,148 76,135 C68,135 58,135 57,135 C54,126 52,110 52,97 C52,84 56,75 62,68 Z" fill="url(#cmGlow)"/>
+            <rect x="0" y="0" width="320" height="440" fill="url(#cmGrid)" clip-path="url(#cmClip)"/>
+            <path d="M62,68 C76,80 81,84 86,88 C104,83 115,78 126,77 C152,66 170,40 187,23 C208,30 225,46 242,63 C250,72 254,77 256,82 C258,110 257,130 255,136 C253,152 250,162 247,178 C248,200 251,225 251,240 C253,241 255,241 256,241 C254,266 248,298 235,326 C231,345 229,364 227,378 C218,385 205,392 193,393 C186,392 180,378 178,358 C175,344 169,371 162,401 C146,413 131,418 115,420 C105,418 95,406 91,382 C87,372 84,366 82,358 C80,342 77,314 76,288 C75,268 82,252 97,248 C93,240 89,232 90,229 C93,220 96,210 97,205 C99,193 99,184 98,177 C94,161 84,148 76,135 C68,135 58,135 57,135 C54,126 52,110 52,97 C52,84 56,75 62,68 Z" fill="none" stroke="#c8a76b" stroke-width="1.2" opacity=".55"/>
+            <a href="/intelligenza-artificiale-cagliari/" class="cm-city is-current" aria-label="Consulente AI a Cagliari" aria-current="page">
+              <circle class="hit" cx="178" cy="358" r="18"/>
+              <circle class="ring" cx="178" cy="358" r="8"/>
+              <circle class="dot" cx="178" cy="358" r="4"/>
+              <text x="190" y="361" text-anchor="start">CAGLIARI</text>
+            </a>
+            <a href="/intelligenza-artificiale-sassari/" class="cm-city" aria-label="Consulente AI a Sassari">
+              <circle class="hit" cx="106" cy="106" r="18"/>
+              <circle class="ring" cx="106" cy="106" r="8"/>
+              <circle class="dot" cx="106" cy="106" r="4"/>
+              <text x="118" y="110" text-anchor="start">SASSARI</text>
+            </a>
+            <a href="/intelligenza-artificiale-olbia/" class="cm-city" aria-label="Consulente AI a Olbia">
+              <circle class="hit" cx="226" cy="75" r="18"/>
+              <circle class="ring" cx="226" cy="75" r="8"/>
+              <circle class="dot" cx="226" cy="75" r="4"/>
+              <text x="214" y="79" text-anchor="end">OLBIA</text>
+            </a>
+            <a href="/intelligenza-artificiale-oristano/" class="cm-city" aria-label="Consulente AI a Oristano">
+              <circle class="hit" cx="110" cy="245" r="18"/>
+              <circle class="ring" cx="110" cy="245" r="8"/>
+              <circle class="dot" cx="110" cy="245" r="4"/>
+              <text x="122" y="249" text-anchor="start">ORISTANO</text>
+            </a>
+            <a href="/intelligenza-artificiale-nuoro/" class="cm-city" aria-label="Consulente AI a Nuoro">
+              <circle class="hit" cx="205" cy="175" r="18"/>
+              <circle class="ring" cx="205" cy="175" r="8"/>
+              <circle class="dot" cx="205" cy="175" r="4"/>
+              <text x="193" y="179" text-anchor="end">NUORO</text>
+            </a>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta-band">
     <h2>Parliamo della tua azienda a <em>Cagliari</em></h2>
@@ -265,6 +342,7 @@
     </p>
   </footer>
 
+  <script src="/assets/nav.js" defer></script>
 </body>
 
 </html>

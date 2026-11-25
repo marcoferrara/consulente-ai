@@ -106,23 +106,26 @@
 <body>
 
   <!-- NAV -->
-  <nav>
+  <nav id="nav">
     <a href="/" class="nav-logo">
-      <img src="/assets/rebranding/logo_aijo_ai.png" alt="Aijò logo" class="nav-logo-img">
+      <img src="/assets/rebranding/logo_aijo_ai_nav.webp" alt="AIjò Logo" class="nav-logo-img" width="42" height="42">
       AI<span>JÒ</span>
     </a>
     <ul class="nav-links">
-      <li class="nav-hide-mobile"><a href="/">Home</a></li>
-      <li class="nav-hide-mobile"><a href="/#servizi">Servizi</a></li>
+      <li><a href="/#manifesto">Approccio</a></li>
+      <li><a href="/#servizi">Servizi</a></li>
+      <li><a href="/portfolio/">Portfolio</a></li>
+      <li><a href="/#territorio">Territorio</a></li>
+      <li><a href="/#processo">Metodo</a></li>
       <li><a href="/#contatto" class="nav-cta">Contattami</a></li>
     </ul>
   </nav>
 
   <div class="wrap">
     <!-- Breadcrumb -->
-    <nav class="breadcrumb" aria-label="Percorso">
+    <div class="breadcrumb" role="navigation" aria-label="Percorso">
       <a href="/">Home</a> &nbsp;/&nbsp; Integrare l'intelligenza artificiale in azienda
-    </nav>
+    </div>
 
     <!-- HERO -->
     <header class="page-hero">
@@ -360,6 +363,7 @@
     </p>
   </footer>
 
+  <script src="/assets/nav.js" defer></script>
 </body>
 
 </html>

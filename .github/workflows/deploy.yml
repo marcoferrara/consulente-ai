@@ -34,7 +34,7 @@ jobs:
           cp assets/cookie-consent.css assets/cookie-consent.js assets/seo-pages.css _site/assets/
           cp assets/rebranding/logo_aijo_ai.png assets/rebranding/logo_aijo_ai_cutout.png _site/assets/rebranding/
           cp assets/rebranding/logo_aijo_ai_nav.webp _site/assets/rebranding/
-          cp assets/portfolio.css assets/portfolio.js _site/assets/
+          cp assets/portfolio.css assets/portfolio.js assets/nav.js _site/assets/
           mkdir -p _site/portfolio && cp portfolio/index.html _site/portfolio/
 
           for page in \
